@@ -15,14 +15,21 @@ dependencies:
   #flutter_rapid
   flutter_rapid:
     git:
-      url: https://github.com/ToufiqurTushar/flutter_rapid.git
+      url: https://github.com/banglafighter/flutter_rapid.git
       ref: dev
       path: flutter_rapid
+
   flutter_form_builder: 10.0.1
   form_builder_validators: 11.2.0
   intl: ^0.20.0
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.4.1
+  marquee: ^2.3.0
+  dio: ^5.7.0
+  chucker_flutter:
+    git:
+      url: https://gitlab.com/ToufiqurTushar/chucker-flutter.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
