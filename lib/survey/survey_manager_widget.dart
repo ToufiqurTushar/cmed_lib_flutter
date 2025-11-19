@@ -134,21 +134,27 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       //result button
                       const SizedBox(height: 8,),
                       Obx(
-                        ()=> FrElevatedButton(
-                          name:'SEE RESULT'.tr, onPressed: () async => {
-                            controller.formSubmit(selectedSurvey)
-                          },
-                          color:  controller.isFormValid.value? null :Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: controller.isFormValid.value? Theme.of(context).primaryColor: Colors.grey,
-                            foregroundColor: Colors.white,
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20), // Rounded corners
+                        ()=> Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: FrElevatedButton(
+                              name:'SEE RESULT'.tr, onPressed: () async => {
+                                controller.formSubmit(selectedSurvey)
+                              },
+                              color:  controller.isFormValid.value? Colors.white :Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: controller.isFormValid.value? Theme.of(context).primaryColor: Colors.grey,
+                                foregroundColor: Colors.white,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                                ),
+                                textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
