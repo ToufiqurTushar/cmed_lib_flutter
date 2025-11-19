@@ -138,11 +138,12 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             width: double.infinity,
+                            height: 50,
                             child: FrElevatedButton(
                               name:'SEE RESULT'.tr, onPressed: () async => {
                                 controller.formSubmit(selectedSurvey)
                               },
-                              color:  controller.isFormValid.value? Colors.white :Colors.grey,
+                              color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               style: ElevatedButton.styleFrom(
