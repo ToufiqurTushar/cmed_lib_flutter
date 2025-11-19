@@ -12,6 +12,18 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
 
+  #flutter_rapid
+  flutter_rapid:
+    git:
+      url: https://github.com/ToufiqurTushar/flutter_rapid.git
+      ref: dev
+      path: flutter_rapid
+  flutter_form_builder: 10.0.1
+  form_builder_validators: 11.2.0
+  intl: ^0.20.0
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -22,6 +34,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
   # This section identifies this Flutter project as a plugin project.
   # The 'pluginClass' specifies the class (in Java, Kotlin, Swift, Objective-C, etc.)
   # which should be registered in the plugin registry. This is required for
