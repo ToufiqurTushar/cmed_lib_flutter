@@ -142,7 +142,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
+                            backgroundColor: controller.isFormValid.value? Theme.of(context).primaryColor: Colors.grey,
                             foregroundColor: Colors.white,
                             elevation: 10,
                             shape: RoundedRectangleBorder(
