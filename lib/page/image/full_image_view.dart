@@ -12,6 +12,7 @@ class FullImageView extends RapidView<FullImageLogic> {
     return SafeArea(
 
       child: Material(
+        color: Colors.black,
         child: Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
