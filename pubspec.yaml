@@ -32,7 +32,7 @@ dependencies:
   age_calculator: ^1.0.0
   date_format: ^2.0.6
   flutter_cupertino_date_picker_fork: ^1.0.7
-  fluttertoast: ^8.2.8
+  fluttertoast: ^9.0.0
   image_picker: ^1.2.1
   flutter_file_dialog: ^3.0.2
   file_picker: 8.1.0
