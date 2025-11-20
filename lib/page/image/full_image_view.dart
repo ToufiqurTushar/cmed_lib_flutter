@@ -11,40 +11,43 @@ class FullImageView extends RapidView<FullImageLogic> {
   Widget build(BuildContext context) {
     return SafeArea(
 
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: BackButton(
-            color: Colors.white,
-            onPressed: () {
-              Navigator.pop(context);
-            },
+      child: Material(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            leading: BackButton(
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
-        ),
-        body: Container(
-          color: Colors.black,
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Obx(
-                    () => PhotoView(
-                      enableRotation: false,
-                      minScale: PhotoViewComputedScale.contained * 0.8,
-                      maxScale: PhotoViewComputedScale.covered * 3.5,
-                      initialScale: PhotoViewComputedScale.contained,
-                      basePosition: Alignment.center,
-                      imageProvider: _getImageProvider()),
+          body: Container(
+            color: Colors.black,
+            width: double.infinity,
+            height: double.infinity,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Obx(
+                      () => PhotoView(
+                        enableRotation: false,
+                        minScale: PhotoViewComputedScale.contained * 0.8,
+                        maxScale: PhotoViewComputedScale.covered * 3.5,
+                        initialScale: PhotoViewComputedScale.contained,
+                        basePosition: Alignment.center,
+                        imageProvider: _getImageProvider()),
 
+                    ),
                   ),
                 ),
-              ),
 
 
-            ],
+              ],
+            ),
           ),
         ),
       ),
