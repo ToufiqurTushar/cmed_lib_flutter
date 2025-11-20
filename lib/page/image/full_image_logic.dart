@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter_rapid/extend/rapid_start_logic.dart';
 import 'package:get/get.dart';
