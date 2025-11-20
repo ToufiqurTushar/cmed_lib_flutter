@@ -20,12 +20,24 @@ dependencies:
       path: flutter_rapid
 
   flutter_form_builder: 10.0.1
+  package_info_plus: ^8.1.0
+  device_info_plus: ^11.1.0
   form_builder_validators: 11.2.0
   intl: ^0.20.0
+  url_launcher: ^6.3.1
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.4.1
   marquee: ^2.3.0
   dio: ^5.7.0
+  age_calculator: ^1.0.0
+  date_format: ^2.0.6
+  flutter_cupertino_date_picker_fork: ^1.0.7
+  fluttertoast: ^8.2.8
+  image_picker: ^0.8.0+3
+  flutter_file_dialog: ^3.0.2
+  file_picker: 8.1.0
+  flutter_image_compress: ^2.4.0
+  permission_handler: ^11.3.1
   chucker_flutter:
     git:
       url: https://gitlab.com/ToufiqurTushar/chucker-flutter.git
