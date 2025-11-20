@@ -13,7 +13,7 @@ class FullImageView extends RapidView<FullImageLogic> {
 
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
           leading: BackButton(
             color: Colors.white,
             onPressed: () {
