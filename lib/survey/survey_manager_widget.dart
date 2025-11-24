@@ -90,9 +90,13 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
             AppDialogs.showDoubleButtonDialog(
               'Do you want to go back ?'.tr,
               onPositiveButtonClick: () => {
-                controller.selectedSurveys.clear(),
-                controller.isFormValid.value = false,
-                onSelectSurvey?.call(null),
+                if(controller.allSurveys.length ==1){
+                  Get.back(),
+                } else {
+                  controller.selectedSurveys.clear(),
+                  controller.isFormValid.value = false,
+                  onSelectSurvey?.call(null),
+                }
               }
             );
 

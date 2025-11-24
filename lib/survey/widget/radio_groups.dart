@@ -43,16 +43,16 @@ Widget RadioGroups({
                   filled: true,
                   isDense: true,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
                   ),
                   enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
                   ),
                   focusedErrorBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
                   ),
                 ),
                 activeColor: Theme.of(context).primaryColor,
