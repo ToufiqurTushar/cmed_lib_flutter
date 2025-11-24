@@ -27,7 +27,7 @@ class SurveyManagerLogic extends RapidStartLogic {
     if(jsonAssetDirectory != null) {
       final String jsonStr = await rootBundle.loadString(jsonAssetDirectory!);
       final dynamic jsonData = json.decode(jsonStr);
-      allSurveys.value = SurveyDto.fromJsonList(jsonData);
+      allSurveys.value = SurveyDataResponseDto.fromJson(jsonData).content??[];
     } else {
       allSurveys.value = surveys;
     }
