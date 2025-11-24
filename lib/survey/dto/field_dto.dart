@@ -75,6 +75,7 @@ class Field {
 
   get switchButton => inputType == 'switchButton';
   get dropdown => inputType == 'dropdown';
+  get radio => inputType == 'radio';
   get number => inputType == 'number';
 }
 class Images {
