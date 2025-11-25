@@ -1,4 +1,5 @@
 enum SurveyTypeEnum {
   HEALTH_ASSESSMENT,
+  AGENT_SUBSCRIPTION,
   HEALTHY_DAYS;
 }
