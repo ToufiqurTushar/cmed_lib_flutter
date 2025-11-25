@@ -254,9 +254,9 @@ List<T> addUnique<T>(List<T> originalList, T newItem) {
   return originalList;
 }
 
-FormFieldValidator<Object?> ValidationWrapper(FormFieldValidator<Object?> validator, {bool? isRequired, bool? applyValidationIf}) {
+FormFieldValidator<Object?> ValidationWrapper(FormFieldValidator<Object?> validator, {bool? isRequired, bool? isAapplyValidation}) {
   return (value) {
-    if(applyValidationIf??true){ //always validate
+    if(isAapplyValidation??true){ //always validate
       if(!(isRequired??false)) { //support empty though validation exist //if not required then retun (null or no validation if empty)
         if (value == null || value.toString().isEmpty) return null;
       } else {

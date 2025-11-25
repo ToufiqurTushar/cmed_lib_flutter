@@ -31,8 +31,8 @@ Widget NumberEditText({
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
                 ValidationWrapper(FormBuilderValidators.numeric(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.max(field.max!, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, applyValidationIf: field.max != null),
-                ValidationWrapper(FormBuilderValidators.min(field.min!, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, applyValidationIf: field.min != null),
+                ValidationWrapper(FormBuilderValidators.max(field.max!, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, isAapplyValidation: field.max != null),
+                ValidationWrapper(FormBuilderValidators.min(field.min!, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, isAapplyValidation: field.min != null),
               ]),
               valueTransformer: null,
               onChanged: (val) {
