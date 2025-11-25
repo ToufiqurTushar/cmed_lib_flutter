@@ -263,6 +263,6 @@ FormFieldValidator<Object?> ValidationWrapper(FormFieldValidator<Object?> valida
         return validator(value);
       }
     }
-    return null;
+    return validator(value);
   };
 }
