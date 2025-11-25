@@ -84,7 +84,7 @@ class Result {
     colorCode = json['colorCode'];
     icon = json['icon'];
   }
-  dynamic value;
+  double? value;
   String? status;
   String? severity;
   String? remarks;
