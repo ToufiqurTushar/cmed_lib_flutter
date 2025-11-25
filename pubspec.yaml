@@ -1,4 +1,5 @@
 name: cmed_lib_flutter
+publish_to: 'none'
 description: "A new Flutter plugin project."
 version: 0.0.1
 homepage:
