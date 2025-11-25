@@ -2,8 +2,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import '../../common/helper/utils.dart';
 import '../dto/field_dto.dart';
 import 'item_label.dart';
+
 
 Widget NumberEditText({
     required Field field,
@@ -27,10 +29,10 @@ Widget NumberEditText({
               initialValue: field.defaultValue,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
-                if (field.required == true)FormBuilderValidators.required(),
-                FormBuilderValidators.numeric(),
-                if (field.max != null)FormBuilderValidators.max(field.max!, errorText: "Must be less than or equal to ${field.max}"),
-                if (field.min != null)FormBuilderValidators.min(field.min!, errorText: "Must be greater than or equal to ${field.min}"),
+                ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
+                ValidationWrapper(FormBuilderValidators.numeric(), isRequired: field.required),
+                ValidationWrapper(FormBuilderValidators.max(field.max!, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, applyValidationIf: field.max != null),
+                ValidationWrapper(FormBuilderValidators.min(field.min!, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, applyValidationIf: field.min != null),
               ]),
               valueTransformer: null,
               onChanged: (val) {
@@ -73,3 +75,4 @@ Widget NumberEditText({
     ),
   );
 }
+
