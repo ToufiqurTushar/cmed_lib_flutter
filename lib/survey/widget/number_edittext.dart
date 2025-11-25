@@ -48,7 +48,7 @@ Widget NumberEditText({
                       decoration: InputDecoration(
                         hint: Text(field.hint??"Write", style: TextStyle(color: Colors.grey),),
                         filled: true,
-                        fillColor: Theme.of(context).primaryColor.withOpacity(.2),
+                        fillColor: Theme.of(context).primaryColor.withOpacity(.1),
                         border: InputBorder.none,
                       ),
                       inputFormatters: [
