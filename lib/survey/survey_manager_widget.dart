@@ -37,10 +37,6 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Health Assessment'.tr, style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Card(
