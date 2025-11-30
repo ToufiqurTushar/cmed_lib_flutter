@@ -141,6 +141,9 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
     final isValid = formKey.currentState!.saveAndValidate();
     if(isValid) {
       final formMap = formKey.currentState!.value;
+
+      RLog.warning(answers);
+      RLog.warning(formMap);
       if(answers.isNotEmpty){
         onSubmit?.call(selectedSurvey, answers);
       } else {

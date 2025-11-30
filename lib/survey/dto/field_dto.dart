@@ -234,6 +234,14 @@ class Field {
       var isVisible = visibilityConditions?.first.logic == FBConditionLogic.AND ? results.every((e) => e) : results.any((e) => e);
       if(!isVisible){
         answers.remove(name);
+        final fieldState = formKey.currentState?.fields[name];
+        if (fieldState != null) {
+          //formKey.currentState!.unregisterField(name!, fieldState);
+          formKey.currentState!.fields[name!]?.didChange(null);
+          print('$name is null');
+        } else {
+          //print('$name not found in form state.');
+        }
       }
       return isVisible;
     } else {

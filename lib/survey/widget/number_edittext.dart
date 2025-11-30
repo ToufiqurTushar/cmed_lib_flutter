@@ -24,7 +24,7 @@ Widget NumberEditText({
       child: Column(
           children: [
             if(field.label != null) ItemLabel(field),
-            FormBuilderField<dynamic>(
+            FormBuilderTextField(
               name: field.name!,
               initialValue: field.defaultValue,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -35,39 +35,21 @@ Widget NumberEditText({
                 ValidationWrapper(FormBuilderValidators.min(field.min??0, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, isAapplyValidation: field.min != null),
               ]),
               valueTransformer: null,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                  hint: Text(field.hint??"Write here".tr, style: TextStyle(color: Colors.grey),),
+                  filled: true,
+                  fillColor: Theme.of(context).primaryColorLight,
+                  border: InputBorder.none,
+                  errorStyle: const TextStyle(color: Colors.red, fontSize: 12)
+              ),
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               onChanged: (val) {
-                if(onChanged != null) {
-                  onChanged(val);
+                if(field.readOnly == false){
+                  onChanged?.call(val);
                 }
-              },
-              builder: (FormFieldState<dynamic> fieldState) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller:TextEditingController(text: field.defaultValue??''),
-                      decoration: InputDecoration(
-                        hint: Text(field.hint??"Write", style: TextStyle(color: Colors.grey),),
-                        filled: true,
-                        fillColor: Theme.of(context).primaryColorLight,
-                        border: InputBorder.none,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      keyboardType: TextInputType.number,
-                      onChanged: (val){
-                        if(field.readOnly == false){
-                          fieldState.didChange(val);
-                        }
-                      },
-                    ),
-                    if(fieldState.errorText != null) Padding(
-                      padding: const EdgeInsets.only(left: 2, top: 4),
-                      child: Text(fieldState.errorText!, style: const TextStyle(color: Colors.red, fontSize: 12),),
-                    ),
-                  ],
-                );
               },
             ),
             if(field.description!.isNotEmpty  && !field.readOnly!) Text(field.description!),
