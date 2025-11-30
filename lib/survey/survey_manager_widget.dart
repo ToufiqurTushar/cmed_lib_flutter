@@ -189,7 +189,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                         if(showSerialNumber) {
                           field.serial = '${(index+1)}';
                         }
-                        return _buildField(field, context, controller.formKey);
+                        return _buildReactiveField(field, context, controller.formKey);
                       }).toList(),
                       const SizedBox(height: 16),
                       //result button
