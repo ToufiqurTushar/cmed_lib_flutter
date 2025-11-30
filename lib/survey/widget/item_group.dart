@@ -34,7 +34,7 @@ class GroupItem extends StatelessWidget {
           child: Row(
             children: [
               // SVG Image on the left
-              RoundImage(iconPath, 55, defaultImage: "assets/images/ic_anemia.svg",color: Colors.white70,),
+              RoundImage(iconPath, 45, defaultImage: "assets/images/ic_anemia.svg",color: Colors.white70,),
               const SizedBox(width: 12.0), // Space between image and text
               // Text on the right
               Expanded(

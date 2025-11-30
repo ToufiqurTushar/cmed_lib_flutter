@@ -33,6 +33,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     return Obx(() {
       if (controller.allSurveys.isEmpty) return const Center(child: CircularProgressIndicator());
 
+      //category list
       if (controller.selectedSurveys.isEmpty) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
