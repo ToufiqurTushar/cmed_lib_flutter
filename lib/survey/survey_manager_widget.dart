@@ -262,7 +262,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (val){
                 final parsed = int.tryParse(val);
-                if (parsed != null) {
+                if (parsed == null) {
                   //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
                 } else {
                   //controller.formKey.currentState!.fields[field.name]!.validate();

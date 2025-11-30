@@ -1,10 +1,11 @@
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
+import 'package:cmed_lib_flutter/survey/enum/enum.dart';
 import 'package:cmed_lib_flutter_example/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
-class CheSurveyLogic extends RapidStartLogic {
+class TestSurveyLogic extends RapidStartLogic {
   var isLoading = false.obs;
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
@@ -19,7 +20,7 @@ class CheSurveyLogic extends RapidStartLogic {
 
   fetchSurveyData() {
     isLoading.value = true;
-    Get.find<Http>().GET('api/v1/survey/rules?type=AGENT_SUBSCRIPTION&page=0&size=100').then((response) {
+    Get.find<Http>().GET('api/v1/survey/rules?type=${SurveyTypeEnum.HEALTHY_DAYS.name}&page=0&size=100').then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
         selectedSurvey.value = allSurveys.first;

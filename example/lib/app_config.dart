@@ -1,11 +1,11 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:cmed_lib_flutter_example/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
-import 'che_survey/che_survey_view.dart';
+import 'test_survey/test_survey_view.dart';
 
 class AppSystemConfig extends RapidSystemConfig {
   AppSystemConfig() {
-    initialRoute = CheSurveyView.routeName;
+    initialRoute = TestSurveyView.routeName;
     modules = [
       AppRegistry(),
     ];
@@ -39,7 +39,7 @@ class AppRegistry extends RapidModuleRegistry {
   @override
   List<RapidView> getPages() {
     return [
-      CheSurveyView()
+      TestSurveyView()
     ];
   }
 }
