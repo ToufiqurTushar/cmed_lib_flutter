@@ -27,8 +27,8 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
   /// store all answers
   var answers = <String, dynamic>{}.obs;
 
-  late List<TabPage> tabPages;
   late TabController tabController;
+  List<TabPage> tabPages = [];
   var tabTextList = <Tab>[].obs;
   var tabContentList = <Widget>[].obs;
 
