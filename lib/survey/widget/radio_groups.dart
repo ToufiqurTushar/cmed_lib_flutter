@@ -70,7 +70,7 @@ Widget RadioGroups({
 
               ),
             ),
-            if(field.description != null  && !field.readOnly!) Padding(
+            if(field.description != null && field.description != "" && !field.readOnly!) Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 4),
               child: Text(field.description!),
             ),

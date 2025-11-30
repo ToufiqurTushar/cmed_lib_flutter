@@ -1,27 +1,32 @@
 import 'package:cmed_lib_flutter/survey/survey_manager_logic.dart';
 import 'package:cmed_lib_flutter/survey/widget/app_dialog.dart';
+import 'package:cmed_lib_flutter/survey/widget/edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_group.dart';
 import 'package:cmed_lib_flutter/survey/widget/number_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/radio_groups.dart';
+import 'package:cmed_lib_flutter/survey/widget/select_date.dart';
 import 'package:cmed_lib_flutter/survey/widget/switch_buttons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'dto/field_dto.dart';
 import 'dto/survey_dto.dart';
+import 'dto/tab_page.dart';
 
 
 class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final String? jsonAssetDirectory;
+  final bool isTabStyle;
+  final List<TabPage>? tabContents;
   final List<SurveyDto> surveys;
   final SurveyDto? selectedSurvey;
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
   final Function(dynamic)? onSelectAnswer;
   final Function(SurveyDto?)? onSelectSurvey;
-  final Color primaryColor;
-  const SurveyManagerWidget({super.key, this.jsonAssetDirectory, this.selectedSurvey, required this.surveys, this.onSelectAnswer, this.onSelectSurvey, this.onSubmit, required this.primaryColor});
+  final bool showSerialNumber;
+  const SurveyManagerWidget({super.key, this.jsonAssetDirectory,this.isTabStyle = false, this.selectedSurvey, required this.surveys, this.onSelectAnswer, this.onSelectSurvey, this.onSubmit, this.showSerialNumber = true, this.tabContents});
 
   @override
-  SurveyManagerLogic get controller => Get.put(SurveyManagerLogic(jsonAssetDirectory:jsonAssetDirectory, surveys:surveys, onSubmit: onSubmit, selectedSurvey: selectedSurvey));
+  SurveyManagerLogic get controller => Get.put(SurveyManagerLogic(jsonAssetDirectory:jsonAssetDirectory, isTabStyle: isTabStyle, surveys:surveys, onSubmit: onSubmit, selectedSurvey: selectedSurvey, tabContents: tabContents));
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +89,8 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       }
 
       controller.formKey = GlobalKey<FormBuilderState>();
+      final visibleTabs = controller.tabPages.where(controller.isTabVisible).toList();
+
       return WillPopScope(
         onWillPop: () async {
           if(controller.selectedSurveys.isNotEmpty) {
@@ -104,7 +111,57 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
           }
           return true;
         },
-        child: SingleChildScrollView(
+        child: controller.isTabStyle?
+        Obx(
+          ()=> FormBuilder(
+            onChanged: (){
+              bool isValid = controller.checkRequiredFieldValidation();
+              if (isValid) {
+                controller.isFormValid.value = true;
+              } else {
+                controller.isFormValid.value = false;
+              }
+            },
+            key: controller.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IgnorePointer(
+                  ignoring: true,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                    child: Card(
+                      elevation: 2,
+                      child: TabBar(
+                        labelColor: Theme.of(context).primaryColor,
+                        unselectedLabelColor: Colors.black,
+                        indicatorColor: Theme.of(context).primaryColor,
+                        indicatorWeight: 3.0,
+                        isScrollable: true,
+                        controller: controller.tabController,
+                        indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                        //labelStyle: GoogleFonts.notoSansBengali(fontWeight: FontWeight.bold, fontSize: 14),
+                        tabs:  controller.tabTextList,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: controller.tabController,
+                    children: _buildTabContents(visibleTabs, context, controller.formKey),
+                  ),
+                ),
+                _buildNavigation(visibleTabs),
+                //_buildTabHeader(visibleTabs),
+                //Expanded(child: _buildTabContent(visibleTabs, context, controller.formKey)),
+                //
+              ],
+            ),
+          ),
+        ):
+        SingleChildScrollView(
           child: Obx(
             ()=> FormBuilder(
               onChanged: (){
@@ -132,7 +189,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       ...selectedSurvey.fields!.asMap().entries.map((entry) {
                         final index = entry.key;
                         final field = entry.value;
-                        field.serial = '${(index+1)}';
+                        if(showSerialNumber) {
+                          field.serial = '${(index+1)}';
+                        }
                         return _buildField(field, context, controller.formKey);
                       }).toList(),
                       const SizedBox(height: 16),
@@ -176,7 +235,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   }
 
 
-  Widget _buildField(Field field, context, formKey) {
+  Widget _buildField(Field field, context, formKey, {Function(String fieldName, dynamic val)? onChanged}) {
     if(field.switchButton) {
       return Column(
         children: [
@@ -188,13 +247,14 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (val){
                   onSelectAnswer?.call(val);
+                  onChanged?.call(field.name!, val);
               }
           ),
           const SizedBox(height: 8,)
         ],
       );
     }
-    if(field.number) {
+    else if(field.number) {
       return Column(
         children: [
           NumberEditText(
@@ -205,11 +265,12 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (val){
                 final parsed = int.tryParse(val);
-                if (parsed != null && parsed > 24) {
+                if (parsed != null) {
                   //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
                 } else {
                   //controller.formKey.currentState!.fields[field.name]!.validate();
                   onSelectAnswer?.call(val);
+                  onChanged?.call(field.name!, val);
                 }
               }
           ),
@@ -217,7 +278,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         ],
       );
     }
-    if(field.radio) {
+    else if(field.radio) {
       return Column(
         children: [
           RadioGroups(
@@ -228,13 +289,247 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (val){
                 onSelectAnswer?.call(val);
+                onChanged?.call(field.name!, val);
               }
           ),
           const SizedBox(height: 8,)
         ],
       );
     }
-    return const Text("Unknown Input Type");
+    else if(field.text) {
+      return Column(
+        children: [
+          EditText(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                onSelectAnswer?.call(val);
+                onChanged?.call(field.name!, val);
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    else if(field.date) {
+      return Column(
+        children: [
+          SelectDate(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                onSelectAnswer?.call(val);
+                onChanged?.call(field.name!, val);
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    return Text("Unknown Input Type: ${field.inputType}");
   }
 
+  Widget _buildTabHeader(List<TabPage> visibleTabs) {
+    return Obx(() {
+      return Row(
+        children: List.generate(visibleTabs.length, (i) {
+          final isSelected = i == controller.currentTab.value;
+
+          return Expanded(
+            child: Container(
+              padding: EdgeInsets.all(14),
+              color: isSelected ? Colors.blue : Colors.grey.shade300,
+              child: Center(
+                child: Text(
+                  visibleTabs[i].title,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
+      );
+    });
+  }
+
+  /* ----------------------------------------------------------
+      TAB CONTENT
+  -----------------------------------------------------------*/
+  List<Widget> _buildTabContents(List<TabPage> visibleTabs, context, formKey) {
+
+
+      return visibleTabs.asMap().entries.map((entry) {
+        final index = entry.key;
+        final value = entry.value;
+        //final tabIndex = controller.currentTab.value;
+        final currentTab = visibleTabs[index];
+        Widget tabContent = ListView(
+          children: (currentTab.questions??[]).map((field) {
+            bool visible = field.visibleWhen(controller.formKey, controller.answers);
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              transitionBuilder: (child, anim) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.2),
+                    end: Offset.zero,
+                  ).animate(anim),
+                  child: FadeTransition(
+                    opacity: anim,
+                    child: child,
+                  ),
+                );
+              },
+              child: visible ? _buildReactiveField(field, context, formKey) : const SizedBox.shrink(),
+            );
+          }).toList(),
+        );
+        return tabContent;
+      }).toList();
+
+  }
+
+  Widget _buildTabContent(List<TabPage> visibleTabs, context, formKey) {
+    return Obx(() {
+      final tabIndex = controller.currentTab.value;
+      final currentTab = visibleTabs[tabIndex];
+      return ListView(
+        children: (currentTab.questions??[]).map((field) {
+          bool visible = field.visibleWhen(controller.formKey, controller.answers);
+
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            transitionBuilder: (child, anim) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 0.2),
+                  end: Offset.zero,
+                ).animate(anim),
+                child: FadeTransition(
+                  opacity: anim,
+                  child: child,
+                ),
+              );
+            },
+            child: visible ? _buildReactiveField(field, context, formKey) : const SizedBox.shrink(),
+          );
+        }).toList(),
+      );
+    });
+  }
+
+  // Widget _buildTabContent(List<TabPage> visibleTabs, context, formKey) {
+  //   return Obx(() {
+  //     final tabIndex = controller.currentTab.value;
+  //     final currentTab = visibleTabs[tabIndex];
+  //
+  //     return AnimatedSwitcher(
+  //       duration: Duration(milliseconds: 250),
+  //       child: ListView(
+  //         key: ValueKey(currentTab.id),
+  //         padding: EdgeInsets.all(16),
+  //         children: (currentTab.questions??[])
+  //             .map((field) => _buildReactiveField(field, context, formKey))
+  //             .toList(),
+  //       ),
+  //     );
+  //   });
+  // }
+
+  /* ----------------------------------------------------------
+      QUESTION FIELD (Obx)
+  -----------------------------------------------------------*/
+
+  Widget _buildReactiveField(Field field, context, formKey){
+    return Obx(() {
+      final value = controller.answers[field.name];
+      field.defaultValue = value;
+      //formKey.currentState?.patchValue(controller.answers);
+      //RLog.warning(value);
+      // formKey.currentState?.fields[field.name]?.didChange(value);
+      return _buildField(field, context, formKey, onChanged: (name, val) {
+        controller.answers[field.name!] = val;
+        controller.answers.refresh();
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+      NAVIGATION
+  -----------------------------------------------------------*/
+
+  Widget _buildNavigation(List<TabPage> visibleTabs) {
+    return Obx(() {
+      final index = controller.currentTab.value;
+      final isLast = index == visibleTabs.length - 1;
+
+      return Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            if (index > 0)
+              Expanded(
+                child: Container(
+                  height: 50,
+                  child: FrElevatedButton(
+                    onPressed: () => controller.prevTab(visibleTabs),
+                    name: "Back".tr,
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(Get.context!).primaryColor,
+                      foregroundColor: Colors.white,
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20), // Rounded corners
+                      ),
+                      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+
+           SizedBox(width: 12,),
+
+            Expanded(
+              child: Container(
+                height: 50,
+                child: FrElevatedButton(
+                  onPressed: () {
+                    if (isLast) {
+                      controller.formSubmit(controller.selectedSurveys.first);
+                    } else {
+                      controller.nextTab(visibleTabs);
+                    }
+                  },
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(Get.context!).primaryColor,
+                    foregroundColor: Colors.white,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20), // Rounded corners
+                    ),
+                    textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  name: isLast ? "Finish".tr : "Next".tr,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
 }

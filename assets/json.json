@@ -1,0 +1,1266 @@
+{
+  "content": [
+    {
+      "id": 9,
+      "uuid": "e576c1a3-6e39-48a4-83d5-4d2d8aee5e22",
+      "created_at": 1764136837490,
+      "last_updated": 1764136837490,
+      "created_by_id": null,
+      "updated_by_id": null,
+      "group_name": "Agent Survey",
+      "name": "Agent Survey",
+      "icon": "https://",
+      "other_language_name": "Agent Survey",
+      "fields": [
+        {
+          "required": false,
+          "label": "Select preferred Language",
+          "images": [],
+          "description": "",
+          "input_type": "radio",
+          "read_only": false,
+          "name": "as9_1",
+          "options": [
+            {
+              "name": "as9_1_hindi",
+              "value": "Hindi",
+              "weight": 0,
+              "icon": "",
+              "title": "Hindi"
+            },
+            {
+              "name": "as9_1_kannada",
+              "value": "Kannada",
+              "weight": 0,
+              "icon": "",
+              "title": "Kannada"
+            },
+            {
+              "name": "as9_1_telegu",
+              "value": "Telegu",
+              "weight": 0,
+              "icon": "",
+              "title": "Telegu"
+            },
+            {
+              "name": "as9_1_tamil",
+              "value": "Tamil",
+              "weight": 0,
+              "icon": "",
+              "title": "Tamil"
+            },
+            {
+              "name": "as9_1_oriya",
+              "value": "Oriya",
+              "weight": 0,
+              "icon": "",
+              "title": "Oriya"
+            },
+            {
+              "name": "as9_1_bengali",
+              "value": "Bengali",
+              "weight": 0,
+              "icon": "",
+              "title": "Bengali"
+            },
+            {
+              "name": "as9_1_panjabi",
+              "value": "Panjabi",
+              "weight": 0,
+              "icon": "",
+              "title": "Panjabi"
+            },
+            {
+              "name": "as9_1_other",
+              "value": "Other",
+              "weight": 0,
+              "icon": "",
+              "title": "Other"
+            },
+            {
+              "name": "as9_1_input",
+              "value": "_",
+              "weight": 0,
+              "icon": "",
+              "title": "_"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Subscription Type",
+          "images": [],
+          "description": "",
+          "input_type": "switchButton",
+          "read_only": false,
+          "name": "as9_2",
+          "options": [
+            {
+              "name": "as9_2_paid_member",
+              "value": "Paid Member",
+              "weight": 0,
+              "icon": "",
+              "title": "Paid Member"
+            },
+            {
+              "name": "as9_2_paid_doctor",
+              "value": "Paid Doctor",
+              "weight": 0,
+              "icon": "",
+              "title": "Paid Doctor"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Date of Subscription",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_3",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Receipt No",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_4",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "SJ Member Code",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_5",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Do you have social protection Schemes?",
+          "images": [],
+          "description": "",
+          "input_type": "switchButton",
+          "read_only": false,
+          "name": "as9_6",
+          "options": [
+            {
+              "name": "as9_6_yes",
+              "value": "yes",
+              "weight": 0,
+              "icon": "",
+              "title": "Yes"
+            },
+            {
+              "name": "as9_6_no",
+              "value": "no",
+              "weight": 0,
+              "icon": "",
+              "title": "No"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": null,
+          "required_conditions": null,
+          "skip_rule": {
+            "conditions": [
+              {
+                "sourceField": "as9_6",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_6_no"
+                ],
+                "logic": "OR",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "skipTo": "as9_10",
+            "skipType": "FIELD"
+          }
+        },
+        {
+          "required": false,
+          "label": "Scheme Name",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_7",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_6",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_6_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Coverage Benefits",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_8",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_6",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_6_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Expiry Date",
+          "images": [],
+          "description": "",
+          "input_type": "inputBox",
+          "read_only": false,
+          "name": "as9_9",
+          "options": [
+            {
+              "name": "-",
+              "value": "-",
+              "weight": 0,
+              "icon": "",
+              "title": "-"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_6",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_6_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Are you  eligible to any Schemes?",
+          "images": [],
+          "description": "",
+          "input_type": "radio",
+          "read_only": false,
+          "name": "as9_10",
+          "options": [
+            {
+              "name": "as9_10_yes",
+              "value": "yes",
+              "weight": 0,
+              "icon": "",
+              "title": "Yes"
+            },
+            {
+              "name": "as9_10_no",
+              "value": "no",
+              "weight": 0,
+              "icon": "",
+              "title": "No"
+            },
+            {
+              "name": "as9_10_do_not_know",
+              "value": "don't know",
+              "weight": 0,
+              "icon": "",
+              "title": "Don't know"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_6",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_6_no"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": {
+            "conditions": [
+              {
+                "sourceField": "as9_10",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "s9_10_no",
+                  "as9_10_do_not_know"
+                ],
+                "logic": "OR",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "skipTo": "END",
+            "skipType": "END"
+          }
+        },
+        {
+          "required": false,
+          "label": "Are you interested to apply any eligible schemes?",
+          "images": [],
+          "description": "",
+          "input_type": "radio",
+          "read_only": false,
+          "name": "as9_11",
+          "options": [
+            {
+              "name": "as9_11_yes",
+              "value": "yes",
+              "weight": 0,
+              "icon": "",
+              "title": "Yes"
+            },
+            {
+              "name": "as9_11_no",
+              "value": "no",
+              "weight": 0,
+              "icon": "",
+              "title": "No"
+            },
+            {
+              "name": "as9_11_do_not_know",
+              "value": "don't know",
+              "weight": 0,
+              "icon": "",
+              "title": "Don't know"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_10",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_10_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": {
+            "conditions": [
+              {
+                "sourceField": "field11",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "field11_no",
+                  "field11_do_not_know"
+                ],
+                "logic": "OR",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "skipTo": "END",
+            "skipType": "END"
+          }
+        },
+        {
+          "required": false,
+          "label": "Eligibility Documents",
+          "images": [],
+          "description": "",
+          "input_type": "switchButton",
+          "read_only": false,
+          "name": "as9_12",
+          "options": [
+            {
+              "name": "as9_12_varified",
+              "value": "Varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Varified"
+            },
+            {
+              "name": "as9_12_not_varified",
+              "value": "Not varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Not varified"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_11",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_11_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Application Submitted",
+          "images": [],
+          "description": "",
+          "input_type": "switchButton",
+          "read_only": false,
+          "name": "as9_13",
+          "options": [
+            {
+              "name": "as9_13_varified",
+              "value": "Varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Varified"
+            },
+            {
+              "name": "as9_13_not_varified",
+              "value": "Not varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Not varified"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_11",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_11_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        },
+        {
+          "required": false,
+          "label": "Benefits Received",
+          "images": [],
+          "description": "",
+          "input_type": "switchButton",
+          "read_only": false,
+          "name": "as9_14",
+          "options": [
+            {
+              "name": "as9_14_varified",
+              "value": "Varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Varified"
+            },
+            {
+              "name": "as9_14_not_varified",
+              "value": "Not varified",
+              "weight": 0,
+              "icon": "",
+              "title": "Not varified"
+            }
+          ],
+          "default_value": null,
+          "icon": null,
+          "hint": "",
+          "min": null,
+          "max": null,
+          "visibility_conditions": [
+            {
+              "sourceField": "as9_11",
+              "operator": "EQUALS",
+              "expectedValue": [
+                "as9_11_yes"
+              ],
+              "logic": "AND",
+              "effectType": "VISIBILITY"
+            }
+          ],
+          "required_conditions": null,
+          "skip_rule": null
+        }
+      ],
+      "group": {
+        "name": "Agent Survey",
+        "icon": "https://",
+        "fields": [
+          {
+            "required": true,
+            "label": "Select preferred Language",
+            "images": [],
+            "description": "",
+            "input_type": "radio",
+            "read_only": false,
+            "name": "as9_1",
+            "options": [
+              {
+                "name": "as9_1_hindi",
+                "value": "Hindi",
+                "weight": 0,
+                "icon": "",
+                "title": "Hindi"
+              },
+              {
+                "name": "as9_1_kannada",
+                "value": "Kannada",
+                "weight": 0,
+                "icon": "",
+                "title": "Kannada"
+              },
+              {
+                "name": "as9_1_telegu",
+                "value": "Telegu",
+                "weight": 0,
+                "icon": "",
+                "title": "Telegu"
+              },
+              {
+                "name": "as9_1_tamil",
+                "value": "Tamil",
+                "weight": 0,
+                "icon": "",
+                "title": "Tamil"
+              },
+              {
+                "name": "as9_1_oriya",
+                "value": "Oriya",
+                "weight": 0,
+                "icon": "",
+                "title": "Oriya"
+              },
+              {
+                "name": "as9_1_bengali",
+                "value": "Bengali",
+                "weight": 0,
+                "icon": "",
+                "title": "Bengali"
+              },
+              {
+                "name": "as9_1_panjabi",
+                "value": "Panjabi",
+                "weight": 0,
+                "icon": "",
+                "title": "Panjabi"
+              },
+              {
+                "name": "as9_1_other",
+                "value": "Other",
+                "weight": 0,
+                "icon": "",
+                "title": "Other"
+              },
+              {
+                "name": "as9_1_input",
+                "value": "_",
+                "weight": 0,
+                "icon": "",
+                "title": "_"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Subscription Type",
+            "images": [],
+            "description": "",
+            "input_type": "switchButton",
+            "read_only": false,
+            "name": "as9_2",
+            "options": [
+              {
+                "name": "as9_2_paid_member",
+                "value": "Paid Member",
+                "weight": 0,
+                "icon": "",
+                "title": "Paid Member"
+              },
+              {
+                "name": "as9_2_paid_doctor",
+                "value": "Paid Doctor",
+                "weight": 0,
+                "icon": "",
+                "title": "Paid Doctor"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Date of Subscription",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_3",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Receipt No",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_4",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "SJ Member Code",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_5",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Do you have social protection Schemes?",
+            "images": [],
+            "description": "",
+            "input_type": "switchButton",
+            "read_only": false,
+            "name": "as9_6",
+            "options": [
+              {
+                "name": "as9_6_yes",
+                "value": "yes",
+                "weight": 0,
+                "icon": "",
+                "title": "Yes"
+              },
+              {
+                "name": "as9_6_no",
+                "value": "no",
+                "weight": 0,
+                "icon": "",
+                "title": "No"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": null,
+            "required_conditions": null,
+            "skip_rule": {
+              "conditions": [
+                {
+                  "sourceField": "as9_6",
+                  "operator": "EQUALS",
+                  "expectedValue": [
+                    "as9_6_no"
+                  ],
+                  "logic": "OR",
+                  "effectType": "VISIBILITY"
+                }
+              ],
+              "skipTo": "as9_10",
+              "skipType": "FIELD"
+            }
+          },
+          {
+            "required": true,
+            "label": "Scheme Name",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_7",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_6",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_6_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Coverage Benefits",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_8",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_6",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_6_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Expiry Date",
+            "images": [],
+            "description": "",
+            "input_type": "inputBox",
+            "read_only": false,
+            "name": "as9_9",
+            "options": [
+              {
+                "name": "-",
+                "value": "-",
+                "weight": 0,
+                "icon": "",
+                "title": "-"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_6",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_6_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Are you  eligible to any Schemes?",
+            "images": [],
+            "description": "",
+            "input_type": "radio",
+            "read_only": false,
+            "name": "as9_10",
+            "options": [
+              {
+                "name": "as9_10_yes",
+                "value": "yes",
+                "weight": 0,
+                "icon": "",
+                "title": "Yes"
+              },
+              {
+                "name": "as9_10_no",
+                "value": "no",
+                "weight": 0,
+                "icon": "",
+                "title": "No"
+              },
+              {
+                "name": "as9_10_do_not_know",
+                "value": "don't know",
+                "weight": 0,
+                "icon": "",
+                "title": "Don't know"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_6",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_6_no"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": {
+              "conditions": [
+                {
+                  "sourceField": "as9_10",
+                  "operator": "EQUALS",
+                  "expectedValue": [
+                    "s9_10_no",
+                    "as9_10_do_not_know"
+                  ],
+                  "logic": "OR",
+                  "effectType": "VISIBILITY"
+                }
+              ],
+              "skipTo": "END",
+              "skipType": "END"
+            }
+          },
+          {
+            "required": true,
+            "label": "Are you interested to apply any eligible schemes?",
+            "images": [],
+            "description": "",
+            "input_type": "radio",
+            "read_only": false,
+            "name": "as9_11",
+            "options": [
+              {
+                "name": "as9_11_yes",
+                "value": "yes",
+                "weight": 0,
+                "icon": "",
+                "title": "Yes"
+              },
+              {
+                "name": "as9_11_no",
+                "value": "no",
+                "weight": 0,
+                "icon": "",
+                "title": "No"
+              },
+              {
+                "name": "as9_11_do_not_know",
+                "value": "don't know",
+                "weight": 0,
+                "icon": "",
+                "title": "Don't know"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_10",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_10_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": {
+              "conditions": [
+                {
+                  "sourceField": "field11",
+                  "operator": "EQUALS",
+                  "expectedValue": [
+                    "field11_no",
+                    "field11_do_not_know"
+                  ],
+                  "logic": "OR",
+                  "effectType": "VISIBILITY"
+                }
+              ],
+              "skipTo": "END",
+              "skipType": "END"
+            }
+          },
+          {
+            "required": true,
+            "label": "Eligibility Documents",
+            "images": [],
+            "description": "",
+            "input_type": "switchButton",
+            "read_only": false,
+            "name": "as9_12",
+            "options": [
+              {
+                "name": "as9_12_varified",
+                "value": "Varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Varified"
+              },
+              {
+                "name": "as9_12_not_varified",
+                "value": "Not varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Not varified"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_11",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_11_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Application Submitted",
+            "images": [],
+            "description": "",
+            "input_type": "switchButton",
+            "read_only": false,
+            "name": "as9_13",
+            "options": [
+              {
+                "name": "as9_13_varified",
+                "value": "Varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Varified"
+              },
+              {
+                "name": "as9_13_not_varified",
+                "value": "Not varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Not varified"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_11",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_11_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          },
+          {
+            "required": true,
+            "label": "Benefits Received",
+            "images": [],
+            "description": "",
+            "input_type": "switchButton",
+            "read_only": false,
+            "name": "as9_14",
+            "options": [
+              {
+                "name": "as9_14_varified",
+                "value": "Varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Varified"
+              },
+              {
+                "name": "as9_14_not_varified",
+                "value": "Not varified",
+                "weight": 0,
+                "icon": "",
+                "title": "Not varified"
+              }
+            ],
+            "default_value": null,
+            "icon": null,
+            "hint": "",
+            "min": null,
+            "max": null,
+            "visibility_conditions": [
+              {
+                "sourceField": "as9_11",
+                "operator": "EQUALS",
+                "expectedValue": [
+                  "as9_11_yes"
+                ],
+                "logic": "AND",
+                "effectType": "VISIBILITY"
+              }
+            ],
+            "required_conditions": null,
+            "skip_rule": null
+          }
+        ],
+        "visibility_conditions": null,
+        "skip_rule": null
+      },
+      "survey_type": "AGENT_SUBSCRIPTION"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "unsorted": true,
+      "sorted": false,
+      "empty": true
+    },
+    "offset": 0,
+    "pageSize": 100,
+    "pageNumber": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalElements": 1,
+  "last": true,
+  "totalPages": 1,
+  "number": 0,
+  "sort": {
+    "unsorted": true,
+    "sorted": false,
+    "empty": true
+  },
+  "size": 100,
+  "numberOfElements": 1,
+  "first": true,
+  "empty": false
+}

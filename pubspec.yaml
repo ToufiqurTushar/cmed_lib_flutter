@@ -57,6 +57,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
     - assets/images/
 
   # This section identifies this Flutter project as a plugin project.

@@ -1,3 +1,10 @@
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_rapid/flutter_rapid.dart' hide Condition;
+
+import '../enum/enum.dart';
+import 'Condition.dart';
+import 'SkipRule.dart';
+
 class Field {
   Field({
     this.label,
@@ -12,7 +19,11 @@ class Field {
     this.min,
     this.max,
     this.options,
-    this.defaultValue,});
+    this.defaultValue,
+    this.visibilityConditions,
+    this.requiredConditions,
+    this.skipRule
+  });
 
   Field.fromJson(dynamic json) {
     label = json['label'];
@@ -38,6 +49,20 @@ class Field {
       });
     }
     defaultValue = json['default_value'];
+
+    if (json['visibility_conditions'] != null) {
+      visibilityConditions = [];
+      json['visibility_conditions'].forEach((v) {
+        visibilityConditions?.add(Condition.fromJson(v));
+      });
+    }
+    if (json['required_conditions'] != null) {
+      requiredConditions = [];
+      json['required_conditions'].forEach((v) {
+        requiredConditions?.add(Condition.fromJson(v));
+      });
+    }
+    skipRule = json['skip_rule'] != null ? SkipRule.fromJson(json['skip_rule']) : null;
   }
   String? serial;
   String? label;
@@ -52,6 +77,9 @@ class Field {
   num? max;
   List<Option>? options;
   dynamic defaultValue;
+  List<Condition>? visibilityConditions;
+  List<Condition>? requiredConditions;
+  SkipRule? skipRule;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -70,6 +98,17 @@ class Field {
       map['options'] = options?.map((v) => v.toJson()).toList();
     }
     map['default_value'] = defaultValue;
+    if (visibilityConditions != null) {
+      map['visibility_conditions'] = visibilityConditions?.map((v) => v.toJson()).toList();
+    }
+    if (requiredConditions != null) {
+      map['required_conditions'] = requiredConditions?.map((v) => v.toJson()).toList();
+    }
+    if (skipRule != null) {
+      map['skip_rule'] = skipRule?.toJson();
+    }
+    
+    
     return map;
   }
 
@@ -77,7 +116,133 @@ class Field {
   get dropdown => inputType == 'dropdown';
   get radio => inputType == 'radio';
   get number => inputType == 'number';
+  get text => inputType == 'text';
+  get date => inputType == 'date';
+
+  bool visibleWhen(GlobalKey<FormBuilderState> formKey, Map<String, dynamic> answers) {
+    final results = <bool>[];
+
+    // if(visibilityConditions?.isNotEmpty??false) {
+    //   RLog.info(visibilityConditions!.first.toJson());
+    // } else {
+    //   RLog.info('no visibilityConditions found');
+    // }
+
+    for (final Condition condition in visibilityConditions??[]) {
+      final dynamic inputValue = answers[condition.sourceField];
+      final dynamic expectedValue = condition.expectedValue?.first;
+      //final dynamic expectedValue = 'yes';
+
+      bool r = false;
+
+      switch (fbConditionFromString(condition.operator)) {
+        case FBConditionType.EQUALS:
+          //RLog.info('${answers}');
+          //RLog.info('${inputValue} ${expectedValue}');
+          r = inputValue == expectedValue;
+          break;
+        case FBConditionType.notEquals:
+          r = inputValue != expectedValue;
+          break;
+        case FBConditionType.inList:
+          r = condition.expectedValue?.contains(inputValue)??false;
+          break;
+        case FBConditionType.notInList:
+          r = !(condition.expectedValue?.contains(inputValue)??false);
+          break;
+        case FBConditionType.lessThan:
+          try {
+            r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) < 0);
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.greaterThan:
+          try {
+            r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) > 0);
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.lessOrEqual:
+          try {
+            r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) <= 0);
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.greaterOrEqual:
+          try {
+            r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) >= 0);
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.between:
+        // expect Map {'min': x, 'max': y} or List [min, max]
+          try {
+            final min = condition.expectedValue?[0]??null;
+            final max = condition.expectedValue?[1]??null;
+            if (min == null || max == null) {
+              r = false;
+            } else {
+              r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(min) >= 0 && inputValue.compareTo(max) <= 0);
+            }
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.notBetween:
+          try {
+            final min = condition.expectedValue?[0]??null;
+            final max = condition.expectedValue?[1]??null;
+            if (min == null || max == null) {
+              r = false;
+            } else {
+              r = inputValue == null ||
+                  !(inputValue is Comparable) ||
+                  !(inputValue.compareTo(min) >= 0 && inputValue.compareTo(max) <= 0);
+            }
+          } catch (_) {
+            r = false;
+          }
+          break;
+        case FBConditionType.isEmpty:
+          r = inputValue == '' ||
+              (inputValue is Iterable && inputValue.isEmpty) ||
+              (inputValue is Map && inputValue.isEmpty) ||
+              (inputValue == null);
+          break;
+        case FBConditionType.isNotEmpty:
+          r = !(inputValue == '' ||
+              (inputValue is Iterable && inputValue.isEmpty) ||
+              (inputValue is Map && inputValue.isEmpty) ||
+              (inputValue == null));
+          break;
+        case FBConditionType.isNull:
+          r = inputValue == null;
+          break;
+        case FBConditionType.isNotNull:
+          r = inputValue != null;
+          break;
+      }
+
+      results.add(r);
+    }
+    if(results.isNotEmpty) {
+      //RLog.info(results.first.toString());
+      var isVisible = visibilityConditions?.first.logic == FBConditionLogic.AND ? results.every((e) => e) : results.any((e) => e);
+      if(!isVisible){
+        answers.remove(name);
+      }
+      return isVisible;
+    } else {
+      return true;
+    }
+  }
+
 }
+
 class Images {
   Images({
     this.name,

@@ -7,7 +7,7 @@ import '../dto/field_dto.dart';
 import 'item_label.dart';
 
 
-Widget NumberEditText({
+Widget EditText({
     required Field field,
     required context,
     required GlobalKey<FormBuilderState> formKey,
@@ -15,6 +15,7 @@ Widget NumberEditText({
     double padding = 0,
     Function? onChanged,
   }) {
+  RLog.warning(field.defaultValue);
   return Card(
     elevation: elevation,
     margin: EdgeInsets.all(0),
@@ -30,9 +31,6 @@ Widget NumberEditText({
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.numeric(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.max(field.max??0, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, isAapplyValidation: field.max != null),
-                ValidationWrapper(FormBuilderValidators.min(field.min??0, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, isAapplyValidation: field.min != null),
               ]),
               valueTransformer: null,
               onChanged: (val) {
@@ -47,15 +45,11 @@ Widget NumberEditText({
                     TextFormField(
                       controller:TextEditingController(text: field.defaultValue??''),
                       decoration: InputDecoration(
-                        hint: Text(field.hint??"Write", style: TextStyle(color: Colors.grey),),
+                        hint: Text(field.hint??"Write here", style: TextStyle(color: Colors.grey),),
                         filled: true,
                         fillColor: Theme.of(context).primaryColorLight,
                         border: InputBorder.none,
                       ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      keyboardType: TextInputType.number,
                       onChanged: (val){
                         if(field.readOnly == false){
                           fieldState.didChange(val);

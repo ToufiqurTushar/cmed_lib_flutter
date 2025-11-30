@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
@@ -7,7 +8,7 @@ import '../dto/field_dto.dart';
 import 'item_label.dart';
 
 
-Widget NumberEditText({
+Widget SelectDate({
     required Field field,
     required context,
     required GlobalKey<FormBuilderState> formKey,
@@ -30,9 +31,6 @@ Widget NumberEditText({
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.numeric(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.max(field.max??0, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, isAapplyValidation: field.max != null),
-                ValidationWrapper(FormBuilderValidators.min(field.min??0, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, isAapplyValidation: field.min != null),
               ]),
               valueTransformer: null,
               onChanged: (val) {
@@ -44,23 +42,42 @@ Widget NumberEditText({
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller:TextEditingController(text: field.defaultValue??''),
-                      decoration: InputDecoration(
-                        hint: Text(field.hint??"Write", style: TextStyle(color: Colors.grey),),
-                        filled: true,
-                        fillColor: Theme.of(context).primaryColorLight,
-                        border: InputBorder.none,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      keyboardType: TextInputType.number,
-                      onChanged: (val){
-                        if(field.readOnly == false){
-                          fieldState.didChange(val);
+                    InkWell(
+                      onTap: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: (fieldState.value != null) ? CustomDateUtils.getDateTimeFromEpoch(fieldState.value): DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(DateTime.now().year+100),
+                        );
+                        if (picked != null) {
+                          //final formatted = "${picked.year}-${picked.month}-${picked.day}";
+                          final formatted = picked.millisecondsSinceEpoch;
+                          fieldState.didChange(formatted);
                         }
                       },
+                      child: Container(
+                        height: 48,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                              (fieldState.value != null) ? CustomDateUtils.format(fieldState.value): (field.hint ?? "Select date"),
+                                style: TextStyle(
+                                  color: fieldState.value == null ? Colors.grey : Colors.black,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.calendar_month, color:  Theme.of(context).primaryColor,)
+                          ],
+                        ),
+                      ),
                     ),
                     if(fieldState.errorText != null) Padding(
                       padding: const EdgeInsets.only(left: 2, top: 4),
