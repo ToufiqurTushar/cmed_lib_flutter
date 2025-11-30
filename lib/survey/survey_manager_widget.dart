@@ -180,8 +180,8 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //title
-                      Text(selectedSurvey.name!, style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
-                      const SizedBox(height: 8),
+                      //Text(selectedSurvey.name!, style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+                      //const SizedBox(height: 8),
                       ...selectedSurvey.fields!.asMap().entries.map((entry) {
                         final index = entry.key;
                         final field = entry.value;
