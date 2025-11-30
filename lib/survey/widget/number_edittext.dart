@@ -46,6 +46,7 @@ Widget NumberEditText({
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
+              keyboardType: TextInputType.number,
               onChanged: (val) {
                 if(field.readOnly == false){
                   onChanged?.call(val);
