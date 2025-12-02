@@ -26,7 +26,7 @@ Widget NumberEditText({
             if(field.label != null) ItemLabel(field),
             FormBuilderTextField(
               name: field.name!,
-              initialValue: field.defaultValue,
+              initialValue: field.defaultValue.toString(),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),

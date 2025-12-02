@@ -46,9 +46,9 @@ Widget SelectDate({
                       onTap: () async {
                         final picked = await showDatePicker(
                           context: context,
-                          initialDate: (fieldState.value != null) ? CustomDateUtils.getDateTimeFromEpoch(fieldState.value): DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(DateTime.now().year+100),
+                          initialDate: field.defaultValue!=null? CustomDateUtils.getDateTimeFromEpoch(fieldState.value): DateTime.now(),
+                          firstDate: field.min!=null? CustomDateUtils.getDateTimeFromEpoch(field.min!.toInt()): DateTime(1900),
+                          lastDate: field.max!=null? CustomDateUtils.getDateTimeFromEpoch(field.max!.toInt()): DateTime(DateTime.now().year+100),
                         );
                         if (picked != null) {
                           //final formatted = "${picked.year}-${picked.month}-${picked.day}";
