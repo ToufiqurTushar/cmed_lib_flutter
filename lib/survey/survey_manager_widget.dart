@@ -123,23 +123,20 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IgnorePointer(
-                  ignoring: true,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
-                    child: Card(
-                      elevation: 2,
-                      child: TabBar(
-                        labelColor: Theme.of(context).primaryColor,
-                        unselectedLabelColor: Colors.black,
-                        indicatorColor: Theme.of(context).primaryColor,
-                        indicatorWeight: 3.0,
-                        isScrollable: true,
-                        controller: controller.tabController,
-                        indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                        //labelStyle: GoogleFonts.notoSansBengali(fontWeight: FontWeight.bold, fontSize: 14),
-                        tabs:  controller.tabTextList,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                  child: Card(
+                    elevation: 2,
+                    child: TabBar(
+                      labelColor: Theme.of(context).primaryColor,
+                      unselectedLabelColor: Colors.black,
+                      indicatorColor: Theme.of(context).primaryColor,
+                      indicatorWeight: 3.0,
+                      isScrollable: true,
+                      controller: controller.tabController,
+                      indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                      //labelStyle: GoogleFonts.notoSansBengali(fontWeight: FontWeight.bold, fontSize: 14),
+                      tabs:  controller.tabTextList,
                     ),
                   ),
                 ),
@@ -261,14 +258,20 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                final parsed = int.tryParse(val);
-                if (parsed == null) {
-                  //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
-                } else {
-                  //controller.formKey.currentState!.fields[field.name]!.validate();
-                  onSelectAnswer?.call(val);
-                  onChanged?.call(field.name!, val);
+                num value = 0;
+                final parsedInt = int.tryParse(val);
+                final parsedDouble = double.tryParse(val);
+                if(parsedInt != null  && parsedDouble != null){
+                  if(parsedDouble > parsedInt) {
+                    value = parsedDouble;
+                  } else {
+                    value = parsedInt;
+                  }
+                  onSelectAnswer?.call(value);
+                  onChanged?.call(field.name!, value);
                 }
+                //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
+                //controller.formKey.currentState!.fields[field.name]!.validate();
               }
           ),
           const SizedBox(height: 8,)
