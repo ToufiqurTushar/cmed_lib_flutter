@@ -52,7 +52,7 @@ Widget SelectDate({
                         );
                         if (pickedDate != null) {
                           //final formatted = "${picked.year}-${picked.month}-${picked.day}";
-                          fieldState.didChange(pickedDate);
+                          fieldState.didChange(pickedDate.millisecondsSinceEpoch);
                         }
                       },
                       child: Container(
