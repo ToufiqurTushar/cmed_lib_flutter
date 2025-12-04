@@ -325,8 +325,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               formKey: formKey,
               padding: 12,
               elevation: 2,
-              onChanged: (val) {
-                final pickedDate = DateTime.fromMicrosecondsSinceEpoch(val);
+              onChanged: (pickedDate) {
                 var formattedDate = DateTime.now().millisecondsSinceEpoch;
                 if(field.dateStart) {
                   final combinedDateTime = DateTime(

@@ -52,8 +52,7 @@ Widget SelectDate({
                         );
                         if (pickedDate != null) {
                           //final formatted = "${picked.year}-${picked.month}-${picked.day}";
-                          final formatted = pickedDate.millisecondsSinceEpoch;
-                          fieldState.didChange(formatted);
+                          fieldState.didChange(pickedDate);
                         }
                       },
                       child: Container(
