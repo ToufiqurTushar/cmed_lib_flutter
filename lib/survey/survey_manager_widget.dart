@@ -355,7 +355,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     pickedDate.year,
                     pickedDate.month,
                     pickedDate.day,
-                    11,
+                    23,
                     59,
                     59,
                   );
