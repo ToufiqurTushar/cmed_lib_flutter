@@ -231,7 +231,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   }
 
 
-  Widget _buildField(Field field, context, formKey, {Function(String fieldName, dynamic val)? onChanged}) {
+  Widget _buildFieldWidget(Field field, context, formKey, {Function(String fieldName, dynamic val)? onChanged}) {
     if(field.switchButton) {
       return Column(
         children: [
@@ -260,20 +260,11 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                num value = 0;
                 final parsedInt = int.tryParse(val);
-                final parsedDouble = double.tryParse(val);
-                if(parsedInt != null  && parsedDouble != null){
-                  if(parsedDouble > parsedInt) {
-                    value = parsedDouble;
-                  } else {
-                    value = parsedInt;
-                  }
-                  onSelectAnswer?.call(value);
-                  onChanged?.call(field.name!, value);
+                if(parsedInt != null){
+                  onSelectAnswer?.call(parsedInt);
+                  onChanged?.call(field.name!, parsedInt);
                 }
-                //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
-                //controller.formKey.currentState!.fields[field.name]!.validate();
               }
           ),
           const SizedBox(height: 8,)
@@ -421,7 +412,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     return Text("Unknown Input Type: ${field.inputType}");
   }
 
-  Widget _buildTabHeader(List<TabPage> visibleTabs) {
+  Widget _buildCurrentTabHeader(List<TabPage> visibleTabs) {
     return Obx(() {
       return Row(
         children: List.generate(visibleTabs.length, (i) {
@@ -450,12 +441,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       TAB CONTENT
   -----------------------------------------------------------*/
   List<Widget> _buildTabContents(List<TabPage> visibleTabs, context, formKey) {
-
-
       return visibleTabs.asMap().entries.map((entry) {
         final index = entry.key;
         final value = entry.value;
-        //final tabIndex = controller.currentTab.value;
         final currentTab = visibleTabs[index];
         Widget tabContent = ListView(
           children: (currentTab.questions??[]).map((field) {
@@ -483,14 +471,13 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
 
   }
 
-  Widget _buildTabContent(List<TabPage> visibleTabs, context, formKey) {
+  Widget _buildCurrentTabContents(List<TabPage> visibleTabs, context, formKey) {
     return Obx(() {
       final tabIndex = controller.currentTab.value;
       final currentTab = visibleTabs[tabIndex];
       return ListView(
         children: (currentTab.questions??[]).map((field) {
           bool visible = field.visibleWhen(controller.formKey, controller.answers);
-
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 250),
             transitionBuilder: (child, anim) {
@@ -512,24 +499,6 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     });
   }
 
-  // Widget _buildTabContent(List<TabPage> visibleTabs, context, formKey) {
-  //   return Obx(() {
-  //     final tabIndex = controller.currentTab.value;
-  //     final currentTab = visibleTabs[tabIndex];
-  //
-  //     return AnimatedSwitcher(
-  //       duration: Duration(milliseconds: 250),
-  //       child: ListView(
-  //         key: ValueKey(currentTab.id),
-  //         padding: EdgeInsets.all(16),
-  //         children: (currentTab.questions??[])
-  //             .map((field) => _buildReactiveField(field, context, formKey))
-  //             .toList(),
-  //       ),
-  //     );
-  //   });
-  // }
-
   /* ----------------------------------------------------------
       QUESTION FIELD (Obx)
   -----------------------------------------------------------*/
@@ -541,7 +510,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       //formKey.currentState?.patchValue(controller.answers);
       //RLog.warning(value);
       // formKey.currentState?.fields[field.name]?.didChange(value);
-      return _buildField(field, context, formKey, onChanged: (name, val) {
+      return _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
         controller.answers[field.name!] = val;
         controller.answers.refresh();
       });
