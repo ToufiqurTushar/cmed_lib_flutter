@@ -8,7 +8,7 @@ import '../dto/field_dto.dart';
 import 'item_label.dart';
 
 
-Widget SelectDate({
+Widget SelectDateTime({
     required Field field,
     required context,
     required GlobalKey<FormBuilderState> formKey,
@@ -52,14 +52,19 @@ Widget SelectDate({
                         );
                         if (pickedDate != null) {
                           //final formatted = "${picked.year}-${picked.month}-${picked.day}";
+                          TimeOfDay? pickedTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if (pickedTime == null) return;
                           final combinedDateTime = DateTime(
                             pickedDate.year,
                             pickedDate.month,
                             pickedDate.day,
-                            DateTime.now().hour,
-                            DateTime.now().minute,
-                            DateTime.now().second,
+                            pickedTime.hour,
+                            pickedTime.minute,
                           );
+
                           final formatted = combinedDateTime.millisecondsSinceEpoch;
                           fieldState.didChange(formatted);
                         }

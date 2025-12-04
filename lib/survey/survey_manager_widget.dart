@@ -1,10 +1,12 @@
 import 'package:cmed_lib_flutter/survey/survey_manager_logic.dart';
 import 'package:cmed_lib_flutter/survey/widget/app_dialog.dart';
+import 'package:cmed_lib_flutter/survey/widget/decimal_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_group.dart';
 import 'package:cmed_lib_flutter/survey/widget/number_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/radio_groups.dart';
 import 'package:cmed_lib_flutter/survey/widget/select_date.dart';
+import 'package:cmed_lib_flutter/survey/widget/select_date_time.dart';
 import 'package:cmed_lib_flutter/survey/widget/switch_buttons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
@@ -326,6 +328,54 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               onChanged: (val){
                 onSelectAnswer?.call(val);
                 onChanged?.call(field.name!, val);
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    else if(field.dateTime) {
+      return Column(
+        children: [
+          SelectDateTime(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                onSelectAnswer?.call(val);
+                onChanged?.call(field.name!, val);
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    else if(field.decimal) {
+      return Column(
+        children: [
+          DecimalEditText(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                num value = 0;
+                final parsedInt = int.tryParse(val);
+                final parsedDouble = double.tryParse(val);
+                if(parsedInt != null  && parsedDouble != null){
+                  if(parsedDouble > parsedInt) {
+                    value = parsedDouble;
+                  } else {
+                    value = parsedInt;
+                  }
+                  onSelectAnswer?.call(value);
+                  onChanged?.call(field.name!, value);
+                }
+                //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
+                //controller.formKey.currentState!.fields[field.name]!.validate();
               }
           ),
           const SizedBox(height: 8,)

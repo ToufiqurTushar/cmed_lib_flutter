@@ -118,6 +118,8 @@ class Field {
   get number => inputType == 'number';
   get text => inputType == 'text';
   get date => inputType == 'date';
+  get dateTime => inputType == 'dateTime';
+  get decimal => inputType == 'decimal';
 
   bool visibleWhen(GlobalKey<FormBuilderState> formKey, Map<String, dynamic> answers) {
     final results = <bool>[];
