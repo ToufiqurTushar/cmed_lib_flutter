@@ -359,8 +359,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     59,
                   );
                   formattedDate = combinedDateTime.millisecondsSinceEpoch;
-                }
 
+                }
+                RLog.error(field.inputType);
                 onSelectAnswer?.call(formattedDate);
                 onChanged?.call(field.name!, formattedDate);
               }
