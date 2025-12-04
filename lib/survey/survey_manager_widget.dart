@@ -316,7 +316,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         ],
       );
     }
-    else if(field.date) {
+    else if(field.date || field.dateStart || field.dateEnd) {
       return Column(
         children: [
           SelectDate(
@@ -325,9 +325,45 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               formKey: formKey,
               padding: 12,
               elevation: 2,
-              onChanged: (val){
-                onSelectAnswer?.call(val);
-                onChanged?.call(field.name!, val);
+              onChanged: (val) {
+                final pickedDate = DateTime.fromMicrosecondsSinceEpoch(val);
+                var formattedDate = DateTime.now().millisecondsSinceEpoch;
+                if(field.dateStart) {
+                  final combinedDateTime = DateTime(
+                    pickedDate.year,
+                    pickedDate.month,
+                    pickedDate.day,
+                    0,
+                    0,
+                    0,
+                  );
+                  formattedDate = combinedDateTime.millisecondsSinceEpoch;
+                }
+                else if(field.date) {
+                  final combinedDateTime = DateTime(
+                    pickedDate.year,
+                    pickedDate.month,
+                    pickedDate.day,
+                    DateTime.now().hour,
+                    DateTime.now().minute,
+                    DateTime.now().second,
+                  );
+                  formattedDate = combinedDateTime.millisecondsSinceEpoch;
+                }
+                else if(field.dateEnd) {
+                  final combinedDateTime = DateTime(
+                    pickedDate.year,
+                    pickedDate.month,
+                    pickedDate.day,
+                    11,
+                    59,
+                    59,
+                  );
+                  formattedDate = combinedDateTime.millisecondsSinceEpoch;
+                }
+
+                onSelectAnswer?.call(formattedDate);
+                onChanged?.call(field.name!, formattedDate);
               }
           ),
           const SizedBox(height: 8,)
@@ -338,15 +374,15 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       return Column(
         children: [
           SelectDateTime(
-              field: field,
-              context: context,
-              formKey: formKey,
-              padding: 12,
-              elevation: 2,
-              onChanged: (val){
-                onSelectAnswer?.call(val);
-                onChanged?.call(field.name!, val);
-              }
+            field: field,
+            context: context,
+            formKey: formKey,
+            padding: 12,
+            elevation: 2,
+            onChanged: (val){
+              onSelectAnswer?.call(val);
+              onChanged?.call(field.name!, val);
+            }
           ),
           const SizedBox(height: 8,)
         ],

@@ -117,7 +117,9 @@ class Field {
   get radio => inputType == 'radio';
   get number => inputType == 'number';
   get text => inputType == 'text';
-  get date => inputType == 'date';
+  get date => inputType == 'date';//exact date
+  get dateStart => inputType == 'dateStart';
+  get dateEnd => inputType == 'dateEnd';
   get dateTime => inputType == 'dateTime';
   get decimal => inputType == 'decimal';
 

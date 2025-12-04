@@ -52,15 +52,7 @@ Widget SelectDate({
                         );
                         if (pickedDate != null) {
                           //final formatted = "${picked.year}-${picked.month}-${picked.day}";
-                          final combinedDateTime = DateTime(
-                            pickedDate.year,
-                            pickedDate.month,
-                            pickedDate.day,
-                            DateTime.now().hour,
-                            DateTime.now().minute,
-                            DateTime.now().second,
-                          );
-                          final formatted = combinedDateTime.millisecondsSinceEpoch;
+                          final formatted = pickedDate.millisecondsSinceEpoch;
                           fieldState.didChange(formatted);
                         }
                       },
