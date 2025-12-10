@@ -1,0 +1,23 @@
+import 'package:flutter_rapid/flutter_rapid.dart';
+import 'package:cmed_lib_flutter/common/api/app_http.dart';
+
+import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
+
+
+abstract class BaseLogic extends RapidStartLogic {
+  final httpProvider = Get.find<HttpProvider>();
+  var isLoading = false.obs;
+  var isSuccess = false.obs;
+  var customer = CustomerDTO().obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    if(globalState.currentUser.value is CustomerDTO) {
+      customer.value = globalState.currentUser.value as CustomerDTO;
+    } else {
+
+    }
+  }
+}

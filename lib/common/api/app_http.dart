@@ -9,6 +9,20 @@ import 'package:flutter_rapid/logic/rapid_global_state_logic.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cmed_lib_flutter/common/helper/app_info.dart';
 
+enum AppUidEnum{
+  CoreAgent,
+  CoreUser,
+  i4WeAgent,
+  i4WeMember,
+}
+enum EnvTypeEnum{
+  CORE_DEV,
+  CORE_STAGE,
+  CORE_PROD,
+  I4WE_DEV,
+  I4WE_STAGE,
+  I4WE_PROD,
+}
 class BaseUrl {
   static String baseDevURL = "https://core-dev.cmedhealth.com/";
   static String baseStageURL = "https://core-stage.cmedhealth.com/";
@@ -19,20 +33,48 @@ class BaseUrl {
   static String baseSwastiProdURL = "https://i4we-prod.cmedhealth.com/";
 }
 
-class Http {
+class HttpProvider {
+  final AppUidEnum appUid;
   final RapidEnvConfig appEnvConfig = Get.find();
   final RapidPreferenceStore preferenceStore = Get.find();
   final RapidGlobalStateLogic globalState = Get.find();
+  final accesTokenKey = "access_token";
   late final dio.Dio dioClient;
   dio.CancelToken requestToken = dio.CancelToken();
 
-  Http() {
-    preferenceStore.save('accessToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJjaGVfdGVzdGk0d2UxIiwibGFzdF9uYW1lIjpudWxsLCJhdXRob3JpdGllcyI6WyJBQ0NFU1NfVVNFUl9SRVNPVVJDRVMiLCJBQ0NFU1NfQUdFTlRfQVBQIiwiQUNDRVNTX0NIRSIsIk1FQVNVUkVfVVNFUl9WSVRBTFMiXSwiY2xpZW50X2lkIjoiY2xpZW50X2lkIiwiYXVkIjpbIm9hdXRoMi1yZXNvdXJjZSJdLCJwaG9uZSI6IjkxMjM0NTY3ODgiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdLCJpZCI6NDMwMTAwMCwiZXhwIjoxNzY2NzgxNTUxLCJmaXJzdF9uYW1lIjoiVGVzdCBpNFdlIENIRSIsImp0aSI6IjFkYWRlYmY0LWIxYzEtNDgxZi05NTE3LTZiZjk4M2Y3NDdjYyIsImVtYWlsIjoicmFzZWxAY21lZGhlYWx0aC5jb20iLCJ1c2VybmFtZSI6ImNoZV90ZXN0aTR3ZTEifQ.ynqSGSZxw_gj4hbZEnohL9ap244aRBIadFGA7Cz1t_Y');
+  //cmed app
+  static const CORE_USER_ANDROID_VERSION_KEY= 'x-supported-min-android-cmed-user-app-version';
+  static const CORE_USER_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=com.cmedhealth.android';
+
+  static const CORE_USER_IOS_VERSION_KEY = 'x-supported-min-ios-cmed-user-app-version';
+  static const CORE_USER_IOS_STORE_URL = 'https://apps.apple.com/us/app/cmed-health/id1505328545';
+
+  static const CORE_AGENT_ANDROID_VERSION_KEY= 'x-supported-min-android-cmed-agent-app-version:';
+  static const CORE_AGENT_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=bd.com.cmed.agent';
+
+  static const CORE_AGENT_IOS_VERSION_KEY = 'x-supported-min-ios-cmed-agent-app-version';
+  static const CORE_AGENT_IOS_STORE_URL = '';
+
+
+  //i4we app
+  static const I4WE_USER_ANDROID_VERSION_KEY= 'x-supported-min-android-i4we-member-app-version';
+  static const I4WE_USER_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=com.cmedhealth.app.i4wemember';
+
+  static const I4WE_USER_IOS_VERSION_KEY = 'x-supported-min-ios-i4we-member-app-version';
+  static const I4WE_USER_IOS_STORE_URL = '';
+
+  static const I4WE_AGENT_ANDROID_VERSION_KEY= 'x-supported-min-android-i4we-agent-app-version';
+  static const I4WE_AGENT_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=bd.com.cmed.i4weagent';
+
+  static const I4WE_AGENT_IOS_VERSION_KEY = 'x-supported-min-ios-i4we-agent-app-version';
+  static const I4WE_AGENT_IOS_STORE_URL = '';
+
+  HttpProvider({required this.appUid}) {
     print('${appEnvConfig.baseUrl} is set as baseurl');
     RLog.info(
       '╔══════════════════════════ Server ══════════════════════════\n'
       'BASE_URL ║ ${appEnvConfig.baseUrl}\n'
-      'TOKEN ║ ${preferenceStore.read('accessToken')}'
+      'TOKEN ║ ${preferenceStore.read(accesTokenKey)}'
       '\n╚══════════════════════════ Server ══════════════════════════',
     );
     dioClient = dio.Dio(
@@ -58,7 +100,7 @@ class Http {
   }) async {
     // Add token only if `requiredBearerToken` is true
     if (requiredBearerToken) {
-      dioClient.options.headers["Authorization"] = "Bearer ${token ?? preferenceStore.read('accessToken')}";
+      dioClient.options.headers["Authorization"] = "Bearer ${token ?? preferenceStore.read(accesTokenKey)}";
     } else {
       dioClient.options.headers.remove("Authorization");
     }
@@ -66,7 +108,7 @@ class Http {
     try {
       final response = await dioClient.get(path, queryParameters: data);
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
       return Response(body: response.data, statusCode: response.statusCode);
     } on dio.DioException catch (e) {
@@ -83,7 +125,7 @@ class Http {
     bool checkForceUpdate = false,
   }) async {
     dioClient.options.headers["Authorization"] = requiredBearerToken
-        ? "Bearer ${token ?? preferenceStore.read('accessToken')}"
+        ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
         : null;
     try {
       print("Sending POST request to $path with data: $data");
@@ -91,7 +133,7 @@ class Http {
       print("Response received: ${response.statusCode}");
 
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
       if (response.statusCode == 200) {
         return Response(body: response.data, statusCode: 200);
@@ -112,7 +154,7 @@ class Http {
     bool checkForceUpdate = false,
   }) async {
     dioClient.options.headers["Authorization"] = requiredBearerToken
-        ? "Bearer ${token ?? preferenceStore.read('accessToken')}"
+        ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
         : null;
 
     try {
@@ -135,7 +177,7 @@ class Http {
 
       print("Response received: ${response.statusCode}");
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
       if (response.statusCode == 200) {
         return Response(body: response.data, statusCode: 200);
@@ -157,7 +199,7 @@ class Http {
     // required String namespace,
   }) async {
     dioClient.options.headers["Authorization"] = requiredBearerToken
-        ? "Bearer ${token ?? preferenceStore.read('accessToken')}"
+        ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
         : null;
 
     try {
@@ -180,7 +222,7 @@ class Http {
       var response = await dioClient.post(url, data: formData);
 
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
 
       return Response(body: response.data, statusCode: response.statusCode);
@@ -198,12 +240,12 @@ class Http {
     bool checkForceUpdate = false,
   }) async {
     dioClient.options.headers["Authorization"] = requiredBearerToken
-        ? "Bearer ${token ?? preferenceStore.read('accessToken')}"
+        ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
         : null;
     try {
       var response = await dioClient.patch(path, data: data);
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
       if (response.statusCode == 200) {
         return Response(body: response.data, statusCode: 200);
@@ -224,12 +266,12 @@ class Http {
     bool checkForceUpdate = false,
   }) async {
     dioClient.options.headers["Authorization"] = requiredBearerToken
-        ? "Bearer ${token ?? preferenceStore.read('accessToken')}"
+        ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
         : null;
     try {
       var response = await dioClient.delete(path, data: data);
       if (checkForceUpdate) {
-
+        checkForceUpdateFromResponse(response);
       }
       if (response.statusCode == 200) {
         return Response(body: response.data, statusCode: 200);
@@ -239,6 +281,165 @@ class Http {
     } on dio.DioException catch (e) {
       final errorMsg = handleDioError(e);
       return Response(body: errorMsg, statusCode: e.response?.statusCode);
+    }
+  }
+
+  void checkForceUpdateFromResponse(dio.Response response) {
+    String versionKey = AppVersionKey();
+    if ((response.headers.map.containsKey(versionKey))) {
+      int serverAppVersionCode = int.parse(response.headers.map[versionKey]![0]);
+      AppInfo.getVersionNumber().then((value) {
+        int deviceAppVersionCode = int.parse(value.replaceAll(".", ""));
+        RLog.info('deviceVersion:$deviceAppVersionCode-serverVersion:$serverAppVersionCode');
+        if (deviceAppVersionCode < serverAppVersionCode) {
+          showVersionUpdateDialog(serverAppVersionCode, deviceAppVersionCode);
+        }
+      });
+    }
+  }
+
+  Future<Response<ContentResponseDto?>> receiveLabReportFile(
+    String path, {
+    bool requiredBearerToken = true,
+    String? token,
+  }) async {
+    try {
+      dioClient.options.headers["Authorization"] = requiredBearerToken
+          ? "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
+          : null;
+      final response = await dioClient.get(path);
+      if (response.statusCode == 200) {
+        final decodedData = ContentResponseDto.fromJson(response.data);
+        return Response<ContentResponseDto?>(body: decodedData, statusCode: response.statusCode);
+      } else {
+        return Response<ContentResponseDto?>(
+          body: null,
+          statusCode: response.statusCode,
+          //errorMessage: response.data.toString(),
+        );
+      }
+    } on dio.DioException catch (e) {
+      final errorMsg = handleDioError(e);
+      return Response<ContentResponseDto?>(
+        body: null,
+        statusCode: e.response?.statusCode ?? 500,
+        // errorMessage: errorMsg,
+      );
+    } catch (e, stackTrace) {
+      RLog.error('Error: $e\nStack Trace: $stackTrace\nPath: $path');
+      return const Response<ContentResponseDto?>(
+        body: null,
+        statusCode: 500,
+        // errorMessage: 'An unexpected error occurred.',
+      );
+    }
+  }
+
+  String AppVersionKey() {
+    if(appUid == AppUidEnum.CoreUser) {
+      if (Platform.isIOS) {
+        return CORE_USER_IOS_VERSION_KEY;
+      }
+      return CORE_USER_ANDROID_VERSION_KEY;
+    }
+    else if(appUid == AppUidEnum.CoreAgent) {
+      if (Platform.isIOS) {
+        return CORE_AGENT_IOS_VERSION_KEY;
+      }
+      return CORE_AGENT_ANDROID_VERSION_KEY;
+    }
+    else if(appUid == AppUidEnum.i4WeMember) {
+      if (Platform.isIOS) {
+        return I4WE_USER_IOS_VERSION_KEY;
+      }
+      return I4WE_USER_ANDROID_VERSION_KEY;
+    }
+    else if(appUid == AppUidEnum.i4WeAgent) {
+      if (Platform.isIOS) {
+        return I4WE_AGENT_IOS_VERSION_KEY;
+      }
+      return I4WE_AGENT_ANDROID_VERSION_KEY;
+    }
+    return "";
+  }
+
+  String AppStoreUrl() {
+    if(appUid == AppUidEnum.CoreUser) {
+      if (Platform.isIOS) {
+        return CORE_USER_IOS_STORE_URL;
+      }
+      return CORE_USER_ANDROID_STORE_URL;
+    }
+    else if(appUid == AppUidEnum.CoreAgent) {
+      if (Platform.isIOS) {
+        return CORE_AGENT_IOS_STORE_URL;
+      }
+      return CORE_AGENT_ANDROID_STORE_URL;
+    }
+    else if(appUid == AppUidEnum.i4WeMember) {
+      if (Platform.isIOS) {
+        return I4WE_USER_IOS_STORE_URL;
+      }
+      return I4WE_USER_ANDROID_STORE_URL;
+    }
+    else if(appUid == AppUidEnum.i4WeAgent) {
+      if (Platform.isIOS) {
+        return I4WE_AGENT_IOS_STORE_URL;
+      }
+      return I4WE_AGENT_ANDROID_STORE_URL;
+    }
+    return "";
+  }
+
+  void showVersionUpdateDialog(int updatedAppVersionCode, int currentAppVersionCode) {
+    RLog.error("currentAppVersionCode:$currentAppVersionCode, updatedAppVersionCode:$updatedAppVersionCode");
+    if (currentAppVersionCode < updatedAppVersionCode && Platform.isAndroid) {
+      Get.defaultDialog(
+        title: Platform.isIOS ? 'message_new_apple_app'.tr : 'message_new_android_app'.tr,
+        barrierDismissible: false,
+        radius: 0,
+        titlePadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+        //titleStyle: CMEDTextUtils.alertTitleTextStyle,
+        content: WillPopScope(
+          onWillPop: () async => false, // Disables back button
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 10),
+                  Container(
+                    width: double.infinity,
+                    child: FrElevatedButton(
+                      name:'label_update'.tr,
+                      onPressed: () async{
+                        await launchUrl(Uri.parse(AppStoreUrl()));
+                      },
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(Get.context!).primaryColor,
+                        foregroundColor: Colors.white,
+                        elevation: 10,
+                        padding: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8), // Rounded corners
+                        ),
+                        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 }
@@ -275,6 +476,7 @@ class NetworkAndLoggingInterceptor extends dio.Interceptor {
     //   handler.next(requestOptions);
     // }
   }
+
 
   @override
   void onRequest(dio.RequestOptions requestOptions, dio.RequestInterceptorHandler handler) {
@@ -334,3 +536,21 @@ String handleDioError(dio.DioException error) {
   }
   return error.response?.toString() ?? '';
 }
+
+
+class ContentResponseDto {
+  String? content;
+
+  ContentResponseDto({this.content});
+
+  ContentResponseDto.fromJson(Map<String, dynamic> json) {
+    content = json['content'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['content'] = content;
+    return data;
+  }
+}
+

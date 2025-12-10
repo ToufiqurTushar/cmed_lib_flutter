@@ -1,5 +1,5 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
-import 'package:cmed_lib_flutter_example/app_http.dart';
+import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'test_survey/test_survey_view.dart';
 
@@ -31,7 +31,7 @@ class AppSystemConfig extends RapidSystemConfig {
   Future<void> onAppStartup() async {
     ChuckerFlutter.showNotification = true;
     ChuckerFlutter.isDebugMode = true;
-    Get.put(Http(), permanent: true);
+    Get.put(HttpProvider(appUid: AppUidEnum.i4WeAgent), permanent: true);
   }
 }
 

@@ -28,6 +28,11 @@ class AppInfo {
     }
   }
 
+  static Future<String> getAppId() async {
+    final info = await PackageInfo.fromPlatform();
+    return info.packageName;
+  }
+
   static Future<String> getBuildNumberNumber() async {
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();

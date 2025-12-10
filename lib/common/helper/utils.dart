@@ -170,6 +170,17 @@ class Utils{
     }
   }
 
+  static String getDefaultProfileAsset(int? gender) {
+    if(gender == 1) {
+      return "assets/images/ic_male.svg";
+    } else if(gender == 2) {
+      return "assets/images/ic_female.svg";
+    } else if(gender == 3) {
+      return "assets/images/ic_transgender.svg";
+    }
+    return "assets/images/ic_agent.svg";
+  }
+
 }
 
 extension StringExtension on String {
