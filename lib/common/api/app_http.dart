@@ -16,9 +16,9 @@ enum AppUidEnum{
   i4WeMember,
 }
 enum EnvTypeEnum{
-  CORE_DEV,
-  CORE_STAGE,
-  CORE_PROD,
+  DEV,
+  STAGE,
+  PROD,
   I4WE_DEV,
   I4WE_STAGE,
   I4WE_PROD,
