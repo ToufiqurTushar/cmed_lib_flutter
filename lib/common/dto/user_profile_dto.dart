@@ -103,6 +103,11 @@ class UserProfile {
   double? income;
   AdditionalInformation? additionalInformation;
   String? maritalStatus;
+  int? i4weAgentSubscriptionDate;
+  bool? i4weSocialProtectionStatus;
+  int? i4weAgentSubscriptionExpiryDate;
+  String? onboardedByAgentContactNumber;
+  String? onboardedByAgentName;
 
   UserProfile({
     this.additionalNote,
@@ -204,6 +209,11 @@ class UserProfile {
     this.maritalStatus,
     this.additionalInformation,
     this.vaccinationHistory,
+    this.i4weAgentSubscriptionDate,
+    this.i4weSocialProtectionStatus,
+    this.i4weAgentSubscriptionExpiryDate,
+    this.onboardedByAgentContactNumber,
+    this.onboardedByAgentName,
   });
 
   UserProfile.fromJson(Map<String, dynamic> json) {
@@ -364,6 +374,11 @@ class UserProfile {
         vaccinationHistory!.add(VaccinationHistory.fromJson(v));
       });
     }
+    onboardedByAgentName = json['onboarded_by_agent_name'];
+    onboardedByAgentContactNumber = json['onboarded_by_agent_contact_number'];
+    i4weAgentSubscriptionExpiryDate = json['i4we_agent_subscription_expiry_date'];
+    i4weAgentSubscriptionDate = json['i4we_agent_subscription_date'];
+    i4weSocialProtectionStatus = json['i4we_social_protection_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -510,7 +525,11 @@ class UserProfile {
       data['vaccinationHistory'] = vaccinationHistory!.map((v) => v.toJson()).toList();
     }
     // 'vaccinationHistory': vaccinationHistoryToJson(vaccinationHistory),
-
+    data['onboarded_by_agent_name'] = onboardedByAgentName;
+    data['onboarded_by_agent_contact_number'] = onboardedByAgentContactNumber;
+    data['i4we_agent_subscription_expiry_date'] = i4weAgentSubscriptionExpiryDate;
+    data['i4we_agent_subscription_date'] = i4weAgentSubscriptionDate;
+    data['i4we_social_protection_status'] = i4weSocialProtectionStatus;
     return data;
   }
 
