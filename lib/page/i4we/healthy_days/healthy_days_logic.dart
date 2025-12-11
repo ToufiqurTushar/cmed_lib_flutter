@@ -14,7 +14,7 @@ import 'npage/result/healthy_days_result_view.dart';
 class HealthyDaysLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
-  late HealthyDaysArgument healthyDaysArgument;
+  var  healthyDaysArgument = HealthyDaysArgument();
 
   @override
   void onInit() {
