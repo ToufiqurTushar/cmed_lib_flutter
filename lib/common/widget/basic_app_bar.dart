@@ -10,15 +10,17 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.title, {
         super.key,
         this.trailingWidget,
+        this.onClickAction,
       }
       );
 
   final String title;
   final Widget? trailingWidget;
+  Function? onClickAction;
 
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget,));
+    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction));
   }
 }
