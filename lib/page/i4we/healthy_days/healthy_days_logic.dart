@@ -19,8 +19,10 @@ class HealthyDaysLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
-    healthyDaysArgument = (Get.arguments as HealthyDaysArgument);
-    selectedSurvey.value = healthyDaysArgument.selectedSurvey;
+    if(Get.arguments != null){
+      healthyDaysArgument = (Get.arguments as HealthyDaysArgument);
+      selectedSurvey.value = healthyDaysArgument.selectedSurvey;
+    }
     fetchSurveyData();
   }
 
