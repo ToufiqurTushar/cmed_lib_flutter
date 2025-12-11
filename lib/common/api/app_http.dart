@@ -9,6 +9,8 @@ import 'package:flutter_rapid/logic/rapid_global_state_logic.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cmed_lib_flutter/common/helper/app_info.dart';
 
+import '../common_key.dart';
+
 enum AppUidEnum{
   CoreAgent,
   CoreUser,
@@ -38,7 +40,7 @@ class HttpProvider {
   final RapidEnvConfig appEnvConfig = Get.find();
   final RapidPreferenceStore preferenceStore = Get.find();
   final RapidGlobalStateLogic globalState = Get.find();
-  final accesTokenKey = "access_token";
+  final accesTokenKey = CommonKey.accessToken;
   late final dio.Dio dioClient;
   dio.CancelToken requestToken = dio.CancelToken();
 
