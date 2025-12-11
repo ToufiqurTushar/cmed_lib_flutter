@@ -1,6 +1,9 @@
 import 'dart:collection';
 import 'dart:io';
+import 'package:cmed_lib_flutter/common/common_key.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
+import 'package:get_storage/get_storage.dart';
+
 enum PlatformNameEnum { ANDROID, IOS}
 class Utils{
 
@@ -179,6 +182,10 @@ class Utils{
       return "assets/images/ic_transgender.svg";
     }
     return "assets/images/ic_agent.svg";
+  }
+
+  static bool isLoggedIn() {
+    return GetStorage().read(CommonKey.isLoggedIn)??false;
   }
 
 }
