@@ -209,6 +209,20 @@ class Utils{
   }
 
 }
+extension IterableExtension<T> on Iterable<T> {
+  Iterable<T> distinctBy(Object Function(T e) getCompareValue) {
+    var result = <T>[];
+    for (var element in this) {
+      if (!result.any((x) => getCompareValue(x) == getCompareValue(element))) {
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  Iterable<T> sortedBy(Comparable key(T e)) =>
+      toList()..sort((a, b) => key(a).compareTo(key(b)));
+}
 
 extension StringExtension on String {
   String? nullIfEmpty() => this.isNotEmpty ? this : null;
