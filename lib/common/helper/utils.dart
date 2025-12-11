@@ -8,6 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 enum PlatformNameEnum { ANDROID, IOS}
 class Utils{
 
+  static const String CMED_PHONE_NUMBER = "+8801742925686";
+  static const String CMED_LATITUDE = "23.778878";
+  static const String CMED_LONGITUDE = "90.394345";
+
   static String? getPlatformName() {
     if(Platform.isAndroid) {
       return PlatformNameEnum.ANDROID.name;
