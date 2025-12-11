@@ -188,7 +188,7 @@ class Utils{
     return GetStorage().read(CommonKey.isLoggedIn)??false;
   }
 
-  static void popUntilOrPush({required String routeName, required String HomeRouteName}) {
+  static void popUntilOrPush({required String routeName}) {
     if (Get.currentRoute != routeName) {
       bool found = false;
 
@@ -203,7 +203,7 @@ class Utils{
 
       // If routeName was not found, push it
       if (!found) {
-        Get.offNamedUntil(HomeRouteName, (route) => false);
+        Get.offNamedUntil(routeName, (route) => false);
       }
     }
   }
