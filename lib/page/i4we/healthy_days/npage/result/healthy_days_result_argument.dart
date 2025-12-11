@@ -5,10 +5,10 @@ import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 
 class HealthyDaysResultArgument {
   HealthyDaysResultArgument({
-      required this.isFromHistory,
-      required this.selectedSurveyResult,
+      this.isFromHistory,
+      this.selectedSurveyResult,
        this.selectedSurvey,});
-  bool isFromHistory;
-  SurveyResultItemDto selectedSurveyResult;
+  bool? isFromHistory;
+  SurveyResultItemDto? selectedSurveyResult;
   SurveyDto? selectedSurvey;
 }

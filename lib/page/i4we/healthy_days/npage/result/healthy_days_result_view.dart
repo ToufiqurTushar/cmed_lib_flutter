@@ -71,7 +71,7 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(12.0, 0 ,12, 12),
         child: FrElevatedButton(
-          name:!controller.healthyDaysResultArgument.isFromHistory?'FINISH'.tr: 'End'.tr,
+          name:!controller.isHistoryView.value?'FINISH'.tr: 'End'.tr,
           onPressed: () => {
             Get.back()
           },

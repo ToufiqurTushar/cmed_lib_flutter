@@ -11,14 +11,17 @@ import 'healthy_days_result_argument.dart';
 class HealthyDaysResultLogic extends BaseLogic {
   final isHistoryView = false.obs;
   final selectedSurveyResult = SurveyResultItemDto().obs;
-  late HealthyDaysResultArgument healthyDaysResultArgument;
+  var healthyDaysResultArgument = HealthyDaysResultArgument();
 
   @override
   void onInit() {
     super.onInit();
-    healthyDaysResultArgument = (Get.arguments as HealthyDaysResultArgument);
-    isHistoryView.value = healthyDaysResultArgument.isFromHistory;
-    selectedSurveyResult.value = healthyDaysResultArgument.selectedSurveyResult;
+    if(Get.arguments != null){
+          healthyDaysResultArgument = Get.arguments as HealthyDaysResultArgument;
+          isHistoryView.value = healthyDaysResultArgument.isFromHistory??false;
+          selectedSurveyResult.value = healthyDaysResultArgument.selectedSurveyResult??SurveyResultItemDto();
+    }
+
   }
 
 
