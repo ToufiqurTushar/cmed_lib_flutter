@@ -2,6 +2,8 @@ import 'package:age_calculator/age_calculator.dart';
 import 'package:cmed_lib_flutter/common/dto/additional_information.dart';
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 
+import 'customer_dto.dart';
+
 class UserProfile {
   String? additionalNote;
   String? birthCertificateNumber;
@@ -585,6 +587,34 @@ class UserProfile {
         : gender == 2
             ? 'Female'
             : 'Others';
+  }
+
+  CustomerDTO toCustomer() {
+    return CustomerDTO(
+      userId: userId,
+      firstName: firstName,
+      firstNameBn: firstNameBn,
+      lastName: lastName,
+      lastNameBn: lastNameBn,
+      gender: gender,
+      imageUrl: photo,
+      bloodGroup: bloodGroup,
+      birthDate: birthday,
+      hasAsthma: hasAsthma,
+      hasKidneyDisease: hasKidneyDisease,
+      hasCancer: hasCancer,
+      contactNumber: phone,
+      isPoor: isPoor,
+      isGovtOfficial: isGovtOfficial,
+      religion: religion,
+      occupation: occupation,
+      education: education,
+      maritalStatus: maritalStatus,
+      income: income,
+      religionBranch: religionBranch,
+      additionalInformation: additionalInformation,
+      email: email,
+    );
   }
 }
 

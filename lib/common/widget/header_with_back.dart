@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
+import 'package:cmed_lib_flutter/common/dto/user_profile_dto.dart';
 import 'package:cmed_lib_flutter/common/widget/marquee_widget.dart';
 import 'package:cmed_lib_flutter/page/image/full_image_arg.dart';
 import 'package:cmed_lib_flutter/page/image/full_image_view.dart';
@@ -32,6 +33,13 @@ class HeaderWithBack extends StatelessWidget {
         phone = customer.getPhoneNumber();
         fullName = customer.getFullName();
         gender = customer.gender;
+      } else if(globalState.currentUser.value is UserProfile) {
+        final customer = (globalState.currentUser.value as UserProfile).toCustomer();
+        phone = customer.getPhoneNumber();
+        fullName = customer.getFullName();
+        gender = customer.gender;
+      } else {
+        RLog.error(globalState.currentUser.value.runtimeType);
       }
 
       return Card(
