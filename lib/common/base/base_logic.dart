@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/dto/user_profile_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/api/app_http.dart';
 
@@ -16,8 +17,8 @@ abstract class BaseLogic extends RapidStartLogic {
 
     if(globalState.currentUser.value is CustomerDTO) {
       customer.value = globalState.currentUser.value as CustomerDTO;
-    } else {
-
+    } else if(globalState.currentUser.value is UserProfile) {
+      customer.value = (globalState.currentUser.value as UserProfile).toCustomer();
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cmed_lib_flutter/common/common_key.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -56,7 +57,7 @@ class AppInfo {
   static Future<String> getUniqueDeviceId() async {
     //if found on pref
     RapidPreferenceStore preferenceStore = Get.find();
-    String? uniqueDeviceId = preferenceStore.read('device_uuid');
+    String? uniqueDeviceId = preferenceStore.read(CommonKey.deviceUuid);
     if (uniqueDeviceId != null) {
       return uniqueDeviceId;
     }
@@ -70,7 +71,7 @@ class AppInfo {
       var androidDeviceInfo = await deviceInfo.androidInfo;
       uniqueDeviceId = '${androidDeviceInfo.model}:${androidDeviceInfo.id}' ; // unique IDon Android
     }
-    preferenceStore.save('device_uuid', uniqueDeviceId);
+    preferenceStore.save(CommonKey.deviceUuid, uniqueDeviceId);
     return uniqueDeviceId!;
   }
 }

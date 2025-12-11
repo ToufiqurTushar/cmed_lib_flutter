@@ -18,10 +18,11 @@ class HeaderWithBack extends StatelessWidget {
   int? gender;
   final Color? color;
   final bool? hasProfile;
+  final bool? showTitleBar;
   final Widget? trailingWidget;
   Function? onClickAction;
 
-  HeaderWithBack(this.title,  {this.phone,this.profileUrl, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget});
+  HeaderWithBack(this.title,  {this.phone,this.profileUrl,this.showTitleBar, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget});
 
 
   @override
@@ -52,32 +53,35 @@ class HeaderWithBack extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    if(onClickAction == null) {
-                      Get.back();
-                    } else {
-                      onClickAction!();
-                    }
-                  },
-                ),
-                MarqueeWidget(
-                  child: Text(
-                    title!,
-                    style: TextStyle(
-                      fontSize: 16.0,
+            Visibility(
+              visible: showTitleBar??true,
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
                       color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
+                    ),
+                    onPressed: () {
+                      if(onClickAction == null) {
+                        Get.back();
+                      } else {
+                        onClickAction!();
+                      }
+                    },
+                  ),
+                  MarqueeWidget(
+                    child: Text(
+                      title!,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
 
             Visibility(
