@@ -188,6 +188,26 @@ class Utils{
     return GetStorage().read(CommonKey.isLoggedIn)??false;
   }
 
+  static void popUntilOrPush({required String routeName, required String HomeRouteName}) {
+    if (Get.currentRoute != routeName) {
+      bool found = false;
+
+      // Check if routeName exists in the current navigation stack
+      Get.until((route) {
+        if (route.settings.name == routeName) {
+          found = true;
+          return true; // stop popping when found
+        }
+        return false; //popping continue
+      });
+
+      // If routeName was not found, push it
+      if (!found) {
+        Get.offNamedUntil(HomeRouteName, (route) => false);
+      }
+    }
+  }
+
 }
 
 extension StringExtension on String {
