@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cmed_lib_flutter/common/common_key.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum PlatformNameEnum { ANDROID, IOS}
 class Utils{
@@ -207,6 +208,13 @@ class Utils{
       }
     }
   }
+  static  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launch(launchUri.toString());
+  }
 
 }
 extension IterableExtension<T> on Iterable<T> {
@@ -271,6 +279,7 @@ extension StringExtension on String {
       return Color(int.parse("0x$hexColor"));
     }
   }
+
 
 }
 
