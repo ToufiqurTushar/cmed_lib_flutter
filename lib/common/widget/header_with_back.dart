@@ -27,7 +27,6 @@ class HeaderWithBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
       final globalState = Get.find<RapidGlobalStateLogic>();
       if(globalState.currentUser.value is CustomerDTO) {
         final customer = globalState.currentUser.value as CustomerDTO;
