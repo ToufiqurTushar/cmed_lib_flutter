@@ -21,4 +21,16 @@ abstract class BaseLogic extends RapidStartLogic {
       customer.value = (globalState.currentUser.value as UserProfile).toCustomer();
     }
   }
+
+  showLoader(){
+    isLoading.value = true;
+    Future.delayed(Duration.zero, () async {
+      globalState.showBusy();
+    });
+  }
+
+  hideLoader(){
+    isLoading.value = false;
+    globalState.hideBusy();
+  }
 }
