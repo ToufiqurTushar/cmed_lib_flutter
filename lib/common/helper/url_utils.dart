@@ -40,4 +40,13 @@ class UrlUtils {
     );
     launchUrl(emailLaunchUri);
   }
+
+  static void launchTel(String phone) async {
+    final call = Uri.parse('tel:$phone');
+    if (await canLaunchUrl(call)) {
+      launchUrl(call);
+    } else {
+      throw "Can't open Phone App in your device";
+    }
+  }
 }
