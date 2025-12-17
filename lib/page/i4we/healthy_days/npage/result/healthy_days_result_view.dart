@@ -28,7 +28,7 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/images/healthy_days_result.png', package:'cmed_lib_flutter'),
+                                  Image.asset('assets/images/healthy_days_result.png'),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 4),
                                     child: Container(
