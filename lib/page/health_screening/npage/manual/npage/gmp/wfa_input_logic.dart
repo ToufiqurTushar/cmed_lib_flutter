@@ -217,7 +217,8 @@ class WfaInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReportWfa.value, isAuto: false
+            screeningReport: screeningReportWfa.value,
+            isAuto: false
         )
       ]);
   }

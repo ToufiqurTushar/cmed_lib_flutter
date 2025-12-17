@@ -166,13 +166,11 @@ class BmiHeightWeightInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(measurementsWithResult){
-    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult
         )
       ]);
-    }
   }
 
   @override

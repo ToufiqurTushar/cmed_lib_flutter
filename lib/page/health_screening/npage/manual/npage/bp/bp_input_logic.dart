@@ -164,13 +164,11 @@ class BpInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
-    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
         )
       ]);
-    }
   }
 
   @override

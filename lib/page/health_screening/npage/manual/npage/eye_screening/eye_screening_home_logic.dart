@@ -2,6 +2,7 @@ import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_result_details_argument.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:logger/logger.dart';
 
@@ -61,12 +62,10 @@ class EyeScreeningHomeLogic extends BaseLogic {
         measurement.result = value.result;
         screeningReport.value = value;
 
-        Get.offNamed('/screening_report_eye_details_view', arguments: [
-          {
-            "screeningReport": screeningReport.value,
-            "measurementsWithResult": [measurement]
-          }
-        ]);
+        Get.offNamed('/screening_report_eye_details_view', arguments: ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReport.value,
+            isAuto: false, measurementsWithResult: [measurement]
+        ));
       } else {
 
       }

@@ -79,13 +79,11 @@ class BloodGroupingLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(measurement){
-    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
         )
       ]);
-    }
   }
 
 }
