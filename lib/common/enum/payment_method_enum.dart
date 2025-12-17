@@ -1,0 +1,4 @@
+enum PaymentMethodEnum {
+  bkash,
+  nagad,
+}

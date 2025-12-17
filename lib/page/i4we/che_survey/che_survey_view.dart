@@ -32,7 +32,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
           //     //       padding: EdgeInsets.only(right: 8.0),
           //     //       child: Row(
           //     //         children: [
-          //     //           Icon(Icons.history, color: AppColor.primaryColor, size: 26,),
+          //     //           Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
           //     //           SizedBox(width: 8,),
           //     //           Text('History')
           //     //         ],

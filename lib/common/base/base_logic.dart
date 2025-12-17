@@ -7,6 +7,7 @@ import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 
 abstract class BaseLogic extends RapidStartLogic {
   final httpProvider = Get.find<HttpProvider>();
+  final envConfig = Get.find<RapidEnvConfig>();
   var isLoading = false.obs;
   var isSuccess = false.obs;
   var customer = CustomerDTO().obs;

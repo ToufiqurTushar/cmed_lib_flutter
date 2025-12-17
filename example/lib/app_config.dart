@@ -31,7 +31,7 @@ class AppSystemConfig extends RapidSystemConfig {
   Future<void> onAppStartup() async {
     ChuckerFlutter.showNotification = true;
     ChuckerFlutter.isDebugMode = true;
-    Get.put(HttpProvider(appUid: AppUidEnum.i4WeAgent), permanent: true);
+    Get.put(HttpProvider(), permanent: true);
   }
 }
 

@@ -12,10 +12,10 @@ import 'package:cmed_lib_flutter/common/helper/app_info.dart';
 import '../common_key.dart';
 
 enum AppUidEnum{
-  CoreAgent,
-  CoreUser,
-  i4WeAgent,
-  i4WeMember,
+  CmedAgentApp,
+  CmedUserApp,
+  i4WeAgentApp,
+  i4WeMemberApp,
 }
 enum EnvTypeEnum{
   DEV,
@@ -36,7 +36,6 @@ class BaseUrl {
 }
 
 class HttpProvider {
-  final AppUidEnum appUid;
   final RapidEnvConfig appEnvConfig = Get.find();
   final RapidPreferenceStore preferenceStore = Get.find();
   final RapidGlobalStateLogic globalState = Get.find();
@@ -71,7 +70,7 @@ class HttpProvider {
   static const I4WE_AGENT_IOS_VERSION_KEY = 'x-supported-min-ios-i4we-agent-app-version';
   static const I4WE_AGENT_IOS_STORE_URL = '';
 
-  HttpProvider({required this.appUid}) {
+  HttpProvider() {
     print('${appEnvConfig.baseUrl} is set as baseurl');
     RLog.info(
       '╔══════════════════════════ Server ══════════════════════════\n'
@@ -338,25 +337,25 @@ class HttpProvider {
   }
 
   String AppVersionKey() {
-    if(appUid == AppUidEnum.CoreUser) {
+    if(appEnvConfig.appUid == AppUidEnum.CmedUserApp.name) {
       if (Platform.isIOS) {
         return CORE_USER_IOS_VERSION_KEY;
       }
       return CORE_USER_ANDROID_VERSION_KEY;
     }
-    else if(appUid == AppUidEnum.CoreAgent) {
+    else if(appEnvConfig.appUid == AppUidEnum.CmedAgentApp.name) {
       if (Platform.isIOS) {
         return CORE_AGENT_IOS_VERSION_KEY;
       }
       return CORE_AGENT_ANDROID_VERSION_KEY;
     }
-    else if(appUid == AppUidEnum.i4WeMember) {
+    else if(appEnvConfig.appUid == AppUidEnum.i4WeMemberApp.name) {
       if (Platform.isIOS) {
         return I4WE_USER_IOS_VERSION_KEY;
       }
       return I4WE_USER_ANDROID_VERSION_KEY;
     }
-    else if(appUid == AppUidEnum.i4WeAgent) {
+    else if(appEnvConfig.appUid == AppUidEnum.i4WeAgentApp.name) {
       if (Platform.isIOS) {
         return I4WE_AGENT_IOS_VERSION_KEY;
       }
@@ -366,25 +365,25 @@ class HttpProvider {
   }
 
   String AppStoreUrl() {
-    if(appUid == AppUidEnum.CoreUser) {
+    if(appEnvConfig.appUid == AppUidEnum.CmedUserApp.name) {
       if (Platform.isIOS) {
         return CORE_USER_IOS_STORE_URL;
       }
       return CORE_USER_ANDROID_STORE_URL;
     }
-    else if(appUid == AppUidEnum.CoreAgent) {
+    else if(appEnvConfig.appUid == AppUidEnum.CmedAgentApp.name) {
       if (Platform.isIOS) {
         return CORE_AGENT_IOS_STORE_URL;
       }
       return CORE_AGENT_ANDROID_STORE_URL;
     }
-    else if(appUid == AppUidEnum.i4WeMember) {
+    else if(appEnvConfig.appUid == AppUidEnum.i4WeMemberApp.name) {
       if (Platform.isIOS) {
         return I4WE_USER_IOS_STORE_URL;
       }
       return I4WE_USER_ANDROID_STORE_URL;
     }
-    else if(appUid == AppUidEnum.i4WeAgent) {
+    else if(appEnvConfig.appUid == AppUidEnum.i4WeAgentApp.name) {
       if (Platform.isIOS) {
         return I4WE_AGENT_IOS_STORE_URL;
       }
