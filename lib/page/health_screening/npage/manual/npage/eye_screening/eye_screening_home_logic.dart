@@ -59,15 +59,12 @@ class EyeScreeningHomeLogic extends BaseLogic {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
-        // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-        // if(isValidMeasurementSelectionDetailsLogic) {
-        //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([measurement]);
-        // }
         screeningReport.value = value;
 
         Get.offNamed('/screening_report_eye_details_view', arguments: [
           {
-            "screeningReport": screeningReport.value, "measurementsWithResult": [measurement]
+            "screeningReport": screeningReport.value,
+            "measurementsWithResult": [measurement]
           }
         ]);
       } else {
