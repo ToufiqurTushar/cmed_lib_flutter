@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -202,7 +203,7 @@ class WflInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurementWfl).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurementWfl.result = value.result;
@@ -220,11 +221,13 @@ class WflInputLogic extends BaseLogic {
     getHeightInCentimeter() as double?;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
       isLoading.value = false,
-      Get.offNamed('/screening_report_result_details', arguments: [
-        ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReportWfl.value, isAuto: false
-        )
-      ]),
+      if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+        Get.offNamed('/screening_report_result_details', arguments: [
+          ScreeningReportResultDetailsArgument(
+              screeningReport: screeningReportWfl.value, isAuto: false
+          )
+        ])
+      }
     });
   }
 

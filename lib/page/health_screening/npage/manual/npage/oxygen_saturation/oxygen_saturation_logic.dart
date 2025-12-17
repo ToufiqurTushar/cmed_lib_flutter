@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -86,7 +87,7 @@ class OxygenSaturationLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementResponse) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementResponse) {
       if(pulseMeasurementResponse != null) {
         pulseMeasurement.result = pulseMeasurementResponse.result;
         var oxygenMeasurement = MeasurementDTO(
@@ -101,7 +102,7 @@ class OxygenSaturationLogic extends BaseLogic {
             }
         );
 
-        repository.sendData(ApiUrl.previewMeasurementUrl(), (oxygenMeasurement).toJson()).then((oxygenMeasurementResponse) {
+        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (oxygenMeasurement).toJson()).then((oxygenMeasurementResponse) {
           isLoading.value = false;
           if (oxygenMeasurementResponse != null) {
             oxygenMeasurement.result = oxygenMeasurementResponse.result;
@@ -113,15 +114,22 @@ class OxygenSaturationLogic extends BaseLogic {
             //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([oxygenMeasurement, pulseMeasurement]);
             // }
             screeningReport.value = oxygenMeasurementResponse;
-            Get.offNamed('/screening_report_result_details', arguments: [
-              ScreeningReportResultDetailsArgument(
-                  screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
-              )
-            ]);
+            updateMeasurementAndNavigate(oxygenMeasurement, pulseMeasurement);
           }
         });
       }
     });
+  }
+
+  updateMeasurementAndNavigate(oxygenMeasurement, pulseMeasurement){
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_result_details', arguments: [
+        ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
+        )
+      ]);
+    }
+
   }
 
   @override

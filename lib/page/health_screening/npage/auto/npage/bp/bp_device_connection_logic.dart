@@ -170,11 +170,11 @@ class BpDeviceConnectionLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       if (bpMeasurementWithResult != null) {
         allMeasurements[0].result = bpMeasurementWithResult.result;
         if (result.length >= 3) {
-          repository.sendData(ApiUrl.previewMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+          repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
             isLoading.value = false;
             screeningReport.value = bpMeasurementWithResult;
             allMeasurements[1].result = pulseMeasurementWithResult!.result;

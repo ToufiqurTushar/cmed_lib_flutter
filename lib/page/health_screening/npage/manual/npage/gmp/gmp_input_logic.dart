@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -203,15 +204,15 @@ class GmpInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurementHfa).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementHfa).toJson()).then((value) {
       if (value != null) {
         screeningReportHfa.value = value;
         measurementHfa.result = value.result;
-        repository.sendData(ApiUrl.previewMeasurementUrl(), (measurementWfa).toJson()).then((value) {
+        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
           if (value != null) {
             screeningReportWfa.value = value;
             measurementWfa.result = value.result;
-            repository.sendData(ApiUrl.previewMeasurementUrl(), (measurementWfl).toJson()).then((value) {
+            repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
               if (value != null) {
                 screeningReportWfl.value = value;
                 measurementWfl.result = value.result;
@@ -244,18 +245,25 @@ class GmpInputLogic extends BaseLogic {
     customer.value.heightCentimeter = getHeightInCentimeter() as double?;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
       isLoading.value = false,
-      Get.offNamed('/screening_report_gmp_details',
-        arguments: {
-          "screeningReportHfa": screeningReportHfa.value,
-          "screeningReportHfaCmValue": getHeightInCentimeter().toDouble(),
-          "screeningReportWfa": screeningReportWfa.value,
-          "screeningReportWfaKgValue": getWeightInKg(),
-          "screeningReportWfl": screeningReportWfl.value,
-          "screeningReportWflKgValue": getWeightInKg(),
-          "measurementsWithResult": measurementsWithResult,
-        }
-      ),
+      updateMeasurementAndNavigate(measurementsWithResult)
     });
+  }
+
+  updateMeasurementAndNavigate(measurementsWithResult){
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_gmp_details',
+          arguments: {
+            "screeningReportHfa": screeningReportHfa.value,
+            "screeningReportHfaCmValue": getHeightInCentimeter().toDouble(),
+            "screeningReportWfa": screeningReportWfa.value,
+            "screeningReportWfaKgValue": getWeightInKg(),
+            "screeningReportWfl": screeningReportWfl.value,
+            "screeningReportWflKgValue": getWeightInKg(),
+            "measurementsWithResult": measurementsWithResult,
+          }
+      );
+    }
+
   }
 
 

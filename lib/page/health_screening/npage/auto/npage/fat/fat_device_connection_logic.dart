@@ -168,7 +168,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     );
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;

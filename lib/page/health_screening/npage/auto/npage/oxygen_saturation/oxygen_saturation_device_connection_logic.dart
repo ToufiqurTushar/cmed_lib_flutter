@@ -149,11 +149,11 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((spo2MeasurementWithResult) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((spo2MeasurementWithResult) {
       debugPrint(spo2MeasurementWithResult?.toJson().toString());
       if (spo2MeasurementWithResult != null) {
         measurement.result = spo2MeasurementWithResult.result;
-        repository.sendData(ApiUrl.previewMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
           isLoading.value = false;
           if (pulseMeasurementWithResult != null) {
             pulseMeasurement.result = pulseMeasurementWithResult.result;

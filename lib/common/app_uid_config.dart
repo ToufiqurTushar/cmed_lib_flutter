@@ -1,6 +1,8 @@
 import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import 'api/api_url.dart';
+
 
 class AppUidConfig {
   final RapidEnvConfig configInstance;
@@ -36,5 +38,12 @@ class AppUidConfig {
       return 0.55;
     }
     return 0.0;
+  }
+
+  static String getPostMeasurementUrl() {
+    if(isCmedUserApp || isI4WeMemberApp) {
+      return ApiUrl.addMeasurementUrl();
+    }
+    return ApiUrl.previewMeasurementUrl();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_result_details_argument.dart';
@@ -67,22 +68,24 @@ class BloodGroupingLogic extends BaseLogic {
     );
 
 
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
-        // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-        // if(isValidMeasurementSelectionDetailsLogic) {
-        //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([measurement]);
-        // }
         screeningReport.value = value;
-        Get.offNamed('/screening_report_result_details', arguments: [
-          ScreeningReportResultDetailsArgument(
-              screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
-          )
-        ]);
+        updateMeasurementAndNavigate(measurement);
       }
     });
+  }
+
+  updateMeasurementAndNavigate(measurement){
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_result_details', arguments: [
+        ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
+        )
+      ]);
+    }
   }
 
 }

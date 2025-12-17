@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -145,14 +146,10 @@ class BmiHeightWeightInputLogic extends BaseLogic {
           BmiAttribute.WEIGHT.name: getWeightInKg(),
         });
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
-        // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-        // if(isValidMeasurementSelectionDetailsLogic) {
-        //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([measurement]);
-        // }
         screeningReport.value = value;
         updateSelectedCustomerHeight([measurement]);
       }
@@ -164,14 +161,19 @@ class BmiHeightWeightInputLogic extends BaseLogic {
     customer.value.heightCentimeter = getHeightInCentimeter() as double?;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
       isLoading.value = false,
-       Get.offNamed('/screening_report_result_details', arguments: [
-          ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult
-          )
-        ]),
+      updateMeasurementAndNavigate(measurementsWithResult),
     });
   }
 
+  updateMeasurementAndNavigate(measurementsWithResult){
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_result_details', arguments: [
+        ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult
+        )
+      ]);
+    }
+  }
 
   @override
   void onClose() {

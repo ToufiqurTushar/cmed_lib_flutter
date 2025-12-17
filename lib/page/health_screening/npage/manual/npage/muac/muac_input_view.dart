@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/widget/app_dialog.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';

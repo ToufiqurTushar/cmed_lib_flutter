@@ -173,7 +173,7 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         inputs: inputs
     );
 
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;

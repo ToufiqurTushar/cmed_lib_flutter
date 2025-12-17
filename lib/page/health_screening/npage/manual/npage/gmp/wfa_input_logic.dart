@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -201,21 +202,26 @@ class WfaInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurementWfa).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         screeningReportWfa.value = value;
         measurementWfa.result = value.result;
-
-        Get.offNamed('/screening_report_result_details', arguments: [
-          ScreeningReportResultDetailsArgument(
-              screeningReport: screeningReportWfa.value, isAuto: false
-          )
-        ]);
+        updateMeasurementAndNavigate();
       } else {
         ShowToast.error('error_massage_something_wrong'.tr);
       }
     });
+  }
+
+  updateMeasurementAndNavigate(){
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_result_details', arguments: [
+        ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReportWfa.value, isAuto: false
+        )
+      ]);
+    }
   }
 
 

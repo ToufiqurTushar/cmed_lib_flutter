@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
@@ -140,14 +141,14 @@ class BpInputLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       isLoading.value = false;
       if (bpMeasurementWithResult != null) {
         screeningReport.value = bpMeasurementWithResult;
         allMeasurements[0].result = bpMeasurementWithResult.result;
         if (pulseController.value.text.isNotEmpty) {
           isLoading.value = true;
-          repository.sendData(ApiUrl.previewMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+          repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
             isLoading.value = false;
             allMeasurements[1].result = pulseMeasurementWithResult!.result;
             screeningReport.value.inputs!.addAll({
@@ -163,15 +164,13 @@ class BpInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
-    // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-    // if(isValidMeasurementSelectionDetailsLogic) {
-    //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus(allMeasurements);
-    // }
-    Get.offNamed('/screening_report_result_details', arguments: [
-      ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
-      )
-    ]);
+    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+      Get.offNamed('/screening_report_result_details', arguments: [
+        ScreeningReportResultDetailsArgument(
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
+        )
+      ]);
+    }
   }
 
   @override

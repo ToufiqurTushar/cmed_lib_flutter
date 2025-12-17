@@ -1,4 +1,5 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
@@ -54,7 +55,7 @@ class EyeScreeningHomeLogic extends BaseLogic {
         },
         eyeScreening: eyeScreenings
     );
-    repository.sendData(ApiUrl.previewMeasurementUrl(), (measurement).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
