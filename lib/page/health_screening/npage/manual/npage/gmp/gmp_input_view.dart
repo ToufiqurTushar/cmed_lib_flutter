@@ -101,7 +101,7 @@ class GmpInputView extends RapidView<GmpInputLogic> {
                                   child: InkWell(
                                     onTap: () => {controller.toggleHeightUnit()},
                                     child: ChangeColors(
-                                      hue: 0.55,
+                                      hue: AppUidConfig.getHueColor(),
                                       child: SvgPicture.asset(
                                         width: 42,
                                         "assets/images/measurement/icon_reverse.svg",

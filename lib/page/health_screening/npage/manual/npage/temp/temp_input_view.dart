@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
@@ -98,7 +99,7 @@ class TempInputView extends RapidView<TempInputLogic> {
                                     onTap: () =>
                                         {controller.toggleTemperatureUnit()},
                                     child:  ChangeColors(
-                                    hue: 0.55,
+                                    hue: AppUidConfig.getHueColor(),
                                     child: SvgPicture.asset(
                                       width: 42,
                                       "assets/images/measurement/icon_reverse.svg",
