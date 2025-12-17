@@ -6,6 +6,7 @@ import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
@@ -184,9 +185,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
     customer.value.heightCentimeter = heightInCm.value;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
       isLoading.value = false,
-      Get.offNamed('/screening_report_fat_scale_details', arguments: [{
-        "screeningReport": screeningReport.value, "isAuto": true, "measurementsWithResult": allMeasurements
-      }]),
+      Get.offNamed('/screening_report_fat_scale_details', arguments: [ScreeningReportResultDetailsArgument(
+        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
+      )]),
     });
   }
 

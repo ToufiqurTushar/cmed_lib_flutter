@@ -8,6 +8,7 @@ import 'package:cmed_ecg_devices_lib/cmed_ecg_devices_lib.dart';
 import 'package:cmed_ecg_devices_lib/ecg_graph_view.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
@@ -179,9 +180,9 @@ class EcgDeviceConnectionLogic extends BaseLogic {
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
-        Get.offNamed('/screening_report_ecg_details', arguments: [{
-          "screeningReport": screeningReport.value, "isAuto": true, "measurementsWithResult": [measurement]
-        }]);
+        Get.offNamed('/screening_report_ecg_details', arguments: [ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
+        )]);
       }
     });
   }
