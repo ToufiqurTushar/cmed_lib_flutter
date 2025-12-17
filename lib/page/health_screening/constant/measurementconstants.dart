@@ -68,7 +68,6 @@ class MeasurementConstant {
   static const double HFA_HEIGHT_INCH_MIN_ABOVE_24_MONTH = 1.6;
   static const double HFA_HEIGHT_INCH_MAX_ABOVE_24_MONTH = 11.24;
 
-  MeasurementConstant
   // static const double HFA_HEIGHT_CM_MIN = 10.0;
   //
   // static const double HFA_HEIGHT_CM_MAX = 200.0;
