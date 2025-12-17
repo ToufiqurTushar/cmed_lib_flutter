@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_primary_elevated_button.dart';
 import 'package:cmed_lib_flutter/common/widget/device/cmed_device_connection_view.dart';
 import 'package:cmed_lib_flutter/common/widget/device/cmed_measurement_pulsator.dart';

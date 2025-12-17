@@ -1,5 +1,6 @@
 import 'package:cmed_bmi_devices_lib/cmed_bmi_devices_lib.dart';
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';

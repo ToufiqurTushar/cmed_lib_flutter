@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cmed_ecg_devices_lib/cmed_ecg_devices_lib.dart';

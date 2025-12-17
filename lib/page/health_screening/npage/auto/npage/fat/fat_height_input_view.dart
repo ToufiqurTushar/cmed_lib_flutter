@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/health_screening_home_i18n.dart';
