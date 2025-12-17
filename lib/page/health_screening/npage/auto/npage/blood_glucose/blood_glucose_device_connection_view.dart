@@ -39,7 +39,7 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Obx(() => ChangeColors(
-                              //  hue: AppUidConfig.getHue(),
+                              //  hue: AppUidConfig.getHueOnGreen(),
                               child: Image.asset(
                                 controller.instructionImageSrc.value,
                               ),
@@ -49,7 +49,7 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                               controller.instructionTitle.value,
                               controller.instructionDesc.value,
                               ChangeColors(
-                                hue: AppUidConfig.getHue(),
+                                hue: AppUidConfig.getHueOnGreen(),
                                 child: SvgPicture.asset(
                                   controller.stepImageSrc.value,
                                 ),

@@ -77,7 +77,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                     onTap: () =>
                                         {controller.toggleHeightUnit()},
                                     child: ChangeColors(
-                                      hue: AppUidConfig.getHue(),
+                                      hue: AppUidConfig.getHueOnGreen(),
                                       child: SvgPicture.asset(
                                         width: 42,
                                         "assets/images/measurement/icon_reverse.svg",
