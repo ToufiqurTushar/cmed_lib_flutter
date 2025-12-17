@@ -31,7 +31,7 @@ class AppUidConfig {
     return label;
   }
 
-  static double getHueColor() {
+  static double getHue() {
     if (isCmedAgentApp || isI4WeAgentApp) {
       return 0.55;
     }

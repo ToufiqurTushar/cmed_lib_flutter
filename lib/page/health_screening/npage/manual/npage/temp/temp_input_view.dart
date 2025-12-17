@@ -99,7 +99,7 @@ class TempInputView extends RapidView<TempInputLogic> {
                                     onTap: () =>
                                         {controller.toggleTemperatureUnit()},
                                     child:  ChangeColors(
-                                    hue: AppUidConfig.getHueColor(),
+                                    hue: AppUidConfig.getHue(),
                                     child: SvgPicture.asset(
                                       width: 42,
                                       "assets/images/measurement/icon_reverse.svg",

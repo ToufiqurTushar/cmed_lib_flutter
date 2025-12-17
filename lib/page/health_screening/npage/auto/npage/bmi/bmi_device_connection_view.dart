@@ -87,7 +87,7 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                                 ),
                               )),
                           ChangeColors(
-                          //  hue: AppUidConfig.getHueColor(),
+                          //  hue: AppUidConfig.getHue(),
                             child: SvgPicture.asset(
                                 "assets/images/screening/ic_bmi_connect.svg"),
                           ),
