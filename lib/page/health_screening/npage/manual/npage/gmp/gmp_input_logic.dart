@@ -1,6 +1,7 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
 
@@ -251,15 +252,15 @@ class GmpInputLogic extends BaseLogic {
 
   updateMeasurementAndNavigate(measurementsWithResult){
     Get.offNamed('/screening_report_gmp_details',
-        arguments: {
-          "screeningReportHfa": screeningReportHfa.value,
-          "screeningReportHfaCmValue": getHeightInCentimeter().toDouble(),
-          "screeningReportWfa": screeningReportWfa.value,
-          "screeningReportWfaKgValue": getWeightInKg(),
-          "screeningReportWfl": screeningReportWfl.value,
-          "screeningReportWflKgValue": getWeightInKg(),
-          "measurementsWithResult": measurementsWithResult,
-        }
+        arguments: ScreeningReportResultDetailsArgument(
+          screeningReportHfa: screeningReportHfa.value,
+          screeningReportHfaCmValue: getHeightInCentimeter().toDouble(),
+          screeningReportWfa: screeningReportWfa.value,
+          screeningReportWfaKgValue: getWeightInKg(),
+          screeningReportWfl: screeningReportWfl.value,
+          screeningReportWflKgValue: getWeightInKg(),
+          measurementsWithResult: measurementsWithResult,
+        )
     );
   }
 

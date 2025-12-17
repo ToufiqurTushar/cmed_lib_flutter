@@ -62,10 +62,12 @@ class EyeScreeningHomeLogic extends BaseLogic {
         measurement.result = value.result;
         screeningReport.value = value;
 
-        Get.offNamed('/screening_report_eye_details_view', arguments: ScreeningReportResultDetailsArgument(
+        Get.offNamed('/screening_report_eye_details_view', arguments: [
+          ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value,
             isAuto: false, measurementsWithResult: [measurement]
-        ));
+          )
+        ]);
       } else {
 
       }
