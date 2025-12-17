@@ -34,6 +34,7 @@ class MeasurementConstant {
   static const double HEIGHT_INCH_MAX = 11.9;
 
   static const double HEIGHT_INCH_MIN = 0.0;
+  static const double HEIGHT_INCH_UNIT_MIN = 0.0;
 
   static const double HEIGHT_CENTIMETER_MIN = 30.48;
   static const double BMI_HEIGHT_CENTIMETER_MIN = 45.72;
@@ -67,6 +68,7 @@ class MeasurementConstant {
   static const double HFA_HEIGHT_INCH_MIN_ABOVE_24_MONTH = 1.6;
   static const double HFA_HEIGHT_INCH_MAX_ABOVE_24_MONTH = 11.24;
 
+  MeasurementConstant
   // static const double HFA_HEIGHT_CM_MIN = 10.0;
   //
   // static const double HFA_HEIGHT_CM_MAX = 200.0;
