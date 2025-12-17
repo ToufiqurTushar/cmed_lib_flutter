@@ -45,7 +45,6 @@ class OxygenSaturationLogic extends BaseLogic {
   }
 
   String? validatePulse(String value) {
-    if(value.isEmpty) return null;
     if (!GetUtils.isNumericOnly(value)) {
       return '${'error_message_invalid_range'.tr} (${MeasurementConstant.MIN_PULSE}-${MeasurementConstant.MAX_PULSE})';
     }
@@ -83,8 +82,7 @@ class OxygenSaturationLogic extends BaseLogic {
         measurementTypeCodeId: MeasurementType.PULSE_RATE.value,
         measuredAt: dateController.text.isNotEmpty ? int.parse(dateController.text) : DateTime.now().millisecondsSinceEpoch,
         inputs: {
-          PulseAttribute.PULSE_RATE.name:
-          double.parse(pulseController.value.text),
+          PulseAttribute.PULSE_RATE.name: double.parse(pulseController.value.text),
         }
     );
 
@@ -110,10 +108,6 @@ class OxygenSaturationLogic extends BaseLogic {
             oxygenMeasurementResponse.inputs?.addAll({
               PulseAttribute.PULSE_RATE.name: double.parse(pulseController.value.text)
             });
-            // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-            // if(isValidMeasurementSelectionDetailsLogic) {
-            //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([oxygenMeasurement, pulseMeasurement]);
-            // }
             screeningReport.value = oxygenMeasurementResponse;
             updateMeasurementAndNavigate(oxygenMeasurement, pulseMeasurement);
           }
@@ -125,7 +119,9 @@ class OxygenSaturationLogic extends BaseLogic {
   updateMeasurementAndNavigate(oxygenMeasurement, pulseMeasurement){
     Get.offNamed('/screening_report_result_details', arguments: [
       ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
+          screeningReport: screeningReport.value,
+          isAuto: false,
+          measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
       )
     ]);
   }
