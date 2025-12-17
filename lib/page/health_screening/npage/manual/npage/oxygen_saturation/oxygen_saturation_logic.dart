@@ -45,6 +45,7 @@ class OxygenSaturationLogic extends BaseLogic {
   }
 
   String? validatePulse(String value) {
+    if(value.isEmpty) return null;
     if (!GetUtils.isNumericOnly(value)) {
       return '${'error_message_invalid_range'.tr} (${MeasurementConstant.MIN_PULSE}-${MeasurementConstant.MAX_PULSE})';
     }
