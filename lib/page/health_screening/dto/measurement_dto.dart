@@ -1011,7 +1011,8 @@ enum MeasurementType {
   EYE_SCREENING(21),
   BLOOD_GROUPING(22),
   HEMOGLOBIN(26),
-  WFL(23);
+  WFL(23),
+  HEALTHY_DAYS(9999);
 
   const MeasurementType(this.value);
 
