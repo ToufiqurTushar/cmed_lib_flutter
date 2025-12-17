@@ -221,13 +221,11 @@ class WflInputLogic extends BaseLogic {
     getHeightInCentimeter() as double?;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
       isLoading.value = false,
-      if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
         Get.offNamed('/screening_report_result_details', arguments: [
           ScreeningReportResultDetailsArgument(
               screeningReport: screeningReportWfl.value, isAuto: false
           )
         ])
-      }
     });
   }
 

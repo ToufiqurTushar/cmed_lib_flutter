@@ -250,20 +250,17 @@ class GmpInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(measurementsWithResult){
-    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
-      Get.offNamed('/screening_report_gmp_details',
-          arguments: {
-            "screeningReportHfa": screeningReportHfa.value,
-            "screeningReportHfaCmValue": getHeightInCentimeter().toDouble(),
-            "screeningReportWfa": screeningReportWfa.value,
-            "screeningReportWfaKgValue": getWeightInKg(),
-            "screeningReportWfl": screeningReportWfl.value,
-            "screeningReportWflKgValue": getWeightInKg(),
-            "measurementsWithResult": measurementsWithResult,
-          }
-      );
-    }
-
+    Get.offNamed('/screening_report_gmp_details',
+        arguments: {
+          "screeningReportHfa": screeningReportHfa.value,
+          "screeningReportHfaCmValue": getHeightInCentimeter().toDouble(),
+          "screeningReportWfa": screeningReportWfa.value,
+          "screeningReportWfaKgValue": getWeightInKg(),
+          "screeningReportWfl": screeningReportWfl.value,
+          "screeningReportWflKgValue": getWeightInKg(),
+          "measurementsWithResult": measurementsWithResult,
+        }
+    );
   }
 
 

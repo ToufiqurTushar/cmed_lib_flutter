@@ -215,13 +215,11 @@ class WfaInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(){
-    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReportWfa.value, isAuto: false
         )
       ]);
-    }
   }
 
 

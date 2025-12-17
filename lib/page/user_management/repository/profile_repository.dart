@@ -1,5 +1,6 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/api/app_http.dart';
+import 'package:cmed_lib_flutter/common/common_key.dart';
 import 'package:cmed_lib_flutter/common/dto/agent_profile_dto.dart';
 import 'package:cmed_lib_flutter/common/dto/bkash_make_payment_response_dto.dart';
 import 'package:cmed_lib_flutter/common/dto/cancel_agreement_dto.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:flutter_rapid/logic/rapid_global_state_logic.dart';
 import 'package:cmed_lib_flutter/common/dto/user_profile_dto.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProfileRepository {
   final HttpProvider provider = Get.find();
@@ -52,6 +54,7 @@ class ProfileRepository {
         globalState.currentUser.value = customer,
         await sendData(ApiUrl.getCustomProfileByUserIdUrl(customer.userId), profile).then((UserProfile? value) async {
           if(value != null) {
+            updatedProfileToLocalStorage(value);
             // var response = await provider.GET(AllUrl.getCustomerByUserId(customer.userId, customer.companyId));
             // if (response.isOk) {
             //   globalState.currentUser.value = CustomerDTO.fromJson(response.body);
@@ -63,6 +66,10 @@ class ProfileRepository {
       }
     });
     return null;
+  }
+
+  updatedProfileToLocalStorage(UserProfile up) {
+    GetStorage().write(CommonKey.keySelectedUserProfileDTO, up.toJson());
   }
 
   Future <BkashMakePaymentResponseDto?>makeBkashPayment(String paymentUrlQueryPath) async {
