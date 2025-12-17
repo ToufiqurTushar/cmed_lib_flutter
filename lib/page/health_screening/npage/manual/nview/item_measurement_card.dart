@@ -3,12 +3,13 @@ import 'package:flutter_svg/svg.dart';
 
 
 class ItemMeasurementCard extends StatefulWidget {
+  int codeId;
   String? label;
   String? subTitle;
   String? asset;
   Function? onClickAction;
 
-  ItemMeasurementCard(this.label, this.asset, {Key? key,this.subTitle,this.onClickAction}) : super(key: key);
+  ItemMeasurementCard(this.label, this.asset, {Key? key,required this.codeId, this.subTitle,this.onClickAction}) : super(key: key);
 
   @override
   State<ItemMeasurementCard> createState() => _ItemMeasurementCard();
