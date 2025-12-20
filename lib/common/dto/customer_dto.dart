@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
-import 'package:uuid/uuid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
 import '../enum/sample_collection_type.dart';
 import 'additional_information.dart';
@@ -23,6 +22,7 @@ class CustomerDTO extends BaseEntity {
   String? bloodGroupString;
   String? companyEmployeeId;
   int? companyId;
+  String? companyName;
   String? designation;
   bool? isGovtOfficial;
   bool? isPoor;
@@ -115,6 +115,7 @@ class CustomerDTO extends BaseEntity {
     this.bloodGroupString,
     this.companyEmployeeId,
     this.companyId,
+    this.companyName,
     this.designation,
     this.isGovtOfficial,
     this.isPoor,
@@ -223,6 +224,7 @@ class CustomerDTO extends BaseEntity {
       bloodGroupString: json['blood_group_string'],
       companyEmployeeId: json['company_employee_id'],
       companyId: json['company_id'],
+      companyName: json['company_name'],
       designation: json['designation'],
       isGovtOfficial: json['is_govt_official'],
       isPoor: json['is_poor'],
@@ -305,7 +307,6 @@ class CustomerDTO extends BaseEntity {
     );
   }
 
-  @override
   Map<String, dynamic> toJson() {
     return {
       'uuid': localId,
@@ -321,6 +322,7 @@ class CustomerDTO extends BaseEntity {
       'blood_group_string': bloodGroupString,
       'company_employee_id': companyEmployeeId,
       'company_id': companyId,
+      'company_name': companyName,
       'designation': designation,
       'is_govt_official': isGovtOfficial,
       'occupied_service_id': occupiedServiceId,
