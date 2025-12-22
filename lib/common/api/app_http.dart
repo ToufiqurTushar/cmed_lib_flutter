@@ -14,8 +14,8 @@ import '../common_key.dart';
 enum AppUidEnum{
   CmedAgentApp,
   CmedUserApp,
-  i4WeAgentApp,
-  i4WeMemberApp,
+  I4WE_AGENT,
+  I4WE_MEMBER,
 }
 enum EnvTypeEnum{
   DEV,
@@ -349,13 +349,13 @@ class HttpProvider {
       }
       return CORE_AGENT_ANDROID_VERSION_KEY;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.i4WeMemberApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.I4WE_MEMBER.name) {
       if (Platform.isIOS) {
         return I4WE_USER_IOS_VERSION_KEY;
       }
       return I4WE_USER_ANDROID_VERSION_KEY;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.i4WeAgentApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name) {
       if (Platform.isIOS) {
         return I4WE_AGENT_IOS_VERSION_KEY;
       }
@@ -377,13 +377,13 @@ class HttpProvider {
       }
       return CORE_AGENT_ANDROID_STORE_URL;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.i4WeMemberApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.I4WE_MEMBER.name) {
       if (Platform.isIOS) {
         return I4WE_USER_IOS_STORE_URL;
       }
       return I4WE_USER_ANDROID_STORE_URL;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.i4WeAgentApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name) {
       if (Platform.isIOS) {
         return I4WE_AGENT_IOS_STORE_URL;
       }

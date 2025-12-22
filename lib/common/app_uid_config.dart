@@ -21,8 +21,8 @@ class AppUidConfig {
   static bool get isCmedUserApp => config.appUid == AppUidEnum.CmedUserApp.name;
   static bool get isCmedApp => isCmedAgentApp || isCmedUserApp;
 
-  static bool get isI4WeAgentApp => config.appUid == AppUidEnum.i4WeAgentApp.name;
-  static bool get isI4WeMemberApp => config.appUid == AppUidEnum.i4WeMemberApp.name;
+  static bool get isI4WeAgentApp => config.appUid == AppUidEnum.I4WE_AGENT.name;
+  static bool get isI4WeMemberApp => config.appUid == AppUidEnum.I4WE_MEMBER.name;
   static bool get isI4WeApp => isI4WeAgentApp || isI4WeMemberApp;
 
 
