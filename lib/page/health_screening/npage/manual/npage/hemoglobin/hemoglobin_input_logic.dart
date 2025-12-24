@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 
+import '../../../../../../common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 
 
@@ -72,14 +73,30 @@ class HemoglobinInputLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+
+    httpProvider.POST(AppUidConfig.getPostMeasurementUrl(), measurement.toJson())
+    .then((response){
       isLoading.value = false;
-      if (value != null) {
-        measurement.result = value.result;
-        screeningReport.value = value;
-        updateMeasurementAndNavigate(measurement);
+      if(response.isOk){
+          final value = MeasurementDTO.fromJson(response.body);
+          measurement.result = value.result;
+          screeningReport.value = value;
+          updateMeasurementAndNavigate(measurement);
+      } else if(response.statusCode == 403){
+        ShowToast.error(response.body);
       }
     });
+
+
+    // repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    //   isLoading.value = false;
+    //   if (value != null) {
+    //     measurement.result = value.result;
+    //     screeningReport.value = value;
+    //     updateMeasurementAndNavigate(measurement);
+    //   }
+    // });
+
   }
 
   updateMeasurementAndNavigate(measurement){
