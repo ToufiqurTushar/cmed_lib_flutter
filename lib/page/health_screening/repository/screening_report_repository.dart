@@ -11,7 +11,7 @@ class ScreeningReportRepository {
       var response = await provider.GET(param);
       if (response.isOk) {
         GetMeasurementResponseDTO responseDto = GetMeasurementResponseDTO.fromJson(response.body);
-        return MeasurementDTO.fromJsonList(responseDto.content);
+        return responseDto.content;
       }
       return null;
     } catch (e) {
