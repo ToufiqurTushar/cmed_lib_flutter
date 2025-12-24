@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 
 class CMEDTextUtils {
@@ -51,7 +51,7 @@ class CMEDTextUtils {
       fontSize: 12,
       fontWeight: FontWeight.w400);
 
-  static var alertTitleTextStyle = GoogleFonts.notoSansBengali(
+  static var alertTitleTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 14,
     fontWeight: FontWeight.bold,

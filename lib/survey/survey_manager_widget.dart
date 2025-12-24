@@ -137,7 +137,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       isScrollable: true,
                       controller: controller.tabController,
                       indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                      //labelStyle: GoogleFonts.notoSansBengali(fontWeight: FontWeight.bold, fontSize: 14),
+                      //labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                       tabs:  controller.tabTextList,
                     ),
                   ),
