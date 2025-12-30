@@ -36,11 +36,11 @@
               "title": "Kannada"
             },
             {
-              "name": "as9_1_telegu",
-              "value": "Telegu",
+              "name": "as9_1_telugu",
+              "value": "Telugu",
               "weight": 0,
               "icon": "",
-              "title": "Telegu"
+              "title": "Telugu"
             },
             {
               "name": "as9_1_tamil",
@@ -648,11 +648,11 @@
                 "title": "Kannada"
               },
               {
-                "name": "as9_1_telegu",
-                "value": "Telegu",
+                "name": "as9_1_telugu",
+                "value": "Telugu",
                 "weight": 0,
                 "icon": "",
-                "title": "Telegu"
+                "title": "Telugu"
               },
               {
                 "name": "as9_1_tamil",
