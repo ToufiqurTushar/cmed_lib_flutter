@@ -764,8 +764,10 @@ class MeasurementDTO {
       value = inputs![GmpAttribute.WFL_LENGTH.name];
     } else if (measurementTypeCodeId == MeasurementType.HFA.value) {
       value = inputs![GmpAttribute.HFA_HEIGHT.name];
-    }  else if (measurementTypeCodeId == MeasurementType.MUAC.value) {
+    } else if (measurementTypeCodeId == MeasurementType.MUAC.value) {
       value = inputs![MuacAttribute.MUAC.name];
+    } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
+      value = result?.value ?? 0.0;
     } else {
       value = double.parse(getValue1() ?? "0");
     }
