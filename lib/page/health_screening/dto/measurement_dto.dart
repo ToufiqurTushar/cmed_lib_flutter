@@ -405,6 +405,8 @@ class MeasurementDTO {
       value = 'label_blood_grouping_and_rh_typing'.tr;
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value = 'Hemoglobin'.tr;
+    } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
+      value = 'Healthy Days'.tr;
     } else {
       value = measurementTypeName ?? "";
     }
