@@ -3,34 +3,6 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../dto/agent_profile_dto.dart'; // If you're using SVG images
 
-enum ServiceTypeEnum {
-  PULSE_RATE(5),
-  BP(1),
-  SPO2(8),
-  BMI(3),
-  TEM(2),
-  GLU(4),
-  RESPIRATION_RATE(6),
-  WHR(14),
-  WC(13),
-  BREAST_CANCER(15),
-  BODY_COMPOSITION(20),
-  BLOOD_GROUPING(22),
-  EYE_SCREENING(21),
-  MUAC(10),
-  ECG(7),
-  WFA(17),
-  HFA(16),
-  WFL(23),
-  HEMOGLOBIN(26),
-  CORONA_COVID19(11),
-  CORONA_COVID19_V2(12);
-
-  final int type;
-
-  const ServiceTypeEnum(this.type);
-}
-
 String populateDrawable(int? typeId) {
   switch (typeId) {
     case 5:
@@ -70,6 +42,8 @@ String populateDrawable(int? typeId) {
       return 'assets/images/virus.svg'; // Use the same image for both cases
     case 26:
       return 'assets/images/ic_hemoglobin.svg';
+    case 9000:
+      return 'assets/images/ic_healthy_days.svg';
     default:
       return 'assets/images/ic_glucose.svg'; // Default drawable
   }

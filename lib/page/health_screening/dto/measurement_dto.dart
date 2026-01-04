@@ -1016,7 +1016,7 @@ enum MeasurementType {
   BLOOD_GROUPING(22),
   HEMOGLOBIN(26),
   WFL(23),
-  HEALTHY_DAYS(9999);
+  HEALTHY_DAYS(9000);
 
   const MeasurementType(this.value);
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cmed_lib_flutter/common/enum/service_type_enum.dart';
+import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
@@ -336,88 +337,88 @@ class AgentProfileDto {
     AvailableService? service;
     List<AvailableService> services = [];
     //bp
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.BP.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BP.value);
     if(service != null) {
       services.add(service);
     }
 
     //GLU
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.GLU.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BLOOD_SUGAR.value);
     if(service != null) {
       services.add(service);
     }
 
     //SPO2
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.SPO2.type);
+    service = getAvailableServiceByCodeId(MeasurementType.SpO2.value);
     if(service != null) {
       services.add(service);
     }
 
     //TEM
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.TEM.type);
+    service = getAvailableServiceByCodeId(MeasurementType.TEMP.value);
     if(service != null) {
       services.add(service);
     }
 
     //BODY_COMPOSITION
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.BODY_COMPOSITION.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BODY_COMPOSITION.value);
     if(service != null) {
       services.add(service);
     }
 
     //BMI
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.BMI.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BMI.value);
     if(service != null) {
       services.add(service);
     }
 
     //ECG
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.ECG.type);
+    service = getAvailableServiceByCodeId(MeasurementType.ECG.value);
     if(service != null) {
       services.add(service);
     }
 
     //BREAST_CANCER
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.BREAST_CANCER.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BREAST_CANCER.value);
     if(service != null) {
       services.add(service);
     }
 
 
     //EYE_SCREENING
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.EYE_SCREENING.type);
+    service = getAvailableServiceByCodeId(MeasurementType.EYE_SCREENING.value);
     if(service != null) {
       services.add(service);
     }
 
     //BLOOD_GROUPING
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.BLOOD_GROUPING.type);
+    service = getAvailableServiceByCodeId(MeasurementType.BLOOD_GROUPING.value);
     if(service != null) {
       services.add(service);
     }
     //WFA
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.WFA.type);
+    service = getAvailableServiceByCodeId(MeasurementType.WFA.value);
     if(service != null) {
       services.add(service);
     }
     //HFA
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.HFA.type);
+    service = getAvailableServiceByCodeId(MeasurementType.HFA.value);
     if(service != null) {
       services.add(service);
     }
     //WFL
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.WFL.type);
+    service = getAvailableServiceByCodeId(MeasurementType.WFL.value);
     if(service != null) {
       services.add(service);
     }
 
     //MUAC
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.MUAC.type);
+    service = getAvailableServiceByCodeId(MeasurementType.MUAC.value);
     if(service != null) {
       services.add(service);
     }
     //PULSE_RATE
-    service = getAvailableServiceByCodeId(ServiceTypeEnum.PULSE_RATE.type);
+    service = getAvailableServiceByCodeId(MeasurementType.PULSE_RATE.value);
     if(service != null) {
       services.add(service);
     }
