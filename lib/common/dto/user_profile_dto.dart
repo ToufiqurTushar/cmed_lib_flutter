@@ -107,6 +107,7 @@ class UserProfile {
   String? maritalStatus;
   int? i4weAgentSubscriptionDate;
   bool? i4weSocialProtectionStatus;
+  int? i4weSocialProtectionExpiryDate;
   int? i4weAgentSubscriptionExpiryDate;
   String? onboardedByAgentContactNumber;
   String? onboardedByAgentName;
@@ -213,6 +214,7 @@ class UserProfile {
     this.vaccinationHistory,
     this.i4weAgentSubscriptionDate,
     this.i4weSocialProtectionStatus,
+    this.i4weSocialProtectionExpiryDate,
     this.i4weAgentSubscriptionExpiryDate,
     this.onboardedByAgentContactNumber,
     this.onboardedByAgentName,
@@ -225,8 +227,7 @@ class UserProfile {
     birthPlace = json['birth_place'];
     birthday = json['birthday'];
     bloodGroup = json['blood_group'];
-    bloodGroupDTO =
-        json['blood_group_obj'] != null ? MasterDataDTO.fromJson(json['blood_group_obj']) : null;
+    bloodGroupDTO = json['blood_group_obj'] != null ? MasterDataDTO.fromJson(json['blood_group_obj']) : null;
     companyEmployeeId = json['company_employee_id'];
     companyJobTitle = json['company_job_title'];
     coronaAffectedStatus = json['corona_affected_status'];
@@ -277,8 +278,7 @@ class UserProfile {
     lastName = json['last_name'];
     lastNameBn = json['last_name_bn'];
     lmpDate = json['lmp_date'];
-    maritalStatusDTO =
-        json['maritalStatusObj'] != null ? MasterDataDTO.fromJson(json['maritalStatusObj']) : null;
+    maritalStatusDTO = json['maritalStatusObj'] != null ? MasterDataDTO.fromJson(json['maritalStatusObj']) : null;
     maritalStatus = json['marital_status'];
 
     motherName = json['mother_name'];
@@ -381,6 +381,7 @@ class UserProfile {
     i4weAgentSubscriptionExpiryDate = json['i4we_agent_subscription_expiry_date'];
     i4weAgentSubscriptionDate = json['i4we_agent_subscription_date'];
     i4weSocialProtectionStatus = json['i4we_social_protection_status'];
+    i4weSocialProtectionExpiryDate = json['social_protection_expiry_date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -478,8 +479,7 @@ class UserProfile {
     data['school_going_children'] = schoolGoingChildren;
     data['secondary_occupation'] = secondaryOccupation;
     if (symptomsAfterTakenVaccine != null) {
-      data['symptoms_after_taken_vaccine'] =
-          symptomsAfterTakenVaccine!.map((v) => v.toJson()).toList();
+      data['symptoms_after_taken_vaccine'] = symptomsAfterTakenVaccine!.map((v) => v.toJson()).toList();
     }
     data['user_id'] = userId;
     data['uuid'] = uuid;
@@ -532,6 +532,7 @@ class UserProfile {
     data['i4we_agent_subscription_expiry_date'] = i4weAgentSubscriptionExpiryDate;
     data['i4we_agent_subscription_date'] = i4weAgentSubscriptionDate;
     data['i4we_social_protection_status'] = i4weSocialProtectionStatus;
+    data['social_protection_expiry_date'] = i4weSocialProtectionExpiryDate;
     return data;
   }
 
@@ -585,8 +586,8 @@ class UserProfile {
     return gender == 1
         ? 'Male'
         : gender == 2
-            ? 'Female'
-            : 'Others';
+        ? 'Female'
+        : 'Others';
   }
 
   CustomerDTO toCustomer() {
@@ -698,10 +699,7 @@ class SymptomsAfterTakenVaccineDTO {
 }
 
 class ComorbidityList {
-  ComorbidityList({
-    this.existIn,
-    this.comorbidity,
-  });
+  ComorbidityList({this.existIn, this.comorbidity});
 
   ComorbidityList.fromJson(dynamic json) {
     existIn = json['existIn'];
@@ -721,14 +719,7 @@ class ComorbidityList {
 }
 
 class Comorbidity {
-  Comorbidity({
-    this.name,
-    this.verified,
-    this.id,
-    this.uuid,
-    this.createdAt,
-    this.lastUpdated,
-  });
+  Comorbidity({this.name, this.verified, this.id, this.uuid, this.createdAt, this.lastUpdated});
 
   Comorbidity.fromJson(dynamic json) {
     name = json['name'];
@@ -803,12 +794,7 @@ class DrugHistory {
 }
 
 class Injury {
-  Injury({
-    this.previousInjury,
-    this.description,
-    this.injuryDate,
-    this.injuryTypes,
-  });
+  Injury({this.previousInjury, this.description, this.injuryDate, this.injuryTypes});
 
   Injury.fromJson(dynamic json) {
     previousInjury = json['previousInjury'];
@@ -942,11 +928,7 @@ class PatientPersonalHistory {
 }
 
 class Surgery {
-  Surgery({
-    this.previousSurgery,
-    this.surgeryDate,
-    this.surgeryName,
-  });
+  Surgery({this.previousSurgery, this.surgeryDate, this.surgeryName});
 
   Surgery.fromJson(dynamic json) {
     previousSurgery = json['previousSurgery'];

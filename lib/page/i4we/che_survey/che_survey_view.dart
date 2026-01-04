@@ -15,7 +15,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: BasicAppBar("Survey".tr),
+      appBar: BasicAppBar("Family Profile".tr),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
