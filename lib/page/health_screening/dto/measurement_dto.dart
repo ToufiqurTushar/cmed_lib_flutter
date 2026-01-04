@@ -347,7 +347,9 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value ='${inputs![HemoglobinAttribute.HEMOGLOBIN_LEVEL.name]} g/dL';
     }
-
+    else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
+      value = '${result?.value ?? ""}';
+    }
     return value;
   }
 
@@ -575,6 +577,8 @@ class MeasurementDTO {
       value = GmpAttribute.WFA_WEIGHT.displayNameEn;
     } else if (measurementTypeCodeId == MeasurementType.WFL.value) {
       value = GmpAttribute.WFA_WEIGHT.displayNameEn;
+    } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
+      value = "HD";
     }
     return value;
   }
@@ -858,7 +862,7 @@ class MeasurementDTO {
     return true;
   }
   getAdvice() {
-    
+
     if (Utils.isLocaleBn()) {
       if(measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
         return "আপনার রক্তের গ্রুপ ${getStatus()}";
