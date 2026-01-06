@@ -7,8 +7,10 @@ class CheSurveyArgument {
   CheSurveyArgument({
       this.selectedSurvey,
       this.redirectToServiceSelectionView,
+      this.isForFamilyMember,
       required this.customer,});
   CustomerDTO customer;
   SurveyDto? selectedSurvey;
   bool? redirectToServiceSelectionView;
+  bool? isForFamilyMember;
 }

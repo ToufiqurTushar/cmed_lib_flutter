@@ -233,6 +233,107 @@ class Field {
 
       results.add(r);
     }
+    // for (final Condition condition in skipRule?.conditions??[]) {
+    //   final dynamic inputValue = answers[condition.sourceField];
+    //   final dynamic expectedValue = condition.expectedValue?.first;
+    //   //final dynamic expectedValue = 'yes';
+    //
+    //   bool r = false;
+    //
+    //   switch (fbConditionFromString(condition.operator)) {
+    //     case FBConditionType.EQUALS:
+    //     //RLog.info('${answers}');
+    //     //RLog.info('${inputValue} ${expectedValue}');
+    //       r = inputValue == expectedValue;
+    //       break;
+    //     case FBConditionType.notEquals:
+    //       r = inputValue != expectedValue;
+    //       break;
+    //     case FBConditionType.inList:
+    //       r = condition.expectedValue?.contains(inputValue)??false;
+    //       break;
+    //     case FBConditionType.notInList:
+    //       r = !(condition.expectedValue?.contains(inputValue)??false);
+    //       break;
+    //     case FBConditionType.lessThan:
+    //       try {
+    //         r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) < 0);
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.greaterThan:
+    //       try {
+    //         r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) > 0);
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.lessOrEqual:
+    //       try {
+    //         r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) <= 0);
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.greaterOrEqual:
+    //       try {
+    //         r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(expectedValue) >= 0);
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.between:
+    //     // expect Map {'min': x, 'max': y} or List [min, max]
+    //       try {
+    //         final min = condition.expectedValue?[0]??null;
+    //         final max = condition.expectedValue?[1]??null;
+    //         if (min == null || max == null) {
+    //           r = false;
+    //         } else {
+    //           r = inputValue != null && (inputValue is Comparable) && (inputValue.compareTo(min) >= 0 && inputValue.compareTo(max) <= 0);
+    //         }
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.notBetween:
+    //       try {
+    //         final min = condition.expectedValue?[0]??null;
+    //         final max = condition.expectedValue?[1]??null;
+    //         if (min == null || max == null) {
+    //           r = false;
+    //         } else {
+    //           r = inputValue == null ||
+    //               !(inputValue is Comparable) ||
+    //               !(inputValue.compareTo(min) >= 0 && inputValue.compareTo(max) <= 0);
+    //         }
+    //       } catch (_) {
+    //         r = false;
+    //       }
+    //       break;
+    //     case FBConditionType.isEmpty:
+    //       r = inputValue == '' ||
+    //           (inputValue is Iterable && inputValue.isEmpty) ||
+    //           (inputValue is Map && inputValue.isEmpty) ||
+    //           (inputValue == null);
+    //       break;
+    //     case FBConditionType.isNotEmpty:
+    //       r = !(inputValue == '' ||
+    //           (inputValue is Iterable && inputValue.isEmpty) ||
+    //           (inputValue is Map && inputValue.isEmpty) ||
+    //           (inputValue == null));
+    //       break;
+    //     case FBConditionType.isNull:
+    //       r = inputValue == null;
+    //       break;
+    //     case FBConditionType.isNotNull:
+    //       r = inputValue != null;
+    //       break;
+    //   }
+    //
+    //   results.add(r);
+    // }
     if(results.isNotEmpty) {
       //RLog.info(results.first.toString());
       var isVisible = visibilityConditions?.first.logic == FBConditionLogic.AND ? results.every((e) => e) : results.any((e) => e);

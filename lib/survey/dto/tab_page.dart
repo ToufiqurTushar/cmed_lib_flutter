@@ -8,6 +8,7 @@ class TabPage {
 
   /// Visibility rule: "field:value"
   final String? visibleWhen;
+  final bool isTabVisible;
 
   TabPage({
     required this.id,
@@ -15,5 +16,6 @@ class TabPage {
     this.questions,
     this.listOfQuestionUid,
     this.visibleWhen,
+    this.isTabVisible = true,
   });
 }

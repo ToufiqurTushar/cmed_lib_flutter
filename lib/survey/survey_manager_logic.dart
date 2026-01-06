@@ -42,6 +42,7 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
 
   /// TAB VISIBILITY RULE
   bool isTabVisible(TabPage tab) {
+    if(!tab.isTabVisible) return false;
     if (tab.visibleWhen == null) return true;
 
     final rule = tab.visibleWhen!.split(":");
@@ -98,10 +99,9 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
     }
   }
 
-  /// SAMPLE FORM DATA
   List<TabPage> _loadTabs(SurveyDto survey, List<TabPage>? tabContents) {
     if(tabContents?.isNotEmpty??false) {
-      tabContents = tabContents!.map((tabPage){
+      tabContents = tabContents!.where((field)=>field.isTabVisible).map((tabPage){
         var filterredQuestions = survey.fields!.where((field)=>tabPage.listOfQuestionUid?.contains(field.name)??false).toList();
         tabPage.questions = filterredQuestions;
         return tabPage;
