@@ -134,7 +134,6 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       child: TabBar(
                         onTap: (index) {
                           controller.currentTab.value = index;
-                          RLog.error(index);
                         },
                         labelColor: Theme.of(context).primaryColor,
                         unselectedLabelColor: Colors.black,

@@ -57,7 +57,6 @@ class CheSurveyLogic extends BaseLogic {
         RLog.error(selectedSurveyDto.toJson());
         AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed successfully', positiveButtonText: 'OK', cancelable: false,onButtonClick:(){
           if(cheSurveyArgument.redirectToServiceSelectionView??false) {
-            globalState.currentUser.value = customer;
             Get.offNamedUntil(
               '/ServiceSelectionView',
               ModalRoute.withName('/ServiceView'),

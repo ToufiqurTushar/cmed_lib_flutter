@@ -15,7 +15,6 @@ abstract class BaseLogic extends RapidStartLogic {
   @override
   void onInit() {
     super.onInit();
-
     if(globalState.currentUser.value is CustomerDTO) {
       customer.value = globalState.currentUser.value as CustomerDTO;
     } else if(globalState.currentUser.value is UserProfile) {
