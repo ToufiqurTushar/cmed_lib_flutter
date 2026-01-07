@@ -88,7 +88,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       }
 
       controller.formKey = GlobalKey<FormBuilderState>();
-      final visibleTabs = controller.tabPages.where(controller.isTabVisible).toList();
+      final visibleTabs = controller.getVisibleTabs();
 
       return WillPopScope(
         onWillPop: () async {
@@ -132,6 +132,10 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     child: Container(
                       width: double.infinity,
                       child: TabBar(
+                        onTap: (index) {
+                          controller.currentTab.value = index;
+                          RLog.error(index);
+                        },
                         labelColor: Theme.of(context).primaryColor,
                         unselectedLabelColor: Colors.black,
                         indicatorColor: Theme.of(context).primaryColor,
@@ -152,7 +156,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     children: _buildTabContents(visibleTabs, context, controller.formKey),
                   ),
                 ),
-                _buildNavigation(visibleTabs),
+                buildBottomNavigation(visibleTabs),
                 //_buildTabHeader(visibleTabs),
                 //Expanded(child: _buildTabContent(visibleTabs, context, controller.formKey)),
                 //
@@ -529,10 +533,12 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       NAVIGATION
   -----------------------------------------------------------*/
 
-  Widget _buildNavigation(List<TabPage> visibleTabs) {
+  Widget buildBottomNavigation(List<TabPage> visibleTabs) {
     return Obx(() {
       final index = controller.currentTab.value;
       final isLast = index == visibleTabs.length - 1;
+      RLog.error(index);
+      RLog.error(visibleTabs.length);
 
       return Padding(
         padding: const EdgeInsets.all(20),

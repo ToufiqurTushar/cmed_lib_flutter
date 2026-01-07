@@ -36,7 +36,6 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
   void onInit() {
     super.onInit();
     tabController = TabController(vsync: this, length: tabContents?.length??0, animationDuration:Duration.zero, );
-
     loadSurvey();
   }
 
@@ -59,6 +58,9 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
     return isVisiable;
   }
 
+  List<TabPage> getVisibleTabs() {
+    return tabPages.where(isTabVisible).toList();
+  }
 
   /// VALIDATION — all fields must be filled
   bool validateCurrentTab(TabPage tab) {
@@ -111,6 +113,7 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
       tabTextList.value = tabContents.map((e)=>Tab(
         text: e.title,
       )).toList();
+
     }
     return tabContents??[];
   }
@@ -138,10 +141,17 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
 
 
   void formSubmit(selectedSurvey) {
+    final visibleTabs = getVisibleTabs();
+    for(var tab in visibleTabs) {
+      if (!validateCurrentTab(tab)) {
+        ShowToast.error("Please fill all required fields");
+        return;
+      }
+    }
+
     final isValid = formKey.currentState!.saveAndValidate();
     if(isValid) {
       final formMap = formKey.currentState!.value;
-
       if(answers.isNotEmpty){
         RLog.warning(answers);
         onSubmit?.call(selectedSurvey, answers);

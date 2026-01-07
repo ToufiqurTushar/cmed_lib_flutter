@@ -26,7 +26,7 @@ class CheSurveyLogic extends BaseLogic {
 
   fetchSurveyData() {
     isLoading.value = true;
-    Get.find<HttpProvider>().GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.AGENT_SUBSCRIPTION.name)).then((response) {
+    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.AGENT_SUBSCRIPTION.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
         selectedSurvey.value = allSurveys.first;
@@ -48,7 +48,7 @@ class CheSurveyLogic extends BaseLogic {
         inputs: formMap
     );
     globalState.showBusy();
-    Get.find<HttpProvider>().POST(ApiUrl.postSurveyUrl(), surveyResultData.toJson()).then((response) {
+    httpProvider.POST(ApiUrl.postSurveyUrl(), surveyResultData.toJson()).then((response) {
       globalState.hideBusy();
       isLoading.value = false;
       if (response.isOk) {
