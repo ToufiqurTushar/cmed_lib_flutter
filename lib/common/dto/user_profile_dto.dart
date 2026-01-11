@@ -750,52 +750,135 @@ class Comorbidity {
 
 class DrugHistory {
   DrugHistory({
+    this.id,
+    this.uuid,
+    this.profileId,
+    this.prescriptionId,
+    this.medicineItemId,
     this.medicineName,
     this.strength,
     this.type,
     this.dar,
     this.dosage,
+    this.dosageId,
     this.provider,
     this.durationTime,
     this.durationUnit,
     this.description,
+    this.endOfMedication,
   });
 
-  DrugHistory.fromJson(dynamic json) {
-    medicineName = json['medicineName'];
-    strength = json['strength'];
-    type = json['type'];
-    dar = json['dar'];
-    dosage = json['dosage'];
-    provider = json['provider'];
-    durationTime = json['durationTime'];
-    durationUnit = json['durationUnit'];
-    description = json['description'];
+    factory DrugHistory.fromJson(Map<String, dynamic> json) {
+    return DrugHistory(
+      id: json['id'],
+      uuid: json['uuid'],
+      profileId: json['profileId'],
+      prescriptionId: json['prescriptionId'],
+      medicineItemId: json['medicineItemId'],
+      medicineName: json['medicineName'],
+      strength: json['strength'],
+      type: json['type'],
+      dar: json['dar'],
+      dosage: json['dosage'],
+      dosageId: json['dosageId'],
+      provider: json['provider'],
+      durationTime: json['durationTime'],
+      durationUnit: json['durationUnit'],
+      description: json['description'],
+      endOfMedication: json['endOfMedication'] != null
+          ? DateTime.tryParse(json['endOfMedication'])
+          : null,
+    );
   }
+
+  int? id;
+  String? uuid;
+  int? profileId;
+  int? prescriptionId;
+  int? medicineItemId;
   String? medicineName;
   String? strength;
-  String? type;
+  String? type; 
   String? dar;
   String? dosage;
-  String? provider;
+  int? dosageId;
+  String? provider; 
   int? durationTime;
   String? durationUnit;
   String? description;
+  DateTime? endOfMedication;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['medicineName'] = medicineName;
-    map['strength'] = strength;
-    map['type'] = type;
-    map['dar'] = dar;
-    map['dosage'] = dosage;
-    map['provider'] = provider;
-    map['durationTime'] = durationTime;
-    map['durationUnit'] = durationUnit;
-    map['description'] = description;
-    return map;
+    return {
+      'id': id,
+      'uuid': uuid,
+      'profileId': profileId,
+      'prescriptionId': prescriptionId,
+      'medicineItemId': medicineItemId,
+      'medicineName': medicineName,
+      'strength': strength,
+      'type': type,
+      'dar': dar,
+      'dosage': dosage,
+      'dosageId': dosageId,
+      'provider': provider,
+      'durationTime': durationTime,
+      'durationUnit': durationUnit,
+      'description': description,
+      'endOfMedication': endOfMedication?.toIso8601String(),
+    };
   }
 }
+
+
+// class DrugHistory {
+//   DrugHistory({
+//     this.medicineName,
+//     this.strength,
+//     this.type,
+//     this.dar,
+//     this.dosage,
+//     this.provider,
+//     this.durationTime,
+//     this.durationUnit,
+//     this.description,
+//   });
+
+//   DrugHistory.fromJson(dynamic json) {
+//     medicineName = json['medicineName'];
+//     strength = json['strength'];
+//     type = json['type'];
+//     dar = json['dar'];
+//     dosage = json['dosage'];
+//     provider = json['provider'];
+//     durationTime = json['durationTime'];
+//     durationUnit = json['durationUnit'];
+//     description = json['description'];
+//   }
+//   String? medicineName;
+//   String? strength;
+//   String? type;
+//   String? dar;
+//   String? dosage;
+//   String? provider;
+//   int? durationTime;
+//   String? durationUnit;
+//   String? description;
+
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['medicineName'] = medicineName;
+//     map['strength'] = strength;
+//     map['type'] = type;
+//     map['dar'] = dar;
+//     map['dosage'] = dosage;
+//     map['provider'] = provider;
+//     map['durationTime'] = durationTime;
+//     map['durationUnit'] = durationUnit;
+//     map['description'] = description;
+//     return map;
+//   }
+// }
 
 class Injury {
   Injury({this.previousInjury, this.description, this.injuryDate, this.injuryTypes});
