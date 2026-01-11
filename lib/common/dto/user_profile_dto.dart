@@ -755,6 +755,7 @@ class DrugHistory {
     this.type,
     this.dar,
     this.dosage,
+    this.provider,
     this.durationTime,
     this.durationUnit,
     this.description,
@@ -766,6 +767,7 @@ class DrugHistory {
     type = json['type'];
     dar = json['dar'];
     dosage = json['dosage'];
+    provider = json['provider'];
     durationTime = json['durationTime'];
     durationUnit = json['durationUnit'];
     description = json['description'];
@@ -775,6 +777,7 @@ class DrugHistory {
   String? type;
   String? dar;
   String? dosage;
+  String? provider;
   int? durationTime;
   String? durationUnit;
   String? description;
@@ -786,6 +789,7 @@ class DrugHistory {
     map['type'] = type;
     map['dar'] = dar;
     map['dosage'] = dosage;
+    map['provider'] = provider;
     map['durationTime'] = durationTime;
     map['durationUnit'] = durationUnit;
     map['description'] = description;
