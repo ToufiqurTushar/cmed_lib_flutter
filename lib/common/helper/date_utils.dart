@@ -1,5 +1,4 @@
 import 'package:age_calculator/age_calculator.dart';
-import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
@@ -170,6 +169,37 @@ class CustomDateUtils {
       {String? unit, int time = 0}) {
     DateTime date = getDateTimeSubtractedFromTimeByUnit(unit: unit, time: time);
     return CustomDateUtils.format(date.millisecondsSinceEpoch);
+  }
+
+  static String getRemainingTimeFromNow(DateTime endDate) {
+    final now = DateTime.now();
+
+    if (!endDate.isAfter(now)) {
+      return '0 days';
+    }
+
+    int months = (endDate.year - now.year) * 12 + (endDate.month - now.month);
+
+    int days = endDate.day - now.day;
+
+    if (days < 0) {
+      months -= 1;
+      final prevMonth = DateTime(endDate.year, endDate.month, 0);
+      days += prevMonth.day;
+    }
+
+    if (months < 0) months = 0;
+
+    if (months > 0) {
+      return months == 1 ? '1 month' : '$months months';
+    }
+
+    if (days >= 7) {
+      final weeks = (days / 7).ceil();
+      return weeks == 1 ? '1 week' : '$weeks weeks';
+    }
+
+    return '$days days';
   }
 
   static String getYearOrMonthOrDayFromDateTime(DateTime? dateTime) {
