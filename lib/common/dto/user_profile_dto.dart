@@ -785,9 +785,7 @@ class DrugHistory {
       durationTime: json['durationTime'],
       durationUnit: json['durationUnit'],
       description: json['description'],
-      endOfMedication: json['endOfMedication'] != null
-          ? DateTime.tryParse(json['endOfMedication'])
-          : null,
+      endOfMedication: json['endOfMedication'],
     );
   }
 
@@ -806,7 +804,7 @@ class DrugHistory {
   int? durationTime;
   String? durationUnit;
   String? description;
-  DateTime? endOfMedication;
+  int? endOfMedication;
 
   Map<String, dynamic> toJson() {
     return {
@@ -825,7 +823,7 @@ class DrugHistory {
       'durationTime': durationTime,
       'durationUnit': durationUnit,
       'description': description,
-      'endOfMedication': endOfMedication?.toIso8601String(),
+      'endOfMedication': endOfMedication,
     };
   }
 }
