@@ -67,7 +67,7 @@ Widget SelectDate({
                           children: [
                             Expanded(
                               child: Text(
-                              (fieldState.value != null) ? CustomDateUtils.format(fieldState.value): (field.hint ?? "Select date"),
+                              (fieldState.value != null) ? CustomDateUtils.format(fieldState.value): ((field.hint!=null && field.hint!.isNotEmpty)?field.hint!:"Select date".tr),
                                 style: TextStyle(
                                   color: fieldState.value == null ? Colors.grey : Colors.black,
                                 ),

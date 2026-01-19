@@ -35,7 +35,7 @@ Widget EditText({
               valueTransformer: null,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                hint: Text(field.hint??"Write here".tr, style: TextStyle(color: Colors.grey),),
+                hint: Text((field.hint!=null && field.hint!.isNotEmpty)?field.hint!:"Write here".tr, style: TextStyle(color: Colors.grey),),
                 filled: true,
                 fillColor: Theme.of(context).primaryColorLight,
                 border: InputBorder.none,
