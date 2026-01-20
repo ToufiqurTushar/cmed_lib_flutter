@@ -107,6 +107,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                             onClickAction: (){
                               Get.toNamed(EyeScreeningResultView.routeName, arguments: [
                                 {
+                                  "accessFrom": controller.accessFrom,
                                   "screeningReport": MeasurementDTO(
                                     eyeScreening: [
                                       EyeScreening(
@@ -133,6 +134,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           onClickAction: () {
                             Get.toNamed(EyeScreeningResultView.routeName, arguments: [
                               {
+                                "accessFrom": controller.accessFrom,
                                 "screeningReport": MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
@@ -159,6 +161,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           onClickAction: () {
                             Get.toNamed(EyeScreeningResultView.routeName, arguments: [
                               {
+                                "accessFrom": controller.accessFrom,
                                 "screeningReport": MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
@@ -186,6 +189,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                             Get.toNamed(EyeScreeningResultView.routeName,
                                 arguments: [
                                   {
+                                    "accessFrom": controller.accessFrom,
                                     "screeningReport": MeasurementDTO(
                                       eyeScreening: [
                                         EyeScreening(
@@ -214,6 +218,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           onClickAction: () {
                             Get.toNamed(EyeScreeningResultView.routeName, arguments: [
                               {
+                                "accessFrom": controller.accessFrom,
                                 "screeningReport": MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
@@ -241,6 +246,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           onClickAction: () {
                             Get.toNamed(EyeScreeningResultView.routeName, arguments: [
                               {
+                                "accessFrom": controller.accessFrom,
                                 "screeningReport": MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
