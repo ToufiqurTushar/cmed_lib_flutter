@@ -19,6 +19,7 @@ class EyeScreeningResultLogic extends BaseLogic {
   var testedResultLeftEyeMessage = ''.obs;
   var testedResultRightEyeMessage = ''.obs;
   var testedResultSuggestion = ''.obs;
+  RxString accessFrom = ''.obs;
   EyeScreeningTypeEnum? eyeScreeningTypeEnum;
   final ScreeningReportRepository repository;
   EyeScreeningResultLogic({required this.repository});
@@ -26,6 +27,7 @@ class EyeScreeningResultLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
+    accessFrom = argumentData[1]['accessFrom'];
     screeningReport.value = argumentData[0]['screeningReport'];
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
@@ -186,15 +188,15 @@ class EyeScreeningResultLogic extends BaseLogic {
 
   String getImageAsset() {
     if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.NEAR_VISION_BOTH_EYE) {
-      return 'ic_near_vision.svg';
+      return accessFrom.value == 'User_App'? 'ic_near_vision_new.svg' : 'ic_near_vision.svg';
     } else if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1) {
-      return 'ic_distance_vision.svg';
+      return accessFrom.value == 'User_App'? 'ic_distance_vision_new.svg' : 'ic_distance_vision.svg';
     } else if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.COLOR_BLIND_TEST) {
       return 'ic_color_blind.svg';
     } else if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.CONTRAST_TEST) {
       return 'ic_color_contrast.svg';
     }
-    return 'ic_near_vision.svg';
+    return accessFrom.value == 'User_App'? 'ic_near_vision_new.svg' : 'ic_near_vision.svg';
   }
 
   // Color getResultColor() {
