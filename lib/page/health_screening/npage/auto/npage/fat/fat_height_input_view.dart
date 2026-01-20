@@ -20,7 +20,7 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_body_composition_only'.tr,),
+      appBar: BasicAppBar('label_body_fat_composition'.tr,),
       body: SafeArea(
         child: Form(
           key: controller.screeningReportFormKey,
