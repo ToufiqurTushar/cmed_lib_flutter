@@ -27,7 +27,7 @@ class EyeScreeningResultLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
-    accessFrom = argumentData[1]['accessFrom'];
+    accessFrom = argumentData[0]['accessFrom'];
     screeningReport.value = argumentData[0]['screeningReport'];
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
