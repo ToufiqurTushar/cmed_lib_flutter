@@ -36,7 +36,14 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
-    accessFrom = Get.arguments["accessFrom"];
+    
+  final args = Get.arguments;
+  if (args != null && args is Map && args.containsKey('accessFrom')) {
+    accessFrom = args['accessFrom'];
+  } else {
+    Exception(args['accessFrom']);
+    accessFrom = ''; // or throw/log if required
+  }
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(name:"N5", labelEn: letters[0], labelBn: lettersBn[0], value: fontSizes[0]),
       MasterDataDTO(name:"N5", labelEn: letters[1], labelBn: lettersBn[1], value: fontSizes[0]),

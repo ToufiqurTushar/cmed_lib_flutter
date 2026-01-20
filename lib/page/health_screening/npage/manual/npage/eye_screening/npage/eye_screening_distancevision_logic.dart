@@ -37,7 +37,13 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
 
   @override
   void onInit() {
-    accessFrom = Get.arguments["accessFrom"];
+  final args = Get.arguments;
+  if (args != null && args is Map && args.containsKey('accessFrom')) {
+    accessFrom = args['accessFrom'];
+  } else {
+    Exception(args['accessFrom']);
+    accessFrom = ''; // or throw/log if required
+  }
     super.onInit();
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(image:'1', name: '6/60', labelEn: letters[Random().nextInt(letters.length-1)], labelBn: lettersBn[Random().nextInt(letters.length-1)], value: 0),
