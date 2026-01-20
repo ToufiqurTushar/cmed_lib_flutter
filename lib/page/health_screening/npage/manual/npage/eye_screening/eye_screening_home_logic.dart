@@ -116,8 +116,13 @@ class EyeScreeningHomeLogic extends BaseLogic {
 
   @override
   void onInit() {
-    var argument = Get.arguments as Map<String, dynamic>;
-    accessFrom = argument["accessFrom"];
+      final args = Get.arguments;
+  if (args != null && args is Map && args.containsKey('accessFrom')) {
+    accessFrom = args['accessFrom'];
+  } else {
+    Exception(args['accessFrom']);
+    accessFrom = ''; // or throw/log if required
+  }
     super.onInit();
   }
 

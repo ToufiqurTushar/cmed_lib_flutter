@@ -27,6 +27,15 @@ class EyeScreeningResultLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
+
+  final args = Get.arguments;
+  if (args != null && args is Map && args.containsKey('accessFrom')) {
+    accessFrom.value = args[0]['accessFrom'];
+  } else {
+    Exception(args['accessFrom']);
+    accessFrom.value = ''; // or throw/log if required
+  }
+
     accessFrom.value = argumentData[0]['accessFrom'];
     screeningReport.value = argumentData[0]['screeningReport'];
     RLog.error(screeningReport.value.toJson());
