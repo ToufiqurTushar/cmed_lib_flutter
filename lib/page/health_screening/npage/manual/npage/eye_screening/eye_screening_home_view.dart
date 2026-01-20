@@ -94,7 +94,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         visible: GetUtils.isNullOrBlank(controller.nearVisionBothEyeResult.value.createdAt) != true,
                           child: ItemScreeringResultHome(
                             'label_near_vision_both_eye_test'.tr,
-                            "assets/images/measurement/ic_near_vision.svg",
+                            controller.accessFrom == "User_App"? "assets/images/measurement/ic_near_vision_new.svg" : "assets/images/measurement/ic_near_vision.svg",
                             circularBorderColor: controller.nearVisionBothEyeResult.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.NEAR_VISION_BOTH_EYE),
                             isAssetTypePng: false,
                             subTitle: null,
@@ -124,7 +124,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         visible: GetUtils.isNullOrBlank(controller.farVisionDistance1Result.value.createdAt) != true,
                         child: ItemScreeringResultHome(
                           EyeScreeningTypeEnum.getNameByNameType(controller.farVisionDistance1Result.value.screenType),
-                          "assets/images/measurement/ic_distance_vision.svg",
+                          controller.accessFrom == "User_App"? "assets/images/measurement/ic_distance_vision_new.svg" : "assets/images/measurement/ic_distance_vision.svg",
                           circularBorderColor: controller.farVisionDistance1Result.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1),
                           subTitle: null,
                           boldTitle: false,

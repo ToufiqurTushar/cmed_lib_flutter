@@ -168,7 +168,7 @@ class EyeScreeningResultLogic extends BaseLogic {
 
   startDistanceVisionEyeScreening() {
     saveLocal();
-    Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, arguments: accessFrom.value, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   showstartDistanceVisionEyeScreeningButton() {
