@@ -52,7 +52,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_near_vision_new.svg",
                         boldTitle: false,
                         onClickAction: (){
-                          Get.toNamed(EyeScreeningNearvisionView.routeName, arguments: {"accessFrom": 'User_App',});
+                          Get.toNamed(EyeScreeningNearvisionView.routeName, arguments: {"accessFrom": controller.accessFrom,});
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -60,7 +60,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_distance_vision_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningDistancevisionView.routeName, arguments: {"accessFrom": 'User_App',}),
+                          Get.toNamed(EyeScreeningDistancevisionView.routeName, arguments: {"accessFrom": controller.accessFrom,}),
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
