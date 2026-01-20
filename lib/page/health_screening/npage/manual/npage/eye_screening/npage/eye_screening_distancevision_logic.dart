@@ -13,7 +13,8 @@ import '../../../../../repository/screening_report_repository.dart';
 
 
 class EyeScreeningDistancevisionLogic extends BaseLogic {
-
+  
+  late String accessFrom;
   final ScreeningReportRepository repository;
   EyeScreeningDistancevisionLogic({required this.repository});
 
@@ -36,6 +37,7 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
 
   @override
   void onInit() {
+    accessFrom = Get.arguments["accessFrom"];
     super.onInit();
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(image:'1', name: '6/60', labelEn: letters[Random().nextInt(letters.length-1)], labelBn: lettersBn[Random().nextInt(letters.length-1)], value: 0),
@@ -137,6 +139,7 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
     if(resultFound) {
       Get.offNamed(EyeScreeningResultView.routeName, arguments: [
         {
+          "accessFrom": accessFrom,
           "screeningReport": MeasurementDTO(
             eyeScreening: [
               EyeScreening(

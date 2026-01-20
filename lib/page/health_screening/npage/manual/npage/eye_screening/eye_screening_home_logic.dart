@@ -12,6 +12,7 @@ import 'enum/eye_screening_type_enum.dart';
 
 
 class EyeScreeningHomeLogic extends BaseLogic {
+  late String accessFrom;
   final ScreeningReportRepository repository;
   EyeScreeningHomeLogic({required this.repository});
 
@@ -111,6 +112,12 @@ class EyeScreeningHomeLogic extends BaseLogic {
     }
 
     return false;
+  }
+
+  @override
+  void onInit() {
+    accessFrom = Get.arguments["accessFrom"];
+    super.onInit();
   }
 
 }
