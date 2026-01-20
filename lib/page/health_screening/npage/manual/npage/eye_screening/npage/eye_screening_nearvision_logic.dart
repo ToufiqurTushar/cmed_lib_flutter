@@ -10,7 +10,7 @@ import '../../../../../repository/screening_report_repository.dart';
 
 
 class EyeScreeningNearvisionLogic extends BaseLogic {
-  late String accessFrom;
+  late String accessFrom; 
   final ScreeningReportRepository repository;
   EyeScreeningNearvisionLogic({required this.repository});
 
@@ -35,15 +35,13 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
 
   @override
   void onInit() {
+     final args = Get.arguments;
+    if (args != null && args is Map && args.containsKey('accessFrom')) {
+      accessFrom = args['accessFrom'];
+    } else {
+      accessFrom = 'User_App'; // default value
+    }
     super.onInit();
-    
-  final args = Get.arguments;
-  if (args != null && args is Map && args.containsKey('accessFrom')) {
-    accessFrom = args['accessFrom'];
-  } else {
-    Exception(args['accessFrom']);
-    accessFrom = ''; // or throw/log if required
-  }
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(name:"N5", labelEn: letters[0], labelBn: lettersBn[0], value: fontSizes[0]),
       MasterDataDTO(name:"N5", labelEn: letters[1], labelBn: lettersBn[1], value: fontSizes[0]),

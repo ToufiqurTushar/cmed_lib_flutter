@@ -29,10 +29,10 @@ class EyeScreeningResultLogic extends BaseLogic {
     super.onInit();
 
   final args = Get.arguments;
-  if (args != null && args is Map && args.containsKey('accessFrom')) {
+  if (args[0] != null && args[0] is Map && args[0].containsKey('accessFrom')) {
     accessFrom.value = args[0]['accessFrom'];
   } else {
-    Exception(args['accessFrom']);
+    Exception(args[0]['accessFrom']);
     accessFrom.value = ''; // or throw/log if required
   }
 
@@ -88,7 +88,7 @@ class EyeScreeningResultLogic extends BaseLogic {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
 
-    Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    Get.offNamedUntil(pageRouteName,arguments: {'accessFrom': accessFrom.value}, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   void startNextEyeScreening() {
@@ -104,7 +104,7 @@ class EyeScreeningResultLogic extends BaseLogic {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
 
-    Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    Get.offNamedUntil(pageRouteName,arguments: {'accessFrom': accessFrom.value}, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   EyeScreeningHomeLogic getEyeScreeningHomeLogic() {

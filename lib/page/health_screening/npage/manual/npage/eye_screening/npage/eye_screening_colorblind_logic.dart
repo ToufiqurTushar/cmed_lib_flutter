@@ -10,7 +10,7 @@ import '../../../../../repository/screening_report_repository.dart';
 import '../enum/eye_screening_type_enum.dart';
 
 class EyeScreeningColorblindLogic extends BaseLogic {
-
+  late String accessFrom;
   final ScreeningReportRepository repository;
   EyeScreeningColorblindLogic({required this.repository});
   var countRightAnswer = 0;
@@ -52,6 +52,7 @@ class EyeScreeningColorblindLogic extends BaseLogic {
   screeningComplete() {
     Get.offNamed(EyeScreeningResultView.routeName, arguments: [
       {
+        "accessFrom": accessFrom,
         "screeningReport": MeasurementDTO(
           eyeScreening: [
             EyeScreening(
@@ -106,5 +107,16 @@ class EyeScreeningColorblindLogic extends BaseLogic {
       return 'label_type_number_in_screen'.tr;
     }
     return null;
+  }
+
+    @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments;
+    if (args != null && args is Map && args.containsKey('accessFrom')) {
+      accessFrom = args['accessFrom'];
+    } else {
+      accessFrom = 'User_App';
+    }
   }
 }

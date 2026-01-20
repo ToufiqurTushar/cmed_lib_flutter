@@ -12,8 +12,8 @@ import '../../../../../repository/screening_report_repository.dart';
 
 
 class EyeScreeningContrastLogic extends BaseLogic {
-
-  final ScreeningReportRepository repository;
+    late String accessFrom; // Add this
+   final ScreeningReportRepository repository;
   EyeScreeningContrastLogic({required this.repository});
 
   var screeningQuestions = <MasterDataDTO>[
@@ -77,6 +77,7 @@ class EyeScreeningContrastLogic extends BaseLogic {
   nextScreening({MasterDataDTO? result}) {
     Get.offNamed(EyeScreeningResultView.routeName, arguments: [
       {
+        "accessFrom": accessFrom,
         "screeningReport": MeasurementDTO(
           eyeScreening: [
             EyeScreening(
@@ -108,5 +109,17 @@ class EyeScreeningContrastLogic extends BaseLogic {
   void onReady() {
     super.onReady();
     AppDialogs.showSingleButtonDialog('info_color_contrast1'.tr, positiveButtonText: 'label_continue'.tr, cancelable: false, onButtonClick: () async {});
+  }
+
+   
+  @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments;
+    if (args != null && args is Map && args.containsKey('accessFrom')) {
+      accessFrom = args['accessFrom'];
+    } else {
+      accessFrom = 'User_App';
+    }
   }
 }
