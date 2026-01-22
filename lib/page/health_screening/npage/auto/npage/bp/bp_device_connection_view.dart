@@ -30,6 +30,12 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
             Obx(() => Expanded(
                   child: Stack(
                     children: [
+                      Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: SvgPicture.asset(
+                                    "assets/images/screening/ic_bp_connect.svg",
+                                    semanticsLabel: "label"),
+                              ),
                       Visibility(
                         visible: controller.isResultFound.isFalse && (controller.screen_status.value ==
                                 ScreenEnum.CONNECT.name ||
