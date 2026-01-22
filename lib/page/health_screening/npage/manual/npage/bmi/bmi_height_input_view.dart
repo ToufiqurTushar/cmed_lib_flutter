@@ -240,7 +240,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
                                                 bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
                                                 if(isAuto){
-                                                  Get.toNamed(BmiDeviceConnectionView.routeName, arguments: [
+                                                  Get.offNamed(BmiDeviceConnectionView.routeName, arguments: [
                                                     {
                                                       "codeId": MeasurementType.BMI.value,
                                                       "heightUnit": controller.heightUnit.value,
@@ -250,7 +250,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                     }
                                                   ]);
                                                 }else {
-                                                  Get.toNamed(BmiHeightWeightInputView.routeName, arguments: [
+                                                  Get.offNamed(BmiHeightWeightInputView.routeName, arguments: [
                                                     {
                                                       "codeId": MeasurementType.BMI.value,
                                                       "heightUnit": controller.heightUnit.value,
