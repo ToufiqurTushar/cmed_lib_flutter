@@ -238,6 +238,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
                                                 Get.toNamed(BmiHeightWeightInputView.routeName, arguments: [
                                                   {
+                                                    "codeId": MeasurementType.BMI.value,
                                                     "heightUnit": controller.heightUnit.value,
                                                     "heightInCm": controller.getHeightInCentimeter(),
                                                     "heightInFeet": controller.heightInFeetEditTextController.text,
