@@ -16,6 +16,8 @@ import 'package:themed/themed.dart';
 
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 
+import '../../../auto/npage/bmi/bmi_device_connection_view.dart';
+
 class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
   static String routeName = '/bmi_height_input_page';
 
@@ -225,7 +227,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                       Expanded(
                                         child: CMEDWhiteElevatedButton(
                                           'label_enter'.tr,
-                                          () => {
+                                          () {
                                             if (controller.isValidInput()){
                                               if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
                                                 Get.toNamed(AutoManualSelectionView.routeName, arguments: {
@@ -234,17 +236,31 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                   "heightInCm": controller.getHeightInCentimeter(),
                                                   "heightInFeet": controller.heightInFeetEditTextController.text,
                                                   "heightInInch": controller.heightInInchEditTextController.text
-                                                },)
+                                                },);
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                Get.toNamed(BmiHeightWeightInputView.routeName, arguments: [
-                                                  {
-                                                    "codeId": MeasurementType.BMI.value,
-                                                    "heightUnit": controller.heightUnit.value,
-                                                    "heightInCm": controller.getHeightInCentimeter(),
-                                                    "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                    "heightInInch": controller.heightInInchEditTextController.text
-                                                  }
-                                                ])
+                                                bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
+                                                if(isAuto){
+                                                  Get.toNamed(BmiDeviceConnectionView.routeName, arguments: [
+                                                    {
+                                                      "codeId": MeasurementType.BMI.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    }
+                                                  ]);
+                                                }else {
+                                                  Get.toNamed(BmiHeightWeightInputView.routeName, arguments: [
+                                                    {
+                                                      "codeId": MeasurementType.BMI.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    }
+                                                  ]);
+                                                }
+                                                
                                               }
                                             }
 
