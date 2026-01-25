@@ -5,6 +5,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bm
 import 'package:cmed_lib_flutter/page/health_screening/health_screening_home_i18n.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/auto_manual_selection_view.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bmi_height_weight_input_view.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,8 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:themed/themed.dart';
 
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
+
+import '../../../auto/npage/bmi/bmi_device_connection_view.dart';
 
 class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
   static String routeName = '/bmi_height_input_page';
@@ -224,15 +227,43 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                       Expanded(
                                         child: CMEDWhiteElevatedButton(
                                           'label_enter'.tr,
-                                          () => {
-                                            if (controller.isValidInput())
-                                              Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                "codeId": MeasurementType.BMI.value,
-                                                "heightUnit": controller.heightUnit.value,
-                                                "heightInCm": controller.getHeightInCentimeter(),
-                                                "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                "heightInInch": controller.heightInInchEditTextController.text
-                                              },)
+                                          () {
+                                            if (controller.isValidInput()){
+                                              if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+                                                Get.toNamed(AutoManualSelectionView.routeName, arguments: {
+                                                  "codeId": MeasurementType.BMI.value,
+                                                  "heightUnit": controller.heightUnit.value,
+                                                  "heightInCm": controller.getHeightInCentimeter(),
+                                                  "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                  "heightInInch": controller.heightInInchEditTextController.text
+                                                },);
+                                              } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+                                                bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
+                                                if(isAuto){
+                                                  Get.offNamed(BmiDeviceConnectionView.routeName, arguments: [
+                                                    {
+                                                      "codeId": MeasurementType.BMI.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    }
+                                                  ]);
+                                                }else {
+                                                  Get.offNamed(BmiHeightWeightInputView.routeName, arguments: [
+                                                    {
+                                                      "codeId": MeasurementType.BMI.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    }
+                                                  ]);
+                                                }
+                                                
+                                              }
+                                            }
+
                                           },
                                         ),
                                       ),

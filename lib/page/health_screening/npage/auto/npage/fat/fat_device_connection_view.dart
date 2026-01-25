@@ -30,7 +30,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
       },
       child: Scaffold(
         appBar: BasicAppBar(
-          'label_body_composition_only'.tr),
+          'label_body_fat_composition'.tr),
         body: SafeArea(
           child: Column(
             children: [

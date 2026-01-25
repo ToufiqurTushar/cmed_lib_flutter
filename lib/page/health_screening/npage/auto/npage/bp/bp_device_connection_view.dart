@@ -30,6 +30,7 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
             Obx(() => Expanded(
                   child: Stack(
                     children: [
+                    
                       Visibility(
                         visible: controller.isResultFound.isFalse && (controller.screen_status.value ==
                                 ScreenEnum.CONNECT.name ||

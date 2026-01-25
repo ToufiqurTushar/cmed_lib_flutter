@@ -56,7 +56,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
                 tabContents: [
                   TabPage(id: "t1", title: "GENERAL".tr, listOfQuestionUid: controller.customer.value.isFamilyMember? ['as9_1', 'as9_15']: ['as9_1', 'as9_15', 'as9_16', 'as9_17']),
                   TabPage(id: "t2", title: "SUBSCRIPTION STATUS".tr, listOfQuestionUid: ['as9_18','as9_2', 'as9_3', 'as9_4', 'as9_5'], isTabVisible: !controller.customer.value.isFamilyMember),
-                  TabPage(id: "t3", title: "SOCIAL PROTECTION".tr, listOfQuestionUid: ['as9_6', 'as9_7', 'as9_8', 'as9_9', 'as9_10', 'as9_11', 'as9_12', 'as9_13', 'as9_14'],),
+                  TabPage(id: "t3", title: "SOCIAL PROTECTION".tr, listOfQuestionUid: ['as9_6', 'as9_7','as9_7.1','as9_7.2', 'as9_8', 'as9_9', 'as9_10', 'as9_11', 'as9_12', 'as9_13', 'as9_14'],),
                 ],
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){
