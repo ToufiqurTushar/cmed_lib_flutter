@@ -3,6 +3,7 @@ import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/health_screening_home_i18n.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/auto/npage/fat/fat_device_connection_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/auto_manual_selection_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -221,16 +222,41 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
                                       Expanded(
                                         child: CMEDWhiteElevatedButton(
                                           'label_enter'.tr,
-                                          () => {
-                                            if (controller.isValidInput())
-                                              Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                "codeId": MeasurementType.BODY_COMPOSITION.value,
-                                                "heightUnit": controller.heightUnit.value,
-                                                "heightInCm": controller.getHeightInCentimeter(),
-                                                "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                "heightInInch": controller.heightInInchEditTextController.text
-                                              },)
-                                            
+                                          () {
+                                            if (controller.isValidInput()){
+                                              if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+                                                Get.toNamed(AutoManualSelectionView.routeName, arguments: {
+                                                  "codeId": MeasurementType.BODY_COMPOSITION.value,
+                                                  "heightUnit": controller.heightUnit.value,
+                                                  "heightInCm": controller.getHeightInCentimeter(),
+                                                  "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                  "heightInInch": controller.heightInInchEditTextController.text
+                                                },);
+                                              } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+                                                bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
+                                                if(isAuto){
+                                                  if (controller.isValidInput()){
+                                                    Get.toNamed(FatDeviceConnectionView.routeName, arguments: {
+                                                      "codeId": MeasurementType.BODY_COMPOSITION.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    },);
+                                                  }
+                                                }else {
+                                                  Get.offNamed(FatDeviceConnectionView.routeName, arguments: [
+                                                    {
+                                                      "codeId": MeasurementType.BODY_COMPOSITION.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    }
+                                                  ]);
+                                                }
+                                              }
+                                            }
                                           },
                                         ),
                                       ),
