@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart' as dio;
@@ -283,6 +284,104 @@ class HttpProvider {
       final errorMsg = handleDioError(e);
       return Response(body: errorMsg, statusCode: e.response?.statusCode);
     }
+  }
+
+  // static Future<File> downloadPdfFromHttp(String endpoint, bool globalLoading) async {
+  //   final uri = Uri.parse('${appEnvConfig.baseUrl}$endpoint');
+  //   final response = await http.get(
+  //     uri,
+  //     headers: {
+  //       'Accept': 'application/pdf',
+  //       'Authorization': 'Bearer ${preferenceStore.read(accesTokenKey)}',
+  //     },
+  //   );
+  //
+  //   if (response.statusCode != 200) {
+  //     throw Exception("Failed to download");
+  //   }
+  //
+  //   final dir = await getApplicationDocumentsDirectory();
+  //   final file = File('${dir.path}/example.pdf');
+  //
+  //   await file.writeAsBytes(response.bodyBytes);
+  //   return file;
+  // }
+
+  Future<File> downloadPngFile(String url, {String? fileName,String? token, bool requiredBearerToken = true}) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final filePath = '${dir.path}/${fileName??'example-${math.Random().nextInt(999999)}.png'}';
+    var newDio = dio.Dio();
+    newDio = dio.Dio();
+    await newDio.download(
+      '${appEnvConfig.baseUrl}$url',
+      filePath,
+      options: dio.Options(
+        responseType: dio.ResponseType.bytes,
+        headers: {
+          if (requiredBearerToken)
+          "Authorization": "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
+        },
+      ),
+    );
+
+    return File(filePath);
+  }
+
+  Future<File> downloadWithAutoRename(
+      String url, {
+        bool requiredBearerToken = true,
+        String? token,
+        String? preferredName, // optional
+      }) async {
+
+    final dir = await getApplicationDocumentsDirectory();
+
+    // temp path (we rename later)
+    final tempPath = '${dir.path}/temp_download';
+
+    final response = await dioClient.download(
+      url,
+      tempPath,
+      options: dio.Options(
+        responseType: dio.ResponseType.bytes,
+        headers: {
+          if(requiredBearerToken)
+          "Authorization": "Bearer ${token ?? preferenceStore.read(accesTokenKey)}"
+        },
+      ),
+    );
+
+    // Try filename from Content-Disposition
+    String? filename;
+    final disposition = response.headers.value('content-disposition');
+
+    if (disposition != null) {
+      final match = RegExp(r'filename="?([^"]+)"?').firstMatch(disposition);
+      filename = match?.group(1);
+    }
+
+    // Fallback: MIME type → extension
+    final contentType = response.headers.value('content-type');
+
+    const mimeMap = {
+      'application/pdf': 'pdf',
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/webp': 'webp',
+    };
+
+    final extension =
+        filename?.split('.').last ?? mimeMap[contentType] ?? 'bin';
+
+    // Final filename
+    final finalName = preferredName != null
+        ? '$preferredName.$extension'
+        : filename ?? 'file_${DateTime.now().millisecondsSinceEpoch}.$extension';
+
+    final finalPath = '${dir.path}/$finalName';
+
+    final file = File(tempPath);
+    return await file.rename(finalPath);
   }
 
   void checkForceUpdateFromResponse(dio.Response response) {
