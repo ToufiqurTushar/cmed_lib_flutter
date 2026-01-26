@@ -1,8 +1,8 @@
 class PosPrinterArg {
   PosPrinterArg({
     this.imageFilePath,
-    this.imageUrl,});
+    this.imageDownloadUrl,});
 
-  String? imageUrl;
+  String? imageDownloadUrl;
   String? imageFilePath;
 }

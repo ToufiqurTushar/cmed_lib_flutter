@@ -23,8 +23,8 @@ class PosPrinterLogic extends BaseLogic {
   Future<void> onInit() async {
     super.onInit();
     scanDevice();
-    if(arg.imageUrl != null){
-      downloadPngFile(arg.imageUrl!);
+    if(arg.imageDownloadUrl != null){
+      downloadPngFile(arg.imageDownloadUrl!);
     }
     else if(arg.imageFilePath != null){
       await modifyAndResaveImageForPosPrinter(arg.imageFilePath!);
@@ -103,8 +103,8 @@ class PosPrinterLogic extends BaseLogic {
 
   Future<void> printImageToPrinter(BluetoothDevice device, String imageFilePath) async {
     if(selectedImageFilePath.value.isEmpty){
-      if(arg.imageUrl != null){
-        await downloadPngFile(arg.imageUrl!);
+      if(arg.imageDownloadUrl != null){
+        await downloadPngFile(arg.imageDownloadUrl!);
         if(selectedImageFilePath.value.isNotEmpty){
           await printImageToPrinter(device, selectedImageFilePath.value);
         }
