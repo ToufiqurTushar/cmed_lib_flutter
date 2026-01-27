@@ -8,6 +8,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:image/image.dart' as img;
 import '../../common/api/app_http.dart';
 import '../../common/helper/toast_utils.dart';
+import 'dart:async';
 
 class PosPrinterLogic extends BaseLogic {
   final arg = Get.arguments as PosPrinterArg;
@@ -18,6 +19,23 @@ class PosPrinterLogic extends BaseLogic {
   final selectedDevice = Rxn<BluetoothDevice>();
   BluetoothCharacteristic? bluetoothWriteCharacteristic;
   final isScanning = false.obs;
+  final scanningTimeoutInSec = 6;
+
+  Timer? searchDelayTimer;
+
+  void stopScanningAfterTimeout() {
+    isScanning.value = true;
+    cancelSearchDelayTimer();
+    searchDelayTimer = Timer(Duration(seconds: scanningTimeoutInSec), () {
+      isScanning.value = false;
+    });
+  }
+
+  void cancelSearchDelayTimer() {
+    if (searchDelayTimer?.isActive ?? false) {
+      searchDelayTimer?.cancel();
+    }
+  }
 
   @override
   Future<void> onInit() async {
@@ -55,7 +73,7 @@ class PosPrinterLogic extends BaseLogic {
   modifyAndResaveImageForPosPrinter(String imagePath) async {
     final image = await loadImage(imagePath);
     final resizedImage = autoCropWhite(image);
-    await File(imagePath).writeAsBytes(img.encodePng(resizedImage));
+    //await File(imagePath).writeAsBytes(img.encodePng(resizedImage));
     selectedImageAsResized.value = resizedImage;
     selectedImageFilePath.value = imagePath;
   }
@@ -71,11 +89,10 @@ class PosPrinterLogic extends BaseLogic {
   // Scan & connect to printer
   Future<void> scanDevice() async {
     if (isScanning.value) return;
-    isScanning.value = true;
-    FlutterBluePlus.startScan(timeout: const Duration(seconds: 6));
+    FlutterBluePlus.startScan(timeout: Duration(seconds: scanningTimeoutInSec));
+    stopScanningAfterTimeout();
     FlutterBluePlus.scanResults.listen((results) async {
-      isScanning.value = false;
-      scanResults.value = results.where((result) => result.device.name.isNotEmpty && !result.device.name.toLowerCase().contains("tv")).map((m)=>m).toList();
+      scanResults.value = results.where((result) => result.device.name.isNotEmpty && !result.device.name.contains("TV")).map((m)=>m).toList();
     });
   }
 

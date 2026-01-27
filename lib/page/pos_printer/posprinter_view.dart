@@ -52,13 +52,15 @@ class PosPrinterView extends RapidView<PosPrinterLogic> {
               itemBuilder: (context, index) {
                 final device = controller.scanResults[index].device;
                 final deviceInfo = controller.scanResults[index].toString();
-                return ListTile(
-                  title: Text(device.name),
-                  subtitle: Text('${device.id.id}'),
-                  trailing: const Icon(Icons.print),
-                  onTap: () {
-                    controller.printImageToPrinter(device, controller.selectedImageFilePath.value);
-                  }
+                return Card(
+                  child: ListTile(
+                    title: Text(device.name),
+                    subtitle: Text('${device.id.id}'),
+                    trailing: const Icon(Icons.print),
+                    onTap: () {
+                      controller.printImageToPrinter(device, controller.selectedImageFilePath.value);
+                    }
+                  ),
                 );
               },
             ),
