@@ -536,7 +536,13 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   Widget _buildReactiveField(Field field, context, formKey){
     return Obx(() {
       final value = controller.answers[field.name];
-      field.defaultValue = value;
+      //check:default value exist
+      if(value == null && field.defaultValue!=null){
+        Future.delayed(Duration.zero, () async {
+          controller.answers[field.name!] = field.defaultValue;
+        });
+      }
+      field.defaultValue = value??field.defaultValue;
       //formKey.currentState?.patchValue(controller.answers);
       //RLog.warning(value);
       // formKey.currentState?.fields[field.name]?.didChange(value);

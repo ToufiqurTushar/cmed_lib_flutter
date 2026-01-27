@@ -6,14 +6,15 @@ import 'package:cmed_lib_flutter/survey/enum/enum.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/api/api_url.dart';
 import '../../../common/base/base_logic.dart';
-import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../common/widget/app_dialog.dart';
 import 'che_survey_argument.dart';
+import 'dto/SurveyResultResponse.dart';
 
 
 class CheSurveyLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
+  var selectedSurveyResult = Rxn<SurveyResultDto>();
   late CheSurveyArgument cheSurveyArgument;
 
   @override
@@ -24,13 +25,33 @@ class CheSurveyLogic extends BaseLogic {
     fetchSurveyData();
   }
 
-  fetchSurveyData() {
+  fetchSurveyData() async {
     isLoading.value = true;
+    await httpProvider.GET(ApiUrl.getAgentSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
+      if (response.isOk) {
+        final results = SurveyResultResponseDto.fromJson(response.body).content;
+        if(results?.isNotEmpty??false){
+          selectedSurveyResult.value = results!.first;
+        }
+        RLog.error(response.body);
+      }
+    });
     httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.AGENT_SUBSCRIPTION.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
+        //set default value if exist
+        if(selectedSurveyResult.value != null){
+          allSurveys.first.fields!.forEach((eachField){
+            try{
+              eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
+            } catch (e){
+              RLog.error(e);
+            }
+          });
+        }
         selectedSurvey.value = allSurveys.first;
-        RLog.error(response.body);
+
+        RLog.info(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {
 
