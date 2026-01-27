@@ -234,27 +234,15 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
                                                 },);
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
                                                 bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
-                                                if(isAuto){
-                                                  if (controller.isValidInput()){
-                                                    Get.toNamed(FatDeviceConnectionView.routeName, arguments: {
-                                                      "codeId": MeasurementType.BODY_COMPOSITION.value,
-                                                      "heightUnit": controller.heightUnit.value,
-                                                      "heightInCm": controller.getHeightInCentimeter(),
-                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                      "heightInInch": controller.heightInInchEditTextController.text
-                                                    },);
+                                                Get.offNamed(FatDeviceConnectionView.routeName, arguments: [
+                                                  {
+                                                    "codeId": MeasurementType.BODY_COMPOSITION.value,
+                                                    "heightUnit": controller.heightUnit.value,
+                                                    "heightInCm": controller.getHeightInCentimeter(),
+                                                    "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                    "heightInInch": controller.heightInInchEditTextController.text
                                                   }
-                                                }else {
-                                                  Get.offNamed(FatDeviceConnectionView.routeName, arguments: [
-                                                    {
-                                                      "codeId": MeasurementType.BODY_COMPOSITION.value,
-                                                      "heightUnit": controller.heightUnit.value,
-                                                      "heightInCm": controller.getHeightInCentimeter(),
-                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                      "heightInInch": controller.heightInInchEditTextController.text
-                                                    }
-                                                  ]);
-                                                }
+                                                ]);
                                               }
                                             }
                                           },
