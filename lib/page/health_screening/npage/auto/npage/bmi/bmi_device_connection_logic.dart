@@ -1,4 +1,4 @@
-import 'package:cmed_bmi_devices_lib/cmed_bmi_devices_lib.dart';
+//import 'package:cmed_bmi_devices_lib/cmed_bmi_devices_lib.dart';
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
@@ -20,7 +20,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   BmiDeviceConnectionLogic({required this.repository, required this.profileRepository});
 
 
-  final _cmedBmiDevicesLib = CmedBmiDevicesLib();
+  //final _cmedBmiDevicesLib = CmedBmiDevicesLib();
   var status = <String>[].obs;
   var isSave = false.obs;
   var isScreenOff = false.obs;
@@ -54,57 +54,57 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     screen_status.value = ScreenEnum.SEARCHING.name;
     buttonText.value = 'label_searching'.tr;
 
-    _cmedBmiDevicesLib.getStatus().listen((event) {
-      RLog.info("bmi_event -> $event");
-      status.value = event.toString().split(":");
-      if (status[0] == "CS_WEIGHT_ACTION_DEVICE_FOUND" ||
-          status[0] == "CS_WEIGHT_ACTION_CONNECTING") {
-        screen_status.value = ScreenEnum.CONNECTING.name;
-        buttonText.value = 'label_connecting'.tr;
-      } else if (status[0] == "CS_ONLINE_WEIGHT") {
-        if(isScreenOff.isTrue) {
-          final player = AudioPlayer();
-          player.play(AssetSource('audio/device_connected.mp3'));
-          isScreenOff.value = false;
-        }
-        if (screen_status.value != ScreenEnum.MEASURING.name) {
-          screen_status.value = ScreenEnum.MEASURING.name;
-          isLoading.value = false;
-        }
-        if (status[1] != "-1") {
-          reading.value = status[1];
-          result.value = status[1];
-        }
-      } else if (status[0] == "CS_WEIGHT_ACTION_DEVICE_NOT_FOUND" ||
-          status[0] == "bluetoothDisabled") {
-        screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
-        buttonText.value = 'label_connect'.tr;
-        // ShowToast.error('label_device_not_found'.tr);
-      } else if (status[0] == "CS_WEIGHT_ACTION_CONNECTED") {
-        screen_status.value = ScreenEnum.CONNECTED.name;
-        final player = AudioPlayer();
-        player.play(AssetSource('audio/device_connected.mp3'));
-      } else if (status[0] == "CS_WEIGHT_BLE_DISABLED") {
-        ShowToast.error('label_bluetooth_error'.tr);
-        screen_status.value = ScreenEnum.CONNECT.name;
-        buttonText.value = 'label_connect'.tr;
-      } else if (status[0] == "CS_FAT_DATA") {
-        RLog.error(status);
-      }  else if (status[0] == "CS_SCREEN_OFF" || status[0] == "CS_WEIGHT_ACTION_DISCONNECTED") {
-        isScreenOff.value = true;
-        buttonText.value = 'label_connect'.tr;
-        screen_status.value = ScreenEnum.DISCONNECTED.name;
-      } else if (event == "CS_IMPEDANCE_MEASUREMENT_FAILED") {
-        // disconnect();
-        Future.delayed(const Duration(milliseconds: 100))
-            .then((value) => screen_status.value = ScreenEnum.CONNECTED.name);
-        // TODO Handle error here.
-      } else {
-        // screen_status.value = ScreenEnum.ERROR.name;
-      }
-    });
-
-    await _cmedBmiDevicesLib.connect();
+    // _cmedBmiDevicesLib.getStatus().listen((event) {
+    //   RLog.info("bmi_event -> $event");
+    //   status.value = event.toString().split(":");
+    //   if (status[0] == "CS_WEIGHT_ACTION_DEVICE_FOUND" ||
+    //       status[0] == "CS_WEIGHT_ACTION_CONNECTING") {
+    //     screen_status.value = ScreenEnum.CONNECTING.name;
+    //     buttonText.value = 'label_connecting'.tr;
+    //   } else if (status[0] == "CS_ONLINE_WEIGHT") {
+    //     if(isScreenOff.isTrue) {
+    //       final player = AudioPlayer();
+    //       player.play(AssetSource('audio/device_connected.mp3'));
+    //       isScreenOff.value = false;
+    //     }
+    //     if (screen_status.value != ScreenEnum.MEASURING.name) {
+    //       screen_status.value = ScreenEnum.MEASURING.name;
+    //       isLoading.value = false;
+    //     }
+    //     if (status[1] != "-1") {
+    //       reading.value = status[1];
+    //       result.value = status[1];
+    //     }
+    //   } else if (status[0] == "CS_WEIGHT_ACTION_DEVICE_NOT_FOUND" ||
+    //       status[0] == "bluetoothDisabled") {
+    //     screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
+    //     buttonText.value = 'label_connect'.tr;
+    //     // ShowToast.error('label_device_not_found'.tr);
+    //   } else if (status[0] == "CS_WEIGHT_ACTION_CONNECTED") {
+    //     screen_status.value = ScreenEnum.CONNECTED.name;
+    //     final player = AudioPlayer();
+    //     player.play(AssetSource('audio/device_connected.mp3'));
+    //   } else if (status[0] == "CS_WEIGHT_BLE_DISABLED") {
+    //     ShowToast.error('label_bluetooth_error'.tr);
+    //     screen_status.value = ScreenEnum.CONNECT.name;
+    //     buttonText.value = 'label_connect'.tr;
+    //   } else if (status[0] == "CS_FAT_DATA") {
+    //     RLog.error(status);
+    //   }  else if (status[0] == "CS_SCREEN_OFF" || status[0] == "CS_WEIGHT_ACTION_DISCONNECTED") {
+    //     isScreenOff.value = true;
+    //     buttonText.value = 'label_connect'.tr;
+    //     screen_status.value = ScreenEnum.DISCONNECTED.name;
+    //   } else if (event == "CS_IMPEDANCE_MEASUREMENT_FAILED") {
+    //     // disconnect();
+    //     Future.delayed(const Duration(milliseconds: 100))
+    //         .then((value) => screen_status.value = ScreenEnum.CONNECTED.name);
+    //     // TODO Handle error here.
+    //   } else {
+    //     // screen_status.value = ScreenEnum.ERROR.name;
+    //   }
+    // });
+    //
+    // await _cmedBmiDevicesLib.connect();
   }
 
   String getInputText() {
@@ -126,7 +126,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
 
   disconnect() {
     isLoading.value = false;
-    _cmedBmiDevicesLib.disconnect();
+    //_cmedBmiDevicesLib.disconnect();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
   }
 
@@ -174,6 +174,6 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   }
 
   stopMeasurement() {
-     _cmedBmiDevicesLib.disconnect();
+     //_cmedBmiDevicesLib.disconnect();
   }
 }

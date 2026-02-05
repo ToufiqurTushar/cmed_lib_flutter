@@ -77,11 +77,11 @@ dependencies:
       url: https://gitlab.com/cmed-bd/spo2-lib-flutter.git
       #url: git@gitlab.com:cmed-bd/spo2-lib-flutter.git
       ref: main
-  cmed_bmi_devices_lib:
-    git:
-      url: https://gitlab.com/cmed-bd/bmi-lib-flutter.git
-      #url: git@gitlab.com:cmed-bd/bmi-lib-flutter.git
-      ref: main
+#  cmed_bmi_devices_lib:
+#    git:
+#      url: https://gitlab.com/cmed-bd/bmi-lib-flutter.git
+#      #url: git@gitlab.com:cmed-bd/bmi-lib-flutter.git
+#      ref: main
   cmed_blood_glucose_devices_lib:
     git:
       url: https://gitlab.com/cmed-bd/glucose-lib-flutter.git
