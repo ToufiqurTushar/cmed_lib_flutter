@@ -60,7 +60,7 @@ class HttpProvider {
 
   //i4we app
   static const I4WE_USER_ANDROID_VERSION_KEY= 'x-supported-min-android-i4we-member-app-version';
-  static const I4WE_USER_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=com.cmedhealth.app.i4wemember';
+  static const I4WE_USER_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=com.cmedhealth.i4wemember';
 
   static const I4WE_USER_IOS_VERSION_KEY = 'x-supported-min-ios-i4we-member-app-version';
   static const I4WE_USER_IOS_STORE_URL = '';
