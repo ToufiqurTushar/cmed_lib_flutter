@@ -19,6 +19,7 @@ import 'dto/tab_page.dart';
 class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final String? jsonAssetDirectory;
   final bool isTabStyle;
+  final bool hideTabView;
   final List<TabPage>? tabContents;
   final List<SurveyDto> surveys;
   final SurveyDto? selectedSurvey;
@@ -26,10 +27,30 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final Function(dynamic)? onSelectAnswer;
   final Function(SurveyDto?)? onSelectSurvey;
   final bool showSerialNumber;
-  const SurveyManagerWidget({super.key, this.jsonAssetDirectory,this.isTabStyle = false, this.selectedSurvey, required this.surveys, this.onSelectAnswer, this.onSelectSurvey, this.onSubmit, this.showSerialNumber = true, this.tabContents});
+  const SurveyManagerWidget({
+    super.key, this.jsonAssetDirectory,
+    this.isTabStyle = false,
+    this.hideTabView = false,
+    this.selectedSurvey,
+    required this.surveys,
+    this.onSelectAnswer,
+    this.onSelectSurvey,
+    this.onSubmit,
+    this.showSerialNumber = true,
+    this.tabContents
+  });
 
   @override
-  SurveyManagerLogic get controller => Get.put(SurveyManagerLogic(jsonAssetDirectory:jsonAssetDirectory, isTabStyle: isTabStyle, surveys:surveys, onSubmit: onSubmit, selectedSurvey: selectedSurvey, tabContents: tabContents));
+  SurveyManagerLogic get controller => Get.put(
+    SurveyManagerLogic(
+      jsonAssetDirectory:jsonAssetDirectory,
+      isTabStyle: isTabStyle,
+      surveys:surveys,
+      onSubmit: onSubmit,
+      selectedSurvey: selectedSurvey,
+      tabContents: tabContents
+    )
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -126,25 +147,28 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
-                  child: Card(
-                    elevation: 2,
-                    child: Container(
-                      width: double.infinity,
-                      child: TabBar(
-                        onTap: (index) {
-                          controller.currentTab.value = index;
-                        },
-                        labelColor: Theme.of(context).primaryColor,
-                        unselectedLabelColor: Colors.black,
-                        indicatorColor: Theme.of(context).primaryColor,
-                        indicatorWeight: 3.0,
-                        isScrollable: true,
-                        controller: controller.tabController,
-                        indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                        //labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        tabs:  controller.tabTextList,
+                Visibility(
+                  visible: !hideTabView,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                    child: Card(
+                      elevation: 2,
+                      child: Container(
+                        width: double.infinity,
+                        child: TabBar(
+                          onTap: (index) {
+                            controller.currentTab.value = index;
+                          },
+                          labelColor: Theme.of(context).primaryColor,
+                          unselectedLabelColor: Colors.black,
+                          indicatorColor: Theme.of(context).primaryColor,
+                          indicatorWeight: 3.0,
+                          isScrollable: true,
+                          controller: controller.tabController,
+                          indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                          //labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          tabs:  controller.tabTextList,
+                        ),
                       ),
                     ),
                   ),
@@ -257,7 +281,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         ],
       );
     }
-    else if(field.number) {
+    else if(field.number || field.intNumber) {
       return Column(
         children: [
           NumberEditText(
@@ -268,6 +292,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (val){
                 final parsedInt = int.tryParse(val);
+                print("Parsed Int: $parsedInt");
                 if(parsedInt != null){
                   onSelectAnswer?.call(parsedInt);
                   onChanged?.call(field.name!, parsedInt);
@@ -315,6 +340,26 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       );
     }
     else if(field.text) {
+      return Column(
+        children: [
+          NumberEditText(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                final parsedInt = int.tryParse(val);
+                print("Parsed Int: $parsedInt");
+                if(parsedInt != null){
+                  onSelectAnswer?.call(parsedInt);
+                  onChanged?.call(field.name!, parsedInt);
+                }
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
       return Column(
         children: [
           EditText(

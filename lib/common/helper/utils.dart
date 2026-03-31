@@ -284,7 +284,6 @@ extension StringExtension on String {
     }
   }
 
-
 }
 
 extension IntExtension on int {

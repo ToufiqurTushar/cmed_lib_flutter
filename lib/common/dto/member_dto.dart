@@ -29,7 +29,7 @@ class MemberDTO {
   String? relationTitleBn;
   String? relationTitleEn;
   int? primaryOccupation;
-  String? phoneNumber;
+  String? phone;
   bool? isGovtOfficial;
   bool? isPoor;
   bool? isFreedomFighter;
@@ -84,7 +84,7 @@ class MemberDTO {
     this.relationTitleBn,
     this.relationTitleEn,
     this.primaryOccupation,
-    this.phoneNumber,
+    this.phone,
     this.isGovtOfficial,
     this.isPoor,
     this.isFreedomFighter,
@@ -144,7 +144,7 @@ class MemberDTO {
       relationTitleBn: json['relation_title_bn'],
       relationTitleEn: json['relation_title_en'],
       primaryOccupation: json['primary_occupation'] ?? 1,
-      phoneNumber: json['phone'],
+      phone: json['phone'],
       isGovtOfficial: json['is_govt_official'],
       isPoor: json['is_poor'],
       isFreedomFighter: json['freedom_fighter'],
@@ -202,7 +202,7 @@ class MemberDTO {
       'relation_title_bn': relationTitleBn,
       'relation_title_en': relationTitleEn,
       'primary_occupation': primaryOccupation,
-      'phone': phoneNumber,
+      'phone': phone,
       'is_govt_official': isGovtOfficial,
       'is_poor': isPoor,
       'freedom_fighter': isFreedomFighter,
@@ -251,7 +251,7 @@ class MemberDTO {
       hasStroke: hasStroke,
       hasCancer: hasCancer,
       hasDisability: hasDisability,
-      contactNumber: phoneNumber,
+      contactNumber: phone,
       // TODO: ADD IT LATER.:
       //   agentId : pref.agentServerId().get()?.toInt(),
       //   companyId : pref.companyId().get(),
@@ -296,7 +296,7 @@ class MemberDTO {
   }
 
   String getPhoneNumber() {
-    final phone = phoneNumber ?? "";
+    final phone = this.phone ?? '';
 
     return Language.isEnglishSelected
         ? phone

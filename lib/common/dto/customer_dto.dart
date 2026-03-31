@@ -499,6 +499,7 @@ class CustomerDTO extends BaseEntity {
     return phoneNumber;
   }
 
+
   String getNIDString() {
     return Language.isEnglishSelected
         ? (nidNumber ?? "")

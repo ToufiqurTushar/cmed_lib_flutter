@@ -1,0 +1,12 @@
+import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
+import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
+
+class HealthAssessmentResultArgument {
+  HealthAssessmentResultArgument({
+      required this.isFromHistory,
+      required this.selectedSurveyResult,
+       this.selectedSurvey,});
+  bool isFromHistory;
+  SurveyResultItemDto selectedSurveyResult;
+  SurveyDto? selectedSurvey;
+}

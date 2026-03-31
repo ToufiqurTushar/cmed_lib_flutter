@@ -105,9 +105,9 @@ String populateTitle(int? typeId) {
     case 23:
       return language == 'bn' ? 'ডব্লিউ এফ এল' : 'WFL';
     case 16:
-      return language == 'bn' ? 'এইচ এফ এ' : 'HFA';
+      return language == 'bn' ? 'এইচ এফ এ' : 'HFA';//জি এম পি (when group)//
     case 17:
-      return language == 'bn' ? 'ডব্লিউ এফ এ' : 'WFA';//জি এম পি//
+      return language == 'bn' ? 'ডব্লিউ এফ এ' : 'WFA';
     case 15:
       return language == 'bn' ? 'স্তন ক্যান্সার' : 'Breast Cancer';
     case 20:
