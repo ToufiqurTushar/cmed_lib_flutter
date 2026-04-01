@@ -30,7 +30,7 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
                                 children: [
                                   Image.asset('assets/images/healthy_days_result.png'),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 4),
+                                    padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 30),
                                     child: Container(
                                       width: double.infinity,
                                       child: FrElevatedButton(
@@ -50,6 +50,20 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
                                             borderRadius: BorderRadius.circular(8), // Rounded corners
                                           ),
                                           textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        controller.selectedSurveyResult.value.result?.advice??'',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black87,
                                         ),
                                       ),
                                     ),

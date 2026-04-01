@@ -7,7 +7,9 @@ class SurveyResultItemDto {
       this.surveyName, 
       this.uuid, 
       this.createdAt, 
-      this.lastUpdated, 
+      this.year,
+      this.month,
+      this.lastUpdated,
       this.createdById,
       this.result,
       this.icon,
@@ -21,6 +23,8 @@ class SurveyResultItemDto {
     surveyName = json['survey_name'];
     uuid = json['uuid'];
     createdAt = json['created_at'];
+    year = json['year'];
+    month = json['month'];
     lastUpdated = json['last_updated'];
     createdById = json['created_by_id'];
     updatedById = json['updated_by_id'];
@@ -35,6 +39,8 @@ class SurveyResultItemDto {
   String? uuid;
   String? icon;
   int? createdAt;
+  int? year;
+  int? month;
   int? lastUpdated;
   int? createdById;
   int? updatedById;
@@ -50,6 +56,8 @@ class SurveyResultItemDto {
     map['icon'] = icon;
     map['uuid'] = uuid;
     map['created_at'] = createdAt;
+    map['month'] = month;
+    map['year'] = year;
     map['last_updated'] = lastUpdated;
     map['created_by_id'] = createdById;
     map['updated_by_id'] = updatedById;
