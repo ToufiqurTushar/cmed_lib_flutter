@@ -54,7 +54,7 @@ class HealthyDaysView extends RapidView<HealthyDaysLogic> {
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
                 },
-                onSelectAnswer: (val){
+                onSelectAnswer: (String fieldName, val){
 
                 },
                 onSubmit: (selectedGeoup, formMap){

@@ -11,13 +11,13 @@ class SkipRule {
     if (json['conditions'] != null) {
       conditions = [];
       json['conditions'].forEach((v) {
-        conditions?.add(Condition.fromJson(v));
+        conditions?.add(FieldCondition.fromJson(v));
       });
     }
     skipTo = json['skipTo'];
     skipType = json['skipType'];
   }
-  List<Condition>? conditions;
+  List<FieldCondition>? conditions;
   String? skipTo;
   String? skipType;
 

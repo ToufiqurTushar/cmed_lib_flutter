@@ -47,7 +47,7 @@ class HealthAssessmentView extends RapidView<HealthAssessmentLogic> {
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
                 },
-                onSelectAnswer: (val){
+                onSelectAnswer: (String fieldName, val){
 
                 },
                 onSubmit: (selectedGeoup, formMap){

@@ -1,20 +1,20 @@
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
+import 'package:cmed_lib_flutter/page/i4we/social_protection/npage/result/social_peotection_result_logic.dart';
 import '../../../../../common/helper/text_utils.dart';
 import '../../../../../common/widget/basic_app_bar.dart';
 import '../../../../../common/widget/marquee_widget.dart';
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../../../survey/widget/round_image.dart';
-import '../../che_survey_view.dart';
-import 'health_assessment_result_logic.dart';
 
-class CheSocialProtectionResultView extends RapidView<CheSocialProtectionResultLogic> {
-  static String routeName = '/CheSocialProtectionResultView';
+
+class SocialProtectionResultView extends RapidView<SocialProtectionResultLogic> {
+  static String routeName = '/SocialProtectionResultView';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('Health Assessment'.tr),
+      appBar: BasicAppBar('Social Protection'.tr),
       body: SafeArea(
         child: Column(
           children: [
@@ -182,7 +182,7 @@ class CheSocialProtectionResultView extends RapidView<CheSocialProtectionResultL
         ),
       ),
       bottomNavigationBar: Visibility(
-        visible: !controller.healthAssessmentResultArgument.isFromHistory,
+        visible: !controller.socialProtectionResultArgument.isFromHistory,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12.0, 0 ,12, 12),
           child: Container(
@@ -190,7 +190,7 @@ class CheSocialProtectionResultView extends RapidView<CheSocialProtectionResultL
             child: FrElevatedButton(
               onPressed: () {
                 Future.delayed(Duration.zero, () async {
-                  //Get.offNamed(CheSocialProtectionView.routeName, arguments: HealthAssessmentArgument());
+                  //Get.offNamed(SocialProtectionView.routeName, arguments: HealthAssessmentArgument());
                 });
               },
               color: Colors.white,
@@ -225,6 +225,6 @@ class CheSocialProtectionResultView extends RapidView<CheSocialProtectionResultL
 
   @override
   void loadDependentLogics() {
-    Get.put(CheSocialProtectionResultLogic());
+    Get.put(SocialProtectionResultLogic());
   }
 }

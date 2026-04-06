@@ -62,7 +62,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
                 },
-                onSelectAnswer: (val){
+                onSelectAnswer: (String fieldName, val){
 
                 },
                 onSubmit: (selectedGeoup, formMap){

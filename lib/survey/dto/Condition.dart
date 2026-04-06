@@ -1,12 +1,12 @@
-class Condition {
-  Condition({
+class FieldCondition {
+  FieldCondition({
       this.sourceField, 
       this.operator, 
       this.expectedValue, 
       this.logic, 
       this.effectType,});
 
-  Condition.fromJson(dynamic json) {
+  FieldCondition.fromJson(dynamic json) {
     sourceField = json['sourceField'];
     operator = json['operator'];
     expectedValue = json['expectedValue'] != null ? json['expectedValue'].cast<String>() : [];

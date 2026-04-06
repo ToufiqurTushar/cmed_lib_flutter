@@ -1,49 +1,38 @@
-import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import 'package:cmed_lib_flutter/page/i4we/social_protection/social_protection_argument.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:cmed_lib_flutter/survey/enum/enum.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/api/api_url.dart';
 import '../../../common/base/base_logic.dart';
-import '../../../common/widget/app_dialog.dart';
-import 'che_survey_argument.dart';
 import 'dto/SurveyResultResponse.dart';
 
 
-class CheSocialProtectionLogic extends BaseLogic {
+class SocialProtectionLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
   var selectedSurveyResult = Rxn<SurveyResultDto>();
-  late CheSurveyArgument cheSurveyArgument;
+  late SocialProtectionArg socialProtectionArg;
 
   @override
   void onInit() {
     super.onInit();
-    cheSurveyArgument = (Get.arguments as CheSurveyArgument);
-    selectedSurvey.value = cheSurveyArgument.selectedSurvey;
+    socialProtectionArg = (Get.arguments as SocialProtectionArg);
+    selectedSurvey.value = socialProtectionArg.selectedSurvey;
     fetchSurveyData();
   }
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getAgentSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
-      if (response.isOk) {
-        final results = SurveyResultResponseDto.fromJson(response.body).content;
-        if(results?.isNotEmpty??false){
-          selectedSurveyResult.value = results!.first;
-        }
-        RLog.error(response.body);
-      }
-    });
-    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.AGENT_SUBSCRIPTION.name)).then((response) {
+    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.SOCIAL_PROTECTION.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
         //set default value if exist
         if(selectedSurveyResult.value != null){
           allSurveys.first.fields!.forEach((eachField){
             try{
-              eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
+              //eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
             } catch (e){
               RLog.error(e);
             }
@@ -56,7 +45,7 @@ class CheSocialProtectionLogic extends BaseLogic {
     }).catchError((error) {
 
     }).whenComplete(() {
-      isLoading.value = false; // Hide loader after API call
+      isLoading.value = false;
     });
   }
 
@@ -76,17 +65,6 @@ class CheSocialProtectionLogic extends BaseLogic {
         SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
-        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed successfully', positiveButtonText: 'OK', cancelable: false,onButtonClick:(){
-          if(cheSurveyArgument.redirectToServiceSelectionView??false) {
-            Get.offNamedUntil(
-              '/ServiceSelectionView',
-              ModalRoute.withName('/ServiceView'),
-              arguments: customer,
-            );
-          } else{
-            Get.back();
-          }
-        });
         // Future.delayed(Duration.zero, () async {
         //   Get.offNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });

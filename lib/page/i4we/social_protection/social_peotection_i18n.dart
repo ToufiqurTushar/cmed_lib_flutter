@@ -1,4 +1,4 @@
-class CheSocialProtectionI18N {
+class SocialProtectionI18N {
   static Map<String, Map<String, String>> getTranslations() {
     return {
       "en_US": {

@@ -4,6 +4,7 @@ import 'package:cmed_lib_flutter/survey/widget/decimal_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/dropdown_select.dart';
 import 'package:cmed_lib_flutter/survey/widget/edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_group.dart';
+import 'package:cmed_lib_flutter/survey/widget/multiselect_checkbox.dart';
 import 'package:cmed_lib_flutter/survey/widget/number_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/radio_groups.dart';
 import 'package:cmed_lib_flutter/survey/widget/select_date.dart';
@@ -24,7 +25,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final List<SurveyDto> surveys;
   final SurveyDto? selectedSurvey;
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
-  final Function(dynamic)? onSelectAnswer;
+  final Function(String fieldName, dynamic val)? onSelectAnswer;
   final Function(SurveyDto?)? onSelectSurvey;
   final bool showSerialNumber;
   const SurveyManagerWidget({
@@ -148,7 +149,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Visibility(
-                  visible: !hideTabView,
+                  visible: true.obs.value && !hideTabView, //ensure obs var
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
                     child: Card(
@@ -273,7 +274,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                  onSelectAnswer?.call(val);
+                  onSelectAnswer?.call(field.name!, val);
                   onChanged?.call(field.name!, val);
               }
           ),
@@ -294,7 +295,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                 final parsedInt = int.tryParse(val);
                 print("Parsed Int: $parsedInt");
                 if(parsedInt != null){
-                  onSelectAnswer?.call(parsedInt);
+                  onSelectAnswer?.call(field.name!, parsedInt);
                   onChanged?.call(field.name!, parsedInt);
                 }
               }
@@ -313,7 +314,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                onSelectAnswer?.call(val);
+                onSelectAnswer?.call(field.name!, val);
                 onChanged?.call(field.name!, val);
               }
           ),
@@ -331,7 +332,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                onSelectAnswer?.call(val);
+                onSelectAnswer?.call(field.name!,val);
                 onChanged?.call(field.name!, val);
               }
           ),
@@ -349,7 +350,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                onSelectAnswer?.call(val);
+                onSelectAnswer?.call(field.name!,val);
                 onChanged?.call(field.name!, val);
               }
           ),
@@ -368,7 +369,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               elevation: 2,
               onChanged: (value) {
                 if(value == null) {
-                  onSelectAnswer?.call(value);
+                  onSelectAnswer?.call(field.name!,value);
                   onChanged?.call(field.name!, value);
                   return;
                 }
@@ -408,7 +409,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                   formattedDate = combinedDateTime.millisecondsSinceEpoch;
                 }
                 RLog.error(field.inputType);
-                onSelectAnswer?.call(formattedDate);
+                onSelectAnswer?.call(field.name!,formattedDate);
                 onChanged?.call(field.name!, formattedDate);
               }
           ),
@@ -426,7 +427,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
             padding: 12,
             elevation: 2,
             onChanged: (val){
-              onSelectAnswer?.call(val);
+              onSelectAnswer?.call(field.name!,val);
               onChanged?.call(field.name!, val);
             }
           ),
@@ -453,11 +454,29 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                   } else {
                     value = parsedInt;
                   }
-                  onSelectAnswer?.call(value);
+                  onSelectAnswer?.call(field.name!,value);
                   onChanged?.call(field.name!, value);
                 }
                 //controller.formKey.currentState!.fields[field.name]!.invalidate("Less Than 24");
                 //controller.formKey.currentState!.fields[field.name]!.validate();
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    else if(field.multiSelect) {
+      return Column(
+        children: [
+          MultiSelectCheckbox(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                onSelectAnswer?.call(field.name!,val);
+                onChanged?.call(field.name!, val);
               }
           ),
           const SizedBox(height: 8,)

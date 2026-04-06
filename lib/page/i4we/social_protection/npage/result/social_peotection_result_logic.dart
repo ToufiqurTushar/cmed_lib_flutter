@@ -1,23 +1,22 @@
+import 'package:cmed_lib_flutter/page/i4we/social_protection/npage/result/social_peotection_result_argument.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../../../common/base/base_logic.dart';
-import 'health_assessment_result_argument.dart';
 
 
-class CheSocialProtectionResultLogic extends BaseLogic {
+
+class SocialProtectionResultLogic extends BaseLogic {
   final isHistoryView = false.obs;
   final selectedSurveyResult = SurveyResultItemDto().obs;
-  late HealthAssessmentResultArgument healthAssessmentResultArgument;
+  late SocialProtectionResultArgument socialProtectionResultArgument;
 
   @override
   void onInit() {
     super.onInit();
-    healthAssessmentResultArgument = (Get.arguments as HealthAssessmentResultArgument);
-    isHistoryView.value = healthAssessmentResultArgument.isFromHistory;
-    selectedSurveyResult.value = healthAssessmentResultArgument.selectedSurveyResult;
+    socialProtectionResultArgument = (Get.arguments as SocialProtectionResultArgument);
+    isHistoryView.value = socialProtectionResultArgument.isFromHistory;
+    selectedSurveyResult.value = socialProtectionResultArgument.selectedSurveyResult;
   }
-
-
 
   @override
   void onReady() {

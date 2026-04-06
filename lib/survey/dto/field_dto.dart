@@ -53,13 +53,13 @@ class Field {
     if (json['visibility_conditions'] != null) {
       visibilityConditions = [];
       json['visibility_conditions'].forEach((v) {
-        visibilityConditions?.add(Condition.fromJson(v));
+        visibilityConditions?.add(FieldCondition.fromJson(v));
       });
     }
     if (json['required_conditions'] != null) {
       requiredConditions = [];
       json['required_conditions'].forEach((v) {
-        requiredConditions?.add(Condition.fromJson(v));
+        requiredConditions?.add(FieldCondition.fromJson(v));
       });
     }
     skipRule = json['skip_rule'] != null ? SkipRule.fromJson(json['skip_rule']) : null;
@@ -77,8 +77,8 @@ class Field {
   num? max;
   List<Option>? options;
   dynamic defaultValue;
-  List<Condition>? visibilityConditions;
-  List<Condition>? requiredConditions;
+  List<FieldCondition>? visibilityConditions;
+  List<FieldCondition>? requiredConditions;
   SkipRule? skipRule;
 
   Map<String, dynamic> toJson() {
@@ -123,6 +123,7 @@ class Field {
   get dateEnd => inputType == 'dateEnd';
   get dateTime => inputType == 'dateTime';
   get decimal => inputType == 'decimal';
+  get multiSelect => inputType == 'multiSelect';
 
   bool visibleWhen(GlobalKey<FormBuilderState> formKey, Map<String, dynamic> answers) {
     final results = <bool>[];
@@ -133,7 +134,7 @@ class Field {
     //   RLog.info('no visibilityConditions found');
     // }
 
-    for (final Condition condition in visibilityConditions??[]) {
+    for (final FieldCondition condition in visibilityConditions??[]) {
       final dynamic inputValue = answers[condition.sourceField];
       final dynamic expectedValue = condition.expectedValue?.first;
       //final dynamic expectedValue = 'yes';
