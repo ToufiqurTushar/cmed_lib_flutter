@@ -48,8 +48,8 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
                 isTabStyle: true,
                 hideTabView: true,
                 tabContents: [
-                  TabPage(id: "t1", title: "".tr, listOfQuestionUid: ['sp14_1', 'sp14_2', 'sp14_3', 'sp14_4', 'sp14_5', 'sp14_6', 'sp14_7', 'sp14_8', 'sp14_9', 'sp14_10', 'sp14_11', 'sp14_12']),
-                  //TabPage(id: "t2", title: "".tr, listOfQuestionUid: ['as9_18','as9_2', 'as9_3', 'as9_4', 'as9_5'], isTabVisible: !controller.customer.value.isFamilyMember),
+                  TabPage(id: "t1", title: "".tr, listOfQuestionUid: ['sp14_1']),
+                  TabPage(id: "t2", title: "".tr, listOfQuestionUid: ['sp14_2', 'sp14_3', 'sp14_4', 'sp14_5', 'sp14_6', 'sp14_7', 'sp14_8', 'sp14_9', 'sp14_10', 'sp14_11', 'sp14_12']),
                   //TabPage(id: "t3", title: "".tr, listOfQuestionUid: ['as9_6', 'as9_7','as9_7.1','as9_7.2', 'as9_8', 'as9_9', 'as9_10', 'as9_11', 'as9_12', 'as9_13', 'as9_14'],),
                 ],
                 selectedSurvey: controller.selectedSurvey.value,
@@ -57,12 +57,10 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
                   controller.selectedSurvey.value = selectedSurvey;
                 },
                 onSelectAnswer: (String fieldName, val){
-                  if(fieldName == 'sp14_1'){
-                    controller.selectedSurvey.value!.fields!.firstWhere((field)=>field.name == 'sp14_2').visibilityConditions = [
-                      FieldCondition(sourceField: "sp14_1", expectedValue: ['sp14_1_ration_card'])
-                    ];
-                    controller.selectedSurvey.refresh();
-                  }
+                  print(val);
+                },
+                onClickNext: (answers) {
+                  controller.checkEligibilityForFields(answers);
                 },
                 onSubmit: (selectedGeoup, formMap){
                   print('onSubmit');

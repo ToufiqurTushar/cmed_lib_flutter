@@ -7,7 +7,7 @@ enum SurveyTypeEnum {
 
 /// Condition types supported
 enum FBConditionType {
-  EQUALS,
+  equal,
   notEquals,
   inList,
   notInList,
@@ -20,15 +20,18 @@ enum FBConditionType {
   isEmpty,
   isNotEmpty,
   isNull,
-  isNotNull,
+  isHidden,
+  isNotNull;
+
+  static FBConditionType fromString(String? value) {
+    return FBConditionType.values.firstWhere(
+          (e) => e.name == value,
+      orElse: () => FBConditionType.equal, // default
+    );
+  }
 }
 
-FBConditionType fbConditionFromString(String? value) {
-  return FBConditionType.values.firstWhere(
-        (e) => e.name == value,
-    orElse: () => FBConditionType.EQUALS, // default
-  );
-}
+
 
 /// Logical combiner
 enum FBConditionLogic { AND, OR }

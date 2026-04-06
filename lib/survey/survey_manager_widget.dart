@@ -27,6 +27,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
   final Function(String fieldName, dynamic val)? onSelectAnswer;
   final Function(SurveyDto?)? onSelectSurvey;
+  final Function(Map<String, dynamic> answers)? onClickNext;
   final bool showSerialNumber;
   const SurveyManagerWidget({
     super.key, this.jsonAssetDirectory,
@@ -36,6 +37,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     required this.surveys,
     this.onSelectAnswer,
     this.onSelectSurvey,
+    this.onClickNext,
     this.onSubmit,
     this.showSerialNumber = true,
     this.tabContents
@@ -646,6 +648,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       controller.formSubmit(controller.selectedSurveys.first);
                     } else {
                       controller.nextTab(visibleTabs);
+                      onClickNext?.call(Map<String, dynamic>.from(controller.answers));
                     }
                   },
                   color: Colors.white,

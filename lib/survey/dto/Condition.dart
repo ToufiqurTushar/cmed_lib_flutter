@@ -1,5 +1,6 @@
 class FieldCondition {
   FieldCondition({
+      this.hide,
       this.sourceField, 
       this.operator, 
       this.expectedValue, 
@@ -7,12 +8,14 @@ class FieldCondition {
       this.effectType,});
 
   FieldCondition.fromJson(dynamic json) {
+    hide = json['hide'];
     sourceField = json['sourceField'];
     operator = json['operator'];
     expectedValue = json['expectedValue'] != null ? json['expectedValue'].cast<String>() : [];
     logic = json['logic'];
     effectType = json['effectType'];
   }
+  bool? hide;
   String? sourceField;
   String? operator;
   List<String>? expectedValue;
@@ -21,6 +24,7 @@ class FieldCondition {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['hide'] = hide;
     map['sourceField'] = sourceField;
     map['operator'] = operator;
     map['expectedValue'] = expectedValue;

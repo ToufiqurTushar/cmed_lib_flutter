@@ -45,7 +45,7 @@ class Field {
     if (json['options'] != null) {
       options = [];
       json['options'].forEach((v) {
-        options?.add(Option.fromJson(v));
+        options?.add(FieldOption.fromJson(v));
       });
     }
     defaultValue = json['default_value'];
@@ -75,7 +75,7 @@ class Field {
   bool? readOnly;
   num? min;
   num? max;
-  List<Option>? options;
+  List<FieldOption>? options;
   dynamic defaultValue;
   List<FieldCondition>? visibilityConditions;
   List<FieldCondition>? requiredConditions;
@@ -112,6 +112,8 @@ class Field {
     return map;
   }
 
+  static fromJsonList(list) => List<Field>.from(list.map((x) => Field.fromJson(x)));
+
   get switchButton => inputType == 'switchButton';
   get dropdown => inputType == 'dropdown';
   get radio => inputType == 'radio';
@@ -135,14 +137,14 @@ class Field {
     // }
 
     for (final FieldCondition condition in visibilityConditions??[]) {
-      final dynamic inputValue = answers[condition.sourceField];
-      final dynamic expectedValue = condition.expectedValue?.first;
+      final dynamic inputValue = condition.sourceField==null?null:answers[condition.sourceField];
+      final dynamic expectedValue = condition.expectedValue==null?null:condition.expectedValue?.first;
       //final dynamic expectedValue = 'yes';
 
       bool r = false;
 
-      switch (fbConditionFromString(condition.operator)) {
-        case FBConditionType.EQUALS:
+      switch (FBConditionType.fromString(condition.operator)) {
+        case FBConditionType.equal:
           //RLog.info('${answers}');
           //RLog.info('${inputValue} ${expectedValue}');
           r = inputValue == expectedValue;
@@ -230,6 +232,11 @@ class Field {
           break;
         case FBConditionType.isNotNull:
           r = inputValue != null;
+          break;
+        case FBConditionType.isHidden:
+          //RLog.error('check isHidden operator');
+          r = !(condition.hide??false);
+          RLog.error('$r');
           break;
       }
 
@@ -379,15 +386,15 @@ class Images {
 
 }
 
-class Option {
-  Option({
+class FieldOption {
+  FieldOption({
     this.title,
     this.name,
     this.value,
     this.weight,
     this.icon,});
 
-  Option.fromJson(dynamic json) {
+  FieldOption.fromJson(dynamic json) {
     title = json['title'];
     name = json['name'];
     value = json['value'];
@@ -409,5 +416,6 @@ class Option {
     map['icon'] = icon;
     return map;
   }
+  static fromJsonList(list) => List<FieldOption>.from(list.map((x) => FieldOption.fromJson(x)));
 
 }

@@ -34,7 +34,7 @@ Widget DropdownSelect({
                   //enabled: parentCondition,
                   initialValue: field.defaultValue,
                   name: field.name!,
-                  items: field.options!.map((Option option) => DropdownMenuItem(
+                  items: field.options!.map((FieldOption option) => DropdownMenuItem(
                     value: option.value,
                     child: Container(padding: const EdgeInsets.symmetric(vertical: 4),width:field.options?.length == 2? Get.width*.3: null, child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
                   )).toList(growable: false),

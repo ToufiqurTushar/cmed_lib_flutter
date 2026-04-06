@@ -31,7 +31,7 @@ Widget MultiSelectCheckbox({
                 //enabled: parentCondition,
                 initialValue: field.defaultValue,
                 name: field.name!,
-                options: field.options!.map((Option option) => FormBuilderFieldOption(
+                options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
                   value: option.value?.toString()??'',
                   child: Container(padding: const EdgeInsets.symmetric(vertical: 4),width:field.options?.length == 2? Get.width*.3: null, child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
                 )).toList(growable: false),

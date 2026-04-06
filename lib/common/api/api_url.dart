@@ -35,6 +35,17 @@ class ApiUrl {
   static String postSurveyUrl() {
     return "api/v1/survey/submit";
   }
+  static String socialProtectionEligibility({required List<String> civicIds, required int userId}) {
+    final uri = Uri(
+      path: "api/v1/social-protection/schemes/eligible",
+      queryParameters: {
+        'civic_ids': civicIds,
+        'user_id': "${userId.toString()}",
+      },
+    );
+    return uri.toString();
+  }
+
 
   static String getCustomProfileByUserIdUrl(int? userId) {
     return "api/v6/user/$userId/profiles-custom";
