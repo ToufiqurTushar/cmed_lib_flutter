@@ -342,26 +342,6 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     else if(field.text) {
       return Column(
         children: [
-          NumberEditText(
-              field: field,
-              context: context,
-              formKey: formKey,
-              padding: 12,
-              elevation: 2,
-              onChanged: (val){
-                final parsedInt = int.tryParse(val);
-                print("Parsed Int: $parsedInt");
-                if(parsedInt != null){
-                  onSelectAnswer?.call(parsedInt);
-                  onChanged?.call(field.name!, parsedInt);
-                }
-              }
-          ),
-          const SizedBox(height: 8,)
-        ],
-      );
-      return Column(
-        children: [
           EditText(
               field: field,
               context: context,
