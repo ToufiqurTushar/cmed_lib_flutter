@@ -14,8 +14,17 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
   final List<SurveyDto> surveys;
   final List<TabPage>? tabContents;
   final SurveyDto? selectedSurvey;
+  final bool? showSerialNumber;
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
-  SurveyManagerLogic({this.jsonAssetDirectory, this.selectedSurvey, this.isTabStyle = false, required this.surveys, this.onSubmit, this.tabContents});
+  SurveyManagerLogic({
+    this.jsonAssetDirectory,
+    this.selectedSurvey,
+    this.showSerialNumber,
+    this.isTabStyle = false,
+    required this.surveys,
+    this.onSubmit,
+    this.tabContents
+  });
 
   final allSurveys = <SurveyDto>[].obs;
   final selectedSurveys = <SurveyDto>[].obs;
@@ -64,11 +73,11 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
 
   /// VALIDATION — all fields must be filled
   bool validateCurrentTab(TabPage tab) {
-    for (Field q in tab.questions??[]) {
-      if (questionVisible(q)) {
-        if (!answers.containsKey(q.name) ||
-            answers[q.name] == null ||
-            answers[q.name].toString().isEmpty) {
+    for (Field field in tab.questions??[]) {
+      if (questionVisible(field)) {
+        if ((field.required??true) && (!answers.containsKey(field.name) ||
+            answers[field.name] == null ||
+            answers[field.name].toString().isEmpty)) {
           return false;
         }
       }
@@ -134,7 +143,15 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
       selectedSurveys.value = [selectedSurvey!];
     }
 
+    if(showSerialNumber??false){
+      for(var i=0; i< selectedSurvey!.fields!.length; i++) {
+        final field = selectedSurvey!.fields![i];
+        field.serial = '${(i+1)}';
+      }
+    }
+
     if(isTabStyle) {
+      RLog.warning('isTabStyle field name: , serial: ');
       tabPages = _loadTabs(selectedSurvey!, tabContents);
     }
   }

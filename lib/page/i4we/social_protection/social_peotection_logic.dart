@@ -7,6 +7,7 @@ import 'package:cmed_lib_flutter/survey/enum/enum.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/api/api_url.dart';
 import '../../../common/base/base_logic.dart';
+import '../../../common/widget/app_dialog.dart';
 import '../../../survey/dto/Condition.dart';
 import 'dto/SurveyResultResponse.dart';
 
@@ -42,9 +43,9 @@ class SocialProtectionLogic extends BaseLogic {
         }
         selectedSurvey.value = allSurveys.first;
         // modify visibility condition
-        // selectedSurvey.value!.fields!.firstWhere((field)=>field.name == 'sp14_2').visibilityConditions = [
-        //   FieldCondition(sourceField: "sp14_1", expectedValue: ['sp14_1_ration_card'])
-        // ];
+        selectedSurvey.value!.fields!.forEach((field) {
+          FieldCondition(hide: true, operator: FBConditionType.isHidden.name);
+        });
         RLog.info(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {
@@ -73,35 +74,51 @@ class SocialProtectionLogic extends BaseLogic {
         // Future.delayed(Duration.zero, () async {
         //   Get.offNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });
+        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed successfully', positiveButtonText: 'OK', cancelable: false,onButtonClick:(){
+          Get.back();
+        });
       } else {
-        ShowToast.error('error_massage_something_wrong'.tr);
+        ShowToast.error(response.body.toString());
       }
     });
   }
 
-  void checkEligibilityForFields(Map<String, dynamic> answers) {
+
+  Future<bool> modifyAddSocialProtectionQuestionOptions(Map<String, dynamic> answers) async {
     globalState.showBusy();
-    httpProvider.GET(ApiUrl.socialProtectionEligibility(civicIds: answers['sp14_1'], userId: customer.value.userId!)).then((response) {
+    final civicIdsFieldName = 'sp14_1';
+    final socialProtectionFieldName = 'sp14_3';
+    final socialProtectionField = selectedSurvey.value!.fields!.firstWhere((m) => m.name == socialProtectionFieldName);
+    socialProtectionField.visibilityConditions = socialProtectionField.visibilityConditions??[];
+
+    try {
+      final response = await httpProvider.GET(
+        ApiUrl.socialProtectionEligibility(
+          civicIds: answers[civicIdsFieldName]??[],
+          userId: customer.value.userId!,
+        ),
+      );
       globalState.hideBusy();
-      isLoading.value = false;
+
       if (response.isOk) {
         List<FieldOption> eligibleOptions = FieldOption.fromJsonList(response.body);
-        RLog.info(eligibleOptions.length);
-        selectedSurvey.value!.fields!.firstWhere((m)=>m.name == 'sp14_3').options = eligibleOptions.map((e) => FieldOption(title:e.title, name: e.name, value: e.value)).toList();
-        // selectedSurvey.value!.fields!.forEach((field){
-        //   field.visibilityConditions = field.visibilityConditions??[];
-        //   field.visibilityConditions!.add(
-        //     //FieldCondition(hide: eligibleFillds.where((element) => element.name == field.name).isEmpty, sourceField: 'sp14_1', operator: FBConditionType.isHidden.name)
-        //     FieldCondition(hide: false, operator: FBConditionType.isHidden.name)
-        //   );
-        // });
-        // selectedSurvey.value!.fields!.firstWhere((field)=>field.name == 'sp14_2').visibilityConditions = [
-        //  FieldCondition(sourceField: "sp14_1", expectedValue: ['sp14_1_ration_card'], operator: FBConditionType.equal.name)
-        // ];
+        if(eligibleOptions.isEmpty){
+          socialProtectionField.required = false;
+        } else {
+          socialProtectionField.required = true;
+          socialProtectionField.options = eligibleOptions.map((e) => FieldOption(title: e.title, name: e.name, value: e.value)).toList();
+        }
         selectedSurvey.refresh();
+        RLog.error('modifyFieldOptions: true');
+        return true;
       } else {
         ShowToast.error('error_massage_something_wrong'.tr);
+        return false;
       }
-    });
+    } catch (e) {
+      globalState.hideBusy();
+      RLog.error('Error in modifyFieldOptions: $e');
+      return false;
+    }
   }
 }

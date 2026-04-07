@@ -51,6 +51,14 @@ class CheSurveyLogic extends BaseLogic {
         }
         selectedSurvey.value = allSurveys.first;
 
+        if(!customer.value.isFamilyMember) {
+          selectedSurvey.value!.fields!.forEach((field){
+            if(['as9_16','as9_18','as9_2', 'as9_3', 'as9_4', 'as9_5'].contains(field.name)){
+              field.required = true;
+            }
+          });
+          selectedSurvey.refresh();
+        }
         RLog.info(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {

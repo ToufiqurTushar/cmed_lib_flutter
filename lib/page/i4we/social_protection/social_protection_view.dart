@@ -44,13 +44,12 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
               SurveyManagerWidget(
                 //jsonAssetDirectory: "assets/json/healthydays.json",
                 surveys: controller.allSurveys,
-                //showSerialNumber: false,
+                showSerialNumber: true,
                 isTabStyle: true,
                 hideTabView: true,
                 tabContents: [
                   TabPage(id: "t1", title: "".tr, listOfQuestionUid: ['sp14_1']),
                   TabPage(id: "t2", title: "".tr, listOfQuestionUid: ['sp14_2', 'sp14_3', 'sp14_4', 'sp14_5', 'sp14_6', 'sp14_7', 'sp14_8', 'sp14_9', 'sp14_10', 'sp14_11', 'sp14_12']),
-                  //TabPage(id: "t3", title: "".tr, listOfQuestionUid: ['as9_6', 'as9_7','as9_7.1','as9_7.2', 'as9_8', 'as9_9', 'as9_10', 'as9_11', 'as9_12', 'as9_13', 'as9_14'],),
                 ],
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){
@@ -59,8 +58,9 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
                 onSelectAnswer: (String fieldName, val){
                   print(val);
                 },
-                onClickNext: (answers) {
-                  controller.checkEligibilityForFields(answers);
+                beforeNext: (answers) async {
+                  final result = await controller.modifyAddSocialProtectionQuestionOptions(answers);
+                  return result;
                 },
                 onSubmit: (selectedGeoup, formMap){
                   print('onSubmit');

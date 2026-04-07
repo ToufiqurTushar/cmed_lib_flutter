@@ -10,6 +10,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 
 import '../../../../../../common/widget/basic_app_bar.dart';
+import 'bp_input_i18n.dart';
 
 class BpInputView extends RapidView<BpInputLogic> {
   static String routeName = '/bp_input_page';
@@ -158,7 +159,7 @@ class BpInputView extends RapidView<BpInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-   return HealthScreeningHomeI18N.getTranslations();
+   return BpInputI18N.getTranslations();
   }
 
   @override

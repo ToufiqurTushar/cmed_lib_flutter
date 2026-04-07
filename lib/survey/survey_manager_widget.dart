@@ -15,6 +15,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'dto/field_dto.dart';
 import 'dto/survey_dto.dart';
 import 'dto/tab_page.dart';
+import 'dart:async';
 
 
 class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
@@ -27,7 +28,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
   final Function(String fieldName, dynamic val)? onSelectAnswer;
   final Function(SurveyDto?)? onSelectSurvey;
-  final Function(Map<String, dynamic> answers)? onClickNext;
+  final Future<bool> Function(Map<String, dynamic> answers)? beforeNext;
   final bool showSerialNumber;
   const SurveyManagerWidget({
     super.key, this.jsonAssetDirectory,
@@ -37,7 +38,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     required this.surveys,
     this.onSelectAnswer,
     this.onSelectSurvey,
-    this.onClickNext,
+    this.beforeNext,
     this.onSubmit,
     this.showSerialNumber = true,
     this.tabContents
@@ -51,6 +52,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       surveys:surveys,
       onSubmit: onSubmit,
       selectedSurvey: selectedSurvey,
+      showSerialNumber: showSerialNumber,
       tabContents: tabContents
     )
   );
@@ -219,9 +221,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       ...selectedSurvey.fields!.asMap().entries.map((entry) {
                         final index = entry.key;
                         final field = entry.value;
-                        if(showSerialNumber) {
-                          field.serial = '${(index+1)}';
-                        }
+                        // if(showSerialNumber) {
+                        //   field.serial = '${(index+1)}';
+                        // }
                         return _buildReactiveField(field, context, controller.formKey);
                       }).toList(),
                       const SizedBox(height: 16),
@@ -643,12 +645,20 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               child: Container(
                 height: 50,
                 child: FrElevatedButton(
-                  onPressed: () {
+                  onPressed: () async{
                     if (isLast) {
                       controller.formSubmit(controller.selectedSurveys.first);
                     } else {
-                      controller.nextTab(visibleTabs);
-                      onClickNext?.call(Map<String, dynamic>.from(controller.answers));
+                      if(beforeNext == null){
+                        controller.nextTab(visibleTabs);
+                      } else {
+                        final result = await beforeNext!.call(Map<String, dynamic>.from(controller.answers));
+                        if (result) {
+                          controller.nextTab(visibleTabs);
+                        } else {
+                          RLog.warning("${result} return from beforeNext method");
+                        }
+                      }
                     }
                   },
                   color: Colors.white,

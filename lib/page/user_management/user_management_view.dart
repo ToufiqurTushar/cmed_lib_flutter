@@ -29,13 +29,12 @@ class UserManagementView extends RapidView<UserManagementLogic> {
                     tabContents: [
                       TabPage(id: "t1", title: "GENERAL", listOfQuestionUid: ['as9_1', 'as9_15', 'as9_16', 'as9_17']),
                       TabPage(id: "t2", title: "SUBSCRIPTION STATUS", listOfQuestionUid: ['as9_2', 'as9_3', 'as9_4', 'as9_5']),
-                      TabPage(id: "t3", title: "SOCIAL PROTECTION", listOfQuestionUid: ['as9_6', 'as9_7', 'as9_8', 'as9_9', 'as9_10', 'as9_11', 'as9_12', 'as9_13', 'as9_14']),
                     ],
                     selectedSurvey: controller.selectedSurvey.value,
                     onSelectSurvey: (SurveyDto? selectedSurvey){
                       controller.selectedSurvey.value = selectedSurvey;
                     },
-                    onSelectAnswer: (val){
+                    onSelectAnswer: (String fieldName, val){
 
                     },
                     onSubmit: (selectedGeoup, formMap){
