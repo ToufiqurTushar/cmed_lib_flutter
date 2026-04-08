@@ -27,7 +27,7 @@ class CheSurveyLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getAgentSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
+    await httpProvider.GET(ApiUrl.getAgentSubscriptionSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
       if (response.isOk) {
         final results = SurveyResultResponseDto.fromJson(response.body).content;
         if(results?.isNotEmpty??false){

@@ -49,7 +49,7 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
                 hideTabView: true,
                 tabContents: [
                   TabPage(id: "t1", title: "".tr, listOfQuestionUid: ['sp14_1']),
-                  TabPage(id: "t2", title: "".tr, listOfQuestionUid: ['sp14_2', 'sp14_3', 'sp14_4', 'sp14_5', 'sp14_6', 'sp14_7', 'sp14_8', 'sp14_9', 'sp14_10', 'sp14_11', 'sp14_12']),
+                  TabPage(id: "t2", title: "".tr, listOfQuestionUid: ['sp14_2', 'sp14_3', 'sp14_4', 'sp14_5', 'sp14_6', 'sp14_7', 'sp14_8', 'sp14_9', 'sp14_11', 'sp14_12']),
                 ],
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){

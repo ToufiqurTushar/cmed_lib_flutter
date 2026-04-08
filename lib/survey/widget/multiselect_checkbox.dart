@@ -27,7 +27,7 @@ Widget MultiSelectCheckbox({
                   fillColor: MaterialStateProperty.all(Colors.black),
                 ),
               ),
-              child: FormBuilderCheckboxGroup<String>(
+              child: FormBuilderCheckboxGroup<dynamic>(
                 //enabled: parentCondition,
                 initialValue: field.defaultValue,
                 name: field.name!,

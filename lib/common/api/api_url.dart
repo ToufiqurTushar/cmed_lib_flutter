@@ -5,10 +5,13 @@ class ApiUrl {
     return "api/v1/survey/rules?type=$surveyType&page=0&size=100";
   }
 
-  static String getAgentSurveyRulesByUserIdUrl(int userId) {
+  static String getAgentSubscriptionSurveyRulesByUserIdUrl(int userId) {
       return "api/v1/agent/subscription/survey?direction=DESC&page=0&size=1&sort_by=id&user_id=$userId";
   }
 
+  static String getAgentSocialProtectionRulesByUserIdUrl(int userId) {
+    return "api/v1/social-protection/survey?direction=DESC&page=0&size=1&sort_by=id&&user_id=$userId";
+  }
 
   static String getHealthAssessmentSurveyUrl(int userId,{int fromDate = 0, int toDate = 0}) {
     if(fromDate != 0){
@@ -35,7 +38,7 @@ class ApiUrl {
   static String postSurveyUrl() {
     return "api/v1/survey/submit";
   }
-  static String socialProtectionEligibility({required List<String> civicIds, required int userId}) {
+  static String socialProtectionEligibility({required List<dynamic> civicIds, required int userId}) {
     final uri = Uri(
       path: "api/v1/social-protection/schemes/eligible",
       queryParameters: {

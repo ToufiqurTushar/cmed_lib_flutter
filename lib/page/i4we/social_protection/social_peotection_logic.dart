@@ -28,6 +28,15 @@ class SocialProtectionLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
+    await httpProvider.GET(ApiUrl.getAgentSocialProtectionRulesByUserIdUrl(customer.value.userId!)).then((response) {
+      if (response.isOk) {
+        final results = SurveyResultResponseDto.fromJson(response.body).content;
+        if(results?.isNotEmpty??false){
+          selectedSurveyResult.value = results!.first;
+        }
+        RLog.error(response.body);
+      }
+    });
     httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.SOCIAL_PROTECTION.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
@@ -35,7 +44,7 @@ class SocialProtectionLogic extends BaseLogic {
         if(selectedSurveyResult.value != null){
           allSurveys.first.fields!.forEach((eachField){
             try{
-              //eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
+              eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
             } catch (e){
               RLog.error(e);
             }
@@ -91,7 +100,7 @@ class SocialProtectionLogic extends BaseLogic {
     final socialProtectionField = selectedSurvey.value!.fields!.firstWhere((m) => m.name == socialProtectionFieldName);
     socialProtectionField.visibilityConditions = socialProtectionField.visibilityConditions??[];
 
-    try {
+
       final response = await httpProvider.GET(
         ApiUrl.socialProtectionEligibility(
           civicIds: answers[civicIdsFieldName]??[],
@@ -104,9 +113,14 @@ class SocialProtectionLogic extends BaseLogic {
         List<FieldOption> eligibleOptions = FieldOption.fromJsonList(response.body);
         if(eligibleOptions.isEmpty){
           socialProtectionField.required = false;
+          socialProtectionField.defaultValue = null;
+          socialProtectionField.options = [];
         } else {
           socialProtectionField.required = true;
-          socialProtectionField.options = eligibleOptions.map((e) => FieldOption(title: e.title, name: e.name, value: e.value)).toList();
+          if(!eligibleOptions.map((e)=>e.value).contains(socialProtectionField.defaultValue)){
+            socialProtectionField.defaultValue = null;
+          }
+          socialProtectionField.options = eligibleOptions.map((e) => FieldOption(title: e.title, name: e.name, value: e.value.toString())).toList();
         }
         selectedSurvey.refresh();
         RLog.error('modifyFieldOptions: true');
@@ -115,10 +129,6 @@ class SocialProtectionLogic extends BaseLogic {
         ShowToast.error('error_massage_something_wrong'.tr);
         return false;
       }
-    } catch (e) {
-      globalState.hideBusy();
-      RLog.error('Error in modifyFieldOptions: $e');
-      return false;
-    }
+
   }
 }
