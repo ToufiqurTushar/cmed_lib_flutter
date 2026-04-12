@@ -47,6 +47,7 @@ class HealthAssessmentView extends RapidView<HealthAssessmentLogic> {
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
                 },
+                showSerialNumber: true,
                 onSelectAnswer: (String fieldName, val){
 
                 },

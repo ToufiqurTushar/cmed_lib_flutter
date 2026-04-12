@@ -51,7 +51,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
               SurveyManagerWidget(
                 //jsonAssetDirectory: "assets/json/healthydays.json",
                 surveys: controller.allSurveys,
-                //showSerialNumber: false,
+                showSerialNumber: false,
                 isTabStyle: true,
                 tabContents: [
                   TabPage(id: "t1", title: "GENERAL".tr, listOfQuestionUid: controller.customer.value.isFamilyMember? ['as9_1', 'as9_15']: ['as9_1', 'as9_15', 'as9_16', 'as9_17']),

@@ -40,7 +40,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     this.onSelectSurvey,
     this.beforeNext,
     this.onSubmit,
-    this.showSerialNumber = true,
+    this.showSerialNumber = false,
     this.tabContents
   });
 

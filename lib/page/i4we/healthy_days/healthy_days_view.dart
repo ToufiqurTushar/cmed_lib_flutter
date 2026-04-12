@@ -50,6 +50,7 @@ class HealthyDaysView extends RapidView<HealthyDaysLogic> {
               SurveyManagerWidget(
                 //jsonAssetDirectory: "assets/json/healthydays.json",
                 surveys: controller.allSurveys,
+                showSerialNumber: true,
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
