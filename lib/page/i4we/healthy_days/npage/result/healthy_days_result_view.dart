@@ -29,31 +29,31 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Image.asset('assets/images/healthy_days_result.png'),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 30),
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: FrElevatedButton(
-                                        name:controller.selectedSurveyResult.value.result?.status??'',
-                                        onPressed: () => {
+                                  // Padding(
+                                  //   padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 30),
+                                  //   child: Container(
+                                  //     width: double.infinity,
+                                  //     child: FrElevatedButton(
+                                  //       name:controller.selectedSurveyResult.value.result?.status??'',
+                                  //       onPressed: () => {
 
-                                        },
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: controller.selectedSurveyResult.value.result?.colorCode?.toColor(),
-                                          foregroundColor: Colors.white,
-                                          elevation: 10,
-                                          padding: EdgeInsets.all(16),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8), // Rounded corners
-                                          ),
-                                          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  //       },
+                                  //       color: Colors.white,
+                                  //       fontSize: 16,
+                                  //       fontWeight: FontWeight.bold,
+                                  //       style: ElevatedButton.styleFrom(
+                                  //         backgroundColor: controller.selectedSurveyResult.value.result?.colorCode?.toColor(),
+                                  //         foregroundColor: Colors.white,
+                                  //         elevation: 10,
+                                  //         padding: EdgeInsets.all(16),
+                                  //         shape: RoundedRectangleBorder(
+                                  //           borderRadius: BorderRadius.circular(8), // Rounded corners
+                                  //         ),
+                                  //         textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
 
                                   Card(
                                     child: Padding(
