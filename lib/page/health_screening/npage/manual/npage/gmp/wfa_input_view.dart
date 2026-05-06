@@ -329,7 +329,44 @@ class WfaInputView extends RapidView<WfaInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Severe Underweight": "Severe Underweight",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.",
+        "Moderate Underweight": "Moderate Underweight",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "Your child is moderately underweight according to age, please consult with doctor for evaluation.",
+        "Mild Underweight": "Mild Underweight",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "Your child has mild underweight according to age, please consult doctor for evaluation.",
+        "Normal": "Normal",
+        "Your child is well nourished, please continue balanced diet as usual.": "Your child is well nourished, please continue balanced diet as usual.",
+        "Overweight": "Overweight",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life."
+      },
+      "bn_BD": {
+        "Severe Underweight": "মারাত্মক কম ওজন",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "আপনার শিশুর  ওজন বয়স অনুযায়ী  অনেক কম, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন।",
+        "Moderate Underweight": "মাঝারি কম ওজন",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "আপনার শিশুর ওজন বয়স অনুযায়ী স্বাভাবিকের চেয়ে মাঝারি কম।এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Mild Underweight": "স্বল্প কম ওজন",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "আপনার শিশুর ওজন বয়স অনুযায়ী  স্বাভাবিকের চেয়ে কম, এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Normal": "স্বাভাবিক",
+        "Your child is well nourished, please continue balanced diet as usual.": "বয়স অনুযায়ী আপনার শিশু স্বাভাবিক পুষ্টিমাত্রা সম্পন্ন, শিশুকে সুষম খাবার প্রদানের মাধ্যমে এই মাত্রা বজায় রাখুন।",
+        "Overweight": "বেশি ওজন",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "বয়স অনুযায়ী আপনার শিশুর ওজন স্বাভাবিকের চেয়ে বেশি। ওজন কমাতে  চিকিৎসক বা পুষ্টিবিদের পরামর্শ নিন । পাশাপাশি অতিরিক্ত তৈলাক্ত ও চর্বিযুক্ত (ফাস্ট ফুড/ভাজা পোড়া) খাবার পরিহার করুন । প্রতিদিন কমপক্ষে এক ঘন্টা নিয়মিত শারীরিক কর্মকান্ড (খেলাধুলা) করুন | অন্যথায় স্থূলতার কারণে ভবিষ্যত আপনার বাচ্চার উচ্চ রক্তচাপ এবং ডায়াবেটিস হতে পারে |"
+      },
+      "kn_IN": {
+        "Severe Underweight": "ತೀವ್ರ ಕಡಿಮೆ ತೂಕ",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "ನಿಮ್ಮ ಮಗುವಿನ ವಯಸ್ಸಿಗೆ ಅನುಗುಣವಾಗಿ ತುಂಬಾ ಕಡಿಮೆ ತೂಕವಿದೆ, ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ತಕ್ಷಣ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ.",
+        "Moderate Underweight": "ಮಧ್ಯಮ ಕಡಿಮೆ ತೂಕ",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "ನಿಮ್ಮ ಮಗುವಿನ ವಯಸ್ಸಿಗೆ ಅನುಗುಣವಾಗಿ ಮಧ್ಯಮ ತೂಕ ಕಡಿಮೆ ಇದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Mild Underweight": "ಕಡಿಮೆ ತೂಕ",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "ನಿಮ್ಮ ಮಗುವಿನ ವಯಸ್ಸಿಗೆ ಅನುಗುಣವಾಗಿ ಸ್ವಲ್ಪ ಕಡಿಮೆ ತೂಕವಿದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Normal": "ಸಾಮಾನ್ಯ",
+        "Your child is well nourished, please continue balanced diet as usual.": "ನಿಮ್ಮ ಮಗುವಿಗೆ ಉತ್ತಮ ಪೋಷಣೆ ಇದೆ, ದಯವಿಟ್ಟು ಎಂದಿನಂತೆ ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಮುಂದುವರಿಸಿ.",
+        "Overweight": "ಅಧಿಕ ತೂಕ",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "ನಿಮ್ಮ ಮಗು ವಯಸ್ಸಿಗೆ ಅನುಗುಣವಾಗಿ ಅಧಿಕ ತೂಕ ಹೊಂದಿದೆ. ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ. ನಿಮ್ಮ ಮಗುವಿಗೆ ಎಣ್ಣೆಯುಕ್ತ ಮತ್ತು ಕೊಬ್ಬಿನ ಆಹಾರವನ್ನು (ಫಾಸ್ಟ್ ಫುಡ್ ಅಥವಾ ಕರಿದ ಆಹಾರ ಪದಾರ್ಥಗಳು) ನೀಡುವುದನ್ನು ನೀವು ನಿಯಂತ್ರಿಸಬೇಕು. ಮತ್ತು ನಿಮ್ಮ ಮಗು ದಿನಕ್ಕೆ ಕನಿಷ್ಠ ಒಂದು ಗಂಟೆಯಾದರೂ ನಿಯಮಿತ ದೈಹಿಕ ಚಟುವಟಿಕೆಯನ್ನು (ಆಟವಾಡುವುದು) ಮಾಡಬೇಕಾಗುತ್ತದೆ. ಇಲ್ಲದಿದ್ದರೆ ಅಧಿಕ ತೂಕವು ಭವಿಷ್ಯದಲ್ಲಿ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಮಧುಮೇಹದಂತಹ ಹಲವಾರು ರೋಗಗಳಿಗೆ ಕಾರಣವಾಗಬಹುದು."
+      }
+    };
   }
 
   @override

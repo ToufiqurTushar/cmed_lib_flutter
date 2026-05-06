@@ -332,7 +332,62 @@ class HfaInputView extends RapidView<HfaInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Severe Stunting": "Severe Stunting",
+        "Your child is severely stunted comparing to age, please consult with doctor or visit nearby hospital immediately.": "Your child is severely stunted comparing to age, please consult with doctor or visit nearby hospital immediately.",
+        "Moderate Stunting": "Moderate Stunting",
+        "Your child is moderately stunted comparing to age, please consult doctor for evaluation.": "Your child is moderately stunted comparing to age, please consult doctor for evaluation.",
+        "Mild  Stunting": "Mild  Stunting",
+        "Your child has mild stunting comparing to age, please consult doctor for evaluation.": "Your child has mild stunting comparing to age, please consult doctor for evaluation.",
+        "Normal": "Normal",
+        "Normal Height": "Normal Height",
+        "Tall": "Tall",
+        "Your child is more  tall comparing to age.  Please consult with nutritionist or physician.": "Your child is more  tall comparing to age.  Please consult with nutritionist or physician.",
+        "Your child is more tall comparing to age.  Please consult with nutritionist or physician.": "Your child is more tall comparing to age.  Please consult with nutritionist or physician.",
+        "Your child is severely stunted, please consult with doctor or visit nearby hospital immediately.": "Your child is severely stunted, please consult with doctor or visit nearby hospital immediately.",
+        "Your child is moderately stunted, please consult doctor for evaluation.": "Your child is moderately stunted, please consult doctor for evaluation.",
+        "Mild Stunting": "Mild Stunting",
+        "Your child has mild stunting, please consult doctor for evaluation.": "Your child has mild stunting, please consult doctor for evaluation.",
+        "Your child is more tall. Please consult with nutritionist or physician for weight reduction.": "Your child is more tall. Please consult with nutritionist or physician for weight reduction."
+      },
+      "bn_BD": {
+        "Severe Stunting": "মারাত্মক খর্ব",
+        "Your child is severely stunted comparing to age, please consult with doctor or visit nearby hospital immediately.": "আপনার শিশু বয়সের তুলনায় মারাত্মক খর্ব, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন।",
+        "Moderate Stunting": "মাঝারি খর্ব",
+        "Your child is moderately stunted comparing to age, please consult doctor for evaluation.": "আপনার শিশু বয়সের তুলনায় মাঝারি খর্ব, এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Mild  Stunting": "স্বল্প খর্ব",
+        "Your child has mild stunting comparing to age, please consult doctor for evaluation.": "আপনার শিশু বয়সের তুলনায় স্বল্প খর্ব, এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Normal": "স্বাভাবিক",
+        "Normal Height": "আপনার শিশুর উচ্চতা স্বাভাবিক |",
+        "Tall": "বেশি লম্বা",
+        "Your child is more  tall comparing to age.  Please consult with nutritionist or physician.": "আপনার শিশু বয়সের তুলনায় স্বাভাবিকের চেয়ে লম্বা। কারণ জানতে চিকিৎসকের পরামর্শ নিন ।",
+        "Your child is more tall comparing to age.  Please consult with nutritionist or physician.": "আপনার শিশু বয়সের তুলনায় স্বাভাবিকের চেয়ে লম্বা। কারণ জানতে চিকিৎসকের পরামর্শ নিন ।",
+        "Your child is severely stunted, please consult with doctor or visit nearby hospital immediately.": "আপনার শিশু বয়সের তুলনায় মারাত্মক খর্ব, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন।",
+        "Your child is moderately stunted, please consult doctor for evaluation.": "আপনার শিশু বয়সের তুলনায় মাঝারি খর্ব, এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Mild Stunting": "স্বল্প খর্ব",
+        "Your child has mild stunting, please consult doctor for evaluation.": "আপনার শিশু বয়সের তুলনায় স্বল্প খর্ব, এ ব্যাপারে চিকিৎসকের পরামর্শ নিন |",
+        "Your child is more tall. Please consult with nutritionist or physician for weight reduction.": "আপনার শিশু বয়সের তুলনায় স্বাভাবিকের চেয়ে লম্বা। কারণ জানতে চিকিৎসকের পরামর্শ নিন ।"
+      },
+      "kn_IN": {
+        "Severe Stunting": "ಮಾರಾತ್ಮಕ್ ಖರ್ಬ್",
+        "Your child is severely stunted comparing to age, please consult with doctor or visit nearby hospital immediately.": "ವಯಸ್ಸಿಗೆ ಹೋಲಿಸಿದರೆ ನಿಮ್ಮ ಮಗುವಿನ ಬೆಳವಣಿಗೆ ತೀವ್ರವಾಗಿ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ತಕ್ಷಣ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ.",
+        "Moderate Stunting": "ಮಾಜಾರಿ ಖರ್ಬ್",
+        "Your child is moderately stunted comparing to age, please consult doctor for evaluation.": "ವಯಸ್ಸಿಗೆ ಹೋಲಿಸಿದರೆ ನಿಮ್ಮ ಮಗುವಿನ ಬೆಳವಣಿಗೆ ಸ್ವಲ್ಪ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Mild  Stunting": "ಸ್ಬಲ್ಪ್ ಖರ್ಬ್",
+        "Your child has mild stunting comparing to age, please consult doctor for evaluation.": "ನಿಮ್ಮ ಮಗುವಿಗೆ ವಯಸ್ಸಿಗೆ ಹೋಲಿಸಿದರೆ ಸ್ವಲ್ಪ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Normal": "ಸ್ವಭಾವ",
+        "Normal Height": "ಸಾಮಾನ್ಯ ಎತ್ತರ",
+        "Tall": "ಬೇಶಿ ಲಂಬಾ",
+        "Your child is more  tall comparing to age.  Please consult with nutritionist or physician.": "ನಿಮ್ಮ ಮಗು ವಯಸ್ಸಿಗೆ ಹೋಲಿಸಿದರೆ ಹೆಚ್ಚು ಎತ್ತರವಾಗಿದೆ. ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Your child is more tall comparing to age.  Please consult with nutritionist or physician.": "ನಿಮ್ಮ ಮಗು ವಯಸ್ಸಿಗೆ ಹೋಲಿಸಿದರೆ ಹೆಚ್ಚು ಎತ್ತರವಾಗಿದೆ. ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Your child is severely stunted, please consult with doctor or visit nearby hospital immediately.": "ನಿಮ್ಮ ಮಗುವಿನ ಬೆಳವಣಿಗೆ ತೀವ್ರವಾಗಿ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ತಕ್ಷಣ ಭೇಟಿ ನೀಡಿ.",
+        "Your child is moderately stunted, please consult doctor for evaluation.": "ನಿಮ್ಮ ಮಗುವಿನ ಬೆಳವಣಿಗೆ ಸ್ವಲ್ಪ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Mild Stunting": "ಸ್ಬಲ್ಪ್ ಖರ್ಬ್",
+        "Your child has mild stunting, please consult doctor for evaluation.": "ನಿಮ್ಮ ಮಗುವಿಗೆ ಸ್ವಲ್ಪ ಬೆಳವಣಿಗೆ ಕುಂಠಿತವಾಗಿದೆ, ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Your child is more tall. Please consult with nutritionist or physician for weight reduction.": "ನಿಮ್ಮ ಮಗು ಹೆಚ್ಚು ಎತ್ತರವಾಗಿದೆ. ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ."
+      }
+    };
   }
 
   @override

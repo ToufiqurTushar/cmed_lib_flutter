@@ -198,7 +198,32 @@ class MuacInputView extends RapidView<MuacInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Severe Acute Malnutrition": "Severe Acute Malnutrition",
+        "Severely malnourished child. Please don't panic and consult with a doctor or go to the nearest hospital right away.": "Severely malnourished child. Please don't panic and consult with a doctor or go to the nearest hospital right away.",
+        "Moderate Acute Malnutrition": "Moderate Acute Malnutrition",
+        "Malnourished child , please consult with doctor/nutritionist for further evaluation and advice.": "Malnourished child , please consult with doctor/nutritionist for further evaluation and advice.",
+        "Normal": "Normal",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet."
+      },
+      "bn_BD": {
+        "Severe Acute Malnutrition": "তীব্র মারাত্মক অপুষ্টি",
+        "Severely malnourished child. Please don't panic and consult with a doctor or go to the nearest hospital right away.": "মারাত্মক তীব্র অপুষ্টি",
+        "Moderate Acute Malnutrition": "মাঝারি তীব্র অপুষ্টি",
+        "Malnourished child , please consult with doctor/nutritionist for further evaluation and advice.": "মাঝারি তীব্র অপুষ্টি",
+        "Normal": "স্বাভাবিক",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "স্বাভাবিক"
+      },
+      "kn_IN": {
+        "Severe Acute Malnutrition": "ತೀಬ್ರ ಮಾರಾತಮಕ್ ಅಪುಷ್ಟಿ",
+        "Severely malnourished child. Please don't panic and consult with a doctor or go to the nearest hospital right away.": "ಅಪನಾರ್ ಶಿಶು ತೀಬ್ರ ಮಾರಾತಮಕ್ ಅಪುಷ್ಟಿ.  ಆತುರ ನಾ ಹಯೇ ಶಿಶುರ ಪಡತಿ ಯತ್ನ, ದನ ಚಿಕಿತ್ಸಾಲಯ, ರಾಮನಗರ ಸ್ಬಾಸ್ತ್ಯ ಕೆಂದ್ರೆ ಯೋಗಾಯೋಗ ಕರುಣ್. ",
+        "Moderate Acute Malnutrition": "ಮಾಜಾರಿ ತೀಬ್ರ ಅಪುಷ್ಟಿ",
+        "Malnourished child , please consult with doctor/nutritionist for further evaluation and advice.": "ಆಪನಾರ ಶಿವರು ಪುಷ್ಟಿಮಾತ್ರಾ ಸ್ಬಾವೈರಿಗಳು ಚೆಯ್ ಕಾಮ್, ಎ ಬ್ಯಾಪಾರೆ ದ್ರುತ್ ನಿಶ್ಚಿತ್ ಹೋದ್ ಪ್ರಯೋಜನ್. ಚಿಕಿಸಾ ಎಬನ್ ಪರಮಾರ್ಶೆರ್ ಜನ್ಯ ಚಿಕಿಯಸಕ್/ಪುಷ್ಟಿಬಿದಿರೆ ಪರಮೇಶ್ವರ್ ನಿನ್ |",
+        "Normal": "ಸ್ವಭಾವ",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "ಅಭಿನಂದನ್! ಶಿಶುರ ಪುಷ್ಟಿಮಾತ್ರಾ ಸ್ಬಾಬಿಕ್ । ಶಿಶುಕೆ ಪ್ರತಿದಿನ ಸುಷಮ್ ಖಬಾರ್ ಪುರದರೈತರು ಈ ಮಾತ್ರಾ ಬಜಾಯ ರಾಖುನ್."
+      }
+    };
   }
 
   @override

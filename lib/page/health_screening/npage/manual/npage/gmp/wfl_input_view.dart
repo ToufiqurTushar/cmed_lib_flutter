@@ -333,7 +333,47 @@ class WflInputView extends RapidView<WflInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Severely Wasted": "Severely Wasted",
+        "Your child is severely malnourished compare to height. He/She needs urgent medical attention. Take your child to the nearest health center as soon as possible.": "Your child is severely malnourished compare to height. He/She needs urgent medical attention. Take your child to the nearest health center as soon as possible.",
+        "Moderately Wasted": "Moderately Wasted",
+        "Your child is moderately malnourished compare to height and has been affected by nutritional deficiencies. Take him to the nearest health center as soon as possible.": "Your child is moderately malnourished compare to height and has been affected by nutritional deficiencies. Take him to the nearest health center as soon as possible.",
+        "Normal": "Normal",
+        "Your child is well nourished compare to height, please continue balanced diet as usual.": "Your child is well nourished compare to height, please continue balanced diet as usual.",
+        "Overweight": "Overweight",
+        "Your child is overweight.Dietary changes and physical exercise are necessary to prevent further complication.": "Your child is overweight.Dietary changes and physical exercise are necessary to prevent further complication.",
+        "Obesity": "Obesity",
+        "You are child is obese compare to height. Please consult with nutritionist or physician for weight reduction.You have to control giving oily & fatty food (fast food or fried food items) to your child and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "You are child is obese compare to height. Please consult with nutritionist or physician for weight reduction.You have to control giving oily & fatty food (fast food or fried food items) to your child and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.",
+        "Your child is overweight compare to height. Dietary changes and physical exercise are necessary to prevent further complication.": "Your child is overweight compare to height. Dietary changes and physical exercise are necessary to prevent further complication."
+      },
+      "bn_BD": {
+        "Severely Wasted": "মারাত্মক তীব্র অপুষ্টি",
+        "Your child is severely malnourished compare to height. He/She needs urgent medical attention. Take your child to the nearest health center as soon as possible.": "আপনার বাচ্চা উচ্চতা অনুযায়ী মারাত্মক তীব্র অপুষ্টি তে আক্রান্ত। অতি দ্রুত তার চিকিৎসা প্রয়োজন। তাকে যত দ্রুত সম্ভব নিকটস্থ স্বাস্থ্যকেন্দ্রে নিয়ে যান।",
+        "Moderately Wasted": "মাঝারি তীব্র অপুষ্টি",
+        "Your child is moderately malnourished compare to height and has been affected by nutritional deficiencies. Take him to the nearest health center as soon as possible.": "আপনার বাচ্চা উচ্চতা অনুযায়ী মাঝারি তীব্র অপুষ্টীজনিত রোগে আক্রান্ত। যত দ্রুত সম্ভব তার পুষ্টীর অভাব পুরণের জন্য নিকটস্থ সাস্থ্যকেন্দ্রে নেয়া উত্তম।",
+        "Normal": "স্বাভাবিক",
+        "Your child is well nourished compare to height, please continue balanced diet as usual.": "উচ্চতা অনুযায়ী আপনার শিশু স্বাভাবিক পুষ্টিমাত্রা সম্পন্ন, শিশুকে সুষম খাবার প্রদানের মাধ্যমে এই মাত্রা বজায় রাখুন।",
+        "Overweight": "অতিরিক্ত ওজন",
+        "Your child is overweight.Dietary changes and physical exercise are necessary to prevent further complication.": "আপনার বাচ্চার ওজন, উচ্চতার  তুলনায় বেশি । জটিলতা এড়ানোর জন্য খাদ্যাভ্যাস পরিবর্তন এবং শারিরিক ব্যায়াম প্রয়োজন।",
+        "Obesity": "স্থূলতা",
+        "You are child is obese compare to height. Please consult with nutritionist or physician for weight reduction.You have to control giving oily & fatty food (fast food or fried food items) to your child and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "আপনার শিশুর ওজন উচ্চতার  তুলনায়  অনেক বেশি। ওজন কমাতে দ্রুত চিকিৎসক বা পুষ্টিবিদের পরামর্শ নিন । পাশাপাশি অতিরিক্ত তৈলাক্ত ও চর্বিযুক্ত (ফাস্ট ফুড/ভাজা পোড়া) খাবার পরিহার করুন । প্রতিদিন কমপক্ষে এক ঘন্টা নিয়মিত শারীরিক কর্মকান্ড (খেলাধুলা) করুন | অন্যথায় স্থূলতার কারণে ভবিষ্যত আপনার বাচ্চার উচ্চ রক্তচাপ এবং ডায়াবেটিস হতে পারে |",
+        "Your child is overweight compare to height. Dietary changes and physical exercise are necessary to prevent further complication.": "আপনার বাচ্চার ওজন, উচ্চতার  তুলনায় বেশি । জটিলতা এড়ানোর জন্য খাদ্যাভ্যাস পরিবর্তন এবং শারিরিক ব্যায়াম প্রয়োজন।"
+      },
+      "kn_IN": {
+        "Severely Wasted": "ತೀವ್ರವಾಗಿ ವ್ಯರ್ಥವಾಯಿತು",
+        "Your child is severely malnourished compare to height. He/She needs urgent medical attention. Take your child to the nearest health center as soon as possible.": "ನಿಮ್ಮ ಮಗುವಿಗೆ ಎತ್ತರಕ್ಕೆ ಹೋಲಿಸಿದರೆ ತೀವ್ರ ಅಪೌಷ್ಟಿಕತೆ ಇದೆ. ಅವನಿಗೆ/ಆಕೆಗೆ ತುರ್ತು ವೈದ್ಯಕೀಯ ಆರೈಕೆಯ ಅಗತ್ಯವಿದೆ. ಸಾಧ್ಯವಾದಷ್ಟು ಬೇಗ ನಿಮ್ಮ ಮಗುವನ್ನು ಹತ್ತಿರದ ಆರೋಗ್ಯ ಕೇಂದ್ರಕ್ಕೆ ಕರೆದೊಯ್ಯಿರಿ.",
+        "Moderately Wasted": "ಮಧ್ಯಮವಾಗಿ ವ್ಯರ್ಥವಾಗಿದೆ",
+        "Your child is moderately malnourished compare to height and has been affected by nutritional deficiencies. Take him to the nearest health center as soon as possible.": "ನಿಮ್ಮ ಮಗುವಿನ ಎತ್ತರಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಮಧ್ಯಮ ಅಪೌಷ್ಟಿಕತೆ ಇದೆ ಮತ್ತು ಪೌಷ್ಟಿಕಾಂಶದ ಕೊರತೆಯಿಂದ ಬಳಲುತ್ತಿದೆ. ಸಾಧ್ಯವಾದಷ್ಟು ಬೇಗ ಅವನನ್ನು ಹತ್ತಿರದ ಆರೋಗ್ಯ ಕೇಂದ್ರಕ್ಕೆ ಕರೆದೊಯ್ಯಿರಿ.",
+        "Normal": "ಸಾಮಾನ್ಯ",
+        "Your child is well nourished compare to height, please continue balanced diet as usual.": "ನಿಮ್ಮ ಮಗುವಿನ ಎತ್ತರಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಉತ್ತಮ ಪೋಷಣೆ ಇದೆ, ದಯವಿಟ್ಟು ಎಂದಿನಂತೆ ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಮುಂದುವರಿಸಿ.",
+        "Overweight": "ಅಧಿಕ ತೂಕ",
+        "Your child is overweight.Dietary changes and physical exercise are necessary to prevent further complication.": "ನಿಮ್ಮ ಮಗುವು ಅಧಿಕ ತೂಕ ಹೊಂದಿದೆ. ಹೆಚ್ಚಿನ ತೊಡಕುಗಳನ್ನು ತಡೆಗಟ್ಟಲು ಆಹಾರಕ್ರಮದಲ್ಲಿ ಬದಲಾವಣೆಗಳು ಮತ್ತು ದೈಹಿಕ ವ್ಯಾಯಾಮ ಅಗತ್ಯ.",
+        "Obesity": "ಬೊಜ್ಜು",
+        "You are child is obese compare to height. Please consult with nutritionist or physician for weight reduction.You have to control giving oily & fatty food (fast food or fried food items) to your child and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "ನಿಮ್ಮ ಮಗು ಎತ್ತರಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಬೊಜ್ಜು ಹೊಂದಿದೆ. ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ. ನಿಮ್ಮ ಮಗುವಿಗೆ ಎಣ್ಣೆಯುಕ್ತ ಮತ್ತು ಕೊಬ್ಬಿನ ಆಹಾರವನ್ನು (ಫಾಸ್ಟ್ ಫುಡ್ ಅಥವಾ ಕರಿದ ಆಹಾರ ಪದಾರ್ಥಗಳು) ನೀಡುವುದನ್ನು ನೀವು ನಿಯಂತ್ರಿಸಬೇಕು ಮತ್ತು ನಿಮ್ಮ ಮಗು ದಿನಕ್ಕೆ ಕನಿಷ್ಠ ಒಂದು ಗಂಟೆಯಾದರೂ ನಿಯಮಿತವಾಗಿ ದೈಹಿಕ ಚಟುವಟಿಕೆ (ಆಟವಾಡುವುದು) ಮಾಡಬೇಕು. ಇಲ್ಲದಿದ್ದರೆ ಅಧಿಕ ತೂಕವು ಭವಿಷ್ಯದಲ್ಲಿ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಮಧುಮೇಹದಂತಹ ಹಲವಾರು ರೋಗಗಳಿಗೆ ಕಾರಣವಾಗಬಹುದು.",
+        "Your child is overweight compare to height. Dietary changes and physical exercise are necessary to prevent further complication.": "ನಿಮ್ಮ ಮಗುವಿನ ಎತ್ತರಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಅಧಿಕ ತೂಕವಿದೆ. ಹೆಚ್ಚಿನ ತೊಡಕುಗಳನ್ನು ತಡೆಗಟ್ಟಲು ಆಹಾರ ಪದ್ಧತಿಯಲ್ಲಿ ಬದಲಾವಣೆ ಮತ್ತು ದೈಹಿಕ ವ್ಯಾಯಾಮ ಅಗತ್ಯ."
+      }
+    };
   }
 
   @override

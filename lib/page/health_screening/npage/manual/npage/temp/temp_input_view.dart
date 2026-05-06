@@ -192,7 +192,34 @@ class TempInputView extends RapidView<TempInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-      return HealthScreeningHomeI18N.getTranslations();
+      return {
+        "en_US": {
+          "Very low": "Very low",
+          "High Risk": "High Risk",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.",
+          "Low": "Low",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "LOW temperature, cover yourself with blanket or bed sheet and check again.",
+          "Normal": "Normal",
+          "NORMAL temperature": "NORMAL temperature",
+          "High": "High",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "HIGH temperature, consult with doctor or visit nearby hospital.",
+          "Very high": "Very high",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital."
+        },
+        "bn_BD": {
+          "Very low": "মাত্রাতিরিক্ত নিম্ন",
+          "High Risk": "বেশি ঝুঁকি সম্পন্ন",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "মাত্রাতিরিক্ত কম তাপমাত্রা, কম্বল বা চাদর সহকারে নিজেকে ঢাকুন ও কিছুক্ষণ পর পুনরায় মাপুন না হলে দ্রুত চিকিৎসকের পরামর্শ নিন।",
+          "Low": "নিম্ন",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "কম তাপমাত্রা, কম্বল বা চাদর সহকারে নিজেকে ঢাকুন ও কিছুক্ষণ পর পুনরায় মাপুন। ",
+          "Normal": "ঝুকিমুক্ত",
+          "NORMAL temperature": "স্বাভাবিক তাপমাত্রা।",
+          "High": "উচ্চ",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "বেশি তাপমাত্রা, চিকিৎসকের পরামর্শ নিন।",
+          "Very high": "মাত্রাতিরিক্ত",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "মাত্রাতিরিক্ত বেশি তাপমাত্রা, দ্রুত চিকিৎসকের পরামর্শ নিন। "
+        }
+      };
   }
 
   @override

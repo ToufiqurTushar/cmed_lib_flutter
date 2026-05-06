@@ -147,7 +147,28 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Normal": "Normal",
+        "Healthy": "Healthy",
+        "Oxygen saturation level is NORMAL.": "Oxygen saturation level is NORMAL.",
+        "Low": "Low",
+        "High Risk": "High Risk",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "Oxygen saturation level is LOW, please consult doctor for evaluation.",
+        "Very low": "Very low",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately."
+      },
+      "bn_BD": {
+        "Normal": "স্বাভাবিক",
+        "Healthy": "ঝুকিমুক্ত",
+        "Oxygen saturation level is NORMAL.": "স্বাভাবিক অক্সিজেন মাত্রা। নিয়মিত ব্যায়াম, দৈহিক পরিশ্রম ও সুষম খাবার গ্রহণের মাধ্যমে এই মাত্রা বজায় রাখুন।",
+        "Low": "নিম্ন",
+        "High Risk": "বেশি ঝুঁকি সম্পন্ন",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "অক্সিজেনের মাত্রা কম, এ ব্যাপারে নিশ্চিত হওয়ার  চিকিৎসকের পরামর্শ নিন |",
+        "Very low": "অত্যন্ত নিম্ন",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "অক্সিজেনের মাত্রা অনেক কম, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন। "
+      }
+    };
   }
 
   @override

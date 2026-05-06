@@ -288,7 +288,50 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return HealthScreeningHomeI18N.getTranslations();
+    return {
+      "en_US": {
+        "Underweight": "Underweight",
+        "At Risk": "At Risk",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "Your are UNDERWEIGHT, please consult with physician or nutritionist.",
+        "Normal": "Normal",
+        "Healthy": "Healthy",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.",
+        "Overweight": "Overweight",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.",
+        "Obesity": "Obesity",
+        "High Risk": "High Risk",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.",
+        "Your are UNDERWEIGHT, this may cause several health related probles. Please consult with physician or nutritionist.": "Your are UNDERWEIGHT, this may cause several health related probles. Please consult with physician or nutritionist.",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.",
+        "Highly Obesity": "Highly Obesity",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.",
+        "Morbid Obesity": "Morbid Obesity",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with a nutritionist or physician immediately for weight reduction.": "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with a nutritionist or physician immediately for weight reduction."
+      },
+      "bn_BD": {
+        "Underweight": "কম ওজন",
+        "At Risk": "ঝুঁকি সম্পন্ন",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিকের থেকে কম, অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Normal": "স্বাভাবিক",
+        "Healthy": "ঝুকিমুক্ত",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিক আছে, অর্থাৎ আপনি সুস্থ আছেন। দয়া করে এই স্বাভাবিক মাত্রা বজায় রাখুন ।",
+        "Overweight": "বেশি ওজন",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিকের থেকে বেশি। আপনার ওজন কমাতে অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Obesity": "স্থুলতা",
+        "High Risk": "বেশি ঝুঁকি সম্পন্ন",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন অনেক বেশি। আপনার ওজন কমাতে অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Your are UNDERWEIGHT, this may cause several health related probles. Please consult with physician or nutritionist.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিকের থেকে কম, এর ফলে আপনার স্বাস্থ্যগত নানা সমস্যা হতে পারে। অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিক আছে। অর্থাৎ আপনি সুস্থ আছেন। দয়া করে এই স্বাভাবিক মাত্রা বজায় রাখুন ।",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিকের থেকে বেশি। আপনার ওজন কমাতে অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন অনেক বেশি। আপনার ওজন কমাতে অনুগ্রহ পূর্বক চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Highly Obesity": "অনেক বেশি",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন স্বাভাবিকের চেয়ে অনেক বেশি। আপনি হৃদরোগ, উচ্চ রক্তচাপ, স্ট্রোক ও ডায়াবেটিসের ঝুঁকিতে আছেন। ওজন কমাতে দ্রুত চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।",
+        "Morbid Obesity": "মাত্রাতিরিক্ত ওজন",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with a nutritionist or physician immediately for weight reduction.": "বি এম আই অনুযায়ী আপনার ওজন মাত্রাতিরিক্ত। আপনি হৃদরোগ, উচ্চ রক্তচাপ, স্ট্রোক ও ডায়াবেটিসের ঝুঁকিতে আছেন। ওজন কমাতে দ্রুত চিকিৎসক বা পুষ্টিবিদের পরামশ নিন।"
+      }
+    };
   }
 
   @override
