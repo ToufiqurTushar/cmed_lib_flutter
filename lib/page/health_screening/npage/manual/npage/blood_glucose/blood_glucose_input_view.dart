@@ -89,7 +89,6 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                                   child: Obx(
                                     () => CMEDDropdownSelect(
                                       controller.glucoseUnit,
-                                      label: '',
                                       item: controller
                                           .selectedGlucoseMasterData
                                           .value,
@@ -101,9 +100,6 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                                         controller.selectedGlucoseUnit =
                                             data.labelEn!;
                                       },
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                      ),
                                     ),
                                   ),
                                 ),
