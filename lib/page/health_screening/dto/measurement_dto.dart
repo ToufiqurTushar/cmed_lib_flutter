@@ -29,6 +29,7 @@ import '../npage/manual/npage/eye_screening/enum/eye_screening_type_enum.dart';
 
 class MeasurementDTO {
   Map<String, dynamic>? inputs;
+  Map<String, dynamic>? inputsWithUnit;
   List<Ecgsymps>? ecgsymps;
   BodyComposition? bodyComposition;
   List<EyeScreening>? eyeScreening;
@@ -66,7 +67,9 @@ class MeasurementDTO {
   int? companyId;
 
   MeasurementDTO(
-      {this.inputs,
+      {
+        this.inputs,
+        this.inputsWithUnit,
         this.ecgsymps,
         this.bodyComposition,
         this.eyeScreening,
@@ -108,6 +111,7 @@ class MeasurementDTO {
 
   MeasurementDTO.fromJson(Map<String, dynamic> json) {
     inputs = json['inputs'];
+    inputsWithUnit = json['inputs_with_unit'];
     if (json['ecgsymps'] != null) {
       ecgsymps = <Ecgsymps>[];
       json['ecgsymps'].forEach((v) {
@@ -161,6 +165,9 @@ class MeasurementDTO {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (inputs != null) {
       data['inputs'] = inputs;
+    }
+    if (inputsWithUnit != null) {
+      data['inputs_with_unit'] = inputsWithUnit;
     }
     if (ecgsymps != null) {
       data['ecgsymps'] = ecgsymps!.map((v) => v.toJson()).toList();
@@ -305,7 +312,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       value = '${result?.value?.toStringAsFixed(result?.value?.truncateToDouble() == result?.value ? 0 : 2) ?? ""} kg/m\u00B2';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = '${inputs![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}';
+      value = '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}';
     }  else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       value = '${result?.status ?? ""}';
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
@@ -464,7 +471,7 @@ class MeasurementDTO {
           result?.value?.truncateToDouble() == result?.value ? 0 : 2) ??
           "";
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = '${inputs![BloodGlucoseAttribute.SUGAR.name]}';
+      value = '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}';
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       value = '${inputs![TemperatureAttribute.TEMP.name]}';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
@@ -503,7 +510,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       unit = 'kg/m²';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      unit = AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr);
+      unit = '';//AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr);
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       unit = 'Fahrenheit';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
@@ -668,7 +675,10 @@ class MeasurementDTO {
       value =
       "${inputs![TemperatureAttribute.TEMP.name]?.toStringAsFixed(inputs![TemperatureAttribute.TEMP.name]?.truncateToDouble() == inputs![TemperatureAttribute.TEMP.name] ? 0 : 2) ?? ""}";
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = inputs![BloodGlucoseAttribute.SUGAR.name]?.toStringAsFixed(
+      value = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name]??
+      //[ {inputsWithUnit: "SUGAR"} is a String, if fail then go to default way]
+      
+          inputs![BloodGlucoseAttribute.SUGAR.name]?.toStringAsFixed(
           inputs![BloodGlucoseAttribute.SUGAR.name]?.truncateToDouble() ==
               inputs![BloodGlucoseAttribute.SUGAR.name]
               ? 0
