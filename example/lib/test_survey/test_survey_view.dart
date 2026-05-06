@@ -31,7 +31,7 @@ class TestSurveyView extends RapidView<TestSurveyLogic> {
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;
                 },
-                onSelectAnswer: (val){
+                onSelectAnswer: (key, val){
 
                 },
                 onSubmit: (selectedGeoup, formMap){

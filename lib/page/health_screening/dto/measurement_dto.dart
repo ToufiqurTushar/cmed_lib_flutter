@@ -676,23 +676,20 @@ class MeasurementDTO {
               : 2) ??
           "";
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
-      value =
-      "${inputs![TemperatureAttribute.TEMP.name]?.toStringAsFixed(inputs![TemperatureAttribute.TEMP.name]?.truncateToDouble() == inputs![TemperatureAttribute.TEMP.name] ? 0 : 2) ?? ""}";
+      value = "${inputs![TemperatureAttribute.TEMP.name]?.toStringAsFixed(inputs![TemperatureAttribute.TEMP.name]?.truncateToDouble() == inputs![TemperatureAttribute.TEMP.name] ? 0 : 2) ?? ""}";
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
       final sugarValue = inputs?[BloodGlucoseAttribute.SUGAR.name];
-      final sugarWithUnit = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name];
-
-      if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-        if (AppUidConfig.isI4WeApp && sugarWithUnit != null) {
-          value = sugarWithUnit;
-        } else if (sugarValue != null) {
-          final decimals = sugarValue.truncateToDouble() == sugarValue ? 0 : 2;
-
-          value = sugarValue.toStringAsFixed(decimals);
-        } else {
-          value = "";
-        }
+      //final sugarWithUnit = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name];
+      if (AppUidConfig.isI4WeApp) {
+        var mgMolGrommiliMol = sugarValue*18.0182;
+        value = "${mgMolGrommiliMol.toStringAsFixed(mgMolGrommiliMol.truncateToDouble() == mgMolGrommiliMol ? 0 : 2) ?? ""}";
+      } else if (sugarValue != null) {
+        var mgMolGrommiliMol = sugarValue*1;
+        value = "${mgMolGrommiliMol.toStringAsFixed(mgMolGrommiliMol.truncateToDouble() == mgMolGrommiliMol ? 0 : 2) ?? ""}";
+      } else {
+        value = "";
       }
+
     } else if (measurementTypeCodeId == MeasurementType.BMI.value ||
         measurementTypeCodeId == MeasurementType.TEMP.value) {
       value = result?.value?.toStringAsFixed(

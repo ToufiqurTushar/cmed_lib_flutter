@@ -4,6 +4,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 
 class CMEDDropdownSelect extends StatelessWidget {
+  double? height;
   String? label;
   String? dropdownTitle;
   final List<MasterDataDTO> items;
@@ -16,6 +17,7 @@ class CMEDDropdownSelect extends StatelessWidget {
   double? width;
   CMEDDropdownSelect(this.items,
       {Key? key,
+      this.height,
       this.dropdownTitle,
       this.label,
       this.item,
@@ -45,7 +47,7 @@ class CMEDDropdownSelect extends StatelessWidget {
         Container(
           color: color ?? Theme.of(context).primaryColorLight,
           margin: const EdgeInsets.only(top: 0, bottom: 12),
-          height: 50,
+          height: height??50,
           child: Padding(
             padding: padding ??
                 const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),

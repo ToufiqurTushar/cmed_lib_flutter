@@ -29,7 +29,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
 
   List<MasterDataDTO> glucoseUnit = [
     MasterDataDTO(labelEn: 'mg/dL'),
-    MasterDataDTO(labelEn: 'mmol'),
+    MasterDataDTO(labelEn: 'mmol/L'),
   ];
 
   var selectedGlucoseMasterData = MasterDataDTO(labelEn: 'mg/dL').obs;
@@ -125,9 +125,9 @@ class BloodGlucoseInputLogic extends BaseLogic {
 
   num getMaxGlucoseValue() {
     if (tag.value.id == GlucoseTag.OGTT.tagId) {
-      return MeasurementConstant.MAX_GLUCOSE_OGTT;
+      return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE_OGTT;
     } else {
-      return MeasurementConstant.MAX_GLUCOSE;
+      return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE;
     }
   }
 

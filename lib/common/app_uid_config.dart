@@ -28,7 +28,8 @@ class AppUidConfig {
 
   static String getGlucoseLabelHint(String label) {
     if (isI4WeApp) {
-      return "input_hint_glucose_mg_dl".tr;
+      return "label_enter".tr;
+      //return "input_hint_glucose_mg_dl".tr;
     }
     return label;
   }

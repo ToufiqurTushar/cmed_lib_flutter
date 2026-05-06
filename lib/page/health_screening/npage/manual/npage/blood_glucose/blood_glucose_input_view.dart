@@ -72,6 +72,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                             ),
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
                                 child: CMEDTextField(AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr),
@@ -90,6 +91,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                                 Expanded(
                                   child: Obx(
                                     () => CMEDDropdownSelect(
+                                      height: 40,
                                       controller.glucoseUnit,
                                       item: controller
                                           .selectedGlucoseMasterData
