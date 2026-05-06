@@ -70,8 +70,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
         tag: getMeasurementTag(),
         measuredAt: dateController.text.isNotEmpty ? int.parse(dateController.text) : DateTime.now().millisecondsSinceEpoch,
         inputs: {
-          BloodGlucoseAttribute.SUGAR.name:
-              double.parse(bloodGlucoseEditTextController.value.text),
+          BloodGlucoseAttribute.SUGAR.name: _getGlucoseUnit(bloodGlucoseEditTextController.value.text),
         });
 
     var json = measurement.toJson().toString();
@@ -86,6 +85,17 @@ class BloodGlucoseInputLogic extends BaseLogic {
         updateMeasurementAndNavigate(measurement);
       }
     });
+  }
+
+  double _getGlucoseUnit(String value) {
+    double unit;
+    if (AppUidConfig.isI4WeApp) {
+      unit = double.parse(value) / 18.0182;
+    } else {
+      unit = double.parse(value);
+    }
+
+    return unit;
   }
 
   updateMeasurementAndNavigate(measurement){
