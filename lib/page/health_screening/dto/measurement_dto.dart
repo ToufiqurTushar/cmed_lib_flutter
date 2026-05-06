@@ -312,7 +312,9 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       value = '${result?.value?.toStringAsFixed(result?.value?.truncateToDouble() == result?.value ? 0 : 2) ?? ""} kg/m\u00B2';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}';
+      value = AppUidConfig.isI4WeApp && inputsWithUnit != null
+          ? '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'
+          : '${inputs![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}';
     }  else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       value = '${result?.status ?? ""}';
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
@@ -471,7 +473,9 @@ class MeasurementDTO {
           result?.value?.truncateToDouble() == result?.value ? 0 : 2) ??
           "";
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}';
+      value = AppUidConfig.isI4WeApp && inputsWithUnit != null
+          ? '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'
+          : '${inputs![BloodGlucoseAttribute.SUGAR.name]}';
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       value = '${inputs![TemperatureAttribute.TEMP.name]}';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
@@ -510,7 +514,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       unit = 'kg/m²';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      unit = '';//AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr);
+      unit = AppUidConfig.isI4WeApp?'':AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr);
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       unit = 'Fahrenheit';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
@@ -675,15 +679,20 @@ class MeasurementDTO {
       value =
       "${inputs![TemperatureAttribute.TEMP.name]?.toStringAsFixed(inputs![TemperatureAttribute.TEMP.name]?.truncateToDouble() == inputs![TemperatureAttribute.TEMP.name] ? 0 : 2) ?? ""}";
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      value = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name]??
-      //[ {inputsWithUnit: "SUGAR"} is a String, if fail then go to default way]
-      
-          inputs![BloodGlucoseAttribute.SUGAR.name]?.toStringAsFixed(
-          inputs![BloodGlucoseAttribute.SUGAR.name]?.truncateToDouble() ==
-              inputs![BloodGlucoseAttribute.SUGAR.name]
-              ? 0
-              : 2) ??
-          "";
+      final sugarValue = inputs?[BloodGlucoseAttribute.SUGAR.name];
+      final sugarWithUnit = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name];
+
+      if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
+        if (AppUidConfig.isI4WeApp && sugarWithUnit != null) {
+          value = sugarWithUnit;
+        } else if (sugarValue != null) {
+          final decimals = sugarValue.truncateToDouble() == sugarValue ? 0 : 2;
+
+          value = sugarValue.toStringAsFixed(decimals);
+        } else {
+          value = "";
+        }
+      }
     } else if (measurementTypeCodeId == MeasurementType.BMI.value ||
         measurementTypeCodeId == MeasurementType.TEMP.value) {
       value = result?.value?.toStringAsFixed(
