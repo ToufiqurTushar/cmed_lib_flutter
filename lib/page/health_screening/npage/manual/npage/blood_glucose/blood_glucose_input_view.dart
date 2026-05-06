@@ -81,7 +81,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                                         controller.bloodGlucoseEditTextController,
                                     onSaved: (value) {}, onValidator: (value) {
                                   return controller.validateGlucoseInput(value!);
-                                },topMargin: 5,bottomMargin: 5,),
+                                }),
                               ),
 
                               SizedBox(width: 10,),
