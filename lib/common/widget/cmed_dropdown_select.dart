@@ -9,7 +9,7 @@ class CMEDDropdownSelect extends StatelessWidget {
   final List<MasterDataDTO> items;
   final MasterDataDTO? item;
   final EdgeInsetsGeometry? padding;
-  final Function onItemSelected;
+  final void Function(MasterDataDTO) onItemSelected;
   Color? color;
   Color? borderColor;
   bool? isShowBorder = false;
@@ -74,7 +74,9 @@ class CMEDDropdownSelect extends StatelessWidget {
                       .toList(),
                   value: null,
                   onChanged: (value) {
-                    onItemSelected(value);
+                    if (value != null) {
+                      onItemSelected(value);
+                    }
                   },
                   // buttonHeight: 50,
                   /* buttonWidth: width ?? MediaQuery.of(context).size.width,*/
