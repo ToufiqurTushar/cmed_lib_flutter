@@ -27,6 +27,15 @@ class BloodGlucoseInputLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
 
+  List<MasterDataDTO> glucoseUnit = [
+    MasterDataDTO(labelEn: 'mg/dL'),
+    MasterDataDTO(labelEn: 'mmol'),
+  ];
+
+  var selectedGlucoseMasterData = MasterDataDTO(labelEn: 'mg/dL').obs;
+
+  String selectedGlucoseUnit = 'mg/dL';
+
   @override
   void onInit() {
     super.onInit();
@@ -88,15 +97,16 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   double _getGlucoseUnit(String value) {
-    double unit;
-    if (AppUidConfig.isI4WeApp) {
-      unit = double.parse(value) / 18.0182;
-    } else {
-      unit = double.parse(value);
-    }
+  final glucoseValue = double.parse(value);
 
-    return unit;
+  if (AppUidConfig.isCmedApp) {
+    return glucoseValue;
   }
+
+  return selectedGlucoseUnit == 'mg/dL'
+      ? glucoseValue / 18.0182
+      : glucoseValue;
+}
 
   updateMeasurementAndNavigate(measurement){
       Get.offNamed('/screening_report_result_details', arguments: [

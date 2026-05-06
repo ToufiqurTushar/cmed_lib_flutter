@@ -9,6 +9,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
+import '../../../../../../common/widget/cmed_dropdown_select.dart';
 import 'blood_glucose_input_logic.dart';
 
 
@@ -70,14 +71,44 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                               style: CMEDTextUtils.inputTextLabelStyle,
                             ),
                           ),
-                          CMEDTextField(AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr),
-                              keyboardType: const TextInputType.numberWithOptions(decimal: true, ),
-                              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
-                              textEditingController:
-                                  controller.bloodGlucoseEditTextController,
-                              onSaved: (value) {}, onValidator: (value) {
-                            return controller.validateGlucoseInput(value!);
-                          }),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CMEDTextField(AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr),
+                                    keyboardType: const TextInputType.numberWithOptions(decimal: true, ),
+                                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
+                                    textEditingController:
+                                        controller.bloodGlucoseEditTextController,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                  return controller.validateGlucoseInput(value!);
+                                }),
+                              ),
+
+                          if (!AppUidConfig.isCmedApp)
+                                Expanded(
+                                  child: Obx(
+                                    () => CMEDDropdownSelect(
+                                      controller.glucoseUnit,
+                                      label: '',
+                                      item: controller
+                                          .selectedGlucoseMasterData
+                                          .value,
+                                      onItemSelected: (data) {
+                                        controller
+                                                .selectedGlucoseMasterData
+                                                .value =
+                                            data;
+                                        controller.selectedGlucoseUnit =
+                                            data.labelEn!;
+                                      },
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                           const SizedBox(
                             height: 4,
                           ),
