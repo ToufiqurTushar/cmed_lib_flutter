@@ -514,7 +514,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       unit = 'kg/m²';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      unit = AppUidConfig.isI4WeApp?'':AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr);
+      unit = AppUidConfig.isI4WeApp?'input_hint_glucose_mmol_dl_mg_dl'.tr: 'input_hint_glucose_mmol_dl'.tr;
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       unit = 'Fahrenheit';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
@@ -869,7 +869,8 @@ class MeasurementDTO {
   }
 
   getAdviceAndSuggestion() {
-    return "${getAdvice()}\n${getSuggestion()}";
+    return "${getAdvice()}}";
+    //return "${getAdvice()}\n${getSuggestion()}";
   }
 
   bool isNotEmptyAdviceAndSuggestion() {
@@ -892,7 +893,7 @@ class MeasurementDTO {
       if(measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
         return "Your Blood group is ${getStatus()}";
       }
-      return result?.engAdvice ?? "";
+      return (result?.engAdvice ?? "").tr;
     }
   }
 
@@ -1007,7 +1008,7 @@ class ResultDTO {
     if(Utils.isLocaleBn()){
       return statusBn??status;
     }
-    return status;
+    return (status??"").tr;
   }
 
   static List<ResultDTO> listFromJson(list) =>
