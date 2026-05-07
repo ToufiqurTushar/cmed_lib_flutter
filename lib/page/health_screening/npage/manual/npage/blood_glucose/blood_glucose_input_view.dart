@@ -75,7 +75,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: CMEDTextField(AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr),
+                                child: CMEDTextField(AppUidConfig.getGlucoseLabelHint('input_hint_glucose_mmol_dl'.tr),
                                     keyboardType: const TextInputType.numberWithOptions(decimal: true, ),
                                     inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
                                     textEditingController:

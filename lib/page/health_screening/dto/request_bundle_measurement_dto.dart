@@ -18,7 +18,8 @@ class RequestBundleMeasurementDto {
       this.reportEmail, 
       this.id, 
       this.isSmsEnable, 
-      this.userFullName, 
+      this.isWhatsappEnable,
+      this.userFullName,
       this.userFullNameBn, 
       this.userId, 
       this.userPhoneNumber, 
@@ -45,6 +46,7 @@ class RequestBundleMeasurementDto {
     reportEmail = json['report_email'];
     id = json['id'];
     isSmsEnable = json['is_sms_enable'];
+    isWhatsappEnable = json['is_whatsapp_enable'];
     userFullName = json['user_full_name'];
     userFullNameBn = json['user_full_name_bn'];
     userId = json['user_id'];
@@ -66,6 +68,7 @@ class RequestBundleMeasurementDto {
   String? reportEmail;
   int? id;
   bool? isSmsEnable;
+  bool? isWhatsappEnable;
   String? userFullName;
   String? userFullNameBn;
   int? userId;
@@ -91,6 +94,7 @@ class RequestBundleMeasurementDto {
     map['report_email'] = reportEmail;
     map['id'] = id;
     map['is_sms_enable'] = isSmsEnable;
+    map['is_whatsapp_enable'] = isWhatsappEnable;
     map['user_full_name'] = userFullName;
     map['user_full_name_bn'] = userFullNameBn;
     map['user_id'] = userId;

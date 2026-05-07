@@ -314,7 +314,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
       value = AppUidConfig.isI4WeApp && inputsWithUnit != null
           ? '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'
-          : '${inputs![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}';
+          : '${inputs![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose_mmol_dl'.tr)}';
     }  else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       value = '${result?.status ?? ""}';
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {

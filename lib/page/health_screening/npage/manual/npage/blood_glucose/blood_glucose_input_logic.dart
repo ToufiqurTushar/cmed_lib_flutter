@@ -61,7 +61,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   String getInputText() {
-    return "${'label_time_period'.tr}: ${Utils.isLocaleBn() ? tag.value.labelBn : tag.value.labelEn} \n${'label_blood_glucose'.tr}: ${bloodGlucoseEditTextController.text} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}";
+    return "${'label_time_period'.tr}: ${Utils.isLocaleBn() ? tag.value.labelBn : tag.value.labelEn} \n${'label_blood_glucose'.tr}: ${bloodGlucoseEditTextController.text} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose_mmol_dl'.tr)}";
   }
 
 

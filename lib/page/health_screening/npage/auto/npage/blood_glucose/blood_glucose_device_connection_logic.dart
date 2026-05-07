@@ -154,7 +154,7 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
 
   String getInputText() {
     if (result.value.isEmpty) return '';
-    return "${'label_time_period'.tr}: ${Utils.isLocaleBn() ? tag.value.labelBn : tag.value.labelEn} \n${'label_blood_glucose'.tr}: ${result.value} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose'.tr)}";
+    return "${'label_time_period'.tr}: ${Utils.isLocaleBn() ? tag.value.labelBn : tag.value.labelEn} \n${'label_blood_glucose'.tr}: ${result.value} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose_mmol_dl'.tr)}";
   }
 
   stopMeasurement() {
