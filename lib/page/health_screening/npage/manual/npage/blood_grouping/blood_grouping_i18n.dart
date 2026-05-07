@@ -3,8 +3,6 @@ class BloodGroupingI18N {
     return {
       "en_US": {
         'label_select_blood_typing' : 'Select Blood Typing',
-
-
       },
 
       "bn_BD": {

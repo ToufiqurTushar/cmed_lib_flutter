@@ -167,6 +167,11 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         "Oxygen saturation level is LOW, please consult doctor for evaluation.": "অক্সিজেনের মাত্রা কম, এ ব্যাপারে নিশ্চিত হওয়ার  চিকিৎসকের পরামর্শ নিন |",
         "Very low": "অত্যন্ত নিম্ন",
         "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "অক্সিজেনের মাত্রা অনেক কম, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন। "
+      },
+      "kn_IN": {
+        "Normal": "ನಾರ್ಮಲ್",
+        "Low": "ಸಾಮಾನ್ಯ",
+        "Very low": "ತುಂಬಾ ಕಡಿಮೆ"
       }
     };
   }

@@ -869,7 +869,7 @@ class MeasurementDTO {
   }
 
   getAdviceAndSuggestion() {
-    return "${getAdvice()}}";
+    return "${getAdvice()}";
     //return "${getAdvice()}\n${getSuggestion()}";
   }
 
