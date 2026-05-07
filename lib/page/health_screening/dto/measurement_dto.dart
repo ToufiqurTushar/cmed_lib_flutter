@@ -265,7 +265,7 @@ class MeasurementDTO {
     if(Utils.isLocaleBn()) {
       return result?.statusBn??result?.status;
     } else {
-      return result?.status;
+      return (result?.status??"").tr;
     }
   }
 
@@ -514,7 +514,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BMI.value) {
       unit = 'kg/m²';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
-      unit = AppUidConfig.isI4WeApp?'input_hint_glucose_mmol_dl_mg_dl'.tr: 'input_hint_glucose_mmol_dl'.tr;
+      unit = AppUidConfig.isI4WeApp?'input_hint_glucose_mg_dl'.tr: 'input_hint_glucose_mmol_dl'.tr;
     } else if (measurementTypeCodeId == MeasurementType.TEMP.value) {
       unit = 'Fahrenheit';
     } else if (measurementTypeCodeId == MeasurementType.PULSE_RATE.value) {
