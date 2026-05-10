@@ -303,7 +303,7 @@ class MeasurementDTO {
     return int.parse(result?.colorCode?.replaceAll('#', '0xff') ?? Colors.black54.value.toString());
   }
 
-  String getMeasurementValueWithUnitString() {
+  String getMeasurementValueWithUnitString({bool multiline = true}) {
     String value = "";
     if (measurementTypeCodeId == MeasurementType.BP.value) {
       value =
@@ -313,7 +313,7 @@ class MeasurementDTO {
       value = '${result?.value?.toStringAsFixed(result?.value?.truncateToDouble() == result?.value ? 0 : 2) ?? ""} kg/m\u00B2';
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value) {
       value = AppUidConfig.isI4WeApp && inputsWithUnit != null
-          ? '${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'
+          ? multiline?'${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'.replaceAll("(", "\n("):'${inputsWithUnit![BloodGlucoseAttribute.SUGAR.name]}'
           : '${inputs![BloodGlucoseAttribute.SUGAR.name]} ${AppUidConfig.getGlucoseLabelHint('input_hint_glucose_mmol_dl'.tr)}';
     }  else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       value = '${result?.status ?? ""}';

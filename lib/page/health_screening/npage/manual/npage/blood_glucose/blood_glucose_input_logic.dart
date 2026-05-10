@@ -90,6 +90,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
+        measurement.inputsWithUnit = value.inputsWithUnit;
         screeningReport.value = value;
         updateMeasurementAndNavigate(measurement);
       }
@@ -97,16 +98,16 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   double _getGlucoseUnit(String value) {
-  final glucoseValue = double.parse(value);
+    final glucoseValue = double.parse(value);
 
-  if (AppUidConfig.isCmedApp) {
-    return glucoseValue;
+    if (AppUidConfig.isCmedApp) {
+      return glucoseValue;
+    }
+
+    return selectedGlucoseUnit == 'mg/dL'
+        ? (glucoseValue / 18.0182).toTwoDecimal()
+        : glucoseValue;
   }
-
-  return selectedGlucoseUnit == 'mg/dL'
-      ? glucoseValue / 18.0182
-      : glucoseValue;
-}
 
   updateMeasurementAndNavigate(measurement){
       Get.offNamed('/screening_report_result_details', arguments: [
