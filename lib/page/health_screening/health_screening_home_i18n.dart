@@ -21,6 +21,7 @@ class HealthScreeningHomeI18N {
         'error_unavailable_bscan_measurement_service': 'Applicable only for women above age 15Y',
         'error_unavailable_blood_glucose_measurement_service': 'Applicable only above age 1Y',
         'error_unavailable_currently_unavailable': 'This service is currently unavailable',
+        'Time period': 'Time period',
       },
       "bn_BD": {
         'label_device_place_adv': 'ডিভাইসটি সমতল অবস্থায় রাখুন',
@@ -63,6 +64,7 @@ class HealthScreeningHomeI18N {
         'Alert': 'সতর্কতা',
         'Danger': 'বিপদ',
         'Step 1 - Reconnect Blood Glucose device': 'ধাপ ১ - গ্লুকোজ ডিভাইস টি খুলে পুনরায় সংযোগ করুন',
+        'Time period': 'পরিমাপের সময়কাল',
       },
     };
   }
