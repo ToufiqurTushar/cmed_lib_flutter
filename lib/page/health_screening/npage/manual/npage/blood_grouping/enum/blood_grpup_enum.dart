@@ -28,6 +28,15 @@ enum BloodGroupEnum {
     return BG_UNKNOWN.id;
   }
 
+  static BloodGroupEnum getBloodGroupById(int? value) {
+    for (var bg in BloodGroupEnum.values) {
+      if (bg.id == value) {
+        return bg;
+      }
+    }
+    return BG_UNKNOWN;
+  }
+
   static String getBloodGroupEn(int? value) {
     if (value == null) return BG_UNKNOWN.nameEn;
     for (var bg in BloodGroupEnum.values) {
@@ -58,6 +67,24 @@ enum BloodGroupEnum {
     return isEnglishSelected ? BG_UNKNOWN.nameEn : BG_UNKNOWN.nameBn;
   }
 
+  static BloodGroupEnum fromString(String? value) {
+    for (var bg in BloodGroupEnum.values) {
+      if (bg.nameEn == value) {
+        return bg;
+      }
+    }
+    return BG_UNKNOWN;
+  }
+
+  static BloodGroupEnum fromEnumString(String? value) {
+    for (var bg in BloodGroupEnum.values) {
+      if (bg.name == value) {
+        return bg;
+      }
+    }
+    return BG_UNKNOWN;
+  }
+
   static BloodGroupEnum findBloodGroup(bool antigenA, bool antigenB, bool antigenD) {
     if (!antigenA && !antigenB && !antigenD) {
       return BloodGroupEnum.BG_O_NEGATIVE;
@@ -80,12 +107,12 @@ enum BloodGroupEnum {
   }
 
   static List<MasterDataDTO> getMasterDataList({int? selectedId}) {
-    return BloodGroupEnum.values.map((m)=>MasterDataDTO(value:m.id, labelEn:m.name, name: m.name, isSelected: selectedId != null && m.id == selectedId)).toList();
+    return BloodGroupEnum.values.map((m)=>MasterDataDTO(value:m.id, labelEn:m.nameEn,labelBn:m.nameBn, name: m.name, isSelected: selectedId != null && m.id == selectedId)).toList();
   }
 }
 
 extension BloodGroupEnumExtension on BloodGroupEnum {
-  MasterDataDTO toMasterDataDTO() => MasterDataDTO(labelEn: this.name, value: this.id);
+  MasterDataDTO toMasterDataDTO() => MasterDataDTO(labelEn: this.nameEn, value: this.id);
 }
 
 
