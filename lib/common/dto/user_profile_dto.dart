@@ -97,7 +97,6 @@ class UserProfile {
   String? agreementId;
   String? payerReference;
   String? customerMsisdn;
-  String? userUuid;
   String? religion;
   String? religionBranch;
   String? education;
@@ -159,7 +158,6 @@ class UserProfile {
     this.height,
     this.hypertensive,
     this.id,
-    this.userUuid,
     this.isDeadDueToCorona,
     this.isGovtOfficial,
     this.isPoor,
@@ -222,7 +220,6 @@ class UserProfile {
 
   UserProfile.fromJson(Map<String, dynamic> json) {
     additionalNote = json['additional_note'];
-    userUuid = json['user_uuid'];
     birthCertificateNumber = json['birth_certificate_number'];
     birthPlace = json['birth_place'];
     birthday = json['birthday'];
@@ -444,7 +441,6 @@ class UserProfile {
     data['height'] = height;
     data['hypertensive'] = hypertensive;
     data['id'] = id;
-    data['user_uuid'] = userUuid;
     data['is_dead_due_to_corona'] = isDeadDueToCorona;
     data['is_govt_official'] = isGovtOfficial;
     data['is_poor'] = isPoor;
