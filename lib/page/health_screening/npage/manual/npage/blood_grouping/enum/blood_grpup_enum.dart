@@ -79,7 +79,9 @@ enum BloodGroupEnum {
     return BloodGroupEnum.BG_UNKNOWN;
   }
 
-
+  static List<MasterDataDTO> getMasterDataList({int? selectedId}) {
+    return BloodGroupEnum.values.map((m)=>MasterDataDTO(value:m.id, labelEn:m.name, name: m.name, isSelected: selectedId != null && m.id == selectedId)).toList();
+  }
 }
 
 extension BloodGroupEnumExtension on BloodGroupEnum {
