@@ -5,6 +5,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'customer_dto.dart';
 
 class UserProfile {
+  String? userUuid;
   String? additionalNote;
   String? birthCertificateNumber;
   String? birthPlace;
@@ -112,6 +113,7 @@ class UserProfile {
   String? onboardedByAgentName;
 
   UserProfile({
+    this.userUuid,
     this.additionalNote,
     this.relationWithHouseholdHead,
     this.birthCertificateNumber,
@@ -219,6 +221,7 @@ class UserProfile {
   });
 
   UserProfile.fromJson(Map<String, dynamic> json) {
+    userUuid = json['userUuid'];
     additionalNote = json['additional_note'];
     birthCertificateNumber = json['birth_certificate_number'];
     birthPlace = json['birth_place'];
@@ -383,6 +386,7 @@ class UserProfile {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['userUuid'] = userUuid;
     data['additional_note'] = additionalNote;
     data['birth_certificate_number'] = birthCertificateNumber;
     data['birth_place'] = birthPlace;
