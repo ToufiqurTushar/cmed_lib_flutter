@@ -1,3 +1,5 @@
+import '../../../../../../../common/dto/master_data_dto.dart';
+
 enum BloodGroupEnum {
   BG_A_POSITIVE(1, "A+", "এ+", "#f84f26"),
   BG_A_NEGATIVE(2, "A-", "এ-", "#b82a07"),
@@ -78,6 +80,10 @@ enum BloodGroupEnum {
   }
 
 
+}
+
+extension BloodGroupEnumExtension on BloodGroupEnum {
+  MasterDataDTO toMasterDataDTO() => MasterDataDTO(labelEn: this.name, value: this.id);
 }
 
 
