@@ -5,6 +5,7 @@ import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 
 class MemberDTO {
   String? localId;
+  String? username;
   int? parentUserId;
   String? parentUserPhone;
   String? parentUsername;
@@ -21,10 +22,10 @@ class MemberDTO {
   String? email;
   int? birthday;
   String? memberId;
-  String? firstName;
-  String? firstNameEnglish;
+  String? firstNameEn;
+  String? firstNameBn;
   String? lastNameBn;
-  String? lastName;
+  String? lastNameEn;
   int? relationWithHouseHolder;
   String? relationTitleBn;
   String? relationTitleEn;
@@ -58,6 +59,7 @@ class MemberDTO {
 
 
   MemberDTO({
+    this.username,
     this.localId,
     this.parentUserId,
     this.parentUserPhone,
@@ -76,10 +78,10 @@ class MemberDTO {
     this.email,
     this.birthday,
     this.memberId,
-    this.firstName,
-    this.firstNameEnglish,
+    this.firstNameEn,
+    this.firstNameBn,
     this.lastNameBn,
-    this.lastName,
+    this.lastNameEn,
     this.relationWithHouseHolder,
     this.relationTitleBn,
     this.relationTitleEn,
@@ -118,6 +120,7 @@ class MemberDTO {
   // Convert JSON to Member
   factory MemberDTO.fromJson(Map<String, dynamic> json) {
     return MemberDTO(
+      username: json['username'],
       localId: json['uuid'],
       parentUserId: json['parent_user_id'],
       parentUserPhone: json['parent_user_phone'],
@@ -136,10 +139,10 @@ class MemberDTO {
       email: json['email'],
       birthday: json['birthday'],
       memberId: json['member_id'],
-      firstName: json['first_name_bn'],
-      firstNameEnglish: json['first_name_en'],
+      firstNameBn: json['first_name_bn'],
+      firstNameEn: json['first_name_en'],
       lastNameBn: json['last_name_bn'],
-      lastName: json['last_name_en'],
+      lastNameEn: json['last_name_en'],
       relationWithHouseHolder: json['relation_with_household_head'],
       relationTitleBn: json['relation_title_bn'],
       relationTitleEn: json['relation_title_en'],
@@ -176,6 +179,7 @@ class MemberDTO {
   // Convert Member to JSON
   Map<String, dynamic> toJson() {
     return {
+      'username': username,
       'uuid': localId,
       'parent_user_id': parentUserId,
       'parent_user_phone': parentUserPhone,
@@ -194,10 +198,10 @@ class MemberDTO {
       'email': email,
       'birthday': birthday,
       'member_id': memberId,
-      'first_name_bn': firstName,
-      'first_name_en': firstNameEnglish,
+      'first_name_bn': firstNameBn,
+      'first_name_en': firstNameEn,
       'last_name_bn': lastNameBn,
-      'last_name_en': lastName,
+      'last_name_en': lastNameEn,
       'relation_with_household_head': relationWithHouseHolder,
       'relation_title_bn': relationTitleBn,
       'relation_title_en': relationTitleEn,
@@ -233,10 +237,11 @@ class MemberDTO {
   CustomerDTO toCustomer() {
     RLog.info(email);
     return CustomerDTO(
+      username: username,
       userId: userId,
-      firstName: firstNameEnglish,
-      firstNameBn: firstName,
-      lastName: lastName,
+      firstName: firstNameEn,
+      firstNameBn: firstNameBn,
+      lastName: lastNameEn,
       lastNameBn: lastNameBn,
       gender: gender,
       bloodGroup: bloodGroup,
@@ -251,7 +256,7 @@ class MemberDTO {
       hasStroke: hasStroke,
       hasCancer: hasCancer,
       hasDisability: hasDisability,
-      contactNumber: phone,
+      phone: phone,
       // TODO: ADD IT LATER.:
       //   agentId : pref.agentServerId().get()?.toInt(),
       //   companyId : pref.companyId().get(),
@@ -279,8 +284,8 @@ class MemberDTO {
   }
 
   String getFullName() {
-    String nameEn = "${firstNameEnglish ?? ""} ${lastName ?? ""}";
-    String nameBn = "${firstName ?? ""} ${lastNameBn ?? ""}";
+    String nameEn = "${firstNameEn ?? ""} ${lastNameEn ?? ""}";
+    String nameBn = "${firstNameBn ?? ""} ${lastNameBn ?? ""}";
 
     return nameEn.trim().isNotEmpty ? nameEn.trim() : nameBn.trim();
   }

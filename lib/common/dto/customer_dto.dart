@@ -45,7 +45,7 @@ class CustomerDTO extends BaseEntity {
   bool? hasCancer;
   bool? hasDisability;
   String? imageUrl;
-  String? contactNumber;
+  String? phone;
   int? userId;
   String? userUuid;
   int? memberId;
@@ -138,7 +138,7 @@ class CustomerDTO extends BaseEntity {
     this.hasCancer,
     this.hasDisability,
     this.imageUrl,
-    this.contactNumber,
+    this.phone,
     this.userId,
     this.memberId,
     this.username,
@@ -247,7 +247,7 @@ class CustomerDTO extends BaseEntity {
       hasCancer: json['cancer'],
       hasDisability: json['disable'],
       imageUrl: json['image'],
-      contactNumber: json['phone'],
+      phone: json['phone'],
       userId: json['user_id'],
       memberId: json['member_id'],
       username: json['username'],
@@ -347,7 +347,7 @@ class CustomerDTO extends BaseEntity {
       'cancer': hasCancer,
       'disable': hasDisability,
       'image': imageUrl,
-      'phone': contactNumber,
+      'phone': phone,
       'user_id': userId,
       'user_uuid': userUuid,
       'member_id': memberId,
@@ -494,10 +494,11 @@ class CustomerDTO extends BaseEntity {
   }
 
   String getPhoneNumber() {
-    final phoneNumber = contactNumber ?? "";
+    final phoneNumber = phone ?? "";
 
     return phoneNumber;
   }
+
 
 
   String getNIDString() {
@@ -550,12 +551,12 @@ class CustomerDTO extends BaseEntity {
   }
 
   getParentUserPhone() {
-    return parentUserPhone??contactNumber;
+    return parentUserPhone??phone;
   }
 
   UserVEDoc toVedUser() {
     return UserVEDoc(
-      contactNumber: contactNumber,
+      contactNumber: phone,
       name: getFullName(),
       dateOfBirth: birthDate,
       gender: gender,

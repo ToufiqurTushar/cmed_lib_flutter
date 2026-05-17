@@ -50,7 +50,7 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         heightInCm: 0.0,
         weightInKg: 0.0,
         name:customer.value.getFullName(),
-        number:customer.value.contactNumber.toString(),
+        number:customer.value.phone.toString(),
         language: Utils.tr("en", bn: "bn"),
         measurementTypeCodeId: MeasurementType.ECG.value
     );

@@ -5,6 +5,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'customer_dto.dart';
 
 class UserProfile {
+  String? username;
   String? userUuid;
   String? additionalNote;
   String? birthCertificateNumber;
@@ -113,6 +114,7 @@ class UserProfile {
   String? onboardedByAgentName;
 
   UserProfile({
+    this.username,
     this.userUuid,
     this.additionalNote,
     this.relationWithHouseholdHead,
@@ -221,6 +223,7 @@ class UserProfile {
   });
 
   UserProfile.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
     userUuid = json['userUuid'];
     additionalNote = json['additional_note'];
     birthCertificateNumber = json['birth_certificate_number'];
@@ -386,6 +389,7 @@ class UserProfile {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
     data['userUuid'] = userUuid;
     data['additional_note'] = additionalNote;
     data['birth_certificate_number'] = birthCertificateNumber;
@@ -592,6 +596,7 @@ class UserProfile {
 
   CustomerDTO toCustomer() {
     return CustomerDTO(
+      username: username,
       userId: userId,
       firstName: firstName,
       firstNameBn: firstNameBn,
@@ -604,7 +609,7 @@ class UserProfile {
       hasAsthma: hasAsthma,
       hasKidneyDisease: hasKidneyDisease,
       hasCancer: hasCancer,
-      contactNumber: phone,
+      phone: phone,
       isPoor: isPoor,
       isGovtOfficial: isGovtOfficial,
       religion: religion,
