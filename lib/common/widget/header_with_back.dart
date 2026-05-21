@@ -12,7 +12,7 @@ import '../helper/utils.dart';
 
 class HeaderWithBack extends StatelessWidget {
   final String? title;
-  String? phone;
+  String? username;
   String? fullName;
   String? profileUrl;
   int? gender;
@@ -22,7 +22,7 @@ class HeaderWithBack extends StatelessWidget {
   final Widget? trailingWidget;
   Function? onClickAction;
 
-  HeaderWithBack(this.title,  {this.phone,this.profileUrl,this.showTitleBar, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget});
+  HeaderWithBack(this.title,  {this.username,this.profileUrl,this.showTitleBar, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget});
 
 
   @override
@@ -30,12 +30,12 @@ class HeaderWithBack extends StatelessWidget {
       final globalState = Get.find<RapidGlobalStateLogic>();
       if(globalState.currentUser.value is CustomerDTO) {
         final customer = globalState.currentUser.value as CustomerDTO;
-        phone = customer.getPhoneNumber();
+        username = customer.username;
         fullName = customer.getFullName();
         gender = customer.gender;
       } else if(globalState.currentUser.value is UserProfile) {
         final customer = (globalState.currentUser.value as UserProfile).toCustomer();
-        phone = customer.getPhoneNumber();
+        username = customer.getPhoneNumber();
         fullName = customer.getFullName();
         gender = customer.gender;
       } else {
@@ -126,7 +126,7 @@ class HeaderWithBack extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          phone?.trDigit() ?? "01xxxxxxxxx",
+                          customer. ?? "01xxxxxxxxx",
                           style: const TextStyle(
                             fontSize: 14.0,
                             color: Colors.black,
