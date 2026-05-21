@@ -50,6 +50,7 @@ dependencies:
   esc_pos_utils_plus: ^2.0.4
   #flutter_downloader
   flutter_downloader: 1.12.0
+  crypto: ^3.0.2
   chucker_flutter:
     git:
       url: https://gitlab.com/ToufiqurTushar/chucker-flutter.git
