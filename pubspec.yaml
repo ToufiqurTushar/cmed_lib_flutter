@@ -52,6 +52,7 @@ dependencies:
   flutter_downloader: 1.12.0
   crypto: ^3.0.2
   chucker_flutter: ^1.9.2
+  uuid: ^4.3.3
   #plugin
   endometriosis_lib_flutter:
     git:

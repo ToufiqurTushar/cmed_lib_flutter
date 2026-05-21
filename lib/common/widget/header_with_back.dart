@@ -8,6 +8,8 @@ import 'package:cmed_lib_flutter/page/image/full_image_view.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:flutter_rapid/logic/rapid_global_state_logic.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:uuid/validation.dart';
+import 'package:get_storage/get_storage.dart';
 import '../helper/utils.dart';
 
 class HeaderWithBack extends StatelessWidget {
@@ -30,14 +32,22 @@ class HeaderWithBack extends StatelessWidget {
       final globalState = Get.find<RapidGlobalStateLogic>();
       if(globalState.currentUser.value is CustomerDTO) {
         final customer = globalState.currentUser.value as CustomerDTO;
-        username = customer.;
+        username = customer.username;
         fullName = customer.getFullName();
         gender = customer.gender;
+        bool isValid = UuidValidation.isValidUUID(fromString: username??"");
+        if(isValid) {
+          username = customer.parentUsername??GetStorage().read('logged_user_dto')['username']??'';
+        }
       } else if(globalState.currentUser.value is UserProfile) {
         final customer = (globalState.currentUser.value as UserProfile).toCustomer();
-        username = customer.getPhoneNumber();
+        username = customer.username;
         fullName = customer.getFullName();
         gender = customer.gender;
+        bool isValid = UuidValidation.isValidUUID(fromString: username??"");
+        if(isValid) {
+          username = customer.parentUsername??GetStorage().read('logged_user_dto')['username']??'';
+        }
       } else {
         RLog.error(globalState.currentUser.value.runtimeType);
       }
