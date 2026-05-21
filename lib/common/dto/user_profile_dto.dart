@@ -597,7 +597,7 @@ class UserProfile {
   CustomerDTO toCustomer() {
     return CustomerDTO(
       username: username,
-      parentUsername: parentUsername,
+      parentUsername: null,
       userId: userId,
       firstName: firstName,
       firstNameBn: firstNameBn,
