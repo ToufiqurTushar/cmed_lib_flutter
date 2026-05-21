@@ -126,7 +126,7 @@ class HeaderWithBack extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          customer. ?? "01xxxxxxxxx",
+                          username?? "01xxxxxxxxx",
                           style: const TextStyle(
                             fontSize: 14.0,
                             color: Colors.black,
