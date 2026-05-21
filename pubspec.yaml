@@ -51,10 +51,7 @@ dependencies:
   #flutter_downloader
   flutter_downloader: 1.12.0
   crypto: ^3.0.2
-  chucker_flutter:
-    git:
-      url: https://gitlab.com/ToufiqurTushar/chucker-flutter.git
-      ref: main
+  chucker_flutter: ^1.9.2
   #plugin
   endometriosis_lib_flutter:
     git:
