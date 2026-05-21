@@ -30,7 +30,7 @@ class HeaderWithBack extends StatelessWidget {
       final globalState = Get.find<RapidGlobalStateLogic>();
       if(globalState.currentUser.value is CustomerDTO) {
         final customer = globalState.currentUser.value as CustomerDTO;
-        username = customer.username;
+        username = customer.;
         fullName = customer.getFullName();
         gender = customer.gender;
       } else if(globalState.currentUser.value is UserProfile) {
