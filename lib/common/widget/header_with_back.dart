@@ -37,7 +37,7 @@ class HeaderWithBack extends StatelessWidget {
         gender = customer.gender;
         bool isValid = UuidValidation.isValidUUID(fromString: username??"");
         if(isValid) {
-          username = customer.parentUsername??GetStorage().read('logged_user_dto')['username']??'';
+          username = customer.parentUsername??GetStorage().read('logged_user_dto')?['username']??'';
         }
       } else if(globalState.currentUser.value is UserProfile) {
         final customer = (globalState.currentUser.value as UserProfile).toCustomer();
@@ -46,7 +46,7 @@ class HeaderWithBack extends StatelessWidget {
         gender = customer.gender;
         bool isValid = UuidValidation.isValidUUID(fromString: username??"");
         if(isValid) {
-          username = customer.parentUsername??GetStorage().read('logged_user_dto')['username']??'';
+          username = customer.parentUsername??GetStorage().read('logged_user_dto')?['username']??'';
         }
       } else {
         RLog.error(globalState.currentUser.value.runtimeType);
