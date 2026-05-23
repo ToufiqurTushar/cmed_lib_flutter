@@ -1,5 +1,6 @@
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
+import 'package:uuid/validation.dart';
 import 'additional_information.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 
@@ -300,12 +301,21 @@ class MemberDTO {
     }
   }
 
-  String getPhoneNumber() {
-    final phone = this.phone ?? '';
+  // String getPhoneNumber() {
+  //   final phone = this.phone ?? '';
+  //
+  //   return Language.isEnglishSelected
+  //       ? phone
+  //       : LanguageUtil.getDigitBanglaFromEnglish(phone);
+  // }
 
-    return Language.isEnglishSelected
-        ? phone
-        : LanguageUtil.getDigitBanglaFromEnglish(phone);
+  String getValidUsername() {
+    bool isValid = UuidValidation.isValidUUID(fromString: username??"");
+    if (isValid) {
+      return parentUsername??username??'';
+    } else {
+      return username??"";
+    }
   }
 
   String getGenderString() {

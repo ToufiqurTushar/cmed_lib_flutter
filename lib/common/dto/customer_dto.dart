@@ -500,10 +500,10 @@ class CustomerDTO extends BaseEntity {
     return phoneNumber;
   }
 
-  String validUserNameInfo() {
+  String getValidUsername() {
     bool isValid = UuidValidation.isValidUUID(fromString: username??"");
     if (isValid) {
-      return username??'';
+      return parentUsername??username??'';
     } else {
       return username??"";
     }
