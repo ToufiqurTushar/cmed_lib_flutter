@@ -27,7 +27,7 @@ class HealthAssessmentView extends RapidView<HealthAssessmentLogic> {
               children: [
                 Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
                 SizedBox(width: 8,),
-                Text('History')
+                Text('History'.tr)
               ],
             ),
           ),

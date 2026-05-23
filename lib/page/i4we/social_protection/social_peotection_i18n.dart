@@ -2,11 +2,41 @@ class SocialProtectionI18N {
   static Map<String, Map<String, String>> getTranslations() {
     return {
       "en_US": {
-
+        "Civic IDs": "Civic IDs",
+        "Ration Card/ABHA/Aadhar Card/ PAN Card/Voter/DOB Certificate/Passbook/Proof of Income/Tax Payer/ESIC": "Ration Card/ABHA/Aadhar Card/ PAN Card/Voter/DOB Certificate/Passbook/Proof of Income/Tax Payer/ESIC",
+        "Do you have the Social Protection Scheme": "Do you have the Social Protection Scheme",
+        "Yes/No": "Yes/No",
+        "Add Social Protection": "Add Social Protection",
+        "Employee State Insurance Corporation(ESIC)\r\nGruha Arogya Scheme\r\nPrivate Health Insurance": "Employee State Insurance Corporation(ESIC)\r\nGruha Arogya Scheme\r\nPrivate Health Insurance",
+        "Coverage Benefits": "Coverage Benefits",
+        "write here": "write here",
+        "Expiration Date": "Expiration Date",
+        "Date Set": "Date Set",
+        "Documents Verified": "Documents Verified",
+        "Application Filled": "Application Filled",
+        "Application Submitted": "Application Submitted",
+        "Application Approved": "Application Approved",
+        "Application Delayed": "Application Delayed",
+        "Scheme Benefit Received": "Scheme Benefit Received"
       },
-      "bn_BD": {
-
-      },
+      "kn_IN": {
+        "Civic IDs": "ನಾಗರಿಕ ID ಗಳು",
+        "Ration Card/ABHA/Aadhar Card/ PAN Card/Voter/DOB Certificate/Passbook/Proof of Income/Tax Payer/ESIC": "ಪಡಿತರ ಚೀಟಿ/ABHA/ಆಧಾರ್ ಕಾರ್ಡ್/PAN ಕಾರ್ಡ್/ಮತದಾರ/DOB ಪ್ರಮಾಣಪತ್ರ/ಪಾಸ್‌ಬುಕ್/ಆದಾಯ ಪುರಾವೆ/ತೆರಿಗೆ ಪಾವತಿದಾರ/ESIC",
+        "Do you have the Social Protection Scheme": "ನಿಮ್ಮಲ್ಲಿ ಸಾಮಾಜಿಕ ರಕ್ಷಣಾ ಯೋಜನೆ ಇದೆಯೇ?",
+        "Yes/No": "ಹೌದು/ಇಲ್ಲ",
+        "Add Social Protection": "ಸಾಮಾಜಿಕ ರಕ್ಷಣೆಯನ್ನು ಸೇರಿಸಿ",
+        "Employee State Insurance Corporation(ESIC)\r\nGruha Arogya Scheme\r\nPrivate Health Insurance": "ಉದ್ಯೋಗಿಗಳ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ (ESIC)\r\nಗೃಹ ಆರೋಗ್ಯ ಯೋಜನೆ\r\nಖಾಸಗಿ ಆರೋಗ್ಯ ವಿಮೆ",
+        "Coverage Benefits": "ಕವರೇಜ್ ಪ್ರಯೋಜನಗಳು",
+        "write here": "ಇಲ್ಲಿ ಬರೆಯಿರಿ",
+        "Expiration Date": "ಮುಕ್ತಾಯ ದಿನಾಂಕ",
+        "Date Set": "ದಿನಾಂಕ ನಿಗದಿ",
+        "Documents Verified": "ಪರಿಶೀಲಿಸಲಾದ ದಾಖಲೆಗಳು",
+        "Application Filled": "ಅರ್ಜಿ ಭರ್ತಿ ಮಾಡಲಾಗಿದೆ",
+        "Application Submitted": "ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಲಾಗಿದೆ",
+        "Application Approved": "ಅರ್ಜಿಯನ್ನು ಅನುಮೋದಿಸಲಾಗಿದೆ",
+        "Application Delayed": "ಅರ್ಜಿ ವಿಳಂಬವಾಗಿದೆ",
+        "Scheme Benefit Received": "ಯೋಜನೆಯ ಲಾಭವನ್ನು ಪಡೆಯಲಾಗಿದೆ"
+      }
     };
   }
 }

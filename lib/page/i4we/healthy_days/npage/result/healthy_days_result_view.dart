@@ -59,7 +59,7 @@ class HealthyDaysResultView extends RapidView<HealthyDaysResultLogic> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        controller.selectedSurveyResult.value.result?.advice??'',
+                                        controller.selectedSurveyResult.value.result?.advice?.tr??'',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 15,

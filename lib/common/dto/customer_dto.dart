@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
+import 'package:uuid/validation.dart';
 import '../enum/sample_collection_type.dart';
 import 'additional_information.dart';
 import 'base_entity_dto.dart';
@@ -499,7 +500,14 @@ class CustomerDTO extends BaseEntity {
     return phoneNumber;
   }
 
-
+  String validUserNameInfo() {
+    bool isValid = UuidValidation.isValidUUID(fromString: username??"");
+    if (isValid) {
+      return username??'';
+    } else {
+      return username??"";
+    }
+  }
 
   String getNIDString() {
     return Language.isEnglishSelected

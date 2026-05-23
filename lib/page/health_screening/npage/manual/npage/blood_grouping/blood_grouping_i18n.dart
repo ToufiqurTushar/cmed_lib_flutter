@@ -3,6 +3,16 @@ class BloodGroupingI18N {
     return {
       "en_US": {
         'label_select_blood_typing' : 'Select Blood Typing',
+        "Select Blood Typing": "Select Blood Typing",
+        "Blood Grouping": "Blood Grouping",
+        "Blood Group & Rh Typing": "Blood Group & Rh Typing",
+        "Agglutination": "Agglutination",
+        "No Agglutination": "No Agglutination",
+        "Antigen A": "Antigen A",
+        "Antigen B": "Antigen B",
+        "Antigen D": "Antigen D",
+        "RESULT": "RESULT",
+        "Result": "Result"
       },
 
       "bn_BD": {
@@ -16,7 +26,20 @@ class BloodGroupingI18N {
         'Antigen D' : 'এন্টিজেন-ডি',
         'RESULT' : 'ফলাফল',
         'Result' : 'ফলাফল',
+
       },
+      "kn_IN": {
+        "Select Blood Typing": "ರಕ್ತದ ಗುಂಪು ಆಯ್ಕೆಮಾಡಿ",
+        "Blood Grouping": "ರಕ್ತ ಗುಂಪು ನಿರ್ಣಯ",
+        "Blood Group & Rh Typing": "ರಕ್ತದ ಗುಂಪು ಮತ್ತು ಆರ್‌ಎಚ್ ಟೈಪಿಂಗ್",
+        "Agglutination": "ಒಟ್ಟುಗೂಡಿಸುವಿಕೆ",
+        "No Agglutination": "ಒಟ್ಟುಗೂಡಿಸುವಿಕೆ ಇಲ್ಲ",
+        "Antigen A": "ಪ್ರತಿಜನಕ ಎ",
+        "Antigen B": "ಪ್ರತಿಜನಕ ಬಿ",
+        "Antigen D": "ಪ್ರತಿಜನಕ ಡಿ",
+        "RESULT": "ಫಲಿತಾಂಶ",
+        "Result": "ಫಲಿತಾಂಶ"
+      }
     };
   }
 }

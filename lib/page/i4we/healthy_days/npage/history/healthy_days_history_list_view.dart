@@ -42,8 +42,8 @@ class HealthyDaysHistoryListView extends RapidView<HealthyDaysListLogic> {
               itemCount:controller.surveyResultList.length,
               itemBuilder: (context, index) {
                 var surveyDto = controller.surveyResultList[index];
-                var title = surveyDto.surveyName!;
-                var subtitle = surveyDto.result!.status!;
+                var title = surveyDto.surveyName!.tr;
+                var subtitle = surveyDto.result!.status!.tr;
                 var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format:CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDigit();
                 // return Text('1');
                 return SurveyResultItemWidget(

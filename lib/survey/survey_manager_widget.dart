@@ -268,6 +268,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
 
 
   Widget _buildFieldWidget(Field field, context, formKey, {Function(String fieldName, dynamic val)? onChanged}) {
+    field.label = field.label?.tr;
+    field.hint = field.hint?.tr;
+    field.description = field.description?.tr;
     if(field.switchButton) {
       return Column(
         children: [
