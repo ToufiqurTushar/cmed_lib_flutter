@@ -185,7 +185,7 @@ class BpInputView extends RapidView<BpInputLogic> {
        "NORMAL rate.": "NORMAL rate.",
        "LOW pulse rate. Monitor regularly.": "LOW pulse rate. Monitor regularly.",
        "HIGH pulse rate, it can be dangerous. Please evaluate if this condition continue.": "HIGH pulse rate, it can be dangerous. Please evaluate if this condition continue.",
-       "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.": "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet."
+       "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.": "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.",
      },
      "bn_BD": {
        "Normal": "স্বাভাবিক",
@@ -212,7 +212,7 @@ class BpInputView extends RapidView<BpInputLogic> {
        "NORMAL rate.": "পালস রেট স্বাভাবিক।",
        "LOW pulse rate. Monitor regularly.": "পালস রেট কম, নিয়মিত মনিটর করুন ও প্রয়োজন হলে চিকিৎসকের পরামর্শ নিন। ",
        "HIGH pulse rate, it can be dangerous. Please evaluate if this condition continue.": "পালস রেট বেশি। এটি ঝুঁকি সম্পন্ন, নিয়মিত মনিটর করুন ও প্রয়োজন হলে চিকিৎসকের পরামর্শ নিন ও নিশ্চিত হন। ",
-       "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.": "পালস রেট স্বাভাবিক। নিয়মিত ব্যায়াম, দৈহিক পরিশ্রম ও সুষম খাবার গ্রহণের মাধ্যমে এই মাত্রা বজায় রাখুন।"
+       "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.": "পালস রেট স্বাভাবিক। নিয়মিত ব্যায়াম, দৈহিক পরিশ্রম ও সুষম খাবার গ্রহণের মাধ্যমে এই মাত্রা বজায় রাখুন।",
      },
      "kn_IN": {
        "Normal": "ಸಾಮಾನ್ಯ",
@@ -234,9 +234,16 @@ class BpInputView extends RapidView<BpInputLogic> {
        "Your blood pressure is moderately high. It is important to start antihypertensive drug/ adjust your ongoing medication and make lifestyle changes like regular exercise, healthy diet, physical work. Please monitor your pressure next one week daily & store it. If pressure rises, you should consult with a doctor, otherwise it may lead to severe high pressure.": "ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡ ಹೆಚ್ಚಾಗಿದೆ. ಭವಿಷ್ಯದಲ್ಲಿ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಹೃದಯ ಕಾಯಿಲೆ, ಪಾರ್ಶ್ವವಾಯು ಮತ್ತು ಮಧುಮೇಹ ಸೇರಿದಂತೆ ಕೆಲವು ಗಂಭೀರ ಕಾಯಿಲೆಗಳು ಬರುವ ಅಪಾಯ ಗಮನಾರ್ಹವಾಗಿ ಹೆಚ್ಚಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಆರೋಗ್ಯ ಸ್ಥಿತಿಯ ಬಗ್ಗೆ ಜಾಗರೂಕರಾಗಿರಿ, ನಿಯಮಿತವಾಗಿ ರಕ್ತದೊತ್ತಡವನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ, ನಿಯಮಿತ ದೈಹಿಕ ವ್ಯಾಯಾಮ ಮತ್ತು ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡವನ್ನು ನಿಯಂತ್ರಿಸಿ. ಹೆಚ್ಚಿನ ನಿರ್ವಹಣೆಗಾಗಿ ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡವನ್ನು ನಿಯಂತ್ರಿಸಲು ತಕ್ಷಣದ ಕ್ರಮಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ.",
        "Your blood pressure is severely high. Immediately you should consult with your physician. You need to start anti hypertensive dru or adjust your previous medication. Please maintain a healthy diet & do physical work & exercise daily. You should monitor your pressure daily & write it down. If you delay your treatment, it may lead to heart failure, stroke, kidney disease.": "ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡ ತೀವ್ರವಾಗಿ ಹೆಚ್ಚಾಗಿದೆ. ಭವಿಷ್ಯದಲ್ಲಿ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಹೃದಯ ಕಾಯಿಲೆ, ಪಾರ್ಶ್ವವಾಯು ಮತ್ತು ಮಧುಮೇಹ ಸೇರಿದಂತೆ ಕೆಲವು ಗಂಭೀರ ಕಾಯಿಲೆಗಳು ಬರುವ ಅಪಾಯ ಗಮನಾರ್ಹವಾಗಿ ಹೆಚ್ಚಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಆರೋಗ್ಯ ಸ್ಥಿತಿಯ ಬಗ್ಗೆ ಜಾಗರೂಕರಾಗಿರಿ, ನಿಯಮಿತವಾಗಿ ರಕ್ತದೊತ್ತಡವನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ, ನಿಯಮಿತ ದೈಹಿಕ ವ್ಯಾಯಾಮ ಮತ್ತು ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡವನ್ನು ನಿಯಂತ್ರಿಸಿ. ಹೆಚ್ಚಿನ ನಿರ್ವಹಣೆಗಾಗಿ ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡವನ್ನು ನಿಯಂತ್ರಿಸಲು ತಕ್ಷಣದ ಕ್ರಮಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ.",
        "Your blood pressure is normal. You should continue your ongoing medication if you took any antihypertensive.You should monitor your pressure weekly.You should eat nutritious food, do physical work & exercise reguarly.": "ಅಭಿನಂದನೆಗಳು! ನಿಮಗೆ ಸಾಮಾನ್ಯ ರಕ್ತದೊತ್ತಡವಿದೆ. ದಯವಿಟ್ಟು ನಿಯಮಿತ ದೈಹಿಕ ವ್ಯಾಯಾಮ ಮತ್ತು ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಸೇವಿಸುವ ಮೂಲಕ ಈ ಒತ್ತಡವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ. ನಿಮ್ಮನ್ನು ಮತ್ತು ನಿಮ್ಮ ಕುಟುಂಬವನ್ನು ಆರೋಗ್ಯವಾಗಿಡಿ.",
+       "Healthy": "ಆರೋಗ್ಯಕರ",
+       "High Risk": "ಹೆಚ್ಚಿನ ಅಪಾಯ",
+       "NORMAL rate.": "ಸಾಮಾನ್ಯ ದರ.",
+       "LOW pulse rate. Monitor regularly.": "ಕಡಿಮೆ ನಾಡಿಮಿಡಿತ. ನಿಯಮಿತವಾಗಿ ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ.",
+       "HIGH pulse rate, it can be dangerous. Please evaluate if this condition continue.": "ಹೆಚ್ಚಿನ ನಾಡಿಮಿಡಿತ, ಇದು ಅಪಾಯಕಾರಿ. ಈ ಸ್ಥಿತಿ ಮುಂದುವರಿದರೆ ದಯವಿಟ್ಟು ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ.",
+       "NORMAL rate. Please maintain this rate by regular physical activity and balanced diet.": "ಸಾಮಾನ್ಯ ದರ. ದಯವಿಟ್ಟು ನಿಯಮಿತ ದೈಹಿಕ ಚಟುವಟಿಕೆ ಮತ್ತು ಸಮತೋಲಿತ ಆಹಾರದ ಮೂಲಕ ಈ ದರವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ."
      }
    };
   }
+
 
   @override
   String getRouteName() {

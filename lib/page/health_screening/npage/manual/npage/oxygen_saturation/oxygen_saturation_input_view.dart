@@ -165,13 +165,18 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         "Low": "নিম্ন",
         "High Risk": "বেশি ঝুঁকি সম্পন্ন",
         "Oxygen saturation level is LOW, please consult doctor for evaluation.": "অক্সিজেনের মাত্রা কম, এ ব্যাপারে নিশ্চিত হওয়ার  চিকিৎসকের পরামর্শ নিন |",
-        "Very low": "অত্যন্ত নিম্ন",
+        "Very low": "মাত্রাতিরিক্ত নিম্ন",
         "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "অক্সিজেনের মাত্রা অনেক কম, দ্রুত চিকিৎসকের পরামর্শ নিন বা নিকটস্থ স্বাস্থ্য কেন্দ্রে যোগাযোগ করুন। "
       },
       "kn_IN": {
-        "Normal": "ನಾರ್ಮಲ್",
-        "Low": "ಸಾಮಾನ್ಯ",
-        "Very low": "ತುಂಬಾ ಕಡಿಮೆ"
+        "Normal": "ಸಾಮಾನ್ಯ",
+        "Healthy": "ಆರೋಗ್ಯಕರ",
+        "Oxygen saturation level is NORMAL.": "ಆಮ್ಲಜನಕದ ಶುದ್ಧತ್ವ ಮಟ್ಟವು ಸಾಮಾನ್ಯವಾಗಿದೆ.",
+        "Low": "ಕಡಿಮೆ",
+        "High Risk": "ಹೆಚ್ಚಿನ ಅಪಾಯ",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ಆಮ್ಲಜನಕದ ಶುದ್ಧತ್ವ ಮಟ್ಟ ಕಡಿಮೆಯಾಗಿದೆ, ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Very low": "ತುಂಬಾ ಕಡಿಮೆ",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ಆಮ್ಲಜನಕದ ಶುದ್ಧತ್ವ ಮಟ್ಟ ತುಂಬಾ ಕಡಿಮೆಯಾಗಿದೆ, ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ತಕ್ಷಣ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ."
       }
     };
   }

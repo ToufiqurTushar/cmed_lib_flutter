@@ -218,6 +218,19 @@ class TempInputView extends RapidView<TempInputLogic> {
           "HIGH temperature, consult with doctor or visit nearby hospital.": "বেশি তাপমাত্রা, চিকিৎসকের পরামর্শ নিন।",
           "Very high": "মাত্রাতিরিক্ত",
           "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "মাত্রাতিরিক্ত বেশি তাপমাত্রা, দ্রুত চিকিৎসকের পরামর্শ নিন। "
+        },
+        "kn_IN": {
+          "Very low": "ತುಂಬಾ ಕಡಿಮೆ",
+          "High Risk": "ಹೆಚ್ಚಿನ ಅಪಾಯ",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "ತುಂಬಾ ಕಡಿಮೆ ತಾಪಮಾನದಲ್ಲಿ ಕಂಬಳಿ / ಬೆಡ್ ಶೀಟ್ ಹೊದ್ದುಕೊಂಡು ಮತ್ತೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಿಕೊಳ್ಳಿ ಅಥವಾ ತಕ್ಷಣ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ.",
+          "Low": "ಕಡಿಮೆ",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "ಕಡಿಮೆ ತಾಪಮಾನ, ಕಂಬಳಿ ಅಥವಾ ಬೆಡ್ ಶೀಟ್ ನಿಂದ ನಿಮ್ಮನ್ನು ಮುಚ್ಚಿಕೊಂಡು ಮತ್ತೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ.",
+          "Normal": "ಸಾಮಾನ್ಯ",
+          "NORMAL temperature": "ಸಾಮಾನ್ಯ ತಾಪಮಾನ",
+          "High": "ಹೆಚ್ಚಿನ",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "ಹೆಚ್ಚಿನ ತಾಪಮಾನ, ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ.",
+          "Very high": "ತುಂಬಾ ಹೆಚ್ಚು",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ತುಂಬಾ ಹೆಚ್ಚಿನ ತಾಪಮಾನ, ತಕ್ಷಣ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ."
         }
       };
   }
