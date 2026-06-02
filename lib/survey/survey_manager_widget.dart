@@ -95,7 +95,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                         final survey = controller.allSurveys[index];
                         return GroupItem(
                           iconPath: survey.icon??'',
-                          label: survey.name!,
+                          label: survey.name!.trim().tr,
                           subLabel: 'Tap to start'.tr,
                           onTap: () {
                             controller.selectedSurveys.value = [
