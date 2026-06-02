@@ -61,7 +61,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                   Padding(
                                       padding: const EdgeInsets.all(4),
                                       child: Text(
-                                        'Reassess'.tr +' ${controller.selectedSurveyResult.value.surveyName!.trim().tr}'+' ${'Assessment Result'.tr}',
+                                        '${controller.selectedSurveyResult.value.surveyName!.trim().tr}'+' ${'Assessment Result'.tr}',
                                         style: CMEDTextUtils.header1TextStyle,
                                       )
                                   ),
@@ -79,7 +79,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  "${'Reassess ${controller.selectedSurveyResult.value.surveyName!.trim().tr} Assessment Result'.tr}", style: const TextStyle(fontWeight: FontWeight.bold),
+                                                   "${'Reassess'.tr} ${controller.selectedSurveyResult.value.surveyName!.trim().tr} ${'Assessment Result'.tr}", style: const TextStyle(fontWeight: FontWeight.bold),
                                                 ),
                                               ),
                                               Container(
