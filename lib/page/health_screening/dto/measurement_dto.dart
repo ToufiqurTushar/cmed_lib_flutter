@@ -882,48 +882,13 @@ class MeasurementDTO {
     }
     return true;
   }
-  getAdvice() {
 
-    if (Utils.isLocaleBn()) {
-      if(measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
-        return "আপনার রক্তের গ্রুপ ${getStatus()}";
-      }
-      return result?.bnAdvice ?? "";
-    } else {
-      if(measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
-        return "Your Blood group is ${getStatus()}";
-      }
-      return (result?.engAdvice ?? "").tr;
-    }
+  getAdvice() {
+    return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
   }
 
   getSuggestion() {
-    if (Utils.isLocaleBn()) {
-      return result?.suggestionBn?? getSuggestionEn(result?.suggestion ?? "");
-    } else {
-      return getSuggestionEn(result?.suggestion ?? "");
-    }
-  }
-
-  getSuggestionEn(String suggestion) {
-    if (suggestion.contains("ওজন বাড়াতে হবে")) {
-      return (suggestion
-          .replaceAll("আপনাকে কমপক্ষে", "You have to increase ")
-          .replaceAll("আপনাকে", "You have to increase ")
-          .replaceAll("ওজন বাড়াতে হবে", " weight.")
-          .replaceAll("kg", " kg")
-          .replaceAll("।", ""))
-          .trim();
-    } else if (suggestion.contains("ওজন কমাতে হবে")) {
-      return (suggestion
-          .replaceAll("আপনাকে কমপক্ষে", "You have to reduce ")
-          .replaceAll("আপনাকে", "You have to reduce ")
-          .replaceAll("ওজন কমাতে হবে", " weight.")
-          .replaceAll("kg", " kg"))
-          .trim();
-    } else {
-      return suggestion;
-    }
+    result?.suggestion?.tr ?? "";
   }
 }
 

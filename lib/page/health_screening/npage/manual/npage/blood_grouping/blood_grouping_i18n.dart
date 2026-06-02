@@ -12,7 +12,8 @@ class BloodGroupingI18N {
         "Antigen B": "Antigen B",
         "Antigen D": "Antigen D",
         "RESULT": "RESULT",
-        "Result": "Result"
+        "Result": "Result",
+        "Your Blood group is @group": "Your Blood group is @group"
       },
 
       "bn_BD": {
@@ -26,6 +27,7 @@ class BloodGroupingI18N {
         'Antigen D' : 'এন্টিজেন-ডি',
         'RESULT' : 'ফলাফল',
         'Result' : 'ফলাফল',
+        "Your Blood group is @group": "Your Blood group is @group"
 
       },
       "kn_IN": {
@@ -38,7 +40,8 @@ class BloodGroupingI18N {
         "Antigen B": "ಪ್ರತಿಜನಕ ಬಿ",
         "Antigen D": "ಪ್ರತಿಜನಕ ಡಿ",
         "RESULT": "ಫಲಿತಾಂಶ",
-        "Result": "ಫಲಿತಾಂಶ"
+        "Result": "ಫಲಿತಾಂಶ",
+        "Your Blood group is @group": "ನಿಮ್ಮ ರಕ್ತದ ಗುಂಪು @group ಆಗಿದೆ."
       }
     };
   }

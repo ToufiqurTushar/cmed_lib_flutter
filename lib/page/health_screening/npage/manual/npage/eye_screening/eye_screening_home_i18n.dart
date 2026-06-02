@@ -79,7 +79,31 @@ class EyeScreeningHomeI18N {
         "label_continue": "চালিয়ে যান",
         "label_less_than_one_point_five": "১.৫ এর কম",
         "label_eye_screening_left": "বাম",
-        "label_eye_screening_right": "সঠিক"
+        "label_eye_screening_right": "সঠিক",
+        "N.B: If your near visual acuity is more than N8, you should consult with an eye doctor soon": "N.B: If your near visual acuity is more than N8, you should consult with an eye doctor soon",
+        "N.B: If your distance visual acuity is more than 6/9, you should consult with an eye doctor soon": "N.B: If your distance visual acuity is more than 6/9, you should consult with an eye doctor soon",
+        "Possible Red-green deficiency. Please contact with an eye care professional soon":"Possible Red-green deficiency. Please contact with an eye care professional soon",
+        "Your Score is : 0 & you have contrast sensitivity impairment.": "Your Score is : 0 & you have contrast sensitivity impairment.",
+        "No red-green deficiency": "No red-green deficiency",
+        "GOOD": "GOOD",
+        "Up": "Up",
+        "Down": "Down",
+        "Left": "Left",
+        "Right": "Right",
+
+      },
+      "en_BD": {
+        "N.B: If your near visual acuity is more than N8, you should consult with an eye doctor soon": "বি.দ্র :আপনার ফলাফল যদি N8 থেকে বেশি হয় তাহলে অতিসত্বর একজন চক্ষু বিশেষজ্ঞের পরামর্শ নিন",
+        "N.B: If your distance visual acuity is more than 6/9, you should consult with an eye doctor soon": "বি.দ্র.: আপনার দূরবর্তী দৃষ্টিসীমা যদি 6/9 থেকে বেশি হয় তাহলে অতিসত্বর একজন চক্ষু বিশেষজ্ঞের এর পরামর্শ নিন।",
+        "Possible Red-green deficiency. Please contact with an eye care professional soon": "আপনার লাল-সবুজ রঙের পার্থক্য বোঝার সমস্যা থাকতে পারে। অনুগ্রহ করে দ্রুত একজন চোখের ডাক্তারের (আই কেয়ার প্রফেশনাল) সাথে যোগাযোগ করুন।",
+        "Your Score is : 0 & you have contrast sensitivity impairment.": "আপনার স্কোর হলো : ০ এবং আপনার বৈপরীত্য সংবেদনশীলতা দুর্বলতা রয়েছে।",
+        "No red-green deficiency": "লাল-সবুজের ঘাটতি নেই",
+        "GOOD": "ভালো",
+        "Up": "উপরে",
+        "Down": "নিচে",
+        "Left": "বাম",
+        "Right": "ডান",
+
       },
       "kn_IN": {
         "label_eye_screening": "ಕಣ್ಣಿನ ತಪಾಸಣೆ",
@@ -119,7 +143,17 @@ class EyeScreeningHomeI18N {
         "label_continue": "ಮುಂದುವರಿಸಿ",
         "label_less_than_one_point_five": "1.5 ಕ್ಕಿಂತ ಕಡಿಮೆ",
         "label_eye_screening_left": "ಎಡಕ್ಕೆ",
-        "label_eye_screening_right": "ಸರಿ"
+        "label_eye_screening_right": "ಸರಿ",
+        "N.B: If your near visual acuity is more than N8, you should consult with an eye doctor soon": "ಗಮನಿಸಿ: ನಿಮ್ಮ ದೃಷ್ಟಿ ತೀಕ್ಷ್ಣತೆ N8 ಗಿಂತ ಹೆಚ್ಚಿದ್ದರೆ, ನೀವು ಬೇಗನೆ ಕಣ್ಣಿನ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಬೇಕು.",
+        "N.B: If your distance visual acuity is more than 6/9, you should consult with an eye doctor soon": "ಗಮನಿಸಿ: ನಿಮ್ಮ ದೂರದ ದೃಷ್ಟಿ ತೀಕ್ಷ್ಣತೆ 6/9 ಕ್ಕಿಂತ ಹೆಚ್ಚಿದ್ದರೆ, ನೀವು ಬೇಗನೆ ಕಣ್ಣಿನ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಬೇಕು.",
+        "Possible Red-green deficiency. Please contact with an eye care professional soon":"ಕೆಂಪು-ಹಸಿರು ಕೊರತೆ ಇರಬಹುದು. ದಯವಿಟ್ಟು ಬೇಗನೆ ಕಣ್ಣಿನ ಆರೈಕೆ ವೃತ್ತಿಪರರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Your Score is : 0 & you have contrast sensitivity impairment.": "ನಿಮ್ಮ ಸ್ಕೋರ್: 0 & ನಿಮಗೆ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೆನ್ಸಿಟಿವಿಟಿ ದುರ್ಬಲತೆ ಇದೆ.",
+        "No red-green deficiency": "ಕೆಂಪು-ಹಸಿರು ಕೊರತೆ ಇಲ್ಲ.",
+        "GOOD": "ಒಳ್ಳೆಯದು",
+        "Up": "ಮೇಲಕ್ಕೆ",
+        "Down": "ಕೆಳಗೆ",
+        "Left": "ಎಡಭಾಗ",
+        "Right": "ಬಲಭಾಗ",
       }
     };
   }

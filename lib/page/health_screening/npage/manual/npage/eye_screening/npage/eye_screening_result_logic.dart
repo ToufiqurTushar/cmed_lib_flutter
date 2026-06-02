@@ -34,7 +34,7 @@ class EyeScreeningResultLogic extends BaseLogic {
     eyeScreeningTypeEnum = EyeScreeningTypeEnum.getEnumByName(screeningReport.value.eyeScreening!.first.screenType);
 
     if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.COLOR_BLIND_TEST) {
-      testedResultSuggestion.value = EyeScreeningColorBlindResultEnum.getTitleByName(testedResultMessage.value);
+      testedResultSuggestion.value = EyeScreeningColorBlindResultEnum.getTitleByName(testedResultMessage.value).tr;
     } else if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.CONTRAST_TEST) {
       var testedResultValue = double.tryParse(testedResultMessage.value)??0.0;
       if(testedResultValue >= 1.5) {
@@ -48,11 +48,10 @@ class EyeScreeningResultLogic extends BaseLogic {
           testedResultSuggestion.value = 'কালার কন্ট্রাস্ট ফলাফল : $testedResultMessage এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি রয়েছে।';
         } else {
           testedResultSuggestion.value = 'Your Score is : $testedResultMessage & you have contrast sensitivity impairment.';
-
         }
       }
     } else {
-      testedResultSuggestion.value = EyeScreeningTypeEnum.getSuggestionByEnum(eyeScreeningTypeEnum!);
+      testedResultSuggestion.value = EyeScreeningTypeEnum.getSuggestionByEnum(eyeScreeningTypeEnum!).tr;
     }
   }
 
@@ -210,20 +209,10 @@ class EyeScreeningResultLogic extends BaseLogic {
   // }
 
   String getTitle() {
-    if(Utils.isLocaleBn()) {
-      return '${eyeScreeningTypeEnum?.titleBn??""} ফলাফল';
-    } else {
-      return '${eyeScreeningTypeEnum?.titleEn??""} Result';
-    }
-
+    return '${eyeScreeningTypeEnum?.titleEn.tr??""} ${'Result'.tr}';
   }
 
   String getRemeasureTitle() {
-    if(Utils.isLocaleBn()) {
-      return 'পুনরায় ${eyeScreeningTypeEnum?.nameBn??""} করুন';
-    } else {
-      return 'Remeasure ${eyeScreeningTypeEnum?.nameEn??""}';
-    }
-
+      return '${'title_remeasure'.tr} ${eyeScreeningTypeEnum?.nameEn??""}'.tr;
   }
 }

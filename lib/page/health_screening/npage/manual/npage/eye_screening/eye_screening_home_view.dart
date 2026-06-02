@@ -209,7 +209,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           subTitle: null,
                           boldTitle: false,
                           circularBorderColor: controller.colorBlindTestResult.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.COLOR_BLIND_TEST),
-                          tailingText: EyeScreeningColorBlindResultEnum.getResultByName(controller.colorBlindTestResult.value.eyeScreeningResult?.message),
+                          tailingText: EyeScreeningColorBlindResultEnum.getResultByName(controller.colorBlindTestResult.value.eyeScreeningResult?.message).tr,
                           footerText: CustomDateUtils.format(controller.colorBlindTestResult.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate(),
                           onClickAction: () {
                             Get.toNamed(EyeScreeningResultView.routeName, arguments: [

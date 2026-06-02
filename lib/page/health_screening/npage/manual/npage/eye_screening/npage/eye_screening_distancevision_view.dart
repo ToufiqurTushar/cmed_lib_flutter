@@ -191,7 +191,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CMEDPrimaryElevatedButton(
-                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.UP),
+                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.UP).tr,
                                       width: 140,
                                       buttonBgColor: Colors.red,
                                           () => {
@@ -208,7 +208,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CMEDPrimaryElevatedButton(
-                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.LEFT),
+                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.LEFT).tr,
                                       width: 140,
                                       buttonBgColor: Theme.of(context).primaryColor,
                                           () => {
@@ -217,7 +217,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
                                     ),
                                     const SizedBox(width: 20,),
                                     CMEDPrimaryElevatedButton(
-                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.RIGHT),
+                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.RIGHT).tr,
                                       width: 140,
                                       buttonBgColor: Theme.of(context).primaryColor,
                                           () => {
@@ -234,7 +234,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CMEDPrimaryElevatedButton(
-                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.DOWN),
+                                      ControllButtonForIlliterateEnum.getLabelByEnum(ControllButtonForIlliterateEnum.DOWN).tr,
                                       width: 140,
                                       buttonBgColor: Colors.red,
                                           () => {
