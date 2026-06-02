@@ -61,7 +61,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                   Padding(
                                       padding: const EdgeInsets.all(4),
                                       child: Text(
-                                        '${controller.selectedSurveyResult.value.surveyName} Assessment Result',
+                                        'Reassess'.tr +' ${controller.selectedSurveyResult.value.surveyName!.trim().tr}'+' ${'Assessment Result'.tr}',
                                         style: CMEDTextUtils.header1TextStyle,
                                       )
                                   ),
