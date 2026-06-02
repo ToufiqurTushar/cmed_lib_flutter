@@ -140,7 +140,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                                   child: SizedBox(
                                                     height: 20,
                                                     child: MarqueeWidget(
-                                                      child: Text('${controller.selectedSurveyResult.value.result!.status!}'),
+                                                      child: Text('${controller.selectedSurveyResult.value.result!.status!}'.trim().tr),
                                                     ),
                                                   ),
                                                 ),
@@ -152,7 +152,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                         child: Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Text(
-                                              controller.selectedSurveyResult.value.result!.advice ?? "",textAlign: TextAlign.left,
+                                              controller.selectedSurveyResult.value.result!.advice!.tr ?? "",textAlign: TextAlign.left,
                                             )
                                         ),
                                       )
