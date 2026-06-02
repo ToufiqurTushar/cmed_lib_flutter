@@ -79,7 +79,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  "${'Reassess ${controller.selectedSurveyResult.value.surveyName} Assessment Result'.tr}", style: const TextStyle(fontWeight: FontWeight.bold),
+                                                  "${'Reassess ${controller.selectedSurveyResult.value.surveyName!.trim().tr} Assessment Result'.tr}", style: const TextStyle(fontWeight: FontWeight.bold),
                                                 ),
                                               ),
                                               Container(

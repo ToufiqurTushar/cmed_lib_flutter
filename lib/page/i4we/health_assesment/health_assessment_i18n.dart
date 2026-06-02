@@ -102,8 +102,8 @@ class HealthAssesmentI18N {
         "SEE RESULT": "ಫಲಿತಾಂಶವನ್ನು ನೋಡಿ / ರಿಸಲ್ಟ್ ನೋಡಿ",
         "History": "ಇತಿಹಾಸ / ಹಿಸ್ಟರಿ ",
         "Do you want to go back?": "ನೀವು ಹಿಂತಿರುಗಲು ಬಯಸುವಿರಾ?",
-        "Low Risk / No Risk: No significant symptoms, maintain a balanced diet. ": "ಕಡಿಮೆ ಅಪಾಯ / ಅಪಾಯವಿಲ್ಲ: ಯಾವುದೇ ಗಮನಾರ್ಹ ಲಕ್ಷಣಗಳಿಲ್ಲ, ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ. ",
-        "Moderate Risk: Possible mild anemia, monitor symptoms, increase iron intake. ": "ಮಧ್ಯಮ ಅಪಾಯ: ಸಂಭಾವ್ಯ ಮೈಲ್ಡ್  ರಕ್ತಹೀನತೆ, ರೋಗಲಕ್ಷಣಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ, ಕಬ್ಬಿಣಾoಶದ ಸೇವನೆಯನ್ನು ಹೆಚ್ಚಿಸಿ. ",
+        "Low Risk / No Risk: No significant symptoms, maintain a balanced diet.": "ಕಡಿಮೆ ಅಪಾಯ / ಅಪಾಯವಿಲ್ಲ: ಯಾವುದೇ ಗಮನಾರ್ಹ ಲಕ್ಷಣಗಳಿಲ್ಲ, ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ. ",
+        "Moderate Risk: Possible mild anemia, monitor symptoms, increase iron intake.": "ಮಧ್ಯಮ ಅಪಾಯ: ಸಂಭಾವ್ಯ ಮೈಲ್ಡ್  ರಕ್ತಹೀನತೆ, ರೋಗಲಕ್ಷಣಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ, ಕಬ್ಬಿಣಾoಶದ ಸೇವನೆಯನ್ನು ಹೆಚ್ಚಿಸಿ. ",
         "High Risk: Severe symptoms, consult a doctor for blood tests.": "ಹೆಚ್ಚಿನ ಅಪಾಯ: ತೀವ್ರ ರೋಗಲಕ್ಷಣಗಳು, ರಕ್ತ ಪರೀಕ್ಷೆಗಳಿಗೆ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ."
       }
     };
