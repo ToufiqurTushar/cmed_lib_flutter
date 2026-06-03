@@ -3,10 +3,9 @@ class HealthAssesmentI18N {
     return {
       "en_US": {
         "Anaemia": "Anaemia",
-        "Do you feel tried, Dizziness, or short of breath even when you havent done much physical work": "Do you feel tried, Dizziness, or short of breath even when you havent done much physical work",
+        "Do you often feel tired, dizziness, or short of breath even when you haven't done much physical work?": "Do you feel tried, Dizziness, or short of breath even when you havent done much physical work",
         "Yes/ No": "Yes/ No",
         "Have you seen your skin, lips, or nails look paler than usual recently": "Have you seen your skin, lips, or nails look paler than usual recently",
-        "": "",
         "Do your hands or feet feel cold even when the weather is warm": "Do your hands or feet feel cold even when the weather is warm",
         "Diabetes": "Diabetes",
         "Do you have a family history of Diabetes": "Do you have a family history of Diabetes",
@@ -56,7 +55,7 @@ class HealthAssesmentI18N {
       },
       "kn_IN": {
         "Anaemia": "ರಕ್ತಹೀನತೆ",
-        "Do you feel tried, Dizziness, or short of breath even when you havent done much physical work": "ನೀವು ಹೆಚ್ಚು ದೈಹಿಕ ಕೆಲಸ ಮಾಡದಿದ್ದರೂ ಸಹ ನಿಮಗೆ ತಲೆತಿರುಗುವಿಕೆ, ಉಸಿರಾಟದ ತೊಂದರೆ ಅಥವಾ ಉಸಿರಾಟದ ತೊಂದರೆ ಅನಿಸುತ್ತಿದೆಯೇ?",
+        "Do you often feel tired, dizziness, or short of breath even when you haven't done much physical work?": "ನೀವು ಹೆಚ್ಚು ದೈಹಿಕ ಕೆಲಸ ಮಾಡದಿದ್ದರೂ ಸಹ ನಿಮಗೆ ತಲೆತಿರುಗುವಿಕೆ, ಉಸಿರಾಟದ ತೊಂದರೆ ಅಥವಾ ಉಸಿರಾಟದ ತೊಂದರೆ ಅನಿಸುತ್ತಿದೆಯೇ?",
         "Yes/ No": "ಹೌದು/ಇಲ್ಲ",
         "Have you seen your skin, lips, or nails look paler than usual recently": "ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಚರ್ಮ, ತುಟಿಗಳು ಅಥವಾ ಉಗುರುಗಳು ಸಾಮಾನ್ಯಕ್ಕಿಂತ ಹೆಚ್ಚು ಮಸುಕಾಗಿ ಕಾಣುತ್ತಿರುವುದನ್ನು ನೀವು ನೋಡಿದ್ದೀರಾ?",
         "Do your hands or feet feel cold even when the weather is warm": "ಹವಾಮಾನವು ಬಿಸಿಯಾಗಿದ್ದರೂ ಸಹ ನಿಮ್ಮ ಕೈಗಳು ಅಥವಾ ಪಾದಗಳು ತಣ್ಣಗಾಗುತ್ತವೆಯೇ?",
