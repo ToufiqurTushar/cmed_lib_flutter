@@ -2,6 +2,8 @@ class EyeScreeningHomeI18N {
   static Map<String, Map<String, String>> getTranslations() {
     return {
       "en_US": {
+        "Distance Vision's Children Test": "Distance Vision's Children Test",
+        "Distance Vision's Illiterate Test": "Distance Vision's Illiterate Test",
         "label_eye_screening": "Eye Screening",
         "label_select_sest": "Select Test",
         "label_near_vision_test": "Near Vision Test",
@@ -39,9 +41,16 @@ class EyeScreeningHomeI18N {
         "label_continue": "Continue",
         "label_less_than_one_point_five": "Less than 1.5",
         "label_eye_screening_left": "Left",
-        "label_eye_screening_right": "Right"
+        "label_eye_screening_right": "Right",
+        "Visual impairment": "Visual impairment",
+        "Normal contrast Sensitivity": "Normal contrast Sensitivity",
+        "Poor contrast Sensitivity": "Poor contrast Sensitivity",
+        "Your Score is : @value & you have no contrast sensitivity impairment.": "Your Score is : @value & you have no contrast sensitivity impairment.",
+        "Your Score is : @value & you have contrast sensitivity impairment.": "Your Score is : @value & you have contrast sensitivity impairment."
       },
       "bn_BD": {
+        "Distance Vision's Children Test": "শিশুদের দৃষ্টি পরীক্ষা",
+        "Distance Vision's Illiterate Test": "নিরক্ষর দৃষ্টি পরীক্ষা",
         "label_eye_screening": "চোখের স্ক্রিনিং",
         "label_select_sest": "পরীক্ষা নির্বাচন করুন",
         "label_near_vision_test": "নিকট দৃষ্টি পরীক্ষা",
@@ -86,26 +95,19 @@ class EyeScreeningHomeI18N {
         "Your Score is : 0 & you have contrast sensitivity impairment.": "Your Score is : 0 & you have contrast sensitivity impairment.",
         "No red-green deficiency": "No red-green deficiency",
         "GOOD": "GOOD",
-        "Up": "Up",
-        "Down": "Down",
-        "Left": "Left",
-        "Right": "Right",
-
-      },
-      "en_BD": {
-        "N.B: If your near visual acuity is more than N8, you should consult with an eye doctor soon": "বি.দ্র :আপনার ফলাফল যদি N8 থেকে বেশি হয় তাহলে অতিসত্বর একজন চক্ষু বিশেষজ্ঞের পরামর্শ নিন",
-        "N.B: If your distance visual acuity is more than 6/9, you should consult with an eye doctor soon": "বি.দ্র.: আপনার দূরবর্তী দৃষ্টিসীমা যদি 6/9 থেকে বেশি হয় তাহলে অতিসত্বর একজন চক্ষু বিশেষজ্ঞের এর পরামর্শ নিন।",
-        "Possible Red-green deficiency. Please contact with an eye care professional soon": "আপনার লাল-সবুজ রঙের পার্থক্য বোঝার সমস্যা থাকতে পারে। অনুগ্রহ করে দ্রুত একজন চোখের ডাক্তারের (আই কেয়ার প্রফেশনাল) সাথে যোগাযোগ করুন।",
-        "Your Score is : 0 & you have contrast sensitivity impairment.": "আপনার স্কোর হলো : ০ এবং আপনার বৈপরীত্য সংবেদনশীলতা দুর্বলতা রয়েছে।",
-        "No red-green deficiency": "লাল-সবুজের ঘাটতি নেই",
-        "GOOD": "ভালো",
         "Up": "উপরে",
         "Down": "নিচে",
         "Left": "বাম",
         "Right": "ডান",
-
+        "Visual impairment": "দৃষ্টি শক্তি হ্রাস",
+        "Normal contrast Sensitivity": "স্বাভাবিক কনট্রাস্ট সংবেদনশীলতা",
+        "Poor contrast Sensitivity": "দুর্বল কনট্রাস্ট সংবেদনশীলতা",
+        "Your Score is : @value & you have no contrast sensitivity impairment.": "কালার কন্ট্রাস্ট ফলাফল : @value এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি নেই।",
+        "Your Score is : @value & you have contrast sensitivity impairment.": "ನಿಮ್ಮ ಸ್ಕೋರ್: @value & ನಿಮಗೆ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೆನ್ಸಿಟಿವಿಟಿ ದುರ್ಬಲತೆ ಇದೆ."
       },
       "kn_IN": {
+        "Distance Vision's Children Test": "ಮಕ್ಕಳ ದೂರ ದೃಷ್ಟಿ ಪರೀಕ್ಷೆ",
+        "Distance Vision's Illiterate Test": "ಅಕ್ಷರಜ್ಞಾನವಿಲ್ಲದವರ ದೂರ ದೃಷ್ಟಿ ಪರೀಕ್ಷೆ",
         "label_eye_screening": "ಕಣ್ಣಿನ ತಪಾಸಣೆ",
         "label_select_sest": "ಪರೀಕ್ಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         "label_near_vision_test": "ಸಮೀಪದ ದೃಷ್ಟಿ ಪರೀಕ್ಷೆ",
@@ -154,6 +156,11 @@ class EyeScreeningHomeI18N {
         "Down": "ಕೆಳಗೆ",
         "Left": "ಎಡಭಾಗ",
         "Right": "ಬಲಭಾಗ",
+        "Visual impairment": "ದೃಷ್ಟಿಹೀನತೆ",
+        "Normal contrast Sensitivity": "ಸಾಮಾನ್ಯ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೂಕ್ಷ್ಮತೆ",
+        "Poor contrast Sensitivity": "ಕಳಪೆ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೂಕ್ಷ್ಮತೆ",
+        "Your Score is : @value & you have no contrast sensitivity impairment.": "ನಿಮ್ಮ ಸ್ಕೋರ್: @value & ನಿಮಗೆ ಯಾವುದೇ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೆನ್ಸಿಟಿವಿಟಿ ದುರ್ಬಲತೆ ಇಲ್ಲ.",
+        "Your Score is : @value & you have contrast sensitivity impairment.": "ನಿಮ್ಮ ಸ್ಕೋರ್: @value & ನಿಮಗೆ ಕಾಂಟ್ರಾಸ್ಟ್ ಸೆನ್ಸಿಟಿವಿಟಿ ದುರ್ಬಲತೆ ಇದೆ."
       }
     };
   }

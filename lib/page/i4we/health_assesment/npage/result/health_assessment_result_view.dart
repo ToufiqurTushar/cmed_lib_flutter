@@ -152,7 +152,7 @@ class HealthAssessmentResultView extends RapidView<HealthAssessmentResultLogic> 
                                         child: Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Text(
-                                              controller.selectedSurveyResult.value.result!.advice!.tr ?? "",textAlign: TextAlign.left,
+                                              controller.selectedSurveyResult.value.result!.advice!.tr,textAlign: TextAlign.left,
                                             )
                                         ),
                                       )

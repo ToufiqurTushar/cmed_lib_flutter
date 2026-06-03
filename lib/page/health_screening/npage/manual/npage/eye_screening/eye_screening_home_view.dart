@@ -123,7 +123,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                       Visibility(
                         visible: GetUtils.isNullOrBlank(controller.farVisionDistance1Result.value.createdAt) != true,
                         child: ItemScreeringResultHome(
-                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionDistance1Result.value.screenType),
+                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionDistance1Result.value.screenType).tr,
                           "assets/images/measurement/ic_distance_vision.svg",
                           circularBorderColor: controller.farVisionDistance1Result.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1),
                           subTitle: null,
@@ -149,7 +149,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                       Visibility(
                         visible: GetUtils.isNullOrBlank(controller.farVisionIlliterateResult.value.createdAt) != true,
                         child: ItemScreeringResultHome(
-                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionIlliterateResult.value.screenType),
+                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionIlliterateResult.value.screenType).tr,
                           "assets/images/measurement/ic_distance_vision.svg",
                           circularBorderColor: controller.farVisionIlliterateResult.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1),
                           subTitle: null,
@@ -175,7 +175,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                       Visibility(
                         visible: GetUtils.isNullOrBlank(controller.farVisionChildrenResult.value.createdAt) != true,
                         child: ItemScreeringResultHome(
-                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionChildrenResult.value.screenType),
+                          EyeScreeningTypeEnum.getNameByNameType(controller.farVisionChildrenResult.value.screenType).tr,
                           "assets/images/measurement/ic_distance_vision.svg",
                           circularBorderColor: controller.farVisionChildrenResult.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1),
                           subTitle: null,
@@ -233,7 +233,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           'label_color_contrast_test'.tr,
                           "assets/images/measurement/ic_color_contrast.svg",
                           circularBorderColor: controller.contrastTestResult.value.eyeScreeningResult?.getResultColorByEyeScreenType(EyeScreeningTypeEnum.CONTRAST_TEST),
-                          subTitle: EyeScreeningColorContrastResultEnum.getTitleBasedOnResult(controller.contrastTestResult.value.eyeScreeningResult?.message??''),
+                          subTitle: EyeScreeningColorContrastResultEnum.getTitleBasedOnResult(controller.contrastTestResult.value.eyeScreeningResult?.message??'').tr,
                           boldSubtitle: true,
                           boldTitle: false,
                           tailingText: controller.contrastTestResult.value.eyeScreeningResult?.message,

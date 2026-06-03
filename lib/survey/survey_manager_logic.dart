@@ -144,7 +144,7 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
     }
 
     if(showSerialNumber??false){
-      for(var i=0; i< selectedSurvey!.fields!.length; i++) {
+      for(var i=0; i< (selectedSurvey?.fields?.length??0); i++) {
         final field = selectedSurvey!.fields![i];
         field.serial = '${(i+1)}';
       }

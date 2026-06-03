@@ -38,17 +38,19 @@ class EyeScreeningResultLogic extends BaseLogic {
     } else if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.CONTRAST_TEST) {
       var testedResultValue = double.tryParse(testedResultMessage.value)??0.0;
       if(testedResultValue >= 1.5) {
-        if(Utils.isLocaleBn()) {
-          testedResultSuggestion.value = 'কালার কন্ট্রাস্ট ফলাফল : $testedResultMessage এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি নেই।';
-        } else {
-          testedResultSuggestion.value = 'Your Score is : $testedResultMessage & you have no contrast sensitivity impairment.';
-        }
+        testedResultSuggestion.value = "Your Score is : @value & you have no contrast sensitivity impairment.".trParams({"value": '$testedResultMessage'});
+        // if(Utils.isLocaleBn()) {
+        //   testedResultSuggestion.value = 'কালার কন্ট্রাস্ট ফলাফল : $testedResultMessage এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি নেই।';
+        // } else {
+        //   testedResultSuggestion.value = 'Your Score is : $testedResultMessage & you have no contrast sensitivity impairment.';
+        // }
       } else {
-        if(Utils.isLocaleBn()) {
-          testedResultSuggestion.value = 'কালার কন্ট্রাস্ট ফলাফল : $testedResultMessage এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি রয়েছে।';
-        } else {
-          testedResultSuggestion.value = 'Your Score is : $testedResultMessage & you have contrast sensitivity impairment.';
-        }
+        testedResultSuggestion.value = "Your Score is : @value & you have contrast sensitivity impairment.".trParams({"value": '$testedResultMessage'});
+        // if(Utils.isLocaleBn()) {
+        //   testedResultSuggestion.value = 'কালার কন্ট্রাস্ট ফলাফল : $testedResultMessage এবং আপনার কন্ট্রাস্ট সেনসিটিভিটি রয়েছে।';
+        // } else {
+        //   testedResultSuggestion.value = 'Your Score is : $testedResultMessage & you have contrast sensitivity impairment.';
+        // }
       }
     } else {
       testedResultSuggestion.value = EyeScreeningTypeEnum.getSuggestionByEnum(eyeScreeningTypeEnum!).tr;
