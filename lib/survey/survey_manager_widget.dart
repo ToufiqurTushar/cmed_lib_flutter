@@ -271,7 +271,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     field.label = field.label?.tr;
     field.hint = field.hint?.tr;
     field.description = field.description?.tr;
-    (field.options??[]).forEach((e){
+    field.options?.forEach((e){
       e.title = e.title?.tr;
     });
     if(field.switchButton) {
