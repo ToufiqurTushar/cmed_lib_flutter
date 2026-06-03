@@ -3,7 +3,7 @@ class HealthAssesmentI18N {
     return {
       "en_US": {
         "Anaemia": "Anaemia",
-        "Do you often feel tired, dizziness, or short of breath even when you haven't done much physical work?": "Do you feel tried, Dizziness, or short of breath even when you havent done much physical work",
+        "Do you often feel tired, dizziness, or short of breath even when you haven't done much physical work?": "Do you often feel tired, dizziness, or short of breath even when you haven't done much physical work?",
         "Yes/ No": "Yes/ No",
         "Have you seen your skin, lips, or nails look paler than usual recently": "Have you seen your skin, lips, or nails look paler than usual recently",
         "Do your hands or feet feel cold even when the weather is warm": "Do your hands or feet feel cold even when the weather is warm",
