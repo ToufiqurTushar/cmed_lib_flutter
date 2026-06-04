@@ -884,11 +884,11 @@ class MeasurementDTO {
     if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
     }
-    return result?.bnAdvice ?? "";
+    return result?.engAdvice?.tr ?? "";
   }
 
   String getSuggestion() {
-    return result?.suggestion??"";
+    return result?.suggestion?.tr??"";
   }
 }
 
