@@ -215,6 +215,6 @@ class EyeScreeningResultLogic extends BaseLogic {
   }
 
   String getRemeasureTitle() {
-      return '${'title_remeasure'.tr} ${eyeScreeningTypeEnum?.nameEn??""}'.tr;
+      return '${'title_remeasure'.tr} ${eyeScreeningTypeEnum?.nameEn.tr??""}';
   }
 }
