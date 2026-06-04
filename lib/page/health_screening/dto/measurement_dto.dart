@@ -851,9 +851,6 @@ class MeasurementDTO {
   }
 
 
-
-
-
   String getStatusAssetPath() {
     var path = "";
     if (result?.status?.toUpperCase() == "NORMAL") {
@@ -868,9 +865,9 @@ class MeasurementDTO {
     return populateDrawable(measurementTypeCodeId);
   }
 
-  getAdviceAndSuggestion() {
-    return "${getAdvice()}";
-    //return "${getAdvice()}\n${getSuggestion()}";
+  String getAdviceAndSuggestion() {
+    //return "${getAdvice()}";
+    return "${getAdvice()}\n${getSuggestion()}";
   }
 
   bool isNotEmptyAdviceAndSuggestion() {
@@ -883,12 +880,15 @@ class MeasurementDTO {
     return true;
   }
 
-  getAdvice() {
-    return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
+  String getAdvice() {
+    if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
+      return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
+    }
+    return result?.bnAdvice ?? "";
   }
 
-  getSuggestion() {
-    result?.suggestion?.tr ?? "";
+  String getSuggestion() {
+    return result?.suggestion??"";
   }
 }
 
