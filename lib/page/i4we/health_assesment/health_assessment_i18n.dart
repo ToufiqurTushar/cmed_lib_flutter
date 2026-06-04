@@ -49,7 +49,9 @@ class HealthAssesmentI18N {
         "Do you want to go back?": "Do you want to go back?",
         "No significant symptoms, maintain a balanced diet.": "Low Risk / No Risk: No significant symptoms, maintain a balanced diet.",
         "Possible mild anemia, monitor symptoms, increase iron intake.": "Moderate Risk: Possible mild anemia, monitor symptoms, increase iron intake.",
-        "Severe symptoms, consult a doctor for blood tests.": "High Risk: Severe symptoms, consult a doctor for blood tests."
+        "Severe symptoms, consult a doctor for blood tests.": "High Risk: Severe symptoms, consult a doctor for blood tests.",
+        "Assessment Result": "Assessment Result",
+        "Reassess": "Reassess"
       },
       "kn_IN": {
         "Anaemia": "ರಕ್ತಹೀನತೆ",
@@ -99,7 +101,9 @@ class HealthAssesmentI18N {
         "Do you want to go back?": "ನೀವು ಹಿಂತಿರುಗಲು ಬಯಸುವಿರಾ?",
         "No significant symptoms, maintain a balanced diet.": "ಕಡಿಮೆ ಅಪಾಯ / ಅಪಾಯವಿಲ್ಲ: ಯಾವುದೇ ಗಮನಾರ್ಹ ಲಕ್ಷಣಗಳಿಲ್ಲ, ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ. ",
         "Possible mild anemia, monitor symptoms, increase iron intake.": "ಮಧ್ಯಮ ಅಪಾಯ: ಸಂಭಾವ್ಯ ಮೈಲ್ಡ್  ರಕ್ತಹೀನತೆ, ರೋಗಲಕ್ಷಣಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ, ಕಬ್ಬಿಣಾoಶದ ಸೇವನೆಯನ್ನು ಹೆಚ್ಚಿಸಿ.",
-        "Severe symptoms, consult a doctor for blood tests.": "ಹೆಚ್ಚಿನ ಅಪಾಯ: ತೀವ್ರ ರೋಗಲಕ್ಷಣಗಳು, ರಕ್ತ ಪರೀಕ್ಷೆಗಳಿಗೆ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ."
+        "Severe symptoms, consult a doctor for blood tests.": "ಹೆಚ್ಚಿನ ಅಪಾಯ: ತೀವ್ರ ರೋಗಲಕ್ಷಣಗಳು, ರಕ್ತ ಪರೀಕ್ಷೆಗಳಿಗೆ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+        "Assessment Result": "ಮೌಲ್ಯಮಾಪನ ಫಲಿತಾಂಶ",
+        "Reassess": "ಪುನರ್ ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ"
       }
     };
   }
