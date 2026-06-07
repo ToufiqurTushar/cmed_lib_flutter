@@ -9,6 +9,7 @@ class CheSurveyI18N {
         "Input preferred Language": "Input preferred Language",
         "Select Other Partner Name": "Select Other Partner Name",
         "Receipt No": "ರಶೀದಿ ಸಂಖ್ಯೆ",
+        "Survey Completed Successfully": "Survey Completed Successfully",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other",
         "Select Partner Name": "Select Partner Name",
         "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other": "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other",
@@ -21,7 +22,8 @@ class CheSurveyI18N {
         "Donor Name": "Donor Name",
         "Back": "Back",
         "Finish": "Finish",
-        "Next": "ಮುಂದೆ",
+        "Next": "Next",
+        "OK": "OK",
       },
       "kn_IN": {
         "General": "ಜನರಲ್",
@@ -31,6 +33,7 @@ class CheSurveyI18N {
         "Input preferred Language": "ಆಯ್ಕೆಮಾಡಿದ ಭಾಷೆಯನ್ನು ನಮೂದಿಸಿ",
         "Select Other Partner Name": "ಇತರೆ ಸಹಭಾಗಿಯ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         "Receipt No": "ರಶೀದಿ ಸಂಖ್ಯೆ",
+        "Survey Completed Successfully": "ಸಮೀಕ್ಷೆ ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "ಹಿಂದಿ/ಕನ್ನಡ/ತೆಲುಗು/ತಮಿಳು/ಒರಿಯಾ/ಬೆಂಗಾಲಿ/ಪಂಜಾಬಿ/ಇತರ",
         "Select Partner Name": "ಪಾಲುದಾರರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other": "GSP/ ಪ್ರಗತಿ/ADSS ಬೊಮ್ಮನಹಳ್ಳಿ/ADSS ಕಾಮಾಕ್ಷಿಪಾಳ್ಯ /SKS/ಇತರೆ",
@@ -44,6 +47,7 @@ class CheSurveyI18N {
         "Back": "ಹಿಂದೆ",
         "Finish": "ಮುಗಿಸಿ",
         "Next": "ಮುಂದೆ",
+        "OK": "ಸರಿ",
       }
     };
   }
