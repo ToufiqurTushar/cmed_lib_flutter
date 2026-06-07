@@ -47,6 +47,11 @@ class SocialProtectionI18N {
         "Tax Payer": "ತೆರಿಗೆ ಪಾವತಿದಾರ",
         "ESIC": "ESIC",
         "Which of the following Civic IDs do you have?": "ನಿಮ್ಮ ಬಳಿ ಕೆಳಗಿನ ಯಾವ ನಾಗರಿಕ ಗುರುತಿನ ದಾಖಲೆಗಳಿವೆ?",
+        "Do you have the Social Protection Scheme?": "ನಿಮ್ಮ ಬಳಿ ಸಾಮಾಜಿಕ ಸಂರಕ್ಷಣಾ ಯೋಜನೆ ಇದೆಯೆ?",
+        "Employee State Insurance Corporation(ESIC)": "ಉದ್ಯೋಗಿಗಳ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ (ESIC)",
+        "Gruha Arogya Scheme": "ಗೃಹ ಆರೋಗ್ಯ ಯೋಜನೆ",
+        "Private Health Insurance": "ಖಾಸಗಿ ಆರೋಗ್ಯ ವಿಮೆ",
+        "Ayushmaan Bharat Health Account (ABHA)": "ಆಯುಷ್ಮಾನ್ ಭಾರತ್ ಆರೋಗ್ಯ ಖಾತೆ (ABHA)",
       }
     };
   }
