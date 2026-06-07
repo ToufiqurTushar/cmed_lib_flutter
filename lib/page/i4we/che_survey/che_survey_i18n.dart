@@ -3,6 +3,8 @@ class CheSurveyI18N {
     return {
       "en_US": {
         "General": "General",
+        "GENERAL": "General",
+        "SUBSCRIPTION STATUS": "Subscription Status",
         "Select Preferred Language": "Select Preferred Language",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other",
         "Select Partner Name": "Select Partner Name",
@@ -20,6 +22,8 @@ class CheSurveyI18N {
       },
       "kn_IN": {
         "General": "ಜನರಲ್",
+        "GENERAL": "ಜನರಲ್",
+        "SUBSCRIPTION STATUS": "ಚಂದಾದಾರಿಕೆ ಸ್ಥಿತಿ",
         "Select Preferred Language": "ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "ಹಿಂದಿ/ಕನ್ನಡ/ತೆಲುಗು/ತಮಿಳು/ಒರಿಯಾ/ಬೆಂಗಾಲಿ/ಪಂಜಾಬಿ/ಇತರ",
         "Select Partner Name": "ಪಾಲುದಾರರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
