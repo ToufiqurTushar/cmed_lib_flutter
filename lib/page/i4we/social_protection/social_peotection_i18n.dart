@@ -35,7 +35,23 @@ class SocialProtectionI18N {
         "Application Submitted": "ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಲಾಗಿದೆ",
         "Application Approved": "ಅರ್ಜಿಯನ್ನು ಅನುಮೋದಿಸಲಾಗಿದೆ",
         "Application Delayed": "ಅರ್ಜಿ ವಿಳಂಬವಾಗಿದೆ",
-        "Scheme Benefit Received": "ಯೋಜನೆಯ ಲಾಭವನ್ನು ಪಡೆಯಲಾಗಿದೆ"
+        "Scheme Benefit Received": "ಯೋಜನೆಯ ಲಾಭವನ್ನು ಪಡೆಯಲಾಗಿದೆ",
+        "Ration Card": "ಪಡಿತರ ಚೀಟಿ",
+        "ABHA": "ABHA",
+        "Aadhar Card": "ಆಧಾರ್ ಕಾರ್ಡ್",
+        "PAN Card": "PAN ಕಾರ್ಡ್",
+        "Voter": "ಮತದಾರರ ಪ್ರಮಾಣಪತ್ರ",
+        "DOB Certificate": "ಜನನ ದಿನಾಂಕ ಪ್ರಮಾಣಪತ್ರ",
+        "Passbook": "ಪಾಸ್‌ಬುಕ್",
+        "Proof of Income": "ಆದಾಯ ಪುರಾವೆ",
+        "Tax Payer": "ತೆರಿಗೆ ಪಾವತಿದಾರ",
+        "ESIC": "ESIC",
+        "Which of the following Civic IDs do you have?": "ನಿಮ್ಮ ಬಳಿ ಕೆಳಗಿನ ಯಾವ ನಾಗರಿಕ ಗುರುತಿನ ದಾಖಲೆಗಳಿವೆ?",
+        "Do you have the Social Protection Scheme?": "ನಿಮ್ಮ ಬಳಿ ಸಾಮಾಜಿಕ ಸಂರಕ್ಷಣಾ ಯೋಜನೆ ಇದೆಯೆ?",
+        "Employee State Insurance Corporation (ESIC)": "ಉದ್ಯೋಗಿಗಳ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ (ESIC)",
+        "Gruha Arogya Scheme": "ಗೃಹ ಆರೋಗ್ಯ ಯೋಜನೆ",
+        "Private Health Insurance": "ಖಾಸಗಿ ಆರೋಗ್ಯ ವಿಮೆ",
+        "Ayushmaan Bharat Health Account (ABHA)": "ಆಯುಷ್ಮಾನ್ ಭಾರತ್ ಆರೋಗ್ಯ ಖಾತೆ (ABHA)",
       }
     };
   }

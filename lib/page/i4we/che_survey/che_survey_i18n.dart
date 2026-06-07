@@ -3,7 +3,13 @@ class CheSurveyI18N {
     return {
       "en_US": {
         "General": "General",
+        "GENERAL": "General",
+        "SUBSCRIPTION STATUS": "Subscription Status",
         "Select Preferred Language": "Select Preferred Language",
+        "Input preferred Language": "Input preferred Language",
+        "Select Other Partner Name": "Select Other Partner Name",
+        "Receipt No": "ರಶೀದಿ ಸಂಖ್ಯೆ",
+        "Survey Completed Successfully": "Survey Completed Successfully",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other",
         "Select Partner Name": "Select Partner Name",
         "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other": "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other",
@@ -11,16 +17,23 @@ class CheSurveyI18N {
         "Subscription Type": "Subscription Type",
         "Paid Member": "Paid Member",
         "Date of Subscription": "Date of Subscription",
-        "Receipt No:": "Receipt No:",
         "Org. Member ID": "Org. Member ID",
         "Donor Paid": "Donor Paid",
         "Donor Name": "Donor Name",
         "Back": "Back",
-        "Finish": "Finish"
+        "Finish": "Finish",
+        "Next": "Next",
+        "OK": "OK",
       },
       "kn_IN": {
         "General": "ಜನರಲ್",
+        "GENERAL": "ಜನರಲ್",
+        "SUBSCRIPTION STATUS": "ಚಂದಾದಾರಿಕೆ ಸ್ಥಿತಿ",
         "Select Preferred Language": "ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        "Input preferred Language": "ಆಯ್ಕೆಮಾಡಿದ ಭಾಷೆಯನ್ನು ನಮೂದಿಸಿ",
+        "Select Other Partner Name": "ಇತರೆ ಸಹಭಾಗಿಯ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        "Receipt No": "ರಶೀದಿ ಸಂಖ್ಯೆ",
+        "Survey Completed Successfully": "ಸಮೀಕ್ಷೆ ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "ಹಿಂದಿ/ಕನ್ನಡ/ತೆಲುಗು/ತಮಿಳು/ಒರಿಯಾ/ಬೆಂಗಾಲಿ/ಪಂಜಾಬಿ/ಇತರ",
         "Select Partner Name": "ಪಾಲುದಾರರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         "GSP/ Pragati/ADSS Bommanahalli/ADSS Kamakashipalya/SKS/Other": "GSP/ ಪ್ರಗತಿ/ADSS ಬೊಮ್ಮನಹಳ್ಳಿ/ADSS ಕಾಮಾಕ್ಷಿಪಾಳ್ಯ /SKS/ಇತರೆ",
@@ -28,12 +41,13 @@ class CheSurveyI18N {
         "Subscription Type": "ಚಂದಾದಾರಿಕೆ ಪ್ರಕಾರ",
         "Paid Member": "ಪಾವತಿ ಮಾಡಿದ ಸದಸ್ಯ",
         "Date of Subscription": "ಚಂದಾದಾರಿಕೆಯ ದಿನಾಂಕ",
-        "Receipt No:": "ರಶೀದಿ ಸಂಖ್ಯೆ:",
         "Org. Member ID": "ಸಂಸ್ಥೆಯ ಸದಸ್ಯರ ಐಡಿ",
         "Donor Paid": "ದಾನಿದಾರರು ಪಾವತಿಸಿದ್ದಾರೆ",
         "Donor Name": "ದಾನಿಯ ಹೆಸರು",
         "Back": "ಹಿಂದೆ",
-        "Finish": "ಮುಗಿಸಿ"
+        "Finish": "ಮುಗಿಸಿ",
+        "Next": "ಮುಂದೆ",
+        "OK": "ಸರಿ",
       }
     };
   }
