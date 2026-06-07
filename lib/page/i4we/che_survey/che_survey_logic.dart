@@ -84,7 +84,7 @@ class CheSurveyLogic extends BaseLogic {
         SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
-        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully', positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
+        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
           if(cheSurveyArgument.redirectToServiceSelectionView??false) {
             Get.offNamedUntil(
               '/ServiceSelectionView',
