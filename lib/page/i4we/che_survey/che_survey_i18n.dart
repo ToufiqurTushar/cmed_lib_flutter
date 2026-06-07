@@ -20,7 +20,8 @@ class CheSurveyI18N {
         "Donor Paid": "Donor Paid",
         "Donor Name": "Donor Name",
         "Back": "Back",
-        "Finish": "Finish"
+        "Finish": "Finish",
+        "Next": "ಮುಂದೆ",
       },
       "kn_IN": {
         "General": "ಜನರಲ್",
@@ -41,7 +42,8 @@ class CheSurveyI18N {
         "Donor Paid": "ದಾನಿದಾರರು ಪಾವತಿಸಿದ್ದಾರೆ",
         "Donor Name": "ದಾನಿಯ ಹೆಸರು",
         "Back": "ಹಿಂದೆ",
-        "Finish": "ಮುಗಿಸಿ"
+        "Finish": "ಮುಗಿಸಿ",
+        "Next": "ಮುಂದೆ",
       }
     };
   }
