@@ -83,7 +83,7 @@ class SocialProtectionLogic extends BaseLogic {
         // Future.delayed(Duration.zero, () async {
         //   Get.offNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });
-        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully', positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
+        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
           Get.back();
         });
       } else {
