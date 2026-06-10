@@ -51,7 +51,7 @@ class HttpProvider {
   static const CORE_USER_IOS_VERSION_KEY = 'x-supported-min-ios-cmed-user-app-version';
   static const CORE_USER_IOS_STORE_URL = 'https://apps.apple.com/us/app/cmed-health/id1505328545';
 
-  static const CORE_AGENT_ANDROID_VERSION_KEY= 'x-supported-min-android-cmed-agent-app-version:';
+  static const CORE_AGENT_ANDROID_VERSION_KEY= 'x-supported-min-android-cmed-agent-app-version';
   static const CORE_AGENT_ANDROID_STORE_URL= 'https://play.google.com/store/apps/details?id=bd.com.cmed.agent';
 
   static const CORE_AGENT_IOS_VERSION_KEY = 'x-supported-min-ios-cmed-agent-app-version';
