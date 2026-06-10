@@ -512,7 +512,7 @@ class HttpProvider {
                 children: [
                   const SizedBox(width: 10),
                   Container(
-                    width: double.infinity,
+                    //width: double.infinity,
                     child: FrElevatedButton(
                       name:'label_update'.tr,
                       onPressed: () async{
