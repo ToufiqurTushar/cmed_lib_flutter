@@ -8,7 +8,7 @@ class CheSurveyI18N {
         "Select Preferred Language": "Select Preferred Language",
         "Input preferred Language": "Input preferred Language",
         "Select Other Partner Name": "Select Other Partner Name",
-        "Receipt No": "ರಶೀದಿ ಸಂಖ್ಯೆ",
+        "Receipt No": "Receipt No",
         "Survey Completed Successfully": "Survey Completed Successfully",
         "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other": "Hindi/Kannada/Telugu/Tamil/Oriya/Bengali/Panjabi/Other",
         "Select Partner Name": "Select Partner Name",
