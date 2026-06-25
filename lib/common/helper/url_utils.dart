@@ -2,9 +2,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UrlUtils {
   static String CMED_WEB_SITE_URL = 'https://cmed.com.bd/';
-  static String CMED_PRIVACY_POLICY_URL = 'https://cmed.com.bd/?page_id=2849';
+  static String CMED_PRIVACY_POLICY_URL = 'https://cmed.com.bd/privacy-policy';
   static String EKPAY_URL = 'https://ekpay.gov.bd/#/bill-payment/electricity';
-  static String TERM_CONDITION_AND_POLICY_URL = 'https://cmed.com.bd/?page_id=2849';
+  static String TERM_CONDITION_AND_POLICY_URL = 'https://cmed.com.bd/terms-and-conditions';
   static String SWASTI_TERM_CONDITION_AND_POLICY_URL = 'https://swasti.org/legal';
   static String APPLE_STORE_URL = 'https://apps.apple.com/us/app/cmed-health/id1505328545';
   static String PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.cmedhealth.android';
