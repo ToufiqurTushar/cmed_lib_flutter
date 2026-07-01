@@ -618,6 +618,7 @@ String handleDioError(dio.DioException error) {
     case dio.DioExceptionType.connectionTimeout:
     case dio.DioExceptionType.sendTimeout:
     case dio.DioExceptionType.receiveTimeout:
+    case dio.DioExceptionType.transformTimeout:
       return "Timeout occurred!";
     case dio.DioExceptionType.badResponse:
       final statusCode = error.response?.statusCode;
