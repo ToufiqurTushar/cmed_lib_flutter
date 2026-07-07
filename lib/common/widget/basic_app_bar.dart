@@ -14,6 +14,7 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
         this.color,
         this.hasProfile,
         this.showTitleBar,
+        this.elevation,
       }
       );
 
@@ -23,10 +24,11 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   Color? color;
   bool? hasProfile;
   bool? showTitleBar;
+  double? elevation;
 
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: hasProfile, showTitleBar: showTitleBar,));
+    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: hasProfile, showTitleBar: showTitleBar,elevation:elevation));
   }
 }

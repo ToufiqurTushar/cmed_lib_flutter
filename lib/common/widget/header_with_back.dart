@@ -20,11 +20,12 @@ class HeaderWithBack extends StatelessWidget {
   int? gender;
   final Color? color;
   final bool? hasProfile;
+  final double? elevation;
   final bool? showTitleBar;
   final Widget? trailingWidget;
   Function? onClickAction;
 
-  HeaderWithBack(this.title,  {this.username,this.profileUrl,this.showTitleBar, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget});
+  HeaderWithBack(this.title,  {this.username,this.profileUrl,this.showTitleBar, this.fullName, this.color,this.hasProfile, this.onClickAction, this.trailingWidget, this.elevation});
 
 
   @override
@@ -55,122 +56,129 @@ class HeaderWithBack extends StatelessWidget {
       return Card(
         color: color,
         margin: const EdgeInsets.symmetric(horizontal: 0),
-        elevation: 2,
+        elevation: elevation,
         shadowColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
         ),
-        child: Column(
-          children: <Widget>[
-            Visibility(
-              visible: showTitleBar??true,
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: () {
-                      if(onClickAction == null) {
-                        Get.back();
-                      } else {
-                        onClickAction!();
-                      }
-                    },
-                  ),
-                  MarqueeWidget(
-                    child: Text(
-                      title!,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            Visibility(
-              visible: hasProfile??true,
-              child: Row(
-                children: <Widget>[
-                  InkWell(
-                    onTap: (){
-                      if(profileUrl?.isEmpty??false) return;
-                      goToFullImageView(profileUrl);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: CachedNetworkImage(
-                        imageUrl: profileUrl ?? 'http://',
-                        imageBuilder: (context, imageProvider) => Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.shade100,
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
-                          ),
+        child: Row(children: [
+          Expanded(
+            child: Column(
+              children: [
+                Visibility(
+                  visible: showTitleBar??true,
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Theme.of(context).primaryColor,
                         ),
-                        placeholder: (context, url) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
-                        errorWidget: (context, url, error) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
+                        onPressed: () {
+                          if(onClickAction == null) {
+                            Get.back();
+                          } else {
+                            onClickAction!();
+                          }
+                        },
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          fullName ?? 'label_guest_login'.tr,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.black,
+                      MarqueeWidget(
+                        child: Text(
+                          title!,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          username?? "01xxxxxxxxx",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
+                      ),
+                    ],
+                  ),
+                ),
+
+                Visibility(
+                  visible: hasProfile??true,
+                  child: Row(
+                    children: <Widget>[
+                      InkWell(
+                        onTap: (){
+                          if(profileUrl?.isEmpty??false) return;
+                          goToFullImageView(profileUrl);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: CachedNetworkImage(
+                            imageUrl: profileUrl ?? 'http://',
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade100,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
+                            errorWidget: (context, url, error) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              fullName ?? 'label_guest_login'.tr,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              username?? "01xxxxxxxxx",
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Visibility(
+                          visible: false,
+                          child: Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Theme.of(context).primaryColor,
+                          )
+                      ),
+                      if(trailingWidget != null)
+                        trailingWidget!,
+                      Visibility(visible: Get.find<RapidEnvConfig>().debug,child: InkWell(onTap:()=>ChuckerFlutter.showChuckerScreen(),child: Text('Network ')))
+                    ],
                   ),
-                  const SizedBox(
-                    width: 12,
+                ),
+                // ),
+                Visibility(
+                  visible: hasProfile??true,
+                  child: const SizedBox(
+                    height: 8,
                   ),
-                  Visibility(
-                      visible: false,
-                      child: Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Theme.of(context).primaryColor,
-                      )
-                  ),
-                  if(trailingWidget != null)
-                  trailingWidget!,
-                  Visibility(visible: Get.find<RapidEnvConfig>().debug,child: InkWell(onTap:()=>ChuckerFlutter.showChuckerScreen(),child: Text('Network ')))
-                ],
-              ),
+                ),
+              ],
             ),
-            // ),
-            Visibility(
-              visible: hasProfile??true,
-              child: const SizedBox(
-                height: 8,
-              ),
-            ),
-          ],
-        ),
+          ),
+          if(trailingWidget != null && (hasProfile == false))
+            trailingWidget!,
+          SizedBox(width: 12,)
+        ]),
       );
   }
 
