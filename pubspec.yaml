@@ -35,7 +35,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.4.1
   marquee: ^2.3.0
-  dio: ^5.7.0
+  dio: ^5.10.0
   age_calculator: ^1.0.0
   date_format: ^2.0.6
   flutter_cupertino_date_picker_fork: ^1.0.7
