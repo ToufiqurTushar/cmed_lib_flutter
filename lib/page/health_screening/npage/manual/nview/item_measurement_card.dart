@@ -51,14 +51,14 @@ class _ItemMeasurementCard extends State<ItemMeasurementCard> {
                 child: Text(widget.label ?? "",
                     textAlign: TextAlign.center,
                     style:
-                        const TextStyle(fontSize: 12, color: Colors.black,fontWeight: FontWeight.bold,)),
+                    const TextStyle(fontSize: 12, color: Colors.black,fontWeight: FontWeight.bold,)),
               ),
 
 
-          ],
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }
