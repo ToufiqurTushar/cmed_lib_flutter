@@ -22,7 +22,7 @@ class BpInputView extends RapidView<BpInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: controller.isV2?null: BasicAppBar('label_blood_pressure'.tr),
+        appBar: controller.isSusasthoV2?null: BasicAppBar('label_blood_pressure'.tr),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Form(

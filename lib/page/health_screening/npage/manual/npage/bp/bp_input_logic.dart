@@ -22,7 +22,7 @@ class BpInputLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
 
-  bool isV2 = false;
+  bool isSusasthoV2 = false;
 
 
   @override
@@ -33,7 +33,7 @@ class BpInputLogic extends BaseLogic {
     diastolicController = TextEditingController();
     pulseController = TextEditingController();
     print("Get.arguments: ${Get.arguments}");
-    isV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isV2??false : false;
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isV2??false : false;
   }
 
   String? validateSystolic(String value) {
@@ -171,7 +171,7 @@ class BpInputLogic extends BaseLogic {
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
         )
-      ]);
+      ], id:isSusasthoV2? 1: null);
   }
 
   @override
