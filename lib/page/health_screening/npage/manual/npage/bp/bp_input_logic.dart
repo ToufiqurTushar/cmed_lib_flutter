@@ -33,7 +33,7 @@ class BpInputLogic extends BaseLogic {
     diastolicController = TextEditingController();
     pulseController = TextEditingController();
     print("Get.arguments: ${Get.arguments}");
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isV2??false : false;
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
   }
 
   String? validateSystolic(String value) {
