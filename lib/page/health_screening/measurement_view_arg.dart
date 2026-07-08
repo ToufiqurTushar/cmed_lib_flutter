@@ -1,15 +1,15 @@
 class MeasurementViewArg {
   MeasurementViewArg({
-      this.isV2,});
+      this.isSusasthoV2,});
 
   MeasurementViewArg.fromJson(dynamic json) {
-    isV2 = json['isV2'];
+    isSusasthoV2 = json['isSusasthoV2'];
   }
-  bool? isV2;
+  bool? isSusasthoV2;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['isV2'] = isV2;
+    map['isSusasthoV2'] = isSusasthoV2;
     return map;
   }
 
