@@ -5,7 +5,7 @@ import 'package:cmed_lib_flutter/page/health_screening/repository/screening_repo
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
-
+import 'package:cmed_lib_flutter/page/health_screening/measurement_view_arg.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 
 class BpInputLogic extends BaseLogic {
@@ -22,6 +22,7 @@ class BpInputLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
 
+  bool isV2 = false;
 
 
   @override
@@ -31,6 +32,8 @@ class BpInputLogic extends BaseLogic {
     systolicController = TextEditingController();
     diastolicController = TextEditingController();
     pulseController = TextEditingController();
+    print("Get.arguments: ${Get.arguments}");
+    isV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isV2??false : false;
   }
 
   String? validateSystolic(String value) {
