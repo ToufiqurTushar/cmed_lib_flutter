@@ -239,7 +239,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                   "heightInInch": controller.heightInInchEditTextController.text
                                                 },);
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
+                                                bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
                                                 if(isAuto){
                                                   Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
                                                       isAuto: isAuto,

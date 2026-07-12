@@ -172,7 +172,7 @@ class BmiHeightWeightInputLogic extends BaseLogic {
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult
         )
-      ]);
+      ], id: isNestedRoute? 1: null);
   }
 
   @override
