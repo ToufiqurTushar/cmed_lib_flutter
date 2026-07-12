@@ -4,6 +4,7 @@ Widget CMEDBottomButton({
   required VoidCallback? onPressed,
   Color? backgroundColor,
   Color? textColor,
+  BuildContext? context,
 }) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
@@ -13,7 +14,7 @@ Widget CMEDBottomButton({
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor?? Colors.lightBlue,
+          backgroundColor: backgroundColor??(context!=null?Theme.of(context).primaryColor:Colors.lightBlue),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(26.0),
           ),

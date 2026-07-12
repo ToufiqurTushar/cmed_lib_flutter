@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_sc
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_screening/npage/eye_screening_nearvision_view.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
+import '../../../../../../common/widget/cmed_bottom_button.dart';
 import '../../../../dto/measurement_dto.dart';
 import '../../nview/item_screening_record_home_with_background.dart';
 import '../../nview/item_screening_result_home.dart';
@@ -267,11 +268,13 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: CMEDWhiteElevatedButton(
-                        'label_save'.tr,
-                        controller.showSaveButton()? () => {
-                          controller.sendMeasurement(),
-                        }:()=>null,
+                      child: CMEDBottomButton(
+                        label: "label_save".tr,
+                        onPressed: !controller.showSaveButton()
+                            ? null
+                            : () {
+                          controller.sendMeasurement();
+                        },
                       ),
                     ),
                   ],
