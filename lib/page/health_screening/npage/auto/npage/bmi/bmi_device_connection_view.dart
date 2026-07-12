@@ -30,7 +30,7 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
         return false;
       },
       child: Scaffold(
-        appBar: BasicAppBar('label_bmi'.tr),
+        appBar: controller.isNestedRoute? null:BasicAppBar('label_bmi'.tr),
         body: SafeArea(
           child: Column(
             children: [
