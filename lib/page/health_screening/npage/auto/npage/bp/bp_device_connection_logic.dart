@@ -37,7 +37,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
     isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
-	  Future.delayed(Duration(seconds:1), () async {
+	  Future.delayed(Duration(milliseconds:300), () async {
 		  if(isSusasthoV2){
         connect();
       }
