@@ -10,6 +10,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_sc
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_screening/npage/eye_screening_nearvision_view.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
 
 class EyeScreeningResultLogic extends BaseLogic {
@@ -22,10 +23,11 @@ class EyeScreeningResultLogic extends BaseLogic {
   EyeScreeningTypeEnum? eyeScreeningTypeEnum;
   final ScreeningReportRepository repository;
   EyeScreeningResultLogic({required this.repository});
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     screeningReport.value = argumentData[0]['screeningReport'];
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
@@ -94,11 +96,19 @@ class EyeScreeningResultLogic extends BaseLogic {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
 
-    Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    if(isNestedRoute){
+      Get.offNamed(EyeScreeningHomeView.routeName);
+    } else {
+      Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    }
   }
 
   EyeScreeningHomeLogic getEyeScreeningHomeLogic() {
-    return Get.find<EyeScreeningHomeLogic>();
+    if(isNestedRoute){
+      return Get.put(EyeScreeningHomeLogic(repository: Get.put(ScreeningReportRepository())));
+    } else {
+      return Get.find<EyeScreeningHomeLogic>();
+    }
   }
 
   saveLocal() {
