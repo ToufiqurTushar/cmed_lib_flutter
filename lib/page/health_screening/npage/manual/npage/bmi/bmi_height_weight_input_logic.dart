@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
@@ -46,7 +48,7 @@ class BmiHeightWeightInputLogic extends BaseLogic {
     heightInFeetEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "");
     heightInInchEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "");
     weightEditTextController = TextEditingController();
-    RLog.info(Get.arguments);
+    RLog.info(jsonEncode(Get.arguments));
   }
 
   String? validateHeightInFeet(String value) {
