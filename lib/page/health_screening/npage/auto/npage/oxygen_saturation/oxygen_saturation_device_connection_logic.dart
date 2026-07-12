@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 
 class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
@@ -28,13 +29,19 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
 
   final ScreeningReportRepository repository;
-
+  bool isSusasthoV2 = false;
   OxygenSaturationDeviceConnectionLogic({required this.repository});
 
   @override
-  void onInit() {
+  Future<void> onInit() async{
     super.onInit();
     cmedSpO2DevicesLib = CmedSpo2DevicesLib();
+
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    Future.delayed(Duration.zero, () async {
+      if(isSusasthoV2)connect();
+    });
+
   }
 
   Future<void> connect() async {

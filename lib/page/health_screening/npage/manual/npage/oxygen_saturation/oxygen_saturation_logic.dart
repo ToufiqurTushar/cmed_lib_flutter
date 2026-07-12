@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 
 class OxygenSaturationLogic extends BaseLogic {
   final ScreeningReportRepository repository;
@@ -23,12 +24,16 @@ class OxygenSaturationLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
 
+  bool isSusasthoV2 = false;
   @override
   void onInit() {
     super.onInit();
     dateController = TextEditingController();
     spo2Controller = TextEditingController();
     pulseController = TextEditingController();
+
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+
   }
 
   String? validateSPO2(String value) {
@@ -122,8 +127,8 @@ class OxygenSaturationLogic extends BaseLogic {
           screeningReport: screeningReport.value,
           isAuto: false,
           measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
-      )
-    ]);
+      ),
+    ], id: isSusasthoV2? 1: null);
   }
 
   @override
