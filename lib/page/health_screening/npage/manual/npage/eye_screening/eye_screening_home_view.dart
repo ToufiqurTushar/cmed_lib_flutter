@@ -269,6 +269,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                   children: [
                     Expanded(
                       child: CMEDBottomButton(
+                        context: context,
                         label: "label_save".tr,
                         onPressed: !controller.showSaveButton()
                             ? null
