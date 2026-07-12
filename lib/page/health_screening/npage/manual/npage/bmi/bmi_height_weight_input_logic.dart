@@ -48,7 +48,6 @@ class BmiHeightWeightInputLogic extends BaseLogic {
     heightInFeetEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "");
     heightInInchEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "");
     weightEditTextController = TextEditingController();
-    RLog.info(jsonEncode(Get.arguments));
   }
 
   String? validateHeightInFeet(String value) {
