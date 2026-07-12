@@ -5,6 +5,7 @@ import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart'
 import 'package:cmed_lib_flutter/page/health_screening/npage/auto/npage/bmi/bmi_device_connection_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/auto/npage/fat/fat_device_connection_view.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
+import '../measurement_view_arg.dart';
 import 'auto/npage/blood_glucose/blood_glucose_auto_select_time_period_view.dart';
 import 'auto/npage/bp/bp_device_connection_view.dart';
 import 'auto/npage/oxygen_saturation/oxygen_saturation_device_connection_view.dart';
@@ -30,6 +31,8 @@ class AutoManualSelectionLogic extends BaseLogic {
     final arguments = Get.arguments as Map<String, dynamic>?;
     if (arguments != null && arguments.containsKey('codeId')) {
       code.value = arguments['codeId']; // Set the dynamic value
+    } else {
+      code.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).codeId??0 : 0;
     }
   }
 

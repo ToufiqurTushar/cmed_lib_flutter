@@ -9,6 +9,7 @@ class MeasurementViewArg {
       this.heightInCm,
       this.heightInFeet,
       this.heightInInch,
+      this.codeId,
 
   });
   bool? isNestedRoute;
@@ -18,4 +19,5 @@ class MeasurementViewArg {
   double? heightInCm;
   String? heightInFeet;
   String? heightInInch;
+  int? codeId;
 }
