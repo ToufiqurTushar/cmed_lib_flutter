@@ -46,6 +46,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     heightInCm.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInCm??0 : 0;
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
   }
 
   Future<void> connect() async {
