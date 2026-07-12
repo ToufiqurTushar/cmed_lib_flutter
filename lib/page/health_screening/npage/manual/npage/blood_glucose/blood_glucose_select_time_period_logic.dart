@@ -7,12 +7,12 @@ import '../../../../measurement_view_arg.dart';
 class BloodGlucoseSelectTimePeriodLogic extends BaseLogic {
 
   var selectedItem = MasterDataDTO().obs;
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
   BloodGlucoseSelectTimePeriodLogic();
 
   Future<void> onInit() async{
     super.onInit();
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
   }
 
 }

@@ -21,7 +21,7 @@ class BloodGlucoseAutoSelectTimePeriodView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: controller.isSusasthoV2?null:BasicAppBar('label_blood_glucose'.tr),
+      appBar: controller.isNestedRoute?null:BasicAppBar('label_blood_glucose'.tr),
       body: SafeArea(
         child: Column(
           children: [

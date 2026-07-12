@@ -29,7 +29,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
 
   final ScreeningReportRepository repository;
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
   OxygenSaturationDeviceConnectionLogic({required this.repository});
 
   @override
@@ -37,9 +37,9 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
     super.onInit();
     cmedSpO2DevicesLib = CmedSpo2DevicesLib();
 
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     Future.delayed(Duration.zero, () async {
-      if(isSusasthoV2)connect();
+      if(isNestedRoute)connect();
     });
 
   }
@@ -189,7 +189,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
           isAuto: true,
           measurementsWithResult: allMeasurements
       )
-    ], id: isSusasthoV2? 1: null);
+    ], id: isNestedRoute? 1: null);
   }
 
   @override

@@ -22,7 +22,7 @@ class BloodGlucoseSelectTimePeriodView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: controller.isSusasthoV2?null:BasicAppBar('label_blood_glucose'.tr),
+      appBar: controller.isNestedRoute?null:BasicAppBar('label_blood_glucose'.tr),
       body: SafeArea(
         child: Column(
           children: [
@@ -82,8 +82,8 @@ class BloodGlucoseSelectTimePeriodView
                             Get.offNamed(BloodGlucoseInputView.routeName,
                                 arguments: MeasurementViewArg(
                                   masterDataDTO: controller.selectedItem.value,
-                                  isSusasthoV2: controller.isSusasthoV2
-                                ), id: controller.isSusasthoV2? 1: null),
+                                  isNestedRoute: controller.isNestedRoute
+                                ), id: controller.isNestedRoute? 1: null),
                           }
                         else
                           {

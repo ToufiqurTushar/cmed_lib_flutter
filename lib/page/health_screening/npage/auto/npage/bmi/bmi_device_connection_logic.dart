@@ -11,6 +11,7 @@ import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 
 class BmiDeviceConnectionLogic extends BaseLogic {
@@ -36,15 +37,15 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   final RxString screen_status = ScreenEnum.CONNECT.name.obs;
 
   final RxString buttonText = 'label_connect'.tr.obs;
-
+  bool isNestedRoute = false;
 
   @override
   void onInit() {
     super.onInit();
-    heightUnit.value = argumentData[0]['heightUnit'];
-    heightInCm.value = argumentData[0]['heightInCm'];
-    heightInFeet.value = argumentData[0]['heightInFeet'];
-    heightInInch.value = argumentData[0]['heightInInch'];
+    heightUnit.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightUnit??"" : "";
+    heightInCm.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInCm??0 : 0;
+    heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
+    heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
   }
 
   Future<void> connect() async {

@@ -22,7 +22,7 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: controller.isSusasthoV2? null: BasicAppBar('label_oxygen_saturation'.tr),
+        appBar: controller.isNestedRoute? null: BasicAppBar('label_oxygen_saturation'.tr),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Form(

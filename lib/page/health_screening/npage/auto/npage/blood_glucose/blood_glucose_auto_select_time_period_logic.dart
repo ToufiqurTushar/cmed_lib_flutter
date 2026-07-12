@@ -14,13 +14,13 @@ class BloodGlucoseAutoSelectTimePeriodLogic extends BaseLogic {
 
   var selectedItem = MasterDataDTO().obs;
 
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
 
   BloodGlucoseAutoSelectTimePeriodLogic();
 
   Future<void> onInit() async{
     super.onInit();
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
   }
 
   Future<void> requestMicrophonePermissionAndNavigate() async {
@@ -32,7 +32,7 @@ class BloodGlucoseAutoSelectTimePeriodLogic extends BaseLogic {
 
     if (status.isGranted) {
       Get.toNamed(BloodGlucoseDeviceConnectionView.routeName,
-        arguments: MeasurementViewArg(isAuto: true, masterDataDTO: selectedItem.value, isSusasthoV2: isSusasthoV2), id: isSusasthoV2? 1: null);
+        arguments: MeasurementViewArg(isAuto: true, masterDataDTO: selectedItem.value, isNestedRoute: isNestedRoute), id: isNestedRoute? 1: null);
     } else {
       ShowToast.error("Permission is required");
     }

@@ -4,6 +4,8 @@ import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconstants.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../measurement_view_arg.dart';
+
 
 class BmiHeightInputLogic extends BaseLogic {
   late TextEditingController heightInFeetEditTextController;
@@ -12,13 +14,14 @@ class BmiHeightInputLogic extends BaseLogic {
   var weightUnit = BmiUnit.KG.name.obs;
   var heightUnit = BmiUnit.FEET_INCH.name.obs;
   final GlobalKey<FormState> screeningReportFormKey = GlobalKey<FormState>();
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
     heightInFeetEditTextController = TextEditingController();
     heightInInchEditTextController = TextEditingController();
     heightInCentimeterEditTextController = TextEditingController();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
 
     initUserProfile();
   }

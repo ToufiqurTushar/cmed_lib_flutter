@@ -24,7 +24,7 @@ class OxygenSaturationLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
 
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
@@ -32,7 +32,7 @@ class OxygenSaturationLogic extends BaseLogic {
     spo2Controller = TextEditingController();
     pulseController = TextEditingController();
 
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
 
   }
 
@@ -128,7 +128,7 @@ class OxygenSaturationLogic extends BaseLogic {
           isAuto: false,
           measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
       ),
-    ], id: isSusasthoV2? 1: null);
+    ], id: isNestedRoute? 1: null);
   }
 
   @override

@@ -30,15 +30,15 @@ class BpDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   final player = AudioPlayer();
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
 
   @override
   Future<void> onInit() async{
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
 	  Future.delayed(Duration(milliseconds:300), () async {
-		  if(isSusasthoV2){
+		  if(isNestedRoute){
         connect();
       }
   	});
@@ -196,7 +196,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
               ScreeningReportResultDetailsArgument(
                   screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
               )
-            ]);
+            ], id: isNestedRoute? 1: null);
           });
         }
       }

@@ -43,15 +43,15 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
 
   BloodGlucoseDeviceConnectionLogic({required this.repository});
   var isListning = false.obs;
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
   @override
   Future<void> onInit() async{
     super.onInit();
     dnurseDeviceHandler = Get.find<DnurseDeviceHandler>();
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
     Future.delayed(Duration.zero, () async {
-      if(isSusasthoV2)connect();
+      if(isNestedRoute)connect();
     });
   }
 
@@ -196,7 +196,7 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
           ScreeningReportResultDetailsArgument(
               screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
           )
-        ], id: isSusasthoV2? 1: null);
+        ], id: isNestedRoute? 1: null);
       }
     });
   }

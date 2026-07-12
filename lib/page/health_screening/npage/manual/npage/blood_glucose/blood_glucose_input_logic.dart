@@ -36,7 +36,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
   var selectedGlucoseMasterData = MasterDataDTO(labelEn: 'mg/dL').obs;
 
   String selectedGlucoseUnit = 'mg/dL';
-  bool isSusasthoV2 = false;
+  bool isNestedRoute = false;
 
 
   @override
@@ -44,7 +44,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
     super.onInit();
     dateController = TextEditingController();
     bloodGlucoseEditTextController = TextEditingController();
-    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
     debugPrint(tag.value.toString());
   }
@@ -118,7 +118,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
         )
-      ],id: isSusasthoV2? 1: null);
+      ],id: isNestedRoute? 1: null);
   }
 
   @override

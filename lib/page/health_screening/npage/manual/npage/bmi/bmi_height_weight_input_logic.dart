@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
+import '../../../../measurement_view_arg.dart';
 
 class BmiHeightWeightInputLogic extends BaseLogic {
   final ScreeningReportRepository repository;
@@ -32,17 +33,18 @@ class BmiHeightWeightInputLogic extends BaseLogic {
   var weightUnit = BmiUnit.KG.name.obs;
   var heightUnit = BmiUnit.FEET_INCH.name.obs;
 
-
+  bool isNestedRoute = false;
   var screeningReport = MeasurementDTO().obs;
 
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     dateController = TextEditingController();
-    heightUnit.value = Get.arguments[0]['heightUnit'];
-    heightInCentimeterEditTextController = TextEditingController(text: Get.arguments[0]['heightInCm'].toString());
-    heightInFeetEditTextController = TextEditingController(text: Get.arguments[0]['heightInFeet']);
-    heightInInchEditTextController = TextEditingController(text: Get.arguments[0]['heightInInch']);
+    heightUnit.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightUnit??BmiUnit.FEET_INCH.name : BmiUnit.FEET_INCH.name;
+    heightInCentimeterEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInCm?.toString()??"" : "");
+    heightInFeetEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "");
+    heightInInchEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "");
     weightEditTextController = TextEditingController();
     RLog.error(Get.arguments[0]);
   }

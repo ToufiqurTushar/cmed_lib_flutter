@@ -2,12 +2,20 @@ import '../../common/dto/master_data_dto.dart';
 
 class MeasurementViewArg {
   MeasurementViewArg({
-      this.isSusasthoV2,
+      this.isNestedRoute,
       this.isAuto,
       this.masterDataDTO,
+      this.heightUnit,
+      this.heightInCm,
+      this.heightInFeet,
+      this.heightInInch,
 
   });
-  bool? isSusasthoV2;
+  bool? isNestedRoute;
   bool? isAuto;
   MasterDataDTO? masterDataDTO;
+  String? heightUnit;
+  double? heightInCm;
+  String? heightInFeet;
+  String? heightInInch;
 }

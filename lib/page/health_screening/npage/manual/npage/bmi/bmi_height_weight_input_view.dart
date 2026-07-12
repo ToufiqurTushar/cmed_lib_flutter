@@ -27,7 +27,7 @@ class BmiHeightWeightInputView extends RapidView<BmiHeightWeightInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: BasicAppBar(
+        appBar: controller.isNestedRoute? null: BasicAppBar(
           'label_bmi'.tr,
         ),
         body: SafeArea(
