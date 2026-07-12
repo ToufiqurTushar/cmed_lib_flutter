@@ -196,7 +196,7 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
           ScreeningReportResultDetailsArgument(
               screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
           )
-        ]);
+        ], id: isSusasthoV2? 1: null);
       }
     });
   }

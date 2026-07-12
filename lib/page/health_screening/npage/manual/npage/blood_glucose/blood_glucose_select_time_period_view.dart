@@ -83,7 +83,7 @@ class BloodGlucoseSelectTimePeriodView
                                 arguments: MeasurementViewArg(
                                   masterDataDTO: controller.selectedItem.value,
                                   isSusasthoV2: controller.isSusasthoV2
-                                )),
+                                ), id: controller.isSusasthoV2? 1: null),
                           }
                         else
                           {

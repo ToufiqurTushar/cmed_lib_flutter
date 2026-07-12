@@ -32,7 +32,7 @@ class BloodGlucoseAutoSelectTimePeriodLogic extends BaseLogic {
 
     if (status.isGranted) {
       Get.toNamed(BloodGlucoseDeviceConnectionView.routeName,
-        arguments: MeasurementViewArg(isAuto: true, masterDataDTO: selectedItem.value, isSusasthoV2: isSusasthoV2));
+        arguments: MeasurementViewArg(isAuto: true, masterDataDTO: selectedItem.value, isSusasthoV2: isSusasthoV2), id: isSusasthoV2? 1: null);
     } else {
       ShowToast.error("Permission is required");
     }
