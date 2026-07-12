@@ -33,10 +33,13 @@ class BpDeviceConnectionLogic extends BaseLogic {
 bool isSusasthoV2 = false;
 
   @override
-  void onInit() {
+  Future<void> onInit() async{
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
 isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+	Future.delayed(Duration.zero, () async {
+		if(isSusasthoV2)connect();
+  	});
   }
 
 
