@@ -243,6 +243,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                 if(isAuto){
                                                   Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
                                                       isAuto: isAuto,
+                                                      isNestedRoute: controller.isNestedRoute,
                                                       heightUnit: controller.heightUnit.value,
                                                       heightInCm: controller.getHeightInCentimeter().toDouble(),
                                                       heightInFeet: controller.heightInFeetEditTextController.text,
@@ -252,6 +253,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                   Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
                                                     MeasurementViewArg(
                                                       isAuto: isAuto,
+                                                      isNestedRoute: controller.isNestedRoute,
                                                       heightUnit: controller.heightUnit.value,
                                                       heightInCm: controller.getHeightInCentimeter().toDouble(),
                                                       heightInFeet: controller.heightInFeetEditTextController.text,
