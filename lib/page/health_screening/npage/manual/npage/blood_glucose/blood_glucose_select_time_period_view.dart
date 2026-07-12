@@ -12,6 +12,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../measurement_view_arg.dart';
 import 'blood_glucose_select_time_period_logic.dart';
 
 class BloodGlucoseSelectTimePeriodView
@@ -21,7 +22,7 @@ class BloodGlucoseSelectTimePeriodView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_blood_glucose'.tr),
+      appBar: controller.isSusasthoV2?null:BasicAppBar('label_blood_glucose'.tr),
       body: SafeArea(
         child: Column(
           children: [
@@ -79,12 +80,10 @@ class BloodGlucoseSelectTimePeriodView
                         if (controller.selectedItem.value.id != null)
                           {
                             Get.offNamed(BloodGlucoseInputView.routeName,
-                                arguments: [
-                                  {
-                                    MeasurementConstant.GLUCOSE_TIME_PERIOD:
-                                        controller.selectedItem.value
-                                  }
-                                ]),
+                                arguments: MeasurementViewArg(
+                                  masterDataDTO: controller.selectedItem.value,
+                                  isSusasthoV2: controller.isSusasthoV2
+                                )),
                           }
                         else
                           {

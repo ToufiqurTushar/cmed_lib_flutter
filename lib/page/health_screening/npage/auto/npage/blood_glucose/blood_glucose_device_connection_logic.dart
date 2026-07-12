@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 import 'denumse_device_handler.dart';
 
@@ -42,17 +43,22 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
 
   BloodGlucoseDeviceConnectionLogic({required this.repository});
   var isListning = false.obs;
-
+  bool isSusasthoV2 = false;
   @override
-  void onInit() {
+  Future<void> onInit() async{
     super.onInit();
     dnurseDeviceHandler = Get.find<DnurseDeviceHandler>();
-    tag.value = argumentData[0][MeasurementConstant.GLUCOSE_TIME_PERIOD];
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
+    Future.delayed(Duration.zero, () async {
+      if(isSusasthoV2)connect();
+    });
   }
 
   @override
   void onReady() {
     super.onReady();
+
   }
 
   @override

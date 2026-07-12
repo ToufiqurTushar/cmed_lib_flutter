@@ -96,8 +96,6 @@ class MeasurementConstant {
   static const double BSCAN_WEIGHT_KG_MAX = 400.00;
 
 
-  static const String GLUCOSE_TIME_PERIOD = "GLUCOSE_TIME_PERIOD";
-
   static const double GMP_AGE_LIMIT_MAX_MONTH = 61.0;
 
   static const double MUAC_AGE_LIMIT_MAX_MONTH = 60.0;

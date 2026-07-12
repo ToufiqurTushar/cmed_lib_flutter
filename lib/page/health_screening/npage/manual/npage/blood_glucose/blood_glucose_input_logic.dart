@@ -11,6 +11,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 
 class BloodGlucoseInputLogic extends BaseLogic {
   dynamic argumentData = Get.arguments;
@@ -35,13 +36,16 @@ class BloodGlucoseInputLogic extends BaseLogic {
   var selectedGlucoseMasterData = MasterDataDTO(labelEn: 'mg/dL').obs;
 
   String selectedGlucoseUnit = 'mg/dL';
+  bool isSusasthoV2 = false;
+
 
   @override
   void onInit() {
     super.onInit();
     dateController = TextEditingController();
     bloodGlucoseEditTextController = TextEditingController();
-    tag.value = (argumentData[0][MeasurementConstant.GLUCOSE_TIME_PERIOD] as MasterDataDTO);
+    isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
+    tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
     debugPrint(tag.value.toString());
   }
 
@@ -114,7 +118,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
         )
-      ]);
+      ],id: isSusasthoV2? 1: null);
   }
 
   @override
