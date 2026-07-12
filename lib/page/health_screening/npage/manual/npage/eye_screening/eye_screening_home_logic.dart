@@ -6,6 +6,7 @@ import 'package:cmed_lib_flutter/page/health_screening/dto/screening_report_resu
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:logger/logger.dart';
 
+import '../../../../measurement_view_arg.dart';
 import '../../../../repository/screening_report_repository.dart';
 import 'enum/eye_screening_type_enum.dart';
 
@@ -23,6 +24,12 @@ class EyeScreeningHomeLogic extends BaseLogic {
   var farVisionChildrenResult = EyeScreening().obs;
   var colorBlindTestResult = EyeScreening().obs;
   var contrastTestResult = EyeScreening().obs;
+  bool isNestedRoute = false;
+
+  Future<void> onInit() async{
+    super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+  }
 
   void sendMeasurement() {
     if (isLoading.isTrue) return;
@@ -67,7 +74,7 @@ class EyeScreeningHomeLogic extends BaseLogic {
             screeningReport: screeningReport.value,
             isAuto: false, measurementsWithResult: [measurement]
           )
-        ]);
+        ], id: isNestedRoute? 1: null);
       } else {
 
       }

@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/common/helper/utils.dart';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 
 
 class BScanInputLogic extends BaseLogic {
@@ -73,11 +74,11 @@ class BScanInputLogic extends BaseLogic {
   ];
 
   ////////////////
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
-
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     age.value = customer.value.getAgeInYear();
     if(age.value <=8) {
       age.value = 8;
@@ -257,7 +258,7 @@ class BScanInputLogic extends BaseLogic {
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
         )
-      ]);
+      ], id: isNestedRoute? 1: null);
   }
 
   @override

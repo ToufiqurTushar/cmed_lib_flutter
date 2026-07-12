@@ -30,7 +30,7 @@ class HemoglobinInputView extends RapidView<HemoglobinInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: BasicAppBar('Hemoglobin'.tr),
+        appBar: controller.isNestedRoute? null:BasicAppBar('Hemoglobin'.tr),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Form(

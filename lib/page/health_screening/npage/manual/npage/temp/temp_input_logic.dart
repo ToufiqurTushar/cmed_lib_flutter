@@ -7,6 +7,7 @@ import 'package:cmed_lib_flutter/page/health_screening/constant/measurementconst
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 
 class TempInputLogic extends BaseLogic {
   final ScreeningReportRepository repository;
@@ -21,12 +22,15 @@ class TempInputLogic extends BaseLogic {
   var temperatureUnit = TemperatureUnit.FAHRENHEIT.name.obs;
 
   var screeningReport = MeasurementDTO().obs;
+  bool isNestedRoute = false;
 
   @override
   void onInit() {
     super.onInit();
     dateController = TextEditingController();
     temperatureEditTextController = TextEditingController();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+
   }
 
   String? validateTemperatureInput(String value) {
@@ -97,7 +101,7 @@ class TempInputLogic extends BaseLogic {
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
       )
-    ]);
+    ], id: isNestedRoute? 1: null);
   }
 
   @override

@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
+import '../../../../measurement_view_arg.dart';
 
 
 class GmpInputLogic extends BaseLogic {
@@ -37,7 +38,7 @@ class GmpInputLogic extends BaseLogic {
   var screeningReportHfa = MeasurementDTO().obs;
   var screeningReportWfa = MeasurementDTO().obs;
   var screeningReportWfl = MeasurementDTO().obs;
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
@@ -48,6 +49,9 @@ class GmpInputLogic extends BaseLogic {
     weightEditTextController = TextEditingController();
 
     initUserProfile();
+
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+
   }
 
   initUserProfile() {
@@ -260,7 +264,7 @@ class GmpInputLogic extends BaseLogic {
           screeningReportWfl: screeningReportWfl.value,
           screeningReportWflKgValue: getWeightInKg(),
           measurementsWithResult: measurementsWithResult,
-        )
+        ), id: isNestedRoute? 1: null
     );
   }
 

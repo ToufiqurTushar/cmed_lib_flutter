@@ -24,7 +24,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_eye_screening'.tr),
+      appBar: controller.isNestedRoute? null: BasicAppBar('label_eye_screening'.tr),
       body: Obx(
             ()=> SafeArea(
           child: Column(

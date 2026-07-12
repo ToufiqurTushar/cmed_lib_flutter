@@ -10,6 +10,7 @@ import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 
 import '../../../../dto/screening_report_result_details_argument.dart';
+import '../../../../measurement_view_arg.dart';
 
 
 class MuacInputLogic extends BaseLogic {
@@ -24,12 +25,13 @@ class MuacInputLogic extends BaseLogic {
   var muacUnit = MuacUnit.CENTIMETER.name.obs;
 
   var screeningReport = MeasurementDTO().obs;
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
     dateController = TextEditingController();
     muacController = TextEditingController();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
   }
 
   toggleMuacUnit() {
@@ -116,7 +118,7 @@ class MuacInputLogic extends BaseLogic {
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
       )
-    ]);
+    ], id: isNestedRoute? 1: null);
 
   }
 
