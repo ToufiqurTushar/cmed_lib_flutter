@@ -25,7 +25,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar(
+      appBar: controller.isNestedRoute? null: BasicAppBar(
         'label_bmi'.tr,
       ),
       body: SafeArea(
