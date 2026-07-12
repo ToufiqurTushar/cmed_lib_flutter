@@ -189,7 +189,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
           isAuto: true,
           measurementsWithResult: allMeasurements
       )
-    ]);
+    ], id: isSusasthoV2? 1: null);
   }
 
   @override
