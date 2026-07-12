@@ -269,9 +269,9 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                     Expanded(
                       child: CMEDWhiteElevatedButton(
                         'label_save'.tr,
-                        controller.showSaveButton()? ()=>null: () => {
+                        controller.showSaveButton()? () => {
                           controller.sendMeasurement(),
-                        },
+                        }:()=>null,
                       ),
                     ),
                   ],
