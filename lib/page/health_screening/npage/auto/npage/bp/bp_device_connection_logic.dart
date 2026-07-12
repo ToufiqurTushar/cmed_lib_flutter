@@ -10,6 +10,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
+import 'package:cmed_lib_flutter/page/health_screening/measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 
 class BpDeviceConnectionLogic extends BaseLogic {
@@ -29,12 +30,13 @@ class BpDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   final player = AudioPlayer();
+bool isSusasthoV2 = false;
 
   @override
   void onInit() {
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
-
+isSusasthoV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isSusasthoV2??false : false;
   }
 
 
