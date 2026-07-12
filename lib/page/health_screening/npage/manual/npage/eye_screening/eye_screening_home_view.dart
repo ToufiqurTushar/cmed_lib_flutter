@@ -52,7 +52,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_near_vision_new.svg",
                         boldTitle: false,
                         onClickAction: (){
-                          Get.toNamed(EyeScreeningNearvisionView.routeName);
+                          Get.toNamed(EyeScreeningNearvisionView.routeName, id: controller.isNestedRoute? 1: null);
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -60,7 +60,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_distance_vision_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningDistancevisionView.routeName),
+                          Get.toNamed(EyeScreeningDistancevisionView.routeName, id: controller.isNestedRoute? 1: null),
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -68,7 +68,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_color_blind_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningColorblindView.routeName),
+                          Get.toNamed(EyeScreeningColorblindView.routeName, id: controller.isNestedRoute? 1: null),
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -76,7 +76,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_color_contrast_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningContrastView.routeName),
+                          Get.toNamed(EyeScreeningContrastView.routeName, id: controller.isNestedRoute? 1: null),
                         },
                       ),
                       const SizedBox(
@@ -116,7 +116,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                     ],
                                   )
                                 }
-                              ]);
+                              ], id: controller.isNestedRoute? 1: null);
                             },
                           )
                       ),
@@ -142,7 +142,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                   ],
                                 )
                               }
-                            ]);
+                            ], id: controller.isNestedRoute? 1: null);
                           },
                         ),
                       ),
@@ -168,7 +168,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                   ],
                                 )
                               }
-                            ]);
+                            ], id: controller.isNestedRoute? 1: null);
                           },
                         ),
                       ),
@@ -195,7 +195,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                       ],
                                     )
                                   }
-                                ]
+                                ], id: controller.isNestedRoute? 1: null
                             );
                           },
                         ),
@@ -223,7 +223,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                   ],
                                 )
                               }
-                            ]);
+                            ], id: controller.isNestedRoute? 1: null);
                           },
                         ),
                       ),
@@ -250,7 +250,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                                   ],
                                 )
                               }
-                            ]);
+                            ], id: controller.isNestedRoute? 1: null);
                           },
                         ),
                       ),
