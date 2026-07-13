@@ -4,6 +4,7 @@ import '../../../../../../common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import '../../../../constant/measurementconstants.dart';
 import '../../../../dto/measurement_dto.dart';
+import '../../../../measurement_view_arg.dart';
 
 
 class FatHeightInputLogic extends BaseLogic {
@@ -14,7 +15,7 @@ class FatHeightInputLogic extends BaseLogic {
   var heightUnit = BmiUnit.FEET_INCH.name.obs;
 
   final GlobalKey<FormState> screeningReportFormKey = GlobalKey<FormState>();
-
+  bool isNestedRoute = false;
   @override
   void onInit() {
     super.onInit();
@@ -23,6 +24,8 @@ class FatHeightInputLogic extends BaseLogic {
     heightInCentimeterEditTextController = TextEditingController();
 
     setHeightOfSelectedCustomer();
+
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
   }
 
   setHeightOfSelectedCustomer() {

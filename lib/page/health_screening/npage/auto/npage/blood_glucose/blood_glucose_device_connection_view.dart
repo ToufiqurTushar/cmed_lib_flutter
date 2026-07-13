@@ -21,7 +21,8 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_connecting_device'.tr),
+      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
+      appBar: controller.isNestedRoute?null: BasicAppBar('label_connecting_device'.tr),
       body: SafeArea(
         child: Column(
           children: [

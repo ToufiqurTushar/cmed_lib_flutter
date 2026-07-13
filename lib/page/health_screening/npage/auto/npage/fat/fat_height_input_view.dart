@@ -13,6 +13,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:themed/themed.dart';
 
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
+import '../../../../measurement_view_arg.dart';
 import 'fat_height_input_logic.dart';
 
 class FatHeightInputView extends RapidView<FatHeightInputLogic> {
@@ -21,6 +22,7 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
       appBar: BasicAppBar('label_body_fat_composition'.tr,),
       body: SafeArea(
         child: Form(
@@ -233,16 +235,15 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
                                                   "heightInInch": controller.heightInInchEditTextController.text
                                                 },);
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                bool isAuto = Get.arguments != null? Get.arguments['isAuto']??false: false;
-                                                Get.offNamed(FatDeviceConnectionView.routeName, arguments: [
-                                                  {
-                                                    "codeId": MeasurementType.BODY_COMPOSITION.value,
-                                                    "heightUnit": controller.heightUnit.value,
-                                                    "heightInCm": controller.getHeightInCentimeter(),
-                                                    "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                    "heightInInch": controller.heightInInchEditTextController.text
-                                                  }
-                                                ]);
+                                                bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
+                                                Get.offNamed(FatDeviceConnectionView.routeName, arguments: MeasurementViewArg(
+                                                    isAuto: isAuto,
+                                                    isNestedRoute: controller.isNestedRoute,
+                                                    heightUnit: controller.heightUnit.value,
+                                                    heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                    heightInFeet: controller.heightInFeetEditTextController.text,
+                                                    heightInInch: controller.heightInInchEditTextController.text
+                                                ), id: controller.isNestedRoute? 1: null);
                                               }
                                             }
                                           },

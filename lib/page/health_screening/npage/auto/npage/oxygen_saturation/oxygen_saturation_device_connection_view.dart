@@ -22,6 +22,7 @@ class OxygenSaturationDeviceConnectionView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
       appBar: controller.isNestedRoute? null: BasicAppBar('label_connecting_device'.tr),
       body: SafeArea(
         child: Column(

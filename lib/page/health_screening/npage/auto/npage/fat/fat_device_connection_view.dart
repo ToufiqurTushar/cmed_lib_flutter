@@ -29,7 +29,8 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
         return false;
       },
       child: Scaffold(
-        appBar: BasicAppBar(
+        backgroundColor: controller.isNestedRoute?Colors.transparent:null,
+        appBar: controller.isNestedRoute?null:BasicAppBar(
           'label_body_fat_composition'.tr),
         body: SafeArea(
           child: Column(
