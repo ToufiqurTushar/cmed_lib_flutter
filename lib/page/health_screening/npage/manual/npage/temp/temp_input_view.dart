@@ -152,7 +152,7 @@ class TempInputView extends RapidView<TempInputLogic> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 12.0),
+                            vertical: 8.0, horizontal: 16.0),
                         child: Row(
                           children: [
                             Expanded(
