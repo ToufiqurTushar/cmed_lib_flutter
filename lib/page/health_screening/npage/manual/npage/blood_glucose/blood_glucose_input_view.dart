@@ -23,7 +23,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: BasicAppBar('label_blood_glucose'.tr),
+        appBar: controller.isNestedRoute? null:BasicAppBar('label_blood_glucose'.tr),
         body: SafeArea(
           child: Form(
             key: controller.screeningReportFormKey,
