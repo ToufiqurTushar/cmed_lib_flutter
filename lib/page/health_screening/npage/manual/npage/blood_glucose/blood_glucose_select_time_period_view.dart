@@ -70,7 +70,7 @@ class BloodGlucoseSelectTimePeriodView
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: Row(
                 children: [
                   Expanded(
