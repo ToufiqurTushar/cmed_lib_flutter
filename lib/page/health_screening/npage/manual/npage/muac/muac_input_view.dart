@@ -29,6 +29,7 @@ class MuacInputView extends RapidView<MuacInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
+        backgroundColor: controller.isNestedRoute?Colors.transparent:null,
         appBar: controller.isNestedRoute? null:BasicAppBar('label_muac'.tr),
         body: SafeArea(
           child: SingleChildScrollView(

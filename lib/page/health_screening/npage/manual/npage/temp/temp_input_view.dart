@@ -28,6 +28,7 @@ class TempInputView extends RapidView<TempInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
+        backgroundColor: controller.isNestedRoute?Colors.transparent:null,
         appBar: controller.isNestedRoute? null: BasicAppBar('label_body_temperature'.tr),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

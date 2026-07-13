@@ -31,6 +31,7 @@ class GmpInputView extends RapidView<GmpInputLogic> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
+        backgroundColor: controller.isNestedRoute?Colors.transparent:null,
         appBar: controller.isNestedRoute? null: BasicAppBar('label_gmp'.tr),
         body: SafeArea(
           child: SingleChildScrollView(

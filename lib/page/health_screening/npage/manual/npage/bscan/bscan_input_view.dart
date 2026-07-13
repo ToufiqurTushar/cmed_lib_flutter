@@ -36,6 +36,7 @@ class BScanInputView extends RapidView<BScanInputLogic> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
+          backgroundColor: controller.isNestedRoute?Colors.transparent:null,
           appBar: controller.isNestedRoute? null: BasicAppBar('label_breast_cancer_screening'.tr),
           body: SafeArea(
             child: Form(
