@@ -52,14 +52,14 @@ class _CMEDBirthDatePickerState extends State<CMEDBirthDatePicker> {
           const SizedBox(height: 8.0),
         ],
         Container(
-          height: 52,
+          height: 50,
           margin: EdgeInsets.only(
             top: widget.topMargin ?? (widget.label != null ? 0.0 : 8.0),
             bottom: widget.bottomMargin ?? 12.0,
           ),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: const Color(0xFFB2F2D2), width: 1.0),
+            border: Border.all(color: const Color(0xFFB2F2D2), width: 2.0),
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Material(
