@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 class CenterRadar extends StatelessWidget {
   int? oneFullRotationInMilliSeconds;
-  const CenterRadar({this.oneFullRotationInMilliSeconds, super.key});
+  CenterRadar({this.oneFullRotationInMilliSeconds, super.key});
 
   @override
   Widget build(BuildContext context) {

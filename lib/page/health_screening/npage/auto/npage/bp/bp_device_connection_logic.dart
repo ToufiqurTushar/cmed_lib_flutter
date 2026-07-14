@@ -268,7 +268,7 @@ enum BPDeviceStatus {
         subtitle: 'label_keep_device_switch_on'.tr,
         themeColor: Theme.of(context).primaryColor,
         actionButtonLabel: 'label_connect'.tr,
-        child: CenterRadar(oneFullRotationInMilliSeconds: ,2000)
+        child: CenterRadar(oneFullRotationInMilliSeconds: 2000)
       ),
       BPDeviceStatus.Connecting || BPDeviceStatus.ReConnecting => DeviceUiState(
         type: DeviceUiType.loadingProgress,
