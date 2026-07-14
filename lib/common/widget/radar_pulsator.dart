@@ -1,5 +1,95 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class CenterRadar extends StatelessWidget {
+  int? oneFullRotationInMilliSeconds;
+  const CenterRadar({this.oneFullRotationInMilliSeconds, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RadarPulsator(
+        oneFullRotationInMilliSeconds: 2000,
+        color: Theme.of(context).primaryColor,
+        centerWidget: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.04),
+                blurRadius: 10.0,
+                spreadRadius: 2.0,
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(22.0),
+          child: SvgPicture.asset(
+            "assets/icons-v2/bluetooth.svg",
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RadarPulsator extends StatefulWidget {
+  final Widget centerWidget;
+  final Color? color;
+  int? oneFullRotationInMilliSeconds;
+  RadarPulsator({super.key, this.oneFullRotationInMilliSeconds, required this.centerWidget, this.color});
+
+  @override
+  State<RadarPulsator> createState() => _RadarPulsatorState();
+}
+
+class _RadarPulsatorState extends State<RadarPulsator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: widget.oneFullRotationInMilliSeconds??6000),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final radarColor = widget.color ?? Theme.of(context).primaryColor;
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final angle = _controller.value * 2 * pi - pi / 2;
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomPaint(
+              size: const Size(280, 280),
+              painter: RadarPainter(angle, radarColor),
+            ),
+            widget.centerWidget,
+          ],
+        );
+      },
+    );
+  }
+}
 
 class RadarPainter extends CustomPainter {
   final double angle;
@@ -59,52 +149,4 @@ class RadarPainter extends CustomPainter {
   }
 }
 
-class RadarPulsator extends StatefulWidget {
-  final Widget centerWidget;
-  final Color? color;
-  const RadarPulsator({super.key, required this.centerWidget, this.color});
 
-  @override
-  State<RadarPulsator> createState() => _RadarPulsatorState();
-}
-
-class _RadarPulsatorState extends State<RadarPulsator>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final radarColor = widget.color ?? Theme.of(context).primaryColor;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final angle = _controller.value * 2 * pi - pi / 2;
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomPaint(
-              size: const Size(280, 280),
-              painter: RadarPainter(angle, radarColor),
-            ),
-            widget.centerWidget,
-          ],
-        );
-      },
-    );
-  }
-}
