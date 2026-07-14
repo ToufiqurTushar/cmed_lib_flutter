@@ -34,8 +34,6 @@ class _CMEDDropdownWidgetState extends State<CMEDDropdownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    widget.color ??= Theme.of(context).primaryColorLight;
-    if (widget.borderColor == null) widget.color = Theme.of(context).primaryColorLight;
     return Padding(
       padding: widget.padding ??
           const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
@@ -52,10 +50,10 @@ class _CMEDDropdownWidgetState extends State<CMEDDropdownWidget> {
                       value: item,
                       child: Row(
                         children: [
-                          if(item.image != null)
-                          Image.asset('${item.image}', width: 20, height: 20),
-                          if(item.image != null)
-                          const SizedBox(width: 8),
+                          if (item.image != null)
+                            Image.asset('${item.image}', width: 20, height: 20),
+                          if (item.image != null)
+                            const SizedBox(width: 8),
                           Text(
                             Utils.isLocaleBn()
                                 ? item.labelBn ?? ''
@@ -77,20 +75,26 @@ class _CMEDDropdownWidgetState extends State<CMEDDropdownWidget> {
                 }
               });
             },
-            // buttonHeight: 50,
-            /*buttonWidth: widget.width ?? MediaQuery.of(context).size.width,*/
-            // itemHeight: 40,
-            /*buttonElevation: widget.isShowBorder ?? false ? 2 : 0,
-            dropdownElevation: 8,
-            offset: const Offset(0, 0),
-            buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-            buttonDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.isShowBorder ?? false ? 1 : 0),
-              border: Border.all(
-                color: widget.borderColor ?? Theme.of(context).primaryColorLight,
+            buttonStyleData: ButtonStyleData(
+              height: 52,
+              width: widget.width ?? MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(
+                  color: widget.borderColor ?? const Color(0xFFB2F2D2),
+                  width: 1.0,
+                ),
+                color: widget.color ?? Colors.white,
               ),
-              color: widget.color ?? Theme.of(context).primaryColorLight,
-            ),*/
+            ),
+            iconStyleData: IconStyleData(
+              icon: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: Theme.of(context).primaryColor,
+              ),
+              iconSize: 20,
+            ),
           ),
         ),
       ),

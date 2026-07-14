@@ -1,14 +1,15 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
-import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
+import 'package:flutter/material.dart';
 
 class CMEDBirthDatePicker extends StatefulWidget {
   String? label;
   String? title;
   String? hint;
   bool? isShowCurrentDate = false;
-  bool? isCalendarIconVisible = true; // New parameter to control icon visibility
+  bool? isCalendarIconVisible = true;
+  double? topMargin;
   double? bottomMargin;
   Function? onDateSelect;
   var selectedDate = DateTime.now();
@@ -16,13 +17,14 @@ class CMEDBirthDatePicker extends StatefulWidget {
   CMEDBirthDatePicker({
     Key? key,
     this.label,
+    this.topMargin,
     this.bottomMargin,
     this.title,
     this.hint,
     this.isShowCurrentDate,
-    this.isCalendarIconVisible, // Add it as a parameter
+    this.isCalendarIconVisible,
     this.onDateSelect,
-  }) {
+  }) : super(key: key) {
     if ((isShowCurrentDate ?? false) && title == null) {
       title = _getFormattedDate(DateTime.now());
     }
@@ -38,56 +40,72 @@ class _CMEDBirthDatePickerState extends State<CMEDBirthDatePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.label != null)
+        if (widget.label != null) ...[
           Text(
             widget.label!,
-            style: CMEDTextUtils.inputTextLabelStyleForProfileTitle,
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          const SizedBox(height: 8.0),
+        ],
         Container(
-          color: Theme.of(context).primaryColorLight,
-          height: 55,
-          margin: EdgeInsets.only(top: 0, bottom: widget.bottomMargin ?? 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  datePicker(true);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 14.0, horizontal: 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
+          height: 52,
+          margin: EdgeInsets.only(
+            top: widget.topMargin ?? (widget.label != null ? 0.0 : 8.0),
+            bottom: widget.bottomMargin ?? 12.0,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFFB2F2D2), width: 1.0),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8.0),
+              onTap: () {
+                datePicker(true);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 16.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
                         padding: const EdgeInsets.only(left: 2),
                         child: Text(
-                            widget.title ??
-                                widget.hint ??
-                                'label_select_date'.tr,
-                            style: TextStyle(
-                                color: widget.title == null
-                                    ? Colors.grey
-                                    : Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal)),
-                      ),
-                      if (widget.isCalendarIconVisible ?? true) // Control visibility
-                        Padding(
-                          padding: EdgeInsets.only(right: 2),
-                          child: Icon(
-                            Icons.calendar_today_outlined,
-                            color: Theme.of(context).primaryColor,
-                            size: 18,
+                          widget.title ?? widget.hint ?? 'label_select_date'.tr,
+                          style: TextStyle(
+                            color: widget.title == null
+                                ? Colors.grey
+                                : Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                    ],
-                  ),
+                      ),
+                    ),
+                    if (widget.isCalendarIconVisible ?? true)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 2),
+                        child: Icon(
+                          Icons.calendar_today_outlined,
+                          color: Theme.of(context).primaryColor,
+                          size: 18,
+                        ),
+                      ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ],
@@ -108,24 +126,24 @@ class _CMEDBirthDatePickerState extends State<CMEDBirthDatePicker> {
         onMonthChangeStartWithFirstDate: true,
         minDateTime: DateTime.now().subtract(Duration(days: 43800)),
         onClose: () => {
-          debugPrint("onClose"),
-        },
+              debugPrint("onClose"),
+            },
         onCancel: () => {
-          debugPrint("onCancel"),
-        },
+              debugPrint("onCancel"),
+            },
         onConfirm: (DateTime dateTime, List<int> selectedIndex) => {
-          setState(() {
-            widget.title = _getFormattedDate(dateTime);
-            if (widget.onDateSelect != null) {
-              widget.onDateSelect!(dateTime);
-            }
-          }),
-          debugPrint("onConfirm$dateTime selectedIndex:$selectedIndex"),
-          widget.selectedDate = dateTime,
-        },
+              setState(() {
+                widget.title = _getFormattedDate(dateTime);
+                if (widget.onDateSelect != null) {
+                  widget.onDateSelect!(dateTime);
+                }
+              }),
+              debugPrint("onConfirm$dateTime selectedIndex:$selectedIndex"),
+              widget.selectedDate = dateTime,
+            },
         onChange: (DateTime dateTime, List<int> selectedIndex) => {
-          debugPrint("onChange$dateTime selectedIndex:$selectedIndex"),
-        },
+              debugPrint("onChange$dateTime selectedIndex:$selectedIndex"),
+            },
         maxDateTime: DateTime.now(),
         pickerMode: DateTimePickerMode.date);
   }
@@ -134,4 +152,3 @@ class _CMEDBirthDatePickerState extends State<CMEDBirthDatePicker> {
 String _getFormattedDate(DateTime dateTime) {
   return formatDate(dateTime, [dd, ' ', M, ' ', yyyy]);
 }
-
