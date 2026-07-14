@@ -281,7 +281,10 @@ enum BPDeviceStatus {
         type: DeviceUiType.interactiveAction,
         title: ''.tr,
         subtitle: 'Your device is connected and ready to use'.tr,
-        child: ListTile(leading: Image.asset('assets/images/measurement/wear_the_cuff.png'), title: Text('Wear the cuffs properly'.tr), subtitle: Text('Wrap the cuff around your bare upper arm. Keep your arm still and resting on a flat surface.'),),
+        child: ListTile(leading: Image.asset('assets/images/measurement/wear_the_cuff.png', color: Theme.of(context).primaryColor,), title: Text('Wear the cuffs properly'.tr, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),), subtitle: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text('Wrap the cuff around your bare upper arm. Keep your arm still and resting on a flat surface.'),
+        ),),
         themeColor: Theme.of(context).primaryColor,
         actionButtonLabel: 'label_start'.tr,
       ),
