@@ -152,7 +152,7 @@ class OxygenSaturationDeviceConnectionView
                             onReconnectDevice: () async {
                               await controller.reconnect();
                             },
-                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName),
+                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null),
                           ),
                         ),
                       ),
@@ -166,7 +166,7 @@ class OxygenSaturationDeviceConnectionView
                             onReconnectDevice: () async {
                               await controller.reconnect();
                             },
-                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName),
+                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null),
                           ),
                         ),
                       ),

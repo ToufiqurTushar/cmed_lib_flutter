@@ -4,37 +4,52 @@ import 'package:flutter_svg/svg.dart';
 
 class CenterRadar extends StatelessWidget {
   int? oneFullRotationInMilliSeconds;
-  CenterRadar({this.oneFullRotationInMilliSeconds, super.key});
+  String? info;
+  CenterRadar({this.oneFullRotationInMilliSeconds, this.info, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RadarPulsator(
-        oneFullRotationInMilliSeconds: 2000,
-        color: Theme.of(context).primaryColor,
-        centerWidget: Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.04),
-                blurRadius: 10.0,
-                spreadRadius: 2.0,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          RadarPulsator(
+            oneFullRotationInMilliSeconds: 2000,
+            color: Theme.of(context).primaryColor,
+            centerWidget: Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 10.0,
+                    spreadRadius: 2.0,
+                  ),
+                ],
               ),
-            ],
-          ),
-          padding: const EdgeInsets.all(22.0),
-          child: SvgPicture.asset(
-            "assets/icons-v2/bluetooth.svg",
-            colorFilter: ColorFilter.mode(
-              Theme.of(context).primaryColor,
-              BlendMode.srcIn,
+              padding: const EdgeInsets.all(22.0),
+              child: SvgPicture.asset(
+                "assets/icons-v2/bluetooth.svg",
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).primaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
           ),
-        ),
+          if(info != null)
+            Text(
+              info!,
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+        ],
       ),
     );
   }

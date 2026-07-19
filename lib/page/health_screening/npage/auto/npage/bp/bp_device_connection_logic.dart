@@ -8,6 +8,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../../../common/api/api_url.dart';
 import '../../../../../../common/widget/radar_pulsator.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
@@ -141,6 +142,9 @@ class BpDeviceConnectionLogic extends BaseLogic {
               measuredAt: DateTime.now().millisecondsSinceEpoch
           );
         }
+        if(isNestedRoute){
+          sendBpAndPulseMeasurement();
+        }
       });
     });
 
@@ -217,11 +221,12 @@ class BpDeviceConnectionLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+    final url = isNestedRoute?ApiUrl.addMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       if (bpMeasurementWithResult != null) {
         allMeasurements[0].result = bpMeasurementWithResult.result;
         if (result.length >= 3) {
-          repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+          repository.sendData(url, (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
             isLoading.value = false;
             screeningReport.value = bpMeasurementWithResult;
             allMeasurements[1].result = pulseMeasurementWithResult!.result;
@@ -232,8 +237,8 @@ class BpDeviceConnectionLogic extends BaseLogic {
               });
             }
 
-            // String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
-            Get.offNamed('/screening_report_result_details', arguments: [
+            String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+            Get.offNamed(route, arguments: [
               ScreeningReportResultDetailsArgument(
                   screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
               )

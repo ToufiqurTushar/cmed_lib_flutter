@@ -91,6 +91,7 @@ dependencies:
       url: https://gitlab.com/cmed-bd/ecg-lib-flutter.git
       #url: git@gitlab.com:cmed-bd/ecg-lib-flutter.git
       ref: susastho_lite_ecg
+  google_fonts: ^8.1.0
 
 dev_dependencies:
   flutter_test:

@@ -82,7 +82,7 @@ class _CMEDDropdownWidgetState extends State<CMEDDropdownWidget> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  color: widget.borderColor ?? const Color(0xFFB2F2D2),
+                  color: widget.borderColor ?? const Color(0xFF7ee7af),
                   width: 2.0,
                 ),
                 color: widget.color ?? Colors.white,

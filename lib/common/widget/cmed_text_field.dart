@@ -115,22 +115,22 @@ class CMEDTextField extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide:
-                    const BorderSide(color: Color(0xFFB2F2D2), width: 2.0),
+                    const BorderSide(color: Color(0xFF7ee7af), width: 1.0),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide:
-                    const BorderSide(color: Color(0xFFB2F2D2), width: 2.0),
+                    const BorderSide(color: Color(0xFF7ee7af), width: 1.0),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide:
-                    BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                    BorderSide(color: Theme.of(context).primaryColor, width: 1.5),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide:
-                    const BorderSide(color: Colors.red, width: 2.0),
+                    const BorderSide(color: Colors.red, width: 1.0),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
