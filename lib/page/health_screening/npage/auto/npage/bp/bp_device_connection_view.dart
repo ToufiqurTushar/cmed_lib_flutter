@@ -19,6 +19,7 @@ import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 
 import '../../../../../../common/helper/date_utils.dart';
 import '../../../../../../common/widget/universal_device_card.dart';
+import '../../../../../../common/widget/widget_v2.dart';
 import '../../../../dto/measurement_dto.dart';
 
 class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
@@ -29,188 +30,191 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
   @override
   Widget build(BuildContext context) {
     return widgetV(
-      v2: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Obx(() {
-            final bpCurrentEnum = BPDeviceStatus.fromString(controller.bpCurrentStatusObs.value);
-            return Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Builder(
-                            builder: (context) {
-                              final report = controller.screeningReport.value;
-                              final List<Map<String, dynamic>> activeMetrics = [];
+      v2: GradientWhiteToGreen(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: BasicAppBar52('Measure blood pressure'.tr, hasProfile: false, elevation: 0,),
+          body: SafeArea(
+            child: Obx(() {
+              final bpCurrentEnum = BPDeviceStatus.fromString(controller.bpCurrentStatusObs.value);
+              return Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Builder(
+                              builder: (context) {
+                                final report = controller.screeningReport.value;
+                                final List<Map<String, dynamic>> activeMetrics = [];
 
-                              if (report.getValue1() != null && report.getValue1()!.isNotEmpty) {
-                                activeMetrics.add({
-                                  'title': report.getValue1Title()?.tr ?? '',
-                                  'unit': report.getValue1Unit() ?? '',
-                                  'value': report.measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value
-                                      ? report.getMeasurementValueWithUnitString()
-                                      : report.getValue1() ?? '',
-                                  'color': report.getIntColor(),
-                                });
-                              }
+                                if (report.getValue1() != null && report.getValue1()!.isNotEmpty) {
+                                  activeMetrics.add({
+                                    'title': report.getValue1Title()?.tr ?? '',
+                                    'unit': report.getValue1Unit() ?? '',
+                                    'value': report.measurementTypeCodeId == MeasurementType.BLOOD_SUGAR.value
+                                        ? report.getMeasurementValueWithUnitString()
+                                        : report.getValue1() ?? '',
+                                    'color': report.getIntColor(),
+                                  });
+                                }
 
-                              if (report.getValue2() != null && report.getValue2()!.isNotEmpty) {
-                                activeMetrics.add({
-                                  'title': report.getValue2Title().tr,
-                                  'unit': report.getValue2Unit(),
-                                  'value': report.getValue2() ?? '',
-                                  'color': report.getIntColor(),
-                                });
-                              }
+                                if (report.getValue2() != null && report.getValue2()!.isNotEmpty) {
+                                  activeMetrics.add({
+                                    'title': report.getValue2Title().tr,
+                                    'unit': report.getValue2Unit(),
+                                    'value': report.getValue2() ?? '',
+                                    'color': report.getIntColor(),
+                                  });
+                                }
 
-                              if (report.getValue3() != null && report.getValue3()!.isNotEmpty) {
-                                activeMetrics.add({
-                                  'title': report.getValue3Title()?.tr ?? '',
-                                  'unit': report.getValue3Unit() ?? '',
-                                  'value': report.getValue3() ?? '',
-                                  'color': report.getIntColor(),
-                                });
-                              }
+                                if (report.getValue3() != null && report.getValue3()!.isNotEmpty) {
+                                  activeMetrics.add({
+                                    'title': report.getValue3Title()?.tr ?? '',
+                                    'unit': report.getValue3Unit() ?? '',
+                                    'value': report.getValue3() ?? '',
+                                    'color': report.getIntColor(),
+                                  });
+                                }
 
-                              final timeStr = CustomDateUtils.format(report.measuredAt, format: "h:mm a");
-                              final dateStr = CustomDateUtils.format(report.measuredAt, format: "MM-dd-yyyy");
-                              final statusColor = Color(report.getIntColor());
+                                final timeStr = CustomDateUtils.format(report.measuredAt, format: "h:mm a");
+                                final dateStr = CustomDateUtils.format(report.measuredAt, format: "MM-dd-yyyy");
+                                final statusColor = Color(report.getIntColor());
 
-                              final metricWidgetsLeft = activeMetrics.map((metric) {
-                                return Container(
-                                  height: 65,
-                                  alignment: Alignment.centerLeft,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        metric['title']!,
-                                        style: GoogleFonts.rajdhani(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87,
+                                final metricWidgetsLeft = activeMetrics.map((metric) {
+                                  return Container(
+                                    height: 65,
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          metric['title']!,
+                                          style: GoogleFonts.rajdhani(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
                                         ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          metric['unit']!,
+                                          style: GoogleFonts.rajdhani(
+                                            fontSize: 13,
+                                            color: Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList();
+
+                                final metricWidgetsRight = activeMetrics.map((metric) {
+                                  return Container(
+                                    height: 65,
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      metric['value']!,
+                                      style: GoogleFonts.rajdhani(
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.bold,
+                                        color: metric['value']! == "0"? Color(0xFFc8e3d4): Colors.black87,
                                       ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        metric['unit']!,
-                                        style: GoogleFonts.rajdhani(
-                                          fontSize: 13,
-                                          color: Theme.of(context).primaryColor,
-                                          fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                }).toList();
+
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(16),
+                                    border: Border.all(
+                                      color: const Color(0xFFE2F5EC),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      IntrinsicHeight(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            Expanded(
+                                              flex: 4,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: metricWidgetsLeft,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 16),
+                                            Expanded(
+                                              flex: 6,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFdbf9e8),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                                padding: const EdgeInsets.all(16.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    ...metricWidgetsRight,
+                                                    const Spacer(),
+                                                    const SizedBox(height: 12),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(timeStr, style: const TextStyle(fontSize: 11, color: Colors.black54, fontFamily: "sans-serif")),
+                                                        Text(dateStr, style: const TextStyle(fontSize: 11, color: Colors.black54, fontFamily: "sans-serif")),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 );
-                              }).toList();
-
-                              final metricWidgetsRight = activeMetrics.map((metric) {
-                                return Container(
-                                  height: 65,
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    metric['value']!,
-                                    style: GoogleFonts.rajdhani(
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.bold,
-                                      color: metric['value']! == "0"? Color(0xFFc8e3d4): Colors.black87,
-                                    ),
-                                  ),
-                                );
-                              }).toList();
-
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                  border: Border.all(
-                                    color: const Color(0xFFE2F5EC),
-                                    width: 1.5,
-                                  ),
-                                ),
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    IntrinsicHeight(
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: metricWidgetsLeft,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 16),
-                                          Expanded(
-                                            flex: 6,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFdbf9e8),
-                                                borderRadius: BorderRadius.circular(12),
-                                              ),
-                                              padding: const EdgeInsets.all(16.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  ...metricWidgetsRight,
-                                                  const Spacer(),
-                                                  const SizedBox(height: 12),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Text(timeStr, style: const TextStyle(fontSize: 11, color: Colors.black54, fontFamily: "sans-serif")),
-                                                      Text(dateStr, style: const TextStyle(fontSize: 11, color: Colors.black54, fontFamily: "sans-serif")),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                        ),
-                        UniversalDeviceCard(
-                          uiState: bpCurrentEnum.toUiState(context, controller.bpValueObs.value),
-                          onActionPressed: () {
-                            switch (bpCurrentEnum) {
-                              case BPDeviceStatus.TapConnect:
-                              case BPDeviceStatus.TapReConnect:
-                              case BPDeviceStatus.Idle:
-                                controller.connect();
-                                break;
-                              case BPDeviceStatus.DeviceNotFound:
-                                controller.reconnect();
-                                break;
-                              case BPDeviceStatus.DeviceConnected:
-                                controller.startMeasurement();
-                                break;
-                              default:
-                                break;
-                            }
-                          },
-                        ),
-                      ],
+                              }
+                          ),
+                          UniversalDeviceCard(
+                            uiState: bpCurrentEnum.toUiState(context, controller.bpValueObs.value),
+                            onActionPressed: () {
+                              switch (bpCurrentEnum) {
+                                case BPDeviceStatus.TapConnect:
+                                case BPDeviceStatus.TapReConnect:
+                                case BPDeviceStatus.Idle:
+                                  controller.connect();
+                                  break;
+                                case BPDeviceStatus.DeviceNotFound:
+                                  controller.reconnect();
+                                  break;
+                                case BPDeviceStatus.DeviceConnected:
+                                  controller.startMeasurement();
+                                  break;
+                                default:
+                                  break;
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            );
-          }),
+                ],
+              );
+            }),
+          ),
         ),
       ),
       v1: Scaffold(
@@ -222,7 +226,6 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
               Obx(() => Expanded(
                 child: Stack(
                   children: [
-
                     Visibility(
                       visible: controller.isResultFound.isFalse && (controller.screen_status.value ==
                               ScreenEnum.CONNECT.name ||
