@@ -13,6 +13,9 @@ import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 
+import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
+import '../../../../../../common/widget/widget_v2.dart';
+
 
 class BloodGlucoseAutoSelectTimePeriodView
     extends RapidView<BloodGlucoseAutoSelectTimePeriodLogic> {
@@ -20,79 +23,155 @@ class BloodGlucoseAutoSelectTimePeriodView
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-      appBar: controller.isNestedRoute?null:BasicAppBar('label_blood_glucose'.tr),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 12,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Card(
-                shadowColor: Theme.of(context).primaryColor,
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                        child: Text(
-                          'label_select_time_period'.tr,
-                          style: CMEDTextUtils.inputTextLabelStyle,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: CMEDDropdownWidget(getTimePeriods(),
-                                  dropdownTitle: 'label_select_time_period'.tr,
-                                  onItemSelected: (data) {
-                            controller.selectedItem.value = data;
-                          })),
+    return widgetV(
+      v2: GradientWhiteToGreen(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: BasicAppBar('label_blood_glucose'.tr),
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 12,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Card(
+                    shadowColor: Theme.of(context).primaryColor,
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                            child: Text(
+                              'label_select_time_period'.tr,
+                              style: CMEDTextUtils.inputTextLabelStyle,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: CMEDDropdownWidget(getTimePeriods(),
+                                      dropdownTitle: 'label_select_time_period'.tr,
+                                      onItemSelected: (data) {
+                                        controller.selectedItem.value = data;
+                                      })),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                    ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: Row(
+            children: [
+              Expanded(
+                child: CMEDPrimaryElevatedButton(
+                  'label_next'.tr,
+                      () => {
+                    if (controller.selectedItem.value.id != null){
+                      controller.requestMicrophonePermissionAndNavigate(),
+                    }
+                    else {
+                      ShowToast.error('error_select_time_period'.tr)
+                    }
+                  },
+
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      v1: Scaffold(
+        appBar: BasicAppBar('label_blood_glucose'.tr),
+        body: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 12,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Card(
+                  shadowColor: Theme.of(context).primaryColor,
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                          child: Text(
+                            'label_select_time_period'.tr,
+                            style: CMEDTextUtils.inputTextLabelStyle,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: CMEDDropdownWidget(getTimePeriods(),
+                                    dropdownTitle: 'label_select_time_period'.tr,
+                                    onItemSelected: (data) {
+                              controller.selectedItem.value = data;
+                            })),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CMEDWhiteElevatedButton(
-                      'label_next'.tr,
-                      () => {
-                        if (controller.selectedItem.value.id != null){
-                            controller.requestMicrophonePermissionAndNavigate(),
-                        }
-                        else {
-                            ShowToast.error('error_select_time_period'.tr)
-                        }
-                      },
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CMEDWhiteElevatedButton(
+                        'label_next'.tr,
+                        () => {
+                          if (controller.selectedItem.value.id != null){
+                              controller.requestMicrophonePermissionAndNavigate(),
+                          }
+                          else {
+                              ShowToast.error('error_select_time_period'.tr)
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -128,5 +207,12 @@ class BloodGlucoseAutoSelectTimePeriodView
   void loadDependentLogics() {
     Get.put(ScreeningReportRepository());
     Get.put(BloodGlucoseAutoSelectTimePeriodLogic());
+  }
+
+  static Widget widgetV({required Widget v1, Widget? v2}) {
+    if (Get.find<BloodGlucoseAutoSelectTimePeriodLogic>().isNestedRoute) {
+      return v2 ?? v1;
+    }
+    return v1;
   }
 }
