@@ -30,10 +30,10 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
   @override
   Widget build(BuildContext context) {
     return widgetV(
-      v2: GradientWhiteToGreen(
+      v2: GradientWhiteToPrimary(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: BasicAppBar52('Measure blood pressure'.tr, hasProfile: false, elevation: 0,),
+          appBar: controller.isNestedRoute? null: MiniAppBar('Measure blood pressure'.tr, hasProfile: false, elevation: 0,),
           body: SafeArea(
             child: Obx(() {
               final bpCurrentEnum = BPDeviceStatus.fromString(controller.bpCurrentStatusObs.value);
@@ -481,7 +481,7 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
   }
 
   static Widget widgetV({required Widget v1, Widget? v2}) {
-    if (Get.find<BpDeviceConnectionLogic>().isNestedRoute) {
+    if (Get.find<BpDeviceConnectionLogic>().isThemeV2) {
       return v2 ?? v1;
     }
     return v1;

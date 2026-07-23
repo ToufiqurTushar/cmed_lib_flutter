@@ -25,6 +25,7 @@ class OxygenSaturationLogic extends BaseLogic {
   var screeningReport = MeasurementDTO().obs;
 
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
@@ -33,6 +34,7 @@ class OxygenSaturationLogic extends BaseLogic {
     pulseController = TextEditingController();
 
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 
   }
 

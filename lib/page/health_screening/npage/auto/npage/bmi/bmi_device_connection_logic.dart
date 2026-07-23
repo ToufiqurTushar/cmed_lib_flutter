@@ -38,6 +38,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   @override
   Future<void> onInit() async{
@@ -47,6 +48,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
     });

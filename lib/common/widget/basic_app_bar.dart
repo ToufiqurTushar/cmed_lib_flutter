@@ -34,11 +34,11 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 
-class BasicAppBar52 extends StatelessWidget implements PreferredSizeWidget {
+class MiniAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(52);
 
-  BasicAppBar52(
+  MiniAppBar(
       this.title, {
         super.key,
         this.trailingWidget,

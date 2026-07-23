@@ -1,5 +1,6 @@
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
+import 'package:cmed_lib_flutter/common/widget/widget_v2.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/measurement_view_arg.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bmi_height_input_logic.dart';
@@ -17,6 +18,7 @@ import 'package:themed/themed.dart';
 
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 
+import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
 import '../../../auto/npage/bmi/bmi_device_connection_view.dart';
 
 class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
@@ -24,264 +26,529 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-      appBar: controller.isNestedRoute? null: BasicAppBar(
-        'label_bmi'.tr,
-      ),
-      body: SafeArea(
-        child: Form(
-          key: controller.screeningReportFormKey,
-          child: Column(
-            children: [
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return widgetV(
+      v2: GradientWhiteToPrimary(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: controller.isNestedRoute? null: MiniAppBar(
+            'label_bmi'.tr,
+          ),
+          body: SafeArea(
+            child: Form(
+              key: controller.screeningReportFormKey,
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Card(
-                      shadowColor: Theme.of(context).primaryColor,
-                      elevation: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Card(
+                          shadowColor: Theme.of(context).primaryColor,
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
+                              children: <Widget>[
                                 const SizedBox(
-                                  width: 2,
+                                  height: 4,
                                 ),
-                                Expanded(
-                                    flex: 7,
-                                    child: Obx(() {
-                                      return Text(
-                                          controller.heightUnit.value ==
-                                                  BmiUnit.FEET_INCH.name
-                                              ? 'title_measurement_in_feet_inch'
-                                                  .tr
-                                              : 'title_measurement_centimeter'
-                                                  .tr,
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold));
-                                    })),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: InkWell(
-                                    onTap: () =>
-                                        {controller.toggleHeightUnit()},
-                                    child: ChangeColors(
-                                      hue: AppUidConfig.getHueOnGreen(),
-                                      child: SvgPicture.asset(
-                                        width: 42,
-                                        "assets/images/measurement/icon_reverse.svg",
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    Expanded(
+                                        flex: 7,
+                                        child: Obx(() {
+                                          return Text(
+                                              controller.heightUnit.value ==
+                                                      BmiUnit.FEET_INCH.name
+                                                  ? 'title_measurement_in_feet_inch'
+                                                      .tr
+                                                  : 'title_measurement_centimeter'
+                                                      .tr,
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold));
+                                        })),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: InkWell(
+                                        onTap: () =>
+                                            {controller.toggleHeightUnit()},
+                                        child: ChangeColors(
+                                          hue: AppUidConfig.getHueOnGreen(),
+                                          child: SvgPicture.asset(
+                                            width: 42,
+                                            "assets/images/measurement/icon_reverse.svg",
+                                          ),
+                                        ),
                                       ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Obx(
+                                  () => Visibility(
+                                    visible: controller.heightUnit.value ==
+                                        BmiUnit.CENTIMETER.name,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 2.0),
+                                          child: Text(
+                                            'input_label_input_height_cm'.tr,
+                                            style:
+                                                CMEDTextUtils.inputTextLabelStyle,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        CMEDTextField('input_hint_cm'.tr,
+                                            keyboardType: const TextInputType
+                                                .numberWithOptions(),
+                                            textEditingController: controller
+                                                .heightInCentimeterEditTextController,
+                                            onSaved: (value) {},
+                                            onValidator: (value) {
+                                          return controller
+                                              .validateHeightInCentimeter(value!);
+                                        }),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Obx(
-                              () => Visibility(
-                                visible: controller.heightUnit.value ==
-                                    BmiUnit.CENTIMETER.name,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Obx(() => Visibility(
+                                    visible: controller.heightUnit.value ==
+                                        BmiUnit.FEET_INCH.name,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                    'label_input_height_feet'.tr,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold))),
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                    'label_input_height_inch'.tr,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold))),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: CMEDTextField(
+                                                  'input_label_hint_height_feet'.tr,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  textEditingController: controller
+                                                      .heightInFeetEditTextController,
+                                                  onSaved: (value) {},
+                                                  onValidator: (value) {
+                                                return controller
+                                                    .validateHeightInFeet(value!);
+                                              }),
+                                            ),
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: CMEDTextField(
+                                                  'input_label_hint_height_inch'.tr,
+                                                  keyboardType: const TextInputType
+                                                          .numberWithOptions(
+                                                      decimal: true),
+                                                  inputFormatters: <TextInputFormatter>[
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(
+                                                            r'^\d+\.?\d{0,2}'))
+                                                  ],
+                                                  textEditingController: controller
+                                                      .heightInInchEditTextController,
+                                                  onSaved: (value) {},
+                                                  onValidator: (value) {
+                                                return controller
+                                                    .validateHeightInInch(value!);
+                                              }),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ))),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Stack(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 2.0),
-                                      child: Text(
-                                        'input_label_input_height_cm'.tr,
-                                        style:
-                                            CMEDTextUtils.inputTextLabelStyle,
+                                          vertical: 8.0, horizontal: 0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: CMEDPrimaryElevatedButton(
+                                              'label_enter'.tr,
+                                              () {
+                                                if (controller.isValidInput()){
+                                                  if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+                                                    Get.toNamed(AutoManualSelectionView.routeName, arguments: {
+                                                      "codeId": MeasurementType.BMI.value,
+                                                      "heightUnit": controller.heightUnit.value,
+                                                      "heightInCm": controller.getHeightInCentimeter(),
+                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                      "heightInInch": controller.heightInInchEditTextController.text
+                                                    },);
+                                                  } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+                                                    bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
+                                                    if(isAuto){
+                                                      Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
+                                                          isAuto: isAuto,
+                                                          isNestedRoute: controller.isNestedRoute,
+                                                          heightUnit: controller.heightUnit.value,
+                                                          heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                          heightInFeet: controller.heightInFeetEditTextController.text,
+                                                          heightInInch: controller.heightInInchEditTextController.text
+                                                      ), id: controller.isNestedRoute? 1: null);
+                                                    } else {
+                                                      Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
+                                                        MeasurementViewArg(
+                                                          isAuto: isAuto,
+                                                          isNestedRoute: controller.isNestedRoute,
+                                                          heightUnit: controller.heightUnit.value,
+                                                          heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                          heightInFeet: controller.heightInFeetEditTextController.text,
+                                                          heightInInch: controller.heightInInchEditTextController.text
+                                                        ), id: controller.isNestedRoute? 1: null
+                                                      );
+                                                    }
+        
+                                                  }
+                                                }
+        
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    CMEDTextField('input_hint_cm'.tr,
-                                        keyboardType: const TextInputType
-                                            .numberWithOptions(),
-                                        textEditingController: controller
-                                            .heightInCentimeterEditTextController,
-                                        onSaved: (value) {},
-                                        onValidator: (value) {
-                                      return controller
-                                          .validateHeightInCentimeter(value!);
-                                    }),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                            Obx(() => Visibility(
-                                visible: controller.heightUnit.value ==
-                                    BmiUnit.FEET_INCH.name,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                                'label_input_height_feet'.tr,
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold))),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                                'label_input_height_inch'.tr,
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold))),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: CMEDTextField(
-                                              'input_label_hint_height_feet'.tr,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              textEditingController: controller
-                                                  .heightInFeetEditTextController,
-                                              onSaved: (value) {},
-                                              onValidator: (value) {
-                                            return controller
-                                                .validateHeightInFeet(value!);
-                                          }),
-                                        ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: CMEDTextField(
-                                              'input_label_hint_height_inch'.tr,
-                                              keyboardType: const TextInputType
-                                                      .numberWithOptions(
-                                                  decimal: true),
-                                              inputFormatters: <TextInputFormatter>[
-                                                FilteringTextInputFormatter
-                                                    .allow(RegExp(
-                                                        r'^\d+\.?\d{0,2}'))
-                                              ],
-                                              textEditingController: controller
-                                                  .heightInInchEditTextController,
-                                              onSaved: (value) {},
-                                              onValidator: (value) {
-                                            return controller
-                                                .validateHeightInInch(value!);
-                                          }),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ))),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 16.0),
-                                  child: Row(
+                          ),
+                        ),
+                      ),
+                    ],
+                  ))
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      v1: Scaffold(
+        appBar: BasicAppBar(
+          'label_bmi'.tr,
+        ),
+        body: SafeArea(
+          child: Form(
+            key: controller.screeningReportFormKey,
+            child: Column(
+              children: [
+                Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Card(
+                            shadowColor: Theme.of(context).primaryColor,
+                            elevation: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
                                       Expanded(
-                                        child: CMEDWhiteElevatedButton(
-                                          'label_enter'.tr,
-                                          () {
-                                            if (controller.isValidInput()){
-                                              if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
-                                                Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                  "codeId": MeasurementType.BMI.value,
-                                                  "heightUnit": controller.heightUnit.value,
-                                                  "heightInCm": controller.getHeightInCentimeter(),
-                                                  "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                  "heightInInch": controller.heightInInchEditTextController.text
-                                                },);
-                                              } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
-                                                if(isAuto){
-                                                  Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
-                                                      isAuto: isAuto,
-                                                      isNestedRoute: controller.isNestedRoute,
-                                                      heightUnit: controller.heightUnit.value,
-                                                      heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                      heightInFeet: controller.heightInFeetEditTextController.text,
-                                                      heightInInch: controller.heightInInchEditTextController.text
-                                                  ), id: controller.isNestedRoute? 1: null);
-                                                } else {
-                                                  Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
-                                                    MeasurementViewArg(
-                                                      isAuto: isAuto,
-                                                      isNestedRoute: controller.isNestedRoute,
-                                                      heightUnit: controller.heightUnit.value,
-                                                      heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                      heightInFeet: controller.heightInFeetEditTextController.text,
-                                                      heightInInch: controller.heightInInchEditTextController.text
-                                                    ), id: controller.isNestedRoute? 1: null
-                                                  );
-                                                }
-                                                
-                                              }
-                                            }
-
-                                          },
+                                          flex: 7,
+                                          child: Obx(() {
+                                            return Text(
+                                                controller.heightUnit.value ==
+                                                    BmiUnit.FEET_INCH.name
+                                                    ? 'title_measurement_in_feet_inch'
+                                                    .tr
+                                                    : 'title_measurement_centimeter'
+                                                    .tr,
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold));
+                                          })),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: () =>
+                                          {controller.toggleHeightUnit()},
+                                          child: ChangeColors(
+                                            hue: AppUidConfig.getHueOnGreen(),
+                                            child: SvgPicture.asset(
+                                              width: 42,
+                                              "assets/images/measurement/icon_reverse.svg",
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Obx(
+                                        () => Visibility(
+                                      visible: controller.heightUnit.value ==
+                                          BmiUnit.CENTIMETER.name,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 2.0),
+                                            child: Text(
+                                              'input_label_input_height_cm'.tr,
+                                              style:
+                                              CMEDTextUtils.inputTextLabelStyle,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          CMEDTextField('input_hint_cm'.tr,
+                                              keyboardType: const TextInputType
+                                                  .numberWithOptions(),
+                                              textEditingController: controller
+                                                  .heightInCentimeterEditTextController,
+                                              onSaved: (value) {},
+                                              onValidator: (value) {
+                                                return controller
+                                                    .validateHeightInCentimeter(value!);
+                                              }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Obx(() => Visibility(
+                                      visible: controller.heightUnit.value ==
+                                          BmiUnit.FEET_INCH.name,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(
+                                                width: 2,
+                                              ),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                      'label_input_height_feet'.tr,
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                          FontWeight.bold))),
+                                              const SizedBox(
+                                                width: 4,
+                                              ),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                      'label_input_height_inch'.tr,
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                          FontWeight.bold))),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: CMEDTextField(
+                                                    'input_label_hint_height_feet'.tr,
+                                                    keyboardType:
+                                                    TextInputType.number,
+                                                    textEditingController: controller
+                                                        .heightInFeetEditTextController,
+                                                    onSaved: (value) {},
+                                                    onValidator: (value) {
+                                                      return controller
+                                                          .validateHeightInFeet(value!);
+                                                    }),
+                                              ),
+                                              const SizedBox(
+                                                width: 4,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: CMEDTextField(
+                                                    'input_label_hint_height_inch'.tr,
+                                                    keyboardType: const TextInputType
+                                                        .numberWithOptions(
+                                                        decimal: true),
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                          r'^\d+\.?\d{0,2}'))
+                                                    ],
+                                                    textEditingController: controller
+                                                        .heightInInchEditTextController,
+                                                    onSaved: (value) {},
+                                                    onValidator: (value) {
+                                                      return controller
+                                                          .validateHeightInInch(value!);
+                                                    }),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ))),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0, horizontal: 16.0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: CMEDWhiteElevatedButton(
+                                                'label_enter'.tr,
+                                                    () {
+                                                  if (controller.isValidInput()){
+                                                    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+                                                      Get.toNamed(AutoManualSelectionView.routeName, arguments: {
+                                                        "codeId": MeasurementType.BMI.value,
+                                                        "heightUnit": controller.heightUnit.value,
+                                                        "heightInCm": controller.getHeightInCentimeter(),
+                                                        "heightInFeet": controller.heightInFeetEditTextController.text,
+                                                        "heightInInch": controller.heightInInchEditTextController.text
+                                                      },);
+                                                    } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+                                                      bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
+                                                      if(isAuto){
+                                                        Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
+                                                            isAuto: isAuto,
+                                                            isNestedRoute: controller.isNestedRoute,
+                                                            heightUnit: controller.heightUnit.value,
+                                                            heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                            heightInFeet: controller.heightInFeetEditTextController.text,
+                                                            heightInInch: controller.heightInInchEditTextController.text
+                                                        ), id: controller.isNestedRoute? 1: null);
+                                                      } else {
+                                                        Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
+                                                        MeasurementViewArg(
+                                                            isAuto: isAuto,
+                                                            isNestedRoute: controller.isNestedRoute,
+                                                            heightUnit: controller.heightUnit.value,
+                                                            heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                            heightInFeet: controller.heightInFeetEditTextController.text,
+                                                            heightInInch: controller.heightInInchEditTextController.text
+                                                        ), id: controller.isNestedRoute? 1: null
+                                                        );
+                                                      }
+
+                                                    }
+                                                  }
+
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
-              ))
-            ],
+                      ],
+                    ))
+              ],
+            ),
           ),
         ),
       ),
@@ -362,5 +629,12 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
   @override
   void loadDependentLogics() {
     Get.lazyPut<BmiHeightInputLogic>(() => BmiHeightInputLogic());
+  }
+
+  static Widget widgetV({required Widget v1, Widget? v2}) {
+    if (Get.find<BmiHeightInputLogic>().isThemeV2) {
+      return v2 ?? v1;
+    }
+    return v1;
   }
 }

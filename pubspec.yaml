@@ -53,6 +53,7 @@ dependencies:
   crypto: ^3.0.2
   chucker_flutter: ^1.9.2
   uuid: ^4.3.3
+  simple_animations: ^5.0.2
   #plugin
   endometriosis_lib_flutter:
     git:
@@ -107,6 +108,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/screening/
 
   # This section identifies this Flutter project as a plugin project.
   # The 'pluginClass' specifies the class (in Java, Kotlin, Swift, Objective-C, etc.)

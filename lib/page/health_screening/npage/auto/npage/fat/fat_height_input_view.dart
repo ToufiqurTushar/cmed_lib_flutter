@@ -22,7 +22,6 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
       appBar: BasicAppBar('label_body_fat_composition'.tr,),
       body: SafeArea(
         child: Form(

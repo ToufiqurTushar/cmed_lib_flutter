@@ -23,6 +23,7 @@ class TempInputLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   @override
   void onInit() {
@@ -30,6 +31,7 @@ class TempInputLogic extends BaseLogic {
     dateController = TextEditingController();
     temperatureEditTextController = TextEditingController();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 
   }
 

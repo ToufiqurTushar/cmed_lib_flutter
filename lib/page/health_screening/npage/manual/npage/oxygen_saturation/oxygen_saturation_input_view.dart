@@ -12,6 +12,9 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 
+import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
+import '../../../../../../common/widget/widget_v2.dart';
+
 class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
   static String routeName = '/oxygen_saturation_input_page';
 
@@ -21,123 +24,248 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
       onTap: (){
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: Scaffold(
-        backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-        appBar: controller.isNestedRoute? null: BasicAppBar('label_oxygen_saturation'.tr),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Form(
-              key: controller.screeningReportFormKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Card(
-                      shadowColor: Theme.of(context).primaryColor,
-                      elevation: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const SizedBox(
-                              height: 4,
+      child: widgetV(
+        v2: GradientWhiteToPrimary(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: controller.isNestedRoute? null: MiniAppBar('label_oxygen_saturation'.tr),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: controller.screeningReportFormKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Card(
+                          shadowColor: Theme.of(context).primaryColor,
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'label_select_date'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                ),
+                                CMEDBirthDatePicker(
+                                  bottomMargin: 12,
+                                  title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
+                                  isShowCurrentDate: true,
+                                  onDateSelect: (DateTime date) {
+                                    controller.dateController.text = date.millisecondsSinceEpoch.toString();
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'input_label_oxygen_saturation'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                ),
+                                CMEDTextField('input_hint_oxygen_saturation'.tr,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    keyboardType: TextInputType.number,
+                                    textEditingController: controller.spo2Controller,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                      return controller.validateSPO2(value!);
+                                    }),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  'input_label_pulse_rate'.tr,
+                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                ),
+                                CMEDTextField('input_hint_bpm'.tr,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    keyboardType: TextInputType.number,
+                                    textEditingController: controller.pulseController,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                      return controller.validatePulse(value!);
+                                    }
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 2.0),
-                              child: Text(
-                                'label_select_date'.tr,
-                                style: CMEDTextUtils.inputTextLabelStyle,
-                              ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CMEDPrimaryElevatedButton(
+                                    'label_enter'.tr,
+                                        () => {
+                                      if (controller.isValidInput())
+                                        controller.sendMeasurement(),
+                                      // CMEDDialogs.showDoubleButtonDialog(
+                                      //     'label_measurement_store_warning'.tr,
+                                      //     bodyText: controller.getInputText(),
+                                      //     onPositiveButtonClick: () => {
+                                      //       controller.sendMeasurement(),
+                                      //     }),
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            CMEDBirthDatePicker(
-                              bottomMargin: 12,
-                              title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
-                              isShowCurrentDate: true,
-                              onDateSelect: (DateTime date) {
-                                controller.dateController.text = date.millisecondsSinceEpoch.toString();
-                              },
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 2.0),
-                              child: Text(
-                                'input_label_oxygen_saturation'.tr,
-                                style: CMEDTextUtils.inputTextLabelStyle,
-                              ),
-                            ),
-                            CMEDTextField('input_hint_oxygen_saturation'.tr,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                keyboardType: TextInputType.number,
-                                textEditingController: controller.spo2Controller,
-                                onSaved: (value) {}, onValidator: (value) {
-                                  return controller.validateSPO2(value!);
-                                }),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              'input_label_pulse_rate'.tr,
-                              style: CMEDTextUtils.inputTextLabelStyle,
-                            ),
-                            CMEDTextField('input_hint_bpm'.tr,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                keyboardType: TextInputType.number,
-                                textEditingController: controller.pulseController,
-                                onSaved: (value) {}, onValidator: (value) {
-                                  return controller.validatePulse(value!);
-                                }
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
+                            Obx(() {
+                              return Visibility(
+                                  visible: controller.isLoading.value,
+                                  child:
+                                  const Center(child: CircularProgressIndicator()));
+                            }),
                           ],
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: CMEDWhiteElevatedButton(
-                                'label_enter'.tr,
-                                    () => {
-                                  if (controller.isValidInput())
-                                    controller.sendMeasurement(),
-                                  // CMEDDialogs.showDoubleButtonDialog(
-                                  //     'label_measurement_store_warning'.tr,
-                                  //     bodyText: controller.getInputText(),
-                                  //     onPositiveButtonClick: () => {
-                                  //       controller.sendMeasurement(),
-                                  //     }),
+                ),
+              ),
+            ),
+          ),
+        ),
+        v1: Scaffold(
+          appBar: BasicAppBar('label_oxygen_saturation'.tr),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Form(
+                key: controller.screeningReportFormKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Card(
+                        shadowColor: Theme.of(context).primaryColor,
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Text(
+                                  'label_select_date'.tr,
+                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                ),
+                              ),
+                              CMEDBirthDatePicker(
+                                bottomMargin: 12,
+                                title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
+                                isShowCurrentDate: true,
+                                onDateSelect: (DateTime date) {
+                                  controller.dateController.text = date.millisecondsSinceEpoch.toString();
                                 },
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Text(
+                                  'input_label_oxygen_saturation'.tr,
+                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                ),
+                              ),
+                              CMEDTextField('input_hint_oxygen_saturation'.tr,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  keyboardType: TextInputType.number,
+                                  textEditingController: controller.spo2Controller,
+                                  onSaved: (value) {}, onValidator: (value) {
+                                    return controller.validateSPO2(value!);
+                                  }),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                'input_label_pulse_rate'.tr,
+                                style: CMEDTextUtils.inputTextLabelStyle,
+                              ),
+                              CMEDTextField('input_hint_bpm'.tr,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  keyboardType: TextInputType.number,
+                                  textEditingController: controller.pulseController,
+                                  onSaved: (value) {}, onValidator: (value) {
+                                    return controller.validatePulse(value!);
+                                  }
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                            ],
+                          ),
                         ),
-                        Obx(() {
-                          return Visibility(
-                              visible: controller.isLoading.value,
-                              child:
-                              const Center(child: CircularProgressIndicator()));
-                        }),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16.0),
+                      child: Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CMEDWhiteElevatedButton(
+                                  'label_enter'.tr,
+                                      () => {
+                                    if (controller.isValidInput())
+                                      controller.sendMeasurement(),
+                                    // CMEDDialogs.showDoubleButtonDialog(
+                                    //     'label_measurement_store_warning'.tr,
+                                    //     bodyText: controller.getInputText(),
+                                    //     onPositiveButtonClick: () => {
+                                    //       controller.sendMeasurement(),
+                                    //     }),
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Obx(() {
+                            return Visibility(
+                                visible: controller.isLoading.value,
+                                child:
+                                const Center(child: CircularProgressIndicator()));
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -193,5 +321,12 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
     Get.put(ScreeningReportRepository());
     Get.put(OxygenSaturationLogic(
         repository: Get.find<ScreeningReportRepository>()));
+  }
+
+  static Widget widgetV({required Widget v1, Widget? v2}) {
+    if (Get.find<OxygenSaturationLogic>().isThemeV2) {
+      return v2 ?? v1;
+    }
+    return v1;
   }
 }

@@ -40,6 +40,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
   final player = AudioPlayer();
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   var bpCurrentStatusObs = BPDeviceStatus.Idle.name.obs;
   var bpValueObs = ''.obs;
@@ -50,8 +51,9 @@ class BpDeviceConnectionLogic extends BaseLogic {
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 	  Future.delayed(Duration(milliseconds:300), () async {
-		  if(isNestedRoute){
+		  if(isThemeV2){
         connect();
       }
   	});

@@ -1,6 +1,7 @@
 
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
+import 'package:cmed_lib_flutter/common/widget/widget_v2.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/health_screening_home_i18n.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/blood_glucose/blood_glucose_input_view.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../../../common/helper/utils.dart';
+import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
 import '../../../../measurement_view_arg.dart';
 import 'blood_glucose_select_time_period_logic.dart';
 
@@ -21,82 +24,182 @@ class BloodGlucoseSelectTimePeriodView
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-      appBar: controller.isNestedRoute?null:BasicAppBar('label_blood_glucose'.tr),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Card(
-                shadowColor: Theme.of(context).primaryColor,
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                        child: Text(
-                          'label_select_time_period'.tr,
-                          style: CMEDTextUtils.inputTextLabelStyle,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: CMEDDropdownWidget(getTimePeriods(),
-                                  dropdownTitle: 'label_select_time_period'.tr,
-                                  onItemSelected: (data) {
-                            controller.selectedItem.value = data;
-                          })),
+    return widgetV(
+      v2: GradientWhiteToPrimary(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: controller.isNestedRoute?null:MiniAppBar('label_blood_glucose'.tr),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Card(
+                    shadowColor: Theme.of(context).primaryColor,
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                            child: Text(
+                              'label_select_time_period'.tr,
+                              style: CMEDTextUtils.inputTextLabelStyle,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Obx(() {
+                            final List<MasterDataDTO> items = getTimePeriods();
+                            return Column(
+                              children: items.map((item) {
+                                return RadioListTile<int>(
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  controlAffinity: ListTileControlAffinity.leading,
+                                  dense: false,
+                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                  title: Text(
+                                    Utils.isLocaleBn() ? item.labelBn ?? '' : item.labelEn ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  value: item.id!,
+                                  groupValue: controller.selectedItem.value.id,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  onChanged: (val) {
+                                    controller.selectedItem.value = item;
+                                  },
+                                );
+                              }).toList(),
+                            );
+                          }),
+                          const SizedBox(
+                            height: 4,
+                          ),
+
                         ],
                       ),
-                      const SizedBox(
-                        height: 4,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CMEDPrimaryElevatedButton(
+                          'label_next'.tr,
+                              () => {
+                            if (controller.selectedItem.value.id != null)
+                              {
+                                Get.offNamed(BloodGlucoseInputView.routeName,
+                                    arguments: MeasurementViewArg(
+                                        masterDataDTO: controller.selectedItem.value,
+                                        isNestedRoute: controller.isNestedRoute
+                                    ), id: controller.isNestedRoute? 1: null),
+                              }
+                            else
+                              {
+                                ShowToast.error('error_select_time_period'.tr)
+                              }
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CMEDWhiteElevatedButton(
-                      'label_next'.tr,
-                      () => {
-                        if (controller.selectedItem.value.id != null)
-                          {
-                            Get.offNamed(BloodGlucoseInputView.routeName,
-                                arguments: MeasurementViewArg(
-                                  masterDataDTO: controller.selectedItem.value,
-                                  isNestedRoute: controller.isNestedRoute
-                                ), id: controller.isNestedRoute? 1: null),
-                          }
-                        else
-                          {
-                            ShowToast.error('error_select_time_period'.tr)
-                          }
-                      },
+          ),
+        ),
+      ),
+      v1: Scaffold(
+        appBar: BasicAppBar('label_blood_glucose'.tr),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Card(
+                  shadowColor: Theme.of(context).primaryColor,
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                          child: Text(
+                            'label_select_time_period'.tr,
+                            style: CMEDTextUtils.inputTextLabelStyle,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: CMEDDropdownWidget(getTimePeriods(),
+                                    dropdownTitle: 'label_select_time_period'.tr,
+                                    onItemSelected: (data) {
+                              controller.selectedItem.value = data;
+                            })),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CMEDWhiteElevatedButton(
+                        'label_next'.tr,
+                        () => {
+                          if (controller.selectedItem.value.id != null)
+                            {
+                              Get.offNamed(BloodGlucoseInputView.routeName,
+                                  arguments: MeasurementViewArg(
+                                    masterDataDTO: controller.selectedItem.value,
+                                    isNestedRoute: controller.isNestedRoute
+                                  ), id: controller.isNestedRoute? 1: null),
+                            }
+                          else
+                            {
+                              ShowToast.error('error_select_time_period'.tr)
+                            }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -129,5 +232,12 @@ class BloodGlucoseSelectTimePeriodView
   void loadDependentLogics() {
     Get.put(ScreeningReportRepository());
     Get.put(BloodGlucoseSelectTimePeriodLogic());
+  }
+
+  static Widget widgetV({required Widget v1, Widget? v2}) {
+    if (Get.find<BloodGlucoseSelectTimePeriodLogic>().isThemeV2) {
+      return v2 ?? v1;
+    }
+    return v1;
   }
 }

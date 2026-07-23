@@ -30,6 +30,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
 
   final ScreeningReportRepository repository;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   OxygenSaturationDeviceConnectionLogic({required this.repository});
 
   @override
@@ -38,8 +39,10 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
     cmedSpO2DevicesLib = CmedSpo2DevicesLib();
 
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+
     Future.delayed(Duration.zero, () async {
-      if(isNestedRoute)connect();
+      if(isThemeV2)connect();
     });
 
   }

@@ -10,6 +10,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 
 import '../../../../../../common/widget/basic_app_bar.dart';
+import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
 import '../../../../../../common/widget/widget_v2.dart';
 
 
@@ -22,113 +23,115 @@ class BpInputView extends RapidView<BpInputLogic> {
       onTap: (){
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: Scaffold(
-          backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-          appBar: controller.isNestedRoute? null: BasicAppBar('label_blood_pressure'.tr),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Form(
-                key: controller.screeningReportFormKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Card(
-                        shadowColor: Theme.of(context).primaryColor,
-                        elevation: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 2.0),
-                                child: Text(
-                                  'label_select_date'.tr,
-                                  style: CMEDTextUtils.inputTextLabelStyle,
+      child: widgetV(
+        v2: GradientWhiteToPrimary(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: controller.isNestedRoute? null: MiniAppBar('label_blood_pressure'.tr),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: controller.screeningReportFormKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Card(
+                          shadowColor: Theme.of(context).primaryColor,
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 4,
                                 ),
-                              ),
-                              CMEDBirthDatePicker(
-                                bottomMargin: 12,
-                                title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
-                                isShowCurrentDate: true,
-                                onDateSelect: (DateTime date) {
-                                  controller.dateController.text = date.millisecondsSinceEpoch.toString();
-                                },
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
-                                child: Text(
-                                  'input_label_systolic_bp'.tr,
-                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'label_select_date'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
                                 ),
-                              ),
-                              CMEDTextField('input_hint_systolic_bp'.tr,
+                                CMEDBirthDatePicker(
+                                  bottomMargin: 12,
+                                  title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
+                                  isShowCurrentDate: true,
+                                  onDateSelect: (DateTime date) {
+                                    controller.dateController.text = date.millisecondsSinceEpoch.toString();
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'input_label_systolic_bp'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                ),
+                                CMEDTextField('input_hint_systolic_bp'.tr,
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    textEditingController:
+                                    controller.systolicController,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                      return controller.validateSystolic(value!);
+                                    }),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text('input_label_diastolic_bp'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle),
+                                CMEDTextField(
+                                  'input_hint_systolic_bp'.tr,
                                   keyboardType: TextInputType.number,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textEditingController:
-                                      controller.systolicController,
-                                  onSaved: (value) {}, onValidator: (value) {
-                                return controller.validateSystolic(value!);
-                              }),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Text('input_label_diastolic_bp'.tr,
-                                  style: CMEDTextUtils.inputTextLabelStyle),
-                              CMEDTextField(
-                                'input_hint_systolic_bp'.tr,
-                                keyboardType: TextInputType.number,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                textEditingController:
-                                    controller.diastolicController,
-                                onSaved: (value) {},
-                                onValidator: (value) {
-                                  return controller.validateDiastolic(value!);
-                                },
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                'input_label_pulse_rate'.tr,
-                                style: CMEDTextUtils.inputTextLabelStyle,
-                              ),
-                              CMEDTextField('input_hint_bpm'.tr,
-                                  keyboardType: TextInputType.number,
-                                  textEditingController: controller.pulseController,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  onSaved: (value) {}, onValidator: (value) {
-                                return controller.validatePulse(value!);
-                              }),
-                            ],
+                                  controller.diastolicController,
+                                  onSaved: (value) {},
+                                  onValidator: (value) {
+                                    return controller.validateDiastolic(value!);
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  'input_label_pulse_rate'.tr,
+                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                ),
+                                CMEDTextField('input_hint_bpm'.tr,
+                                    keyboardType: TextInputType.number,
+                                    textEditingController: controller.pulseController,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                      return controller.validatePulse(value!);
+                                    }),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16.0),
-                      child: Stack(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CMEDWhiteElevatedButton(
-                                  'label_enter'.tr,
-                                  () => {
-                                    if (controller.isValidInput())
-                                      controller
-                                          .sendBpAndPulseMeasurement(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CMEDPrimaryElevatedButton(
+                                    'label_enter'.tr,
+                                        () => {
+                                      if (controller.isValidInput())
+                                        controller
+                                            .sendBpAndPulseMeasurement(),
                                       // CMEDDialogs.showDoubleButtonDialog(
                                       //     'label_measurement_store_warning'.tr,
                                       //     bodyText: controller.getInputText(),
@@ -136,26 +139,161 @@ class BpInputView extends RapidView<BpInputLogic> {
                                       //           controller
                                       //               .sendBpAndPulseMeasurement(),
                                       //         }),
-                                  },
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Obx(() {
-                            return Visibility(
-                                visible: controller.isLoading.value,
-                                child:
-                                const Center(child: CircularProgressIndicator()));
-                          }),
-                        ],
+                              ],
+                            ),
+                            Obx(() {
+                              return Visibility(
+                                  visible: controller.isLoading.value,
+                                  child:
+                                  const Center(child: CircularProgressIndicator()));
+                            }),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
+        v1: Scaffold(
+            appBar: BasicAppBar('label_blood_pressure'.tr),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: controller.screeningReportFormKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Card(
+                          shadowColor: Theme.of(context).primaryColor,
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'label_select_date'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                ),
+                                CMEDBirthDatePicker(
+                                  bottomMargin: 12,
+                                  title:  controller.dateController.text.isEmpty ? null : CustomDateUtils.formatDatePicker(controller.dateController.text),
+                                  isShowCurrentDate: true,
+                                  onDateSelect: (DateTime date) {
+                                    controller.dateController.text = date.millisecondsSinceEpoch.toString();
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Text(
+                                    'input_label_systolic_bp'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                ),
+                                CMEDTextField('input_hint_systolic_bp'.tr,
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    textEditingController:
+                                        controller.systolicController,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                  return controller.validateSystolic(value!);
+                                }),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text('input_label_diastolic_bp'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle),
+                                CMEDTextField(
+                                  'input_hint_systolic_bp'.tr,
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  textEditingController:
+                                      controller.diastolicController,
+                                  onSaved: (value) {},
+                                  onValidator: (value) {
+                                    return controller.validateDiastolic(value!);
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  'input_label_pulse_rate'.tr,
+                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                ),
+                                CMEDTextField('input_hint_bpm'.tr,
+                                    keyboardType: TextInputType.number,
+                                    textEditingController: controller.pulseController,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    onSaved: (value) {}, onValidator: (value) {
+                                  return controller.validatePulse(value!);
+                                }),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CMEDWhiteElevatedButton(
+                                    'label_enter'.tr,
+                                    () => {
+                                      if (controller.isValidInput())
+                                        controller
+                                            .sendBpAndPulseMeasurement(),
+                                        // CMEDDialogs.showDoubleButtonDialog(
+                                        //     'label_measurement_store_warning'.tr,
+                                        //     bodyText: controller.getInputText(),
+                                        //     onPositiveButtonClick: () => {
+                                        //           controller
+                                        //               .sendBpAndPulseMeasurement(),
+                                        //         }),
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Obx(() {
+                              return Visibility(
+                                  visible: controller.isLoading.value,
+                                  child:
+                                  const Center(child: CircularProgressIndicator()));
+                            }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ),
       
     );
   }
@@ -259,4 +397,11 @@ class BpInputView extends RapidView<BpInputLogic> {
     Get.put(ScreeningReportRepository());
     Get.put(BpInputLogic(repository: Get.find<ScreeningReportRepository>()));
   }
+  static Widget widgetV({required Widget v1, Widget? v2}) {
+    if (Get.find<BpInputLogic>().isThemeV2) {
+      return v2 ?? v1;
+    }
+    return v1;
+  }
+
 }

@@ -3,6 +3,7 @@ import '../../common/dto/master_data_dto.dart';
 class MeasurementViewArg {
   MeasurementViewArg({
       this.isNestedRoute,
+      this.isThemeV2,
       this.isAuto,
       this.masterDataDTO,
       this.heightUnit,
@@ -13,6 +14,7 @@ class MeasurementViewArg {
 
   });
   bool? isNestedRoute;
+  bool? isThemeV2;
   bool? isAuto;
   MasterDataDTO? masterDataDTO;
   String? heightUnit;

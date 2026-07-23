@@ -40,6 +40,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -48,6 +49,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
     });

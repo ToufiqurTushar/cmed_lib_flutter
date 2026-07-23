@@ -14,7 +14,7 @@ class CenterRadar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           RadarPulsator(
-            oneFullRotationInMilliSeconds: 2000,
+            oneFullRotationInMilliSeconds: oneFullRotationInMilliSeconds??2000,
             color: Theme.of(context).primaryColor,
             centerWidget: Container(
               width: 80,
@@ -59,7 +59,8 @@ class RadarPulsator extends StatefulWidget {
   final Widget centerWidget;
   final Color? color;
   int? oneFullRotationInMilliSeconds;
-  RadarPulsator({super.key, this.oneFullRotationInMilliSeconds, required this.centerWidget, this.color});
+  final int defaultOneFullRotationInMilliSeconds;
+  RadarPulsator({super.key, this.oneFullRotationInMilliSeconds,this.defaultOneFullRotationInMilliSeconds = 6000, required this.centerWidget, this.color});
 
   @override
   State<RadarPulsator> createState() => _RadarPulsatorState();
@@ -74,7 +75,7 @@ class _RadarPulsatorState extends State<RadarPulsator>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: widget.oneFullRotationInMilliSeconds??6000),
+      duration: Duration(milliseconds: widget.oneFullRotationInMilliSeconds??widget.defaultOneFullRotationInMilliSeconds!),
     )..repeat();
   }
 

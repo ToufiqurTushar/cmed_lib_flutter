@@ -75,10 +75,12 @@ class BScanInputLogic extends BaseLogic {
 
   ////////////////
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     age.value = customer.value.getAgeInYear();
     if(age.value <=8) {
       age.value = 8;

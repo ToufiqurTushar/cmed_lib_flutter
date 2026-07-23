@@ -42,18 +42,18 @@ class _CMEDPrimaryElevatedButtonState extends State<CMEDPrimaryElevatedButton> {
   Widget _widget(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: widget.buttonBgColor ?? Theme.of(context).primaryColor,
+          backgroundColor: (widget.isEnable ?? true)
+              ? (widget.buttonBgColor ?? Theme.of(context).primaryColor)
+              : Theme.of(context).disabledColor,
           shadowColor: Colors.white,
           fixedSize: Size(widget.width ?? 220, widget.height ?? 48),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.radius??30),
           ),
           padding: const EdgeInsets.symmetric(vertical: 10)),
-      onPressed: () {
-        if(widget.isEnable??true) {
-          widget.onClickAction();
-        }
-      },
+      onPressed: (widget.isEnable??true)? () {
+        widget.onClickAction();
+      }: null,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
@@ -65,7 +65,7 @@ class _CMEDPrimaryElevatedButtonState extends State<CMEDPrimaryElevatedButton> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: widget.fontSize ?? 16,
-                    color: widget.buttonTextColor ?? Colors.white,
+                    color: (widget.buttonTextColor ?? Colors.white),
                     fontWeight: widget.fontWeight ?? FontWeight.normal),
               ),
             ),

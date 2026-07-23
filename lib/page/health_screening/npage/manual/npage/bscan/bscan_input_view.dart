@@ -16,6 +16,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 
 import '../../../../../../common/enum/yes_no_enum.dart';
+import '../../../../../../common/widget/cmed_dropdown_view.dart';
 
 
 class BScanInputView extends RapidView<BScanInputLogic> {
@@ -36,8 +37,8 @@ class BScanInputView extends RapidView<BScanInputLogic> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
-          backgroundColor: controller.isNestedRoute?Colors.transparent:null,
-          appBar: controller.isNestedRoute? null: BasicAppBar('label_breast_cancer_screening'.tr),
+          backgroundColor: controller.isThemeV2?Colors.transparent:null,
+          appBar: controller.isNestedRoute? null: controller.isThemeV2?MiniAppBar('label_breast_cancer_screening'.tr):BasicAppBar('label_breast_cancer_screening'.tr),
           body: SafeArea(
             child: Form(
               key: controller.screeningReportFormKey,
@@ -121,7 +122,6 @@ class BScanInputView extends RapidView<BScanInputLogic> {
                                             height: 16,
                                           ),
 
-
                                           CMEDDropdownSelect(
                                             List.generate(controller.age.value-7, (i) => MasterDataDTO(labelEn: "${i+8} years",labelBn: "${Utils.getDigitBanglaFromEnglish((i+8).toString())} বছর", value: i+8)),
                                             label: 'label_bscan_menstrual_period_age'.tr,
@@ -130,6 +130,7 @@ class BScanInputView extends RapidView<BScanInputLogic> {
                                               controller.selecteedMenstrualCycleYear.value = data;
                                             },
                                             padding: const EdgeInsets.symmetric(vertical: 8),
+                                            color: Colors.white,
                                           ),
                                           const SizedBox(
                                             height: 8,

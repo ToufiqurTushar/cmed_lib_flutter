@@ -44,11 +44,13 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
   BloodGlucoseDeviceConnectionLogic({required this.repository});
   var isListning = false.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   Future<void> onInit() async{
     super.onInit();
     dnurseDeviceHandler = Get.find<DnurseDeviceHandler>();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
@@ -256,5 +258,19 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
       return englishToBangla[text]??text;
     }
     return text;
+  }
+
+  RxString getImageFromStep() {
+    if(instructionImageSrc.value.contains('img_glucose_dnurse_first')){
+      return 'assets/images/screening/blood_glucose_step_1.png'.obs;
+    }
+    else if(instructionImageSrc.value.contains('img_glucose_dnurse_third')){
+      return 'assets/images/screening/blood_glucose_step_2.png'.obs;
+    }
+    else if(instructionImageSrc.value.contains('img_glucose_dnurse_fourth')){
+      return 'assets/images/screening/blood_glucose_step_3.png'.obs;
+    } else {
+      return 'assets/images/screening/blood_glucose_step_1.png'.obs;
+    }
   }
 }

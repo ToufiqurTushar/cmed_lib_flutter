@@ -15,6 +15,7 @@ class BmiHeightInputLogic extends BaseLogic {
   var heightUnit = BmiUnit.FEET_INCH.name.obs;
   final GlobalKey<FormState> screeningReportFormKey = GlobalKey<FormState>();
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
@@ -22,6 +23,7 @@ class BmiHeightInputLogic extends BaseLogic {
     heightInInchEditTextController = TextEditingController();
     heightInCentimeterEditTextController = TextEditingController();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 
     initUserProfile();
   }
