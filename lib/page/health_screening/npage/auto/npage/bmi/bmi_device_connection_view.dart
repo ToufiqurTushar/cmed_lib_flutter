@@ -1,6 +1,7 @@
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_primary_elevated_button.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bmi_height_weight_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/nview/device_disconnected_view.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,9 +10,11 @@ import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import '../../../../../../common/widget/cmed_white_elevated_button.dart';
 import '../../../../../../common/widget/device/cmed_measurement_button.dart';
 import '../../../../../../common/widget/device/cmed_measurement_running_message.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../../../repository/screening_report_repository.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
 import '../../../../health_screening_home_i18n.dart';
+import '../../../manual/npage/bmi/bmi_height_input_view.dart';
 import '../../enum/screen_enum.dart';
 import 'bmi_device_connection_logic.dart';
 
@@ -42,8 +45,6 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                         visible: controller.screen_status.value ==
                             ScreenEnum.CONNECT.name ||
                             controller.screen_status.value ==
-                                ScreenEnum.DEVICE_NOT_FOUND.name ||
-                            controller.screen_status.value ==
                                 ScreenEnum.CONNECTING.name,
                         child: Center(
                           child: Obx(
@@ -54,6 +55,23 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                                 controller.connect();
                               },
                             ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: controller.screen_status.value == ScreenEnum.DEVICE_NOT_FOUND.name,
+                        child: Center(
+                          child: DeviceReconnectView(
+                            imageAsset: 'assets/images/device/img_bmi_first.svg',
+                            suggestion: 'label_keep_device_switch_on'.tr,
+                            message: 'label_device_not_found'.tr,
+                            onReconnectDevice: () async {
+                              await controller.connect();
+                            },
+                            onManualSelect: ()=> Get.offNamed(BmiHeightWeightInputView.routeName, id:controller.isNestedRoute?1: null, arguments: MeasurementViewArg(isNestedRoute: controller.isNestedRoute, isAuto: false, isThemeV2: controller.isThemeV2, heightUnit: controller.heightUnit.value,
+                                heightInCm: controller.heightInCm.value.toDouble(),
+                                heightInFeet: controller.heightInFeet.value,
+                                heightInInch: controller.heightInInch.value)),
                           ),
                         ),
                       ),

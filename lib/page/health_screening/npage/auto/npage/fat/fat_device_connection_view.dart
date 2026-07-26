@@ -29,7 +29,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
         return false;
       },
       child: Scaffold(
-        appBar: BasicAppBar(
+        appBar: controller.isNestedRoute? null:BasicAppBar(
           'label_body_fat_composition'.tr),
         body: SafeArea(
           child: Column(
@@ -41,8 +41,6 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                           visible: controller.screen_status.value ==
                                   ScreenEnum.CONNECT.name ||
                               controller.screen_status.value ==
-                                  ScreenEnum.DEVICE_NOT_FOUND.name ||
-                              controller.screen_status.value ==
                                   ScreenEnum.CONNECTING.name,
                           child: Center(
                             child: Obx(
@@ -53,6 +51,20 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                                   controller.connect();
                                 },
                               ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: controller.screen_status.value == ScreenEnum.DEVICE_NOT_FOUND.name,
+                          child: Center(
+                            child: DeviceReconnectView(
+                              imageAsset: 'assets/images/device/img_bmi_first.svg',
+                              suggestion: 'label_keep_device_switch_on'.tr,
+                              message: 'label_device_not_found'.tr,
+                              onReconnectDevice: () async {
+                                await controller.connect();
+                              },
+                              //onManualSelect: ()=> Get.offNamed(BmiHeightInputView.routeName, id:controller.isNestedRoute?1: null),
                             ),
                           ),
                         ),

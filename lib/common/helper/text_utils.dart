@@ -54,7 +54,7 @@ class CMEDTextUtils {
   static var alertTitleTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 14,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
   );
 
   static var listItemTitleTextStyle = const TextStyle(

@@ -31,8 +31,9 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
   final ScreeningReportRepository repository;
   bool isNestedRoute = false;
   bool isThemeV2 = false;
+  bool isAuto = false;
   OxygenSaturationDeviceConnectionLogic({required this.repository});
-
+  final player = AudioPlayer();
   @override
   Future<void> onInit() async{
     super.onInit();
@@ -40,6 +41,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
 
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
 
     Future.delayed(Duration.zero, () async {
       if(isThemeV2)connect();
@@ -103,8 +105,10 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
 
       } else if (status[0] == "CN_NOTIFY_SUCCESSFULLY") {
         screenStatus.value = ScreenEnum.CONNECTED.name;
-        final player = AudioPlayer();
-        player.play(AssetSource('audio/device_connected.mp3'));
+        if(player.state != PlayerState.playing){
+          player.play(AssetSource('audio/device_connected.mp3'));
+        }
+
       } else if (event == "error_gasing" &&
           screenStatus.value != ScreenEnum.CONNECTED.name) {
         // disconnect();

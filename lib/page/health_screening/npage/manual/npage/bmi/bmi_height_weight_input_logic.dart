@@ -36,6 +36,7 @@ class BmiHeightWeightInputLogic extends BaseLogic {
   var heightUnit = BmiUnit.FEET_INCH.name.obs;
 
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   var screeningReport = MeasurementDTO().obs;
 
   @override
@@ -48,6 +49,8 @@ class BmiHeightWeightInputLogic extends BaseLogic {
     heightInFeetEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "");
     heightInInchEditTextController = TextEditingController(text: Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "");
     weightEditTextController = TextEditingController();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
   }
 
   String? validateHeightInFeet(String value) {

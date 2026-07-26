@@ -22,7 +22,7 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_body_fat_composition'.tr,),
+      appBar: controller.isNestedRoute? null:BasicAppBar('label_body_fat_composition'.tr,),
       body: SafeArea(
         child: Form(
           key: controller.screeningReportFormKey,
@@ -237,6 +237,7 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
                                                 bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
                                                 Get.offNamed(FatDeviceConnectionView.routeName, arguments: MeasurementViewArg(
                                                     isAuto: isAuto,
+                                                    isThemeV2: controller.isThemeV2,
                                                     isNestedRoute: controller.isNestedRoute,
                                                     heightUnit: controller.heightUnit.value,
                                                     heightInCm: controller.getHeightInCentimeter().toDouble(),

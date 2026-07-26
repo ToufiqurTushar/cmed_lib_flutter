@@ -16,6 +16,7 @@ import '../../../../../../common/helper/date_utils.dart';
 import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
 import '../../../../../../common/widget/device/cmed_measurement_button.dart';
 import '../../../../../../common/widget/device/cmed_measurement_running_message.dart';
+import '../../../../measurement_view_arg.dart';
 
 
 class OxygenSaturationDeviceConnectionView
@@ -165,7 +166,7 @@ class OxygenSaturationDeviceConnectionView
                             onReconnectDevice: () async {
                               await controller.reconnect();
                             },
-                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null),
+                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null, arguments: MeasurementViewArg(isNestedRoute: controller.isNestedRoute, isAuto: false, isThemeV2: controller.isThemeV2)),
                           ),
                         ),
                       ),
@@ -196,7 +197,7 @@ class OxygenSaturationDeviceConnectionView
                                       padding: const EdgeInsets.all(8.0),
                                       child: PulseOximeterCard(
                                         spo2Value: controller.spo2Result.value.isEmpty?"0":controller.reading.value.trAmount(),
-                                        prBpmValue: controller.pulseResult.value.isEmpty?"0":controller.reading.value.trAmount(),
+                                        prBpmValue: controller.pulseResult.value.isEmpty?"0":controller.pulseResult.value.trAmount(),
                                         time: CustomDateUtils.format(DateTime.now().microsecondsSinceEpoch, format: "h:mm a"),
                                         date: CustomDateUtils.format(DateTime.now().microsecondsSinceEpoch, format: "MM-dd-yyyy"),
                                       ),

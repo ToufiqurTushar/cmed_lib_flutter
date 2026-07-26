@@ -190,6 +190,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
         screen_status.value = ScreenEnum.DISCONNECTED.name;
       }
     });
+    player.dispose();
   }
 
   void sendBpAndPulseMeasurement() {

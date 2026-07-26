@@ -26,6 +26,8 @@ class BmiHeightInputLogic extends BaseLogic {
     isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 
     initUserProfile();
+
+    RLog.info((Get.arguments as MeasurementViewArg).isAuto);
   }
 
   initUserProfile() {

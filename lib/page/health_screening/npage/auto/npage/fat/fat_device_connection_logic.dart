@@ -41,6 +41,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
   bool isThemeV2 = false;
+  final player = AudioPlayer();
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -49,7 +50,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
-    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
     });
@@ -87,8 +88,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
         buttonText.value = 'label_connecting'.tr;
       } else if (status[0] == "CS_ONLINE_WEIGHT") {
         if(isScreenOff.isTrue) {
-          final player = AudioPlayer();
-          player.play(AssetSource('audio/device_connected.mp3'));
+          if(player.state != PlayerState.playing) {
+            player.play(AssetSource('audio/device_connected.mp3'));
+          }
           isScreenOff.value = false;
         }
         if (screen_status.value != ScreenEnum.MEASURING.name) {
@@ -110,8 +112,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
         // ShowToast.error('label_device_not_found'.tr);
       } else if (status[0] == "CS_WEIGHT_ACTION_CONNECTED") {
         screen_status.value = ScreenEnum.CONNECTED.name;
-        final player = AudioPlayer();
-        player.play(AssetSource('audio/device_connected.mp3'));
+        if(player.state != PlayerState.playing) {
+          player.play(AssetSource('audio/device_connected.mp3'));
+        }
       } else if (status[0] == "CS_WEIGHT_BLE_DISABLED") {
         ShowToast.error('label_bluetooth_error'.tr);
         screen_status.value = ScreenEnum.CONNECT.name;
@@ -154,6 +157,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     isLoading.value = false;
     cmedFatDevicesLib.disconnect();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
+    player.dispose();
   }
 
   void sendMeasurement() {

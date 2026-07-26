@@ -498,6 +498,42 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                     ],
                   );
                 }),
+                Obx(
+                  ()=>Visibility(
+                    visible: controller.deviceEvent.value.contains("DN_SP1_OLD_TEST_PAPER_INSERTED"),
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withAlpha(70),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            width: 320,
+                            height: 100,
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    controller.deviceEvent.isNotEmpty?controller.trDeviceStatus(controller.status[1]): "",
+                                    textAlign: TextAlign.center,
+                                    style: CMEDTextUtils.alertTitleTextStyle,
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -847,6 +883,17 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                     controller.status = ['DN_SP1_TEST_RESULT', ''].obs;
                     controller.onStepThree();
                     controller.onStartMeasurement();
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text('DN_SP1_OLD_TEST_PAPER_INSERTED'),
+                  onTap: () {
+                    controller.status = ['DN_SP1_OLD_TEST_PAPER_INSERTED', 'Strips used, please insert new strips'].obs;
+                    controller.deviceEvent.value = 'DN_SP1_OLD_TEST_PAPER_INSERTED: Strips used, please insert new strips';
+                    //controller.onStepThree();
+                    //controller.onStartMeasurement();
+                    controller.onOldStripInserted('Strips used, please insert new strips');
                     Navigator.pop(context);
                   },
                 ),
