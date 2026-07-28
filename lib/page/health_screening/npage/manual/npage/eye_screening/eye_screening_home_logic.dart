@@ -25,10 +25,15 @@ class EyeScreeningHomeLogic extends BaseLogic {
   var colorBlindTestResult = EyeScreening().obs;
   var contrastTestResult = EyeScreening().obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   Future<void> onInit() async{
     super.onInit();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+
+    RLog.error(isNestedRoute);
+    RLog.error(isThemeV2);
   }
 
   void sendMeasurement() {

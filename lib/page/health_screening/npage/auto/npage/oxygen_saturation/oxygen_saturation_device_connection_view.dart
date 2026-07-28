@@ -218,7 +218,7 @@ class OxygenSaturationDeviceConnectionView
                                       () => {
                                         controller.sendMeasurement()
                                       },
-                                      isEnable: controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name,
+                                      isEnable: controller.screenStatus.value == ScreenEnum.MEASURING.name || controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name,
                                       buttonBgColor: Theme.of(context).primaryColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,

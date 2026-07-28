@@ -8,6 +8,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_sc
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
 
 
@@ -15,6 +16,9 @@ class EyeScreeningContrastLogic extends BaseLogic {
 
   final ScreeningReportRepository repository;
   EyeScreeningContrastLogic({required this.repository});
+
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   var screeningQuestions = <MasterDataDTO>[
     MasterDataDTO(labelEn: "H", image: "#000000", number: 0.0 ),
@@ -74,10 +78,18 @@ class EyeScreeningContrastLogic extends BaseLogic {
     MasterDataDTO(labelEn: "R", image: "#fefefe", number: 2.25 )
   ].obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+
+    RLog.error(isNestedRoute);
+    RLog.error(isThemeV2);
+  }
   nextScreening({MasterDataDTO? result}) {
-    Get.offNamed(EyeScreeningResultView.routeName, arguments: [
-      {
-        "screeningReport": MeasurementDTO(
+    Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+        measurements: [MeasurementDTO(
           eyeScreening: [
             EyeScreening(
               eyeScreeningResult : EyeScreeningResult(
@@ -86,9 +98,10 @@ class EyeScreeningContrastLogic extends BaseLogic {
               screenType: EyeScreeningTypeEnum.CONTRAST_TEST.name,
             )
           ],
-        )
-      }
-    ]);
+        )],
+        isNestedRoute: isNestedRoute,
+        isThemeV2: isThemeV2
+    ));
   }
 
   EyeScreeningHomeLogic getEyeScreeningHomeLogic() {

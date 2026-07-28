@@ -24,11 +24,16 @@ class EyeScreeningResultLogic extends BaseLogic {
   final ScreeningReportRepository repository;
   EyeScreeningResultLogic({required this.repository});
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
-    screeningReport.value = argumentData[0]['screeningReport'];
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    screeningReport.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).measurements!.first: MeasurementDTO();
+
+    RLog.error(isNestedRoute);
+    RLog.error(isThemeV2);
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
     testedResultLeftEyeMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.leftEye ??"";
@@ -79,8 +84,12 @@ class EyeScreeningResultLogic extends BaseLogic {
     if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.CONTRAST_TEST) {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
-
-    Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    if(isNestedRoute) {
+      Get.back();
+      Get.back();
+      Get.toNamed(pageRouteName, arguments: MeasurementViewArg(isThemeV2: isThemeV2, isNestedRoute: isNestedRoute));
+    }
+    else Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   void startNextEyeScreening() {
@@ -177,7 +186,13 @@ class EyeScreeningResultLogic extends BaseLogic {
 
   startDistanceVisionEyeScreening() {
     saveLocal();
-    Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    RLog.error(isThemeV2);
+    RLog.error(isNestedRoute);
+    if(isNestedRoute) {
+      Get.back();
+      Get.offNamed(EyeScreeningDistancevisionView.routeName);
+    }
+    else Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   showstartDistanceVisionEyeScreeningButton() {

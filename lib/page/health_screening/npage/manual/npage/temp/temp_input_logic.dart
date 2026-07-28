@@ -113,28 +113,44 @@ class TempInputLogic extends BaseLogic {
     temperatureEditTextController.dispose();
   }
 
-  toggleTemperatureUnit() {
+  toggleTemperatureUnitWithValue() {
+    final text = temperatureEditTextController.text.trim();
+    if (text.isEmpty) {
+      toggleUnit();
+      return;
+    }
+
+    final doubleValue = double.tryParse(text);
+    if (doubleValue == null) {
+      toggleUnit();
+      return;
+    }
+
     if (temperatureUnit.value == TemperatureUnit.FAHRENHEIT.name) {
       temperatureUnit.value = TemperatureUnit.CELSIUS.name;
-      final doubleValue = double.tryParse(temperatureEditTextController.text) ?? 0.0;
-      var value =doubleValue == 0 ? 0:
-          ((doubleValue - 32) * 5) /
-              9;
+      var value = ((doubleValue - 32) * 5) / 9;
       temperatureEditTextController.text =
           value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
     } else {
       temperatureUnit.value = TemperatureUnit.FAHRENHEIT.name;
       temperatureEditTextController.text =
-          getTemperatureInFahrenheit(temperatureEditTextController.text);
+          getTemperatureInFahrenheit(text);
     }
     debugPrint(temperatureEditTextController.text.toString());
   }
 
-  String getTemperatureInFahrenheit(String text) {
-    final doubleValue = double.tryParse(temperatureEditTextController.text) ?? 0.0;
+  void toggleUnit() {
+    if (temperatureUnit.value == TemperatureUnit.FAHRENHEIT.name) {
+      temperatureUnit.value = TemperatureUnit.CELSIUS.name;
+    } else {
+      temperatureUnit.value = TemperatureUnit.FAHRENHEIT.name;
+    }
+  }
 
-    var value =doubleValue == 0 ? 0:
-        ((doubleValue * 9) / 5) + 32;
+  String getTemperatureInFahrenheit(String text) {
+    final doubleValue = double.tryParse(text);
+    if (doubleValue == null) return "0";
+    var value = ((doubleValue * 9) / 5) + 32;
     return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
   }
 

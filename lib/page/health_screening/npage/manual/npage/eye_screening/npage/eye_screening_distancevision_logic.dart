@@ -9,6 +9,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_sc
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
 
 
@@ -34,9 +35,14 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
   var screeningIndex = 0.obs;
   var countWrongAnswer = 0;
 
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
+
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(image:'1', name: '6/60', labelEn: letters[Random().nextInt(letters.length-1)], labelBn: lettersBn[Random().nextInt(letters.length-1)], value: 0),
       MasterDataDTO(image:'2', name: '6/60', labelEn: letters[Random().nextInt(letters.length-1)], labelBn: lettersBn[Random().nextInt(letters.length-1)], value: 0),
@@ -135,21 +141,21 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
     }
 
     if(resultFound) {
-      Get.offNamed(EyeScreeningResultView.routeName, arguments: [
-        {
-          "screeningReport": MeasurementDTO(
+      Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+          measurements: [MeasurementDTO(
             eyeScreening: [
               EyeScreening(
-                  eyeScreeningResult : EyeScreeningResult(
-                    leftEye: farVisionLeftEyeResult,
-                    rightEye: farVisionRightEyeResult,
-                  ),
-                  screenType: EyeScreeningTypeEnum.getEnumByName(farVisionTestType.value)!.name,
+                eyeScreeningResult : EyeScreeningResult(
+                  leftEye: farVisionLeftEyeResult,
+                  rightEye: farVisionRightEyeResult,
+                ),
+                screenType: EyeScreeningTypeEnum.getEnumByName(farVisionTestType.value)!.name,
               ),
             ],
-          )
-        }
-      ]);
+          )],
+          isNestedRoute: isNestedRoute,
+          isThemeV2: isThemeV2
+      ));
     }
   }
 

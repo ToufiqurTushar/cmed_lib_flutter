@@ -3,6 +3,7 @@ import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/common/widget/linear_loading.dart';
+import 'package:cmed_lib_flutter/page/health_screening/measurement_view_arg.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_screening/eye_screening_home_i18n.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_screening/npage/eye_screening_colorblind_view.dart';
@@ -54,7 +55,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_near_vision_new.svg",
                         boldTitle: false,
                         onClickAction: (){
-                          Get.toNamed(EyeScreeningNearvisionView.routeName);
+                          Get.toNamed(EyeScreeningNearvisionView.routeName, arguments: MeasurementViewArg(isThemeV2: controller.isThemeV2, isNestedRoute: controller.isNestedRoute));
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -62,7 +63,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_distance_vision_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningDistancevisionView.routeName),
+                          Get.toNamed(EyeScreeningDistancevisionView.routeName, arguments: MeasurementViewArg(isThemeV2: controller.isThemeV2, isNestedRoute: controller.isNestedRoute)),
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -70,7 +71,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_color_blind_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningColorblindView.routeName),
+                          Get.toNamed(EyeScreeningColorblindView.routeName, arguments: MeasurementViewArg(isThemeV2: controller.isThemeV2, isNestedRoute: controller.isNestedRoute)),
                         },
                       ),
                       ItemScreeringRecordHomeWithBackground(
@@ -78,7 +79,7 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                         "assets/images/measurement/ic_color_contrast_new.svg",
                         boldTitle: false,
                         onClickAction: () => {
-                          Get.toNamed(EyeScreeningContrastView.routeName),
+                          Get.toNamed(EyeScreeningContrastView.routeName, arguments: MeasurementViewArg(isThemeV2: controller.isThemeV2, isNestedRoute: controller.isNestedRoute)),
                         },
                       ),
                       const SizedBox(
@@ -107,18 +108,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                               format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY,
                             ).trDate(),
                             onClickAction: (){
-                              Get.toNamed(EyeScreeningResultView.routeName, arguments: [
-                                {
-                                  "screeningReport": MeasurementDTO(
+                              Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                  measurements: [MeasurementDTO(
                                     eyeScreening: [
                                       EyeScreening(
                                         eyeScreeningResult : controller.nearVisionBothEyeResult.value.eyeScreeningResult,
                                         screenType: EyeScreeningTypeEnum.NEAR_VISION_BOTH_EYE.name,
                                       )
                                     ],
-                                  )
-                                }
-                              ]);
+                                  )],
+                                  isNestedRoute: controller.isNestedRoute,
+                                  isThemeV2: controller.isThemeV2
+                              ));
                             },
                           )
                       ),
@@ -133,18 +134,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           tailingText: '${'label_eye_screening_left'.tr} ${controller.farVisionDistance1Result.value.eyeScreeningResult?.leftEye} \n${'label_eye_screening_right'.tr} ${controller.farVisionDistance1Result.value.eyeScreeningResult?.rightEye}',
                           footerText: CustomDateUtils.format(controller.farVisionDistance1Result.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate(),
                           onClickAction: () {
-                            Get.toNamed(EyeScreeningResultView.routeName, arguments: [
-                              {
-                                "screeningReport": MeasurementDTO(
+                            Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                measurements: [MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
                                       eyeScreeningResult : controller.farVisionDistance1Result.value.eyeScreeningResult,
                                       screenType: EyeScreeningTypeEnum.FAR_VISION_DISTANCE_1.name,
                                     )
                                   ],
-                                )
-                              }
-                            ]);
+                                )],
+                                isNestedRoute: controller.isNestedRoute,
+                                isThemeV2: controller.isThemeV2
+                            ));
                           },
                         ),
                       ),
@@ -159,18 +160,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           tailingText: '${'label_eye_screening_left'.tr} ${controller.farVisionIlliterateResult.value.eyeScreeningResult?.leftEye} \n${'label_eye_screening_right'.tr} ${controller.farVisionIlliterateResult.value.eyeScreeningResult?.rightEye}',
                           footerText: CustomDateUtils.format(controller.farVisionIlliterateResult.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate(),
                           onClickAction: () {
-                            Get.toNamed(EyeScreeningResultView.routeName, arguments: [
-                              {
-                                "screeningReport": MeasurementDTO(
+                            Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                measurements: [MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
                                       eyeScreeningResult : controller.farVisionIlliterateResult.value.eyeScreeningResult,
                                       screenType: EyeScreeningTypeEnum.ILLITERATE_TEST.name,
                                     )
                                   ],
-                                )
-                              }
-                            ]);
+                                )],
+                                isNestedRoute: controller.isNestedRoute,
+                                isThemeV2: controller.isThemeV2
+                            ));
                           },
                         ),
                       ),
@@ -185,20 +186,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           tailingText: '${'label_eye_screening_left'.tr} ${controller.farVisionChildrenResult.value.eyeScreeningResult?.leftEye} \n${'label_eye_screening_right'.tr} ${controller.farVisionChildrenResult.value.eyeScreeningResult?.rightEye}',
                           footerText: CustomDateUtils.format(controller.farVisionChildrenResult.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate(),
                           onClickAction: () {
-                            Get.toNamed(EyeScreeningResultView.routeName,
-                                arguments: [
-                                  {
-                                    "screeningReport": MeasurementDTO(
-                                      eyeScreening: [
-                                        EyeScreening(
-                                          eyeScreeningResult : controller.farVisionChildrenResult.value.eyeScreeningResult,
-                                          screenType: EyeScreeningTypeEnum.CHILDREN_EYE_TEST.name,
-                                        )
-                                      ],
+                            Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                measurements: [MeasurementDTO(
+                                  eyeScreening: [
+                                    EyeScreening(
+                                      eyeScreeningResult : controller.farVisionChildrenResult.value.eyeScreeningResult,
+                                      screenType: EyeScreeningTypeEnum.CHILDREN_EYE_TEST.name,
                                     )
-                                  }
-                                ]
-                            );
+                                  ],
+                                )],
+                                isNestedRoute: controller.isNestedRoute,
+                                isThemeV2: controller.isThemeV2
+                            ));
                           },
                         ),
                       ),
@@ -214,18 +213,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           tailingText: EyeScreeningColorBlindResultEnum.getResultByName(controller.colorBlindTestResult.value.eyeScreeningResult?.message).tr,
                           footerText: CustomDateUtils.format(controller.colorBlindTestResult.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate(),
                           onClickAction: () {
-                            Get.toNamed(EyeScreeningResultView.routeName, arguments: [
-                              {
-                                "screeningReport": MeasurementDTO(
+                            Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                measurements: [MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
                                       eyeScreeningResult : controller.colorBlindTestResult.value.eyeScreeningResult,
                                       screenType: EyeScreeningTypeEnum.COLOR_BLIND_TEST.name,
                                     )
                                   ],
-                                )
-                              }
-                            ]);
+                                )],
+                                isNestedRoute: controller.isNestedRoute,
+                                isThemeV2: controller.isThemeV2
+                            ));
                           },
                         ),
                       ),
@@ -241,18 +240,18 @@ class EyeScreeningHomeView extends RapidView<EyeScreeningHomeLogic> {
                           tailingText: controller.contrastTestResult.value.eyeScreeningResult?.message,
                           footerText: CustomDateUtils.format(controller.contrastTestResult.value.createdAt, format: CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDate().trDate(),
                           onClickAction: () {
-                            Get.toNamed(EyeScreeningResultView.routeName, arguments: [
-                              {
-                                "screeningReport": MeasurementDTO(
+                            Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+                                measurements: [MeasurementDTO(
                                   eyeScreening: [
                                     EyeScreening(
                                       eyeScreeningResult : controller.contrastTestResult.value.eyeScreeningResult,
                                       screenType: EyeScreeningTypeEnum.CONTRAST_TEST.name,
                                     )
                                   ],
-                                )
-                              }
-                            ]);
+                                )],
+                                isNestedRoute: controller.isNestedRoute,
+                                isThemeV2: controller.isThemeV2
+                            ));
                           },
                         ),
                       ),

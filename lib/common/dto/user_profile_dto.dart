@@ -597,6 +597,7 @@ class UserProfile {
   CustomerDTO toCustomer() {
     return CustomerDTO(
       username: username,
+      heightCentimeter: height,
       parentUsername: null,
       userId: userId,
       firstName: firstName,
