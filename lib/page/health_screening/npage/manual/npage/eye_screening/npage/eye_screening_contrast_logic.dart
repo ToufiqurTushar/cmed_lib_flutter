@@ -88,7 +88,7 @@ class EyeScreeningContrastLogic extends BaseLogic {
     RLog.error(isThemeV2);
   }
   nextScreening({MasterDataDTO? result}) {
-    Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+    Get.offNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
         measurements: [MeasurementDTO(
           eyeScreening: [
             EyeScreening(

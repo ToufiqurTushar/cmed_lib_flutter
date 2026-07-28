@@ -6,6 +6,7 @@ import '../../../../../../../common/widget/basic_app_bar.dart';
 
 class EyeScreeningContrastView extends RapidView<EyeScreeningContrastLogic> {
   static String routeName = '/eye_screening_contrast_view';
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -85,6 +86,7 @@ class EyeScreeningContrastView extends RapidView<EyeScreeningContrastLogic> {
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningContrastLogic>(() => EyeScreeningContrastLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningContrastLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

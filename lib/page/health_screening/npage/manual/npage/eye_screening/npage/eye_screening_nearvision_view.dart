@@ -130,8 +130,8 @@ class EyeScreeningNearvisionView extends RapidView<EyeScreeningNearvisionLogic> 
 
   @override
   void loadDependentLogics() {
-
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningNearvisionLogic>(() => EyeScreeningNearvisionLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningNearvisionLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

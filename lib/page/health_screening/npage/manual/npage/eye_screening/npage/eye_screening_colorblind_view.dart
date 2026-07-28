@@ -117,6 +117,7 @@ class EyeScreeningColorblindView extends RapidView<EyeScreeningColorblindLogic> 
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningColorblindLogic>(() => EyeScreeningColorblindLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningColorblindLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

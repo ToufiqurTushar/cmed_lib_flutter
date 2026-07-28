@@ -100,7 +100,7 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
   }
 
   screeningComplete() {
-    Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+    Get.offNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
       measurements: [MeasurementDTO(
           eyeScreening: [
             EyeScreening(

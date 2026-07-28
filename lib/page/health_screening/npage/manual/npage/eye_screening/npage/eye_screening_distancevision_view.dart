@@ -272,6 +272,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningDistancevisionLogic>(() => EyeScreeningDistancevisionLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningDistancevisionLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

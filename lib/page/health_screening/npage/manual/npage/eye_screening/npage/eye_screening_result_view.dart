@@ -369,14 +369,7 @@ class EyeScreeningResultView extends RapidView<EyeScreeningResultLogic> {
                                         buttonBgColor: Theme.of(context).primaryColor,
                                             () => {
                                           controller.saveLocal(),
-                                          if(controller.isThemeV2){
-                                            Get.back(),
-                                            Get.back(),
-                                            RLog.error("back twice"),
-                                          } else {
-                                            Get.back(),
-                                            RLog.error("back one"),
-                                          }
+                                          Get.back(),
                                         },
                                       ),
                                     ),

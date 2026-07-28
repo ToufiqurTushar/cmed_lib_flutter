@@ -141,7 +141,7 @@ class EyeScreeningDistancevisionLogic extends BaseLogic {
     }
 
     if(resultFound) {
-      Get.toNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+      Get.offNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
           measurements: [MeasurementDTO(
             eyeScreening: [
               EyeScreening(

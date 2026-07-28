@@ -12,6 +12,10 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
+import 'eye_screening_colorblind_logic.dart';
+import 'eye_screening_contrast_logic.dart';
+import 'eye_screening_distancevision_logic.dart';
+import 'eye_screening_nearvision_logic.dart';
 
 class EyeScreeningResultLogic extends BaseLogic {
   dynamic argumentData = Get.arguments;
@@ -85,9 +89,9 @@ class EyeScreeningResultLogic extends BaseLogic {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
     if(isNestedRoute) {
-      Get.back();
-      Get.back();
-      Get.toNamed(pageRouteName, arguments: MeasurementViewArg(isThemeV2: isThemeV2, isNestedRoute: isNestedRoute));
+      Future.delayed(Duration.zero, () async {
+        Get.offNamed(pageRouteName, arguments: MeasurementViewArg(isThemeV2: isThemeV2, isNestedRoute: isNestedRoute));
+      });
     }
     else Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
@@ -106,7 +110,7 @@ class EyeScreeningResultLogic extends BaseLogic {
     }
 
     if(isNestedRoute){
-      Get.offNamed(EyeScreeningHomeView.routeName);
+      Get.offNamed(pageRouteName);
     } else {
       Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
     }
@@ -186,10 +190,7 @@ class EyeScreeningResultLogic extends BaseLogic {
 
   startDistanceVisionEyeScreening() {
     saveLocal();
-    RLog.error(isThemeV2);
-    RLog.error(isNestedRoute);
     if(isNestedRoute) {
-      Get.back();
       Get.offNamed(EyeScreeningDistancevisionView.routeName);
     }
     else Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
