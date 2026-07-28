@@ -116,8 +116,9 @@ class TempInputLogic extends BaseLogic {
   toggleTemperatureUnit() {
     if (temperatureUnit.value == TemperatureUnit.FAHRENHEIT.name) {
       temperatureUnit.value = TemperatureUnit.CELSIUS.name;
-      var value =
-          ((double.parse(temperatureEditTextController.value.text) - 32) * 5) /
+      final doubleValue = double.tryParse(temperatureEditTextController.text) ?? 0.0;
+      var value =doubleValue == 0 ? 0:
+          ((doubleValue - 32) * 5) /
               9;
       temperatureEditTextController.text =
           value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
@@ -130,8 +131,10 @@ class TempInputLogic extends BaseLogic {
   }
 
   String getTemperatureInFahrenheit(String text) {
-    var value =
-        ((double.parse(temperatureEditTextController.value.text) * 9) / 5) + 32;
+    final doubleValue = double.tryParse(temperatureEditTextController.text) ?? 0.0;
+
+    var value =doubleValue == 0 ? 0:
+        ((doubleValue * 9) / 5) + 32;
     return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
   }
 

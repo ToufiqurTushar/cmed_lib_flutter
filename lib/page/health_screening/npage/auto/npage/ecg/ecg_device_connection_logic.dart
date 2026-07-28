@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cmed_ecg_devices_lib/cmed_user.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 
 class EcgDeviceConnectionLogic extends BaseLogic {
@@ -37,11 +38,16 @@ class EcgDeviceConnectionLogic extends BaseLogic {
   final ScreeningReportRepository repository;
   CMEDUser userData = CMEDUser();
 
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
+
   EcgDeviceConnectionLogic({required this.repository});
 
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     userData = CMEDUser(
         id: customer.value.userId,
         gender: customer.value.getGenderString(),
@@ -182,7 +188,7 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         screeningReport.value = value;
         Get.offNamed('/screening_report_ecg_details', arguments: [ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
-        )]);
+        )], id: isNestedRoute? 1: null);
       }
     });
   }

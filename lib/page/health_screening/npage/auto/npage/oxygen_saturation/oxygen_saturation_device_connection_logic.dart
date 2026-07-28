@@ -70,6 +70,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         buttonText.value = 'label_connecting'.tr;
       } else if (status[0] == "CN_FINGER_OUT") {
         isLoading.value = false;
+        globalState.hideBusy();
         RLog.error(status[0]);
         screenStatus.value = ScreenEnum.FINGER_OUT.name;
         reading.value = "";
@@ -77,6 +78,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         pulseResult.value = "";
       } else if (status[0] == "CN_FINGER_IN") {
         isLoading.value = false;
+        globalState.hideBusy();
         RLog.error(status[0]);
         screenStatus.value = ScreenEnum.FINGER_IN.name;
       }

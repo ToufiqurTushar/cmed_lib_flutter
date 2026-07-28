@@ -20,7 +20,7 @@ class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('label_ecg'.tr),
+      appBar: controller.isNestedRoute? null:BasicAppBar('label_ecg'.tr),
       body: SafeArea(
         child: Column(
           children: [

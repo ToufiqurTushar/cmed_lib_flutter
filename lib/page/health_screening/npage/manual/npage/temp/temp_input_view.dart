@@ -102,8 +102,10 @@ class TempInputView extends RapidView<TempInputLogic> {
                                     Expanded(
                                       flex: 1,
                                       child: InkWell(
-                                        onTap: () =>
-                                        {controller.toggleTemperatureUnit()},
+                                        onTap: ()
+                                        {
+                                          controller.toggleTemperatureUnit();
+                                        },
                                         child:  ChangeColors(
                                           hue: AppUidConfig.getHueOnGreen(),
                                           child: SvgPicture.asset(

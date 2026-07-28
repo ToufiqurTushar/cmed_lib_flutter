@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bp/bp_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_bp_device_lib/bp/riocom/riocom_bp_handler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -85,6 +86,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
         screen_status.value = ScreenEnum.MEASURING.name;
         bpCurrentStatusObs.value = BPDeviceStatus.Measuring.name;
       } else if (event == "disconnected" || event == "error_connection_lost" || event == "deviceNotConnected") {
+        globalState.hideBusy();
         screen_status.value = ScreenEnum.DISCONNECTED.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
@@ -92,6 +94,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
         bpCurrentStatusObs.value = BPDeviceStatus.DeviceDisconnected.name;
         bpValueObs.value = "";
       } else if (event == "noDeviceFound" || event == "bluetoothDisabled" || event == "reconnectError") {
+        globalState.hideBusy();
         screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
@@ -185,6 +188,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
   }
 
   disconnect() async{
+    globalState.hideBusy();
     isLoading.value = false;
     await riocomBpHandler.disconnect().then((bool isDisconnected){
       if(isDisconnected) {
@@ -255,6 +259,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
 
   @override
   void onClose() async{
+    globalState.hideBusy();
     await disconnect();
   }
 
@@ -373,20 +378,47 @@ enum BPDeviceStatus {
         ),
       ),
       BPDeviceStatus.DeviceNotFound => DeviceUiState(
-        type: DeviceUiType.errorFault,
-        title: 'label_device_not_found'.tr,
-        subtitle: 'label_keep_device_switch_on'.tr,
-        icon: Icons.error_outline,
+        type: DeviceUiType.successDone,
+        title: ''.tr,
+        subtitle: ''.tr,
+        //icon: Icons.error_outline,
         themeColor: Colors.red,
-        actionButtonLabel: 'label_connect'.tr,
+        child: Center(
+          child: DeviceReconnectViewV2(
+            imageAsset: 'assets/images/measurement/img_bp_ihealth_bp3l_third.png',
+            suggestion: 'label_keep_device_switch_on'.tr,
+            message: 'label_device_not_found'.tr,
+            onReconnectDevice:() async {
+              await Get.find<BpDeviceConnectionLogic>().reconnect();
+            },
+            onManualSelect: ()=>Get.offNamed(BpInputView.routeName, arguments: MeasurementViewArg(
+            isNestedRoute: Get.find<BpDeviceConnectionLogic>().isNestedRoute,
+            isThemeV2: Get.find<BpDeviceConnectionLogic>().isThemeV2,
+          ), id: Get.find<BpDeviceConnectionLogic>().isNestedRoute? 1: null)
+          ),
+        )
       ),
       BPDeviceStatus.DeviceDisconnected => DeviceUiState(
-        type: DeviceUiType.errorFault,
-        title: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
-        subtitle: 'label_keep_device_switch_on'.tr,
-        icon: Icons.error_outline,
+        type: DeviceUiType.successDone,
+        title: ''.tr,
+        subtitle: ''.tr,
+        //icon: Icons.error_outline,
         themeColor: Colors.red,
-        actionButtonLabel: 'label_reconnect'.tr,
+        //actionButtonLabel: 'label_reconnect'.tr,
+        child:Center(
+          child: DeviceReconnectViewV2(
+            imageAsset: 'assets/images/measurement/img_bp_ihealth_bp3l_third.png',
+            suggestion: 'label_keep_device_switch_on'.tr,
+            message: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
+            onReconnectDevice:() async {
+              await Get.find<BpDeviceConnectionLogic>().reconnect();
+            },
+              onManualSelect: ()=>Get.offNamed(BpInputView.routeName, arguments: MeasurementViewArg(
+                isNestedRoute: Get.find<BpDeviceConnectionLogic>().isNestedRoute,
+                isThemeV2: Get.find<BpDeviceConnectionLogic>().isThemeV2,
+              ), id: Get.find<BpDeviceConnectionLogic>().isNestedRoute? 1: null)
+          ),
+        )
       ),
     };
   }
