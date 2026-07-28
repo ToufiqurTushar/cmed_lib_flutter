@@ -686,9 +686,9 @@ class OxygenSaturationDeviceConnectionView
                   },
                 ),
                 ListTile(
-                  title: Text('RESULT_FOUND'),
+                  title: Text('DISCONNECTED'),
                   onTap: () {
-                    controller.screenStatus.value = ScreenEnum.RESULT_FOUND.name;
+                    controller.screenStatus.value = ScreenEnum.DISCONNECTED.name;
                     Navigator.pop(context);
                   },
                 ),
@@ -698,7 +698,7 @@ class OxygenSaturationDeviceConnectionView
           actions: [
             TextButton(
               onPressed: () {
-
+                controller.screenStatus.value = ScreenEnum.RESULT_FOUND.name;
                 Navigator.pop(context);
               },
               child: const Text('Result Found'),

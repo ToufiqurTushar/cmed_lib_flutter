@@ -69,12 +69,14 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         screenStatus.value = ScreenEnum.CONNECTING.name;
         buttonText.value = 'label_connecting'.tr;
       } else if (status[0] == "CN_FINGER_OUT") {
+        isLoading.value = false;
         RLog.error(status[0]);
         screenStatus.value = ScreenEnum.FINGER_OUT.name;
         reading.value = "";
         spo2Result.value = "";
         pulseResult.value = "";
       } else if (status[0] == "CN_FINGER_IN") {
+        isLoading.value = false;
         RLog.error(status[0]);
         screenStatus.value = ScreenEnum.FINGER_IN.name;
       }

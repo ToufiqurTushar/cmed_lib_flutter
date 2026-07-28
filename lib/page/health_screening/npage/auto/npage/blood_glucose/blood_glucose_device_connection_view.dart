@@ -105,12 +105,16 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
           body: SafeArea(
             child: Stack(
               children: [
-                kDebugMode ? Text(controller.deviceEvent.value) : const SizedBox.shrink(),
-                kDebugMode ? InkWell(
-                    onTap: (){
-                      changeEvent(context);
-                    },
-                    child: Text('ChangeEvent')
+                kDebugMode ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                        onTap: (){
+                          changeEvent(context);
+                        },
+                        child: Text('ChangeEvent')
+                    ),
+                  ],
                 ) : const SizedBox.shrink(),
                 Obx(() {
                   if (controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name || controller.screenStatus.value == ScreenEnum.MEASURING.name) {
@@ -410,6 +414,11 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                               ),
                             ),
                             // // Bottom Action Button
+                            if(controller.deviceEvent.value.contains(":"))
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(controller.trDeviceStatus(controller.deviceEvent.value.split(":")[1]), style: TextStyle(color: Colors.grey),),
+                            ),
                             Row(
                               children: [
                                 Expanded(
@@ -547,7 +556,6 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
               Obx(() => Expanded(
                 child: Stack(
                   children: [
-                    kDebugMode? Text(controller.deviceEvent.value): SizedBox.shrink(),
                     Visibility(
                       visible: controller.screenStatus.value ==
                           ScreenEnum.CONNECT.name,

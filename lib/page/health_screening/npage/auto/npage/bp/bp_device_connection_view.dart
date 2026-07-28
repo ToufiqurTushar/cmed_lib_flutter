@@ -191,12 +191,11 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
                             uiState: bpCurrentEnum.toUiState(context, controller.bpValueObs.value),
                             onActionPressed: () {
                               switch (bpCurrentEnum) {
-                                case BPDeviceStatus.TapConnect:
-                                case BPDeviceStatus.TapReConnect:
                                 case BPDeviceStatus.Idle:
                                   controller.connect();
                                   break;
                                 case BPDeviceStatus.DeviceNotFound:
+                                case BPDeviceStatus.DeviceDisconnected:
                                   controller.reconnect();
                                   break;
                                 case BPDeviceStatus.DeviceConnected:

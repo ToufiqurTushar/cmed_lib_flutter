@@ -12,6 +12,7 @@ import '../../../../../../common/api/api_url.dart';
 import '../../../../../../common/widget/radar_pulsator.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
+import '../../../../nview/device_disconnected_view.dart';
 import '../../enum/screen_enum.dart';
 
 class BpDeviceConnectionLogic extends BaseLogic {
@@ -83,14 +84,14 @@ class BpDeviceConnectionLogic extends BaseLogic {
         globalState.hideBusy();
         screen_status.value = ScreenEnum.MEASURING.name;
         bpCurrentStatusObs.value = BPDeviceStatus.Measuring.name;
-      } else if (event == "disconnected" || event == "error_connection_lost") {
+      } else if (event == "disconnected" || event == "error_connection_lost" || event == "deviceNotConnected") {
         screen_status.value = ScreenEnum.DISCONNECTED.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
         isResultFound.value = false;
-        bpCurrentStatusObs.value = BPDeviceStatus.TapConnect.name;
+        bpCurrentStatusObs.value = BPDeviceStatus.DeviceDisconnected.name;
         bpValueObs.value = "";
-      } else if (event == "noDeviceFound" || event == "bluetoothDisabled" || event == "reconnectError" || event == "deviceNotConnected") {
+      } else if (event == "noDeviceFound" || event == "bluetoothDisabled" || event == "reconnectError") {
         screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
@@ -265,12 +266,13 @@ class BpDeviceConnectionLogic extends BaseLogic {
 
 // Your existing enum remains perfectly clean and unchanged
 enum BPDeviceStatus {
-  Idle, TapConnect, TapReConnect, Connecting, ReConnecting, DeviceConnected, DeviceNotFound, Measuring, Measured;
+  Idle, Connecting, DeviceConnected, DeviceDisconnected, DeviceNotFound, Measuring, Measured;
 
   // Simply add a mapper translation helper
   DeviceUiState toUiState(BuildContext context, String? liveValue) {
+    RLog.error(this.name);
     return switch (this) {
-      BPDeviceStatus.Idle || BPDeviceStatus.TapConnect || BPDeviceStatus.TapReConnect => DeviceUiState(
+      BPDeviceStatus.Idle => DeviceUiState(
         type: DeviceUiType.interactiveAction,
         title: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
         subtitle: 'label_keep_device_switch_on'.tr,
@@ -282,7 +284,7 @@ enum BPDeviceStatus {
           }, child: CenterRadar(oneFullRotationInMilliSeconds: 2000)
         )
       ),
-      BPDeviceStatus.Connecting || BPDeviceStatus.ReConnecting => DeviceUiState(
+      BPDeviceStatus.Connecting => DeviceUiState(
         type: DeviceUiType.loadingProgress,
         title: Get.find<BpDeviceConnectionLogic>().buttonText.value,
         subtitle: 'label_keep_device_switch_on'.tr,
@@ -300,6 +302,8 @@ enum BPDeviceStatus {
         themeColor: Theme.of(context).primaryColor,
         actionButtonLabel: 'label_start'.tr,
       ),
+
+
       BPDeviceStatus.Measuring => DeviceUiState(
         type: DeviceUiType.loadingProgress,
         title: 'label_please_wait_while_taking_measurement'.tr,
@@ -375,6 +379,14 @@ enum BPDeviceStatus {
         icon: Icons.error_outline,
         themeColor: Colors.red,
         actionButtonLabel: 'label_connect'.tr,
+      ),
+      BPDeviceStatus.DeviceDisconnected => DeviceUiState(
+        type: DeviceUiType.errorFault,
+        title: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
+        subtitle: 'label_keep_device_switch_on'.tr,
+        icon: Icons.error_outline,
+        themeColor: Colors.red,
+        actionButtonLabel: 'label_reconnect'.tr,
       ),
     };
   }
