@@ -11,7 +11,7 @@ class EyeScreeningContrastView extends RapidView<EyeScreeningContrastLogic> {
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_color_contrast_test'.tr),
+        appBar: controller.isThemeV2? MiniAppBar('label_color_contrast_test'.tr, hasProfile: false,):BasicAppBar('label_color_contrast_test'.tr),
         body: SafeArea(
           child: Column(
             children: [

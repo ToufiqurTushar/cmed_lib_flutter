@@ -164,6 +164,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     if (result.value.isEmpty) return;
     if (isLoading.isTrue) return;
     isLoading.value = true;
+    globalState.showBusy();
 
     var measurement = MeasurementDTO(
         userId: customer.value.userId,
@@ -186,6 +187,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
     repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
+      globalState.hideBusy();
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
@@ -202,7 +204,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
       String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
       Get.offNamed(route, arguments: [ScreeningReportResultDetailsArgument(
         screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
-      )]);
+      )], id: isNestedRoute? 1: null);
     });
   }
 

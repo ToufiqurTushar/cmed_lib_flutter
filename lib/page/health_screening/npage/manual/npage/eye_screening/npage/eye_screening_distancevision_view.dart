@@ -21,7 +21,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
               return true;
             },
             child: Scaffold(
-              appBar: BasicAppBar('label_distance_vision_test'.tr),
+              appBar: controller.isThemeV2? MiniAppBar('label_distance_vision_test'.tr, hasProfile: false,):BasicAppBar('label_distance_vision_test'.tr),
               body: SafeArea(
             child: Column(
               children: [

@@ -104,7 +104,8 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                       ),
                       Visibility(
                         visible: controller.screen_status.value ==
-                            ScreenEnum.MEASURING.name,
+                            ScreenEnum.MEASURING.name || controller.screen_status.value ==
+                            ScreenEnum.RESULT_FOUND.name || controller.resultFound.value,
                         child: Column(
                           children: [
                             Expanded(
@@ -156,92 +157,6 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                             message: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
                             onReconnectDevice:()=> controller.connect(),
                           ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: controller.screen_status.value ==
-                            ScreenEnum.RESULT_FOUND.name || controller.resultFound.value,
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black.withAlpha(70),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                width: 320,
-                                height: 180,
-                                child: Card(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'label_measurement_store_warning'.tr,
-                                        textAlign: TextAlign.center,
-                                        style:
-                                        CMEDTextUtils.alertTitleTextStyle,
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        controller.getInputText(),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: CMEDPrimaryElevatedButton(
-                                              'yes'.tr,
-                                                  () => {
-                                                controller.sendMeasurement()
-                                              },
-                                              buttonBgColor: Theme.of(context).primaryColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              height: 42,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: CMEDPrimaryElevatedButton(
-                                              'no'.tr,
-                                                  () => {
-                                                controller.disconnect(),
-                                                controller.resultFound.value = false,
-                                                Get.back(),
-                                              },
-                                              buttonBgColor: Colors.red,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              height: 42,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                       // Container(child: Text(""),),

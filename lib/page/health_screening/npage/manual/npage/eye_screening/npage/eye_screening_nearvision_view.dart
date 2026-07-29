@@ -12,7 +12,7 @@ class EyeScreeningNearvisionView extends RapidView<EyeScreeningNearvisionLogic> 
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_near_vision_both_eye_test'.tr),
+        appBar: controller.isThemeV2? MiniAppBar('label_near_vision_both_eye_test'.tr, hasProfile: false,): BasicAppBar('label_near_vision_both_eye_test'.tr),
         body: SafeArea(
           child: Column(
             children: [

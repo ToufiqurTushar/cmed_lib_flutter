@@ -13,7 +13,7 @@ class EyeScreeningColorblindView extends RapidView<EyeScreeningColorblindLogic> 
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_color_blind_test'.tr),
+        appBar: controller.isThemeV2? MiniAppBar('label_color_blind_test'.tr, hasProfile: false,):BasicAppBar('label_color_blind_test'.tr),
         body: SafeArea(
           child: Column(
             children: [
