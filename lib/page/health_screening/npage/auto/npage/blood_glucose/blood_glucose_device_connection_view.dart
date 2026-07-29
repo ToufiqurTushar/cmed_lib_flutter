@@ -232,77 +232,77 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                               if(controller.screenStatus.value == ScreenEnum.MEASURING.name)
                               Text('Measuring...'.tr),
 
-                              if(controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name)
-                              Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: const Color(0xFFE2F5EC), width: 1.0),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        LoopAnimationBuilder<double>(
-                                          tween: Tween(begin: 0.0, end: 2 * pi), // 0° to 360° (2π)
-                                          duration: const Duration(seconds: 4), // for 2 seconds per iteration
-                                          builder: (context, value, _) {
-                                            return Transform.rotate(
-                                              angle: value, // use value
-                                              child: Image.asset('assets/images/screening/success_green_bg.png', package: 'cmed_lib_flutter', color: statusColor, width: 70,),
-                                            );
-                                          },
-                                        ),
-                                        Icon(
-                                          colorName == 'green' ? Icons.check_circle : Icons.warning_rounded,
-                                          color: Colors.white,
-                                          size: 28,
-                                        )
-                                      ],
-                                    ),
-                                    // Container(
-                                    //   padding: const EdgeInsets.all(6),
-                                    //   decoration: BoxDecoration(
-                                    //     color: statusColor.withOpacity(0.1),
-                                    //     shape: BoxShape.circle,
-                                    //   ),
-                                    //   child: Icon(
-                                    //     colorName == 'green' ? Icons.check_circle : Icons.warning_rounded,
-                                    //     color: statusColor,
-                                    //     size: 28,
-                                    //   ),
-                                    // ),
-                                    const SizedBox(width: 14),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${'label_blood_glucose'.tr}: $statusText",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: statusColor,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            descText,
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black87,
-                                              height: 1.3,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // if(controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name)
+                              // Container(
+                              //   padding: const EdgeInsets.all(16),
+                              //   decoration: BoxDecoration(
+                              //     color: Colors.white,
+                              //     borderRadius: BorderRadius.circular(12),
+                              //     border: Border.all(color: const Color(0xFFE2F5EC), width: 1.0),
+                              //   ),
+                              //   child: Row(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Stack(
+                              //         alignment: Alignment.center,
+                              //         children: [
+                              //           LoopAnimationBuilder<double>(
+                              //             tween: Tween(begin: 0.0, end: 2 * pi), // 0° to 360° (2π)
+                              //             duration: const Duration(seconds: 4), // for 2 seconds per iteration
+                              //             builder: (context, value, _) {
+                              //               return Transform.rotate(
+                              //                 angle: value, // use value
+                              //                 child: Image.asset('assets/images/screening/success_green_bg.png', package: 'cmed_lib_flutter', color: statusColor, width: 70,),
+                              //               );
+                              //             },
+                              //           ),
+                              //           Icon(
+                              //             colorName == 'green' ? Icons.check_circle : Icons.warning_rounded,
+                              //             color: Colors.white,
+                              //             size: 28,
+                              //           )
+                              //         ],
+                              //       ),
+                              //       // Container(
+                              //       //   padding: const EdgeInsets.all(6),
+                              //       //   decoration: BoxDecoration(
+                              //       //     color: statusColor.withOpacity(0.1),
+                              //       //     shape: BoxShape.circle,
+                              //       //   ),
+                              //       //   child: Icon(
+                              //       //     colorName == 'green' ? Icons.check_circle : Icons.warning_rounded,
+                              //       //     color: statusColor,
+                              //       //     size: 28,
+                              //       //   ),
+                              //       // ),
+                              //       const SizedBox(width: 14),
+                              //       Expanded(
+                              //         child: Column(
+                              //           crossAxisAlignment: CrossAxisAlignment.start,
+                              //           children: [
+                              //             Text(
+                              //               "${'label_blood_glucose'.tr}: $statusText",
+                              //               style: TextStyle(
+                              //                 fontSize: 16,
+                              //                 fontWeight: FontWeight.bold,
+                              //                 color: statusColor,
+                              //               ),
+                              //             ),
+                              //             const SizedBox(height: 4),
+                              //             Text(
+                              //               descText,
+                              //               style: const TextStyle(
+                              //                 fontSize: 13,
+                              //                 color: Colors.black87,
+                              //                 height: 1.3,
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               const Spacer(),
                               // Action Buttons
 

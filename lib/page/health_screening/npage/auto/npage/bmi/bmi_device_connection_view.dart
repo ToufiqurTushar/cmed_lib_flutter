@@ -3,6 +3,7 @@ import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_primary_elevated_button.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bmi_height_weight_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/nview/device_disconnected_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themed/themed.dart';
@@ -41,6 +42,17 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                 Obx(() => Expanded(
                   child: Stack(
                     children: [
+                      kDebugMode ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                              onTap: (){
+                                changeEvent(context);
+                              },
+                              child: Text('ChangeEvent')
+                          ),
+                        ],
+                      ) : const SizedBox.shrink(),
                       Visibility(
                         visible: controller.screen_status.value ==
                             ScreenEnum.CONNECT.name ||
@@ -120,13 +132,13 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child: CMEDWhiteElevatedButton(
-                                        'label_done'.tr,
+                                    child: CMEDPrimaryElevatedButton(
+                                        'label_next'.tr,
                                             () => {
-                                          controller.stopMeasurement(),
-                                          controller.screen_status.value =
-                                              ScreenEnum.RESULT_FOUND.name,
-                                          controller.resultFound.value = true,
+                                          controller.sendMeasurement(),
+                                          // controller.screen_status.value =
+                                          //     ScreenEnum.RESULT_FOUND.name,
+                                          // controller.resultFound.value = true,
                                         }),
                                   ),
                                 ),
@@ -457,5 +469,41 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
       return v2 ?? v1;
     }
     return v1;
+  }
+
+  void changeEvent(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select an Item'),
+          content: SizedBox(
+            // Essential: Gives the AlertDialog a finite width boundary
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text('MEASURING'),
+                  onTap: () {
+                    controller.screen_status.value = ScreenEnum.MEASURING.name;
+                    controller.result.value = "10";
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                controller.screen_status.value = ScreenEnum.RESULT_FOUND.name;
+                Navigator.pop(context);
+              },
+              child: const Text('Result Found'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

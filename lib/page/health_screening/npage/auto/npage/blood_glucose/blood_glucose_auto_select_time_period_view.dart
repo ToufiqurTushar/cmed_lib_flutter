@@ -201,7 +201,7 @@ class BloodGlucoseAutoSelectTimePeriodView
       return [
         MasterDataDTO(labelEn: 'Random', labelBn: 'যেকোনো সময়', id: 9, image: 'assets/images/blood_grouping/ic_medium_random.png'),
         MasterDataDTO(labelEn: 'Fasting', labelBn: 'খালি পেটে', id: 10, image: 'assets/images/blood_grouping/ic_fasting.png'),
-        MasterDataDTO(labelEn: 'OGTT (Oral Glucose Tolerance Test)', labelBn: 'ওজিটিটি', id: 11, image: 'assets/images/blood_grouping/ic_ogtt.png'),
+        MasterDataDTO(labelEn: 'OGTT', labelBn: 'ওজিটিটি', id: 11, image: 'assets/images/blood_grouping/ic_ogtt.png'),
         MasterDataDTO(labelEn: '2hr AFB (After Breakfast)', labelBn: 'খাবারের দুই ঘন্টা পর', id: 12, image: 'assets/images/blood_grouping/ic_2hab.png')
       ];
     } else {

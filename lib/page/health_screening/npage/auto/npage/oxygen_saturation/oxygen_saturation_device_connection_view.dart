@@ -198,8 +198,8 @@ class OxygenSaturationDeviceConnectionView
                                       child: PulseOximeterCard(
                                         spo2Value: controller.spo2Result.value.isEmpty?"0":controller.reading.value.trAmount(),
                                         prBpmValue: controller.pulseResult.value.isEmpty?"0":controller.pulseResult.value.trAmount(),
-                                        time: CustomDateUtils.format(DateTime.now().microsecondsSinceEpoch, format: "h:mm a"),
-                                        date: CustomDateUtils.format(DateTime.now().microsecondsSinceEpoch, format: "MM-dd-yyyy"),
+                                        time: CustomDateUtils.format(DateTime.now().millisecondsSinceEpoch, format: "h:mm a"),
+                                        date: CustomDateUtils.format(DateTime.now().millisecondsSinceEpoch, format: "MM-dd-yyyy"),
                                       ),
                                     ),
                                     Visibility(
@@ -699,6 +699,8 @@ class OxygenSaturationDeviceConnectionView
             TextButton(
               onPressed: () {
                 controller.screenStatus.value = ScreenEnum.RESULT_FOUND.name;
+                controller.spo2Result.value = "90";
+                controller.pulseResult.value = "40";
                 Navigator.pop(context);
               },
               child: const Text('Result Found'),

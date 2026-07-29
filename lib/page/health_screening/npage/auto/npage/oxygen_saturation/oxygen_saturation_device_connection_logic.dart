@@ -168,11 +168,12 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((spo2MeasurementWithResult) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (measurement).toJson()).then((spo2MeasurementWithResult) {
       debugPrint(spo2MeasurementWithResult?.toJson().toString());
       if (spo2MeasurementWithResult != null) {
         measurement.result = spo2MeasurementWithResult.result;
-        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+        repository.sendData(url, (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
           isLoading.value = false;
           if (pulseMeasurementWithResult != null) {
             pulseMeasurement.result = pulseMeasurementWithResult.result;
@@ -190,11 +191,8 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
-    // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-    // if(isValidMeasurementSelectionDetailsLogic) {
-    //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus(allMeasurements);
-    // }
-    Get.offNamed('/screening_report_result_details', arguments: [
+    String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value,
           isAuto: true,

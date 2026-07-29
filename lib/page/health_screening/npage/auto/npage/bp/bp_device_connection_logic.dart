@@ -229,7 +229,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.addMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
     repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       if (bpMeasurementWithResult != null) {
         allMeasurements[0].result = bpMeasurementWithResult.result;
@@ -244,17 +244,22 @@ class BpDeviceConnectionLogic extends BaseLogic {
                 BPAttribute.PULSE.name: double.parse(result[2])
               });
             }
-
-            String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
-            Get.offNamed(route, arguments: [
-              ScreeningReportResultDetailsArgument(
-                  screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
-              )
-            ], id: isNestedRoute? 1: null);
+            updateMeasurementAndNavigate(allMeasurements);
           });
         }
       }
     });
+  }
+
+  updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
+    String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value,
+          isAuto: true,
+          measurementsWithResult: allMeasurements
+      )
+    ], id: isNestedRoute? 1: null);
   }
 
   @override
@@ -430,47 +435,4 @@ enum BPDeviceStatus {
     );
   }
 }
-
-
-
-
-// enum OximeterStatus { disconnected, scanning, analyzing, syncError }
-//
-// extension OximeterUiAdapter on OximeterStatus {
-//   DeviceUiState toUiState(String? Spo2) {
-//     return switch (this) {
-//       OximeterStatus.disconnected => const DeviceUiState(
-//         type: DeviceUiType.interactiveAction,
-//         title: 'Oximeter Offline',
-//         subtitle: 'Clip device to your index finger',
-//         icon: Icons.fingerprint,
-//         themeColor: Colors.indigo,
-//         actionButtonLabel: 'Initialize Sensor',
-//       ),
-//       OximeterStatus.scanning => const DeviceUiState(
-//         type: DeviceUiType.loadingProgress,
-//         title: 'Acquiring Signal',
-//         subtitle: 'Reading blood pulse waves...',
-//         icon: Icons.waves,
-//         themeColor: Colors.cyan,
-//       ),
-//       OximeterStatus.analyzing => DeviceUiState(
-//         type: DeviceUiType.successDone,
-//         title: 'Pulse SpO2 Captured',
-//         subtitle: 'Oxygen levels normal',
-//         value: Spo2 ?? '98%',
-//         icon: Icons.health_and_safety,
-//         themeColor: Colors.green,
-//       ),
-//       OximeterStatus.syncError => const DeviceUiState(
-//         type: DeviceUiType.errorFault,
-//         title: 'Hardware Error',
-//         subtitle: 'Sensor dirty or detached from finger',
-//         icon: Icons.warning_amber_rounded,
-//         themeColor: Colors.deepOrange,
-//         actionButtonLabel: 'Clean and Retry',
-//       ),
-//     };
-//   }
-// }
 

@@ -1368,6 +1368,9 @@ class BodyComposition {
     this.cWeightDiffStatus,
     this.maleWeight,});
 
+  factory BodyComposition.fromRawJson(String str) =>
+      BodyComposition.fromJson(json.decode(str));
+
   BodyComposition.fromJson(dynamic json) {
     bodyFatData = json['bodyFatData'] != null ? BodyFatData.fromJson(json['bodyFatData']) : null;
     cAdc = json['c_adc'];

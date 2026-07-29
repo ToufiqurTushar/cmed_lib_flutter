@@ -158,7 +158,9 @@ class BmiDeviceConnectionLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+
+    repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
@@ -171,13 +173,14 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   updateSelectedCustomerHeightAndNavigate(List<MeasurementDTO> measurementsWithResult) {
     isLoading.value = true;
     customer.value.heightCentimeter = heightInCm.value;
-    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
-      isLoading.value = false,
-      Get.offNamed('/screening_report_result_details', arguments: [
+    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) {
+      isLoading.value = false;
+      String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+      Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult
         )
-      ]),
+      ], id: isNestedRoute? 1: null);
     });
   }
 

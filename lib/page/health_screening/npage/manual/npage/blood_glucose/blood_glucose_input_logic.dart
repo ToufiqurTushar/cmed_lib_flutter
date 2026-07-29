@@ -1,5 +1,6 @@
 import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
+import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
@@ -90,13 +91,17 @@ class BloodGlucoseInputLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = AppUidConfig.getPostMeasurementUrl();
+    httpProvider.POST(url, (measurement).toJson()).then((response) {
       isLoading.value = false;
-      if (value != null) {
+      if(response.isOk) {
+        final value = MeasurementDTO.fromJson(response.body);
         measurement.result = value.result;
         measurement.inputsWithUnit = value.inputsWithUnit;
         screeningReport.value = value;
         updateMeasurementAndNavigate(measurement);
+      } else {
+        ShowToast.error(response.body.toString());
       }
     });
   }
@@ -114,7 +119,8 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(measurement){
-      Get.offNamed('/screening_report_result_details', arguments: [
+    String route = '/screening_report_result_details';
+      Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
         )

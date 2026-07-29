@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
@@ -189,20 +190,29 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    httpProvider.POST(url, (measurement).toJson()).then((response) {
       isLoading.value = false;
-      if (value != null) {
+      if(response.isOk) {
+        final value = MeasurementDTO.fromJson(response.body);
         measurement.result = value.result;
+        measurement.inputsWithUnit = value.inputsWithUnit;
         screeningReport.value = value;
-        Get.offNamed('/screening_report_result_details', arguments: [
-          ScreeningReportResultDetailsArgument(
-              screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
-          )
-        ], id: isNestedRoute? 1: null);
+        updateMeasurementAndNavigate(measurement);
+      } else {
+        ShowToast.error(response.body.toString());
       }
     });
   }
 
+  updateMeasurementAndNavigate(measurement){
+    String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
+      )
+    ],id: isNestedRoute? 1: null);
+  }
 
 
   String getMeasurementTag() {
