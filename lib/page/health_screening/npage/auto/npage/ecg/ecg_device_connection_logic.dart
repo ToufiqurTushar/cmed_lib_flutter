@@ -181,18 +181,28 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         inputs: inputs
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
-        Get.offNamed('/screening_report_ecg_details', arguments: [ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
-        )], id: isNestedRoute? 1: null);
+        updateMeasurementAndNavigate([measurement]);
       }
     });
   }
 
+
+  updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value,
+          isAuto: true,
+          measurementsWithResult: allMeasurements
+      )
+    ], id: isNestedRoute? 1: null);
+  }
   @override
   void onClose() {
     disconnect();

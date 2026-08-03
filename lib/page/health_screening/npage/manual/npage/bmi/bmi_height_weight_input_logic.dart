@@ -174,7 +174,7 @@ class BmiHeightWeightInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(measurementsWithResult){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: measurementsWithResult, isNestedRoute: true
         )
       ], id: isNestedRoute? 1: null);
   }

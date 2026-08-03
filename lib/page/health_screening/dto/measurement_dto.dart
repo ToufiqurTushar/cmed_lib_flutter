@@ -728,6 +728,16 @@ class MeasurementDTO {
           result?.value?.truncateToDouble() == result?.value ? 0 : 2) ??
           "";
     }
+    else if (measurementTypeCodeId == MeasurementType.ECG.value) {
+      //pressure
+      //value = int.parse(inputs?['pressure']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+
+      //heart rate
+      value = int.parse(inputs?['hrmean']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+
+      //breath
+      //breathRate.value = int.parse(inputs?['breath']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+    }
     return value;
   }
 
@@ -763,6 +773,7 @@ class MeasurementDTO {
         value = inch.toStringAsFixed(inch.truncateToDouble() == inch ? 0 : 2);
       }
     }
+
     return value;
   }
 
@@ -884,7 +895,7 @@ class MeasurementDTO {
     if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
     }
-    return result?.engAdvice?.tr ?? "";
+    return result?.engAdvice?.tr ?? "N/A";
   }
 
   String getSuggestion() {

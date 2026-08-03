@@ -146,6 +146,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   void sendMeasurement() {
     if (result.value.isEmpty) return;
     if (isLoading.isTrue) return;
+    globalState.showBusy();
     isLoading.value = true;
 
     var measurement = MeasurementDTO(
@@ -162,6 +163,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
 
     repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
+      globalState.hideBusy();
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
@@ -175,7 +177,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     customer.value.heightCentimeter = heightInCm.value;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) {
       isLoading.value = false;
-      String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+      String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
       Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult

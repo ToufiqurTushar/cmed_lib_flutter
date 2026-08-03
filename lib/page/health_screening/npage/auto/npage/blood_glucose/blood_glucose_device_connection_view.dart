@@ -321,24 +321,6 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                                 ],
                               ),
                               const SizedBox(height: 12),
-                              if(controller.screenStatus.value == ScreenEnum.RESULT_FOUND.name)
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CMEDWhiteElevatedButton(
-                                      'label_measure_again'.tr,
-                                      () {
-                                        controller.stopMeasurement();
-                                        controller.screenStatus.value = ScreenEnum.CONNECT.name;
-                                        controller.result.value = "";
-                                        controller.connect();
-                                      },
-                                      width: double.infinity,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 16),
                             ],
                           ),
                         ),
@@ -444,58 +426,6 @@ class BloodGlucoseDeviceConnectionView extends RapidView<BloodGlucoseDeviceConne
                               Icons.speed_outlined,
                             ),
                           ),
-                        ),
-                      if (!controller.isListning.value)
-                        Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black.withAlpha(70),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                width: 320,
-                                height: 170,
-                                child: Card(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          '${'Step 1 - Reconnect Blood Glucose device'.tr}.\n'
-                                          '${'label_glucometer_step_2'.tr}.\n'
-                                          '${'label_glucometer_step_3'.tr}.\n',
-                                        ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: CMEDPrimaryElevatedButton(
-                                              'label_ok'.tr,
-                                              () {
-                                                controller.connect();
-                                              },
-                                              buttonBgColor: Theme.of(context).primaryColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              height: 42,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       if (controller.isLoading.value)
                         Container(

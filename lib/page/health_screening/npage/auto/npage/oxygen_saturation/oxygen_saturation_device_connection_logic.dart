@@ -191,7 +191,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
-    String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
     Get.offNamed(route, arguments: [
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value,

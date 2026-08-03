@@ -397,7 +397,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                                     child: CircularProgressIndicator())
                             );
                           }),
-
+                          Visibility(visible:controller.isLoading.value, child: Center(child: CircularProgressIndicator(color: Colors.white,))),
                           kDebugMode ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -470,6 +470,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
           actions: [
             TextButton(
               onPressed: () {
+                controller.result.value = "10";
                 controller.screen_status.value = ScreenEnum.RESULT_FOUND.name;
                 String jsonString = '''{
   "bodyFatData": {

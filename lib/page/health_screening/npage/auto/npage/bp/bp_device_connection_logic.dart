@@ -252,7 +252,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
-    String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
     Get.offNamed(route, arguments: [
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value,
@@ -262,8 +262,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
     ], id: isNestedRoute? 1: null);
   }
 
-  @override
-  void onClose() async{
+     void onClose() async{
     globalState.hideBusy();
     await disconnect();
   }
