@@ -33,7 +33,7 @@ class BpDeviceConnectionView extends RapidView<BpDeviceConnectionLogic> {
       v2: GradientWhiteToPrimary(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: controller.isNestedRoute? null: MiniAppBar('Measure blood pressure'.tr, hasProfile: false, elevation: 0,),
+          appBar: controller.isNestedRoute? null: BasicAppBarV2('Measure blood pressure'.tr,  elevation: 0,),
           body: SafeArea(
             child: Obx(() {
               final bpCurrentEnum = BPDeviceStatus.fromString(controller.bpCurrentStatusObs.value);

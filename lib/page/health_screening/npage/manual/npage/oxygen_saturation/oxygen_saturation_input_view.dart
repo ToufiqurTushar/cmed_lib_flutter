@@ -28,7 +28,7 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         v2: GradientWhiteToPrimary(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: controller.isNestedRoute? null: MiniAppBar('label_oxygen_saturation'.tr),
+            appBar: controller.isNestedRoute? null: BasicAppBarV2('label_oxygen_saturation'.tr),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Form(

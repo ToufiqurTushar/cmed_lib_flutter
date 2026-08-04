@@ -130,7 +130,8 @@ class OxygenSaturationLogic extends BaseLogic {
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value,
           isAuto: false,
-          measurementsWithResult: [oxygenMeasurement, pulseMeasurement]
+          measurementsWithResult: [oxygenMeasurement, pulseMeasurement],
+          isNestedRoute: isNestedRoute
       ),
     ], id: isNestedRoute? 1: null);
   }

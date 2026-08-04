@@ -38,7 +38,7 @@ class BScanInputView extends RapidView<BScanInputLogic> {
         },
         child: Scaffold(
           backgroundColor: controller.isThemeV2?Colors.transparent:null,
-          appBar: controller.isNestedRoute? null: controller.isThemeV2?MiniAppBar('label_breast_cancer_screening'.tr):BasicAppBar('label_breast_cancer_screening'.tr),
+          appBar: controller.isNestedRoute? null: controller.isThemeV2?BasicAppBarV2('label_breast_cancer_screening'.tr):BasicAppBar('label_breast_cancer_screening'.tr),
           body: SafeArea(
             child: Form(
               key: controller.screeningReportFormKey,

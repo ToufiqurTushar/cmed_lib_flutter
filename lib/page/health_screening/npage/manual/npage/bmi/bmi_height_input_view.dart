@@ -30,7 +30,7 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
       v2: GradientWhiteToPrimary(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: controller.isNestedRoute? null: MiniAppBar(
+          appBar: controller.isNestedRoute? null: BasicAppBarV2(
             'label_bmi'.tr,
           ),
           body: SafeArea(

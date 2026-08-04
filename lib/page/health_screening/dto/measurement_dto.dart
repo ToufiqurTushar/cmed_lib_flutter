@@ -536,6 +536,9 @@ class MeasurementDTO {
         MeasurementType.CORONA_COVID19_V2.value ||
         measurementTypeCodeId == MeasurementType.COVID19.value) {
     } else if (measurementTypeCodeId == MeasurementType.WAVE_COUNT.value) {}
+    else if (measurementTypeCodeId == MeasurementType.BODY_COMPOSITION.value) {
+      unit = 'kg';
+    }
     return unit;
   }
 
@@ -648,7 +651,7 @@ class MeasurementDTO {
   }
 
   String? getValue1() {
-    String? value;
+    String? value = result?.value?.toStringAsFixed(result?.value?.truncateToDouble() == result?.value ? 0 : 2) ?? "";
     if (measurementTypeCodeId == MeasurementType.BP.value) {
       value = inputs![BPAttribute.SYSTOLIC.name]?.toStringAsFixed(
           inputs![BPAttribute.SYSTOLIC.name]?.truncateToDouble() ==
@@ -727,6 +730,11 @@ class MeasurementDTO {
       value = result?.value?.toStringAsFixed(
           result?.value?.truncateToDouble() == result?.value ? 0 : 2) ??
           "";
+    } else if (measurementTypeCodeId == MeasurementType.BREAST_CANCER.value) {
+      value = "";
+    }
+    else if (measurementTypeCodeId == MeasurementType.EYE_SCREENING.value) {
+      value = "";
     }
     else if (measurementTypeCodeId == MeasurementType.ECG.value) {
       //pressure
@@ -895,7 +903,7 @@ class MeasurementDTO {
     if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       return "Your Blood group is @group".trParams({"group": "${getStatus()}"});
     }
-    return result?.engAdvice?.tr ?? "N/A";
+    return result?.engAdvice?.tr ?? "";
   }
 
   String getSuggestion() {

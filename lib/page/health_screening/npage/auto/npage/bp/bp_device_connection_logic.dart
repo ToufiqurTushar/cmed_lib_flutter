@@ -346,7 +346,7 @@ enum BPDeviceStatus {
                   elevation: 0,
                 ),
                 child: Text(
-                  Get.locale?.languageCode == 'bn' ? "পরিমাপ সংরক্ষণ করুন" : "Save Measurement",
+                  "Save Measurement".tr,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

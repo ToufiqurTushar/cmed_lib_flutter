@@ -81,7 +81,7 @@ class BloodGroupingLogic extends BaseLogic {
   updateMeasurementAndNavigate(measurement){
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement],
         )
       ]);
   }

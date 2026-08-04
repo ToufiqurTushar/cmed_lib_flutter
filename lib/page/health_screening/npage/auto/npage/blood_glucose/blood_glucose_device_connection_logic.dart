@@ -209,7 +209,7 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
     String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
     Get.offNamed(route, arguments: [
       ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
+          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement], isNestedRoute: isNestedRoute
       )
     ],id: isNestedRoute? 1: null);
   }

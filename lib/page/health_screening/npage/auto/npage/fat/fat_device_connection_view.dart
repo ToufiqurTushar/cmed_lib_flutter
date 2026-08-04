@@ -33,7 +33,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
       },
       child: widgetV(
         v2: Scaffold(
-          appBar: controller.isNestedRoute? null:MiniAppBar(
+          appBar: controller.isNestedRoute? null:BasicAppBarV2(
               'label_body_fat_composition'.tr),
           body: SafeArea(
             child: Column(

@@ -27,7 +27,7 @@ class BpInputView extends RapidView<BpInputLogic> {
         v2: GradientWhiteToPrimary(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: controller.isNestedRoute? null: MiniAppBar('label_blood_pressure'.tr),
+            appBar: controller.isNestedRoute? null: BasicAppBarV2('label_blood_pressure'.tr),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Form(

@@ -122,7 +122,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
     String route = '/screening_report_result_details';
       Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement], isNestedRoute: isNestedRoute
         )
       ],id: isNestedRoute? 1: null);
   }

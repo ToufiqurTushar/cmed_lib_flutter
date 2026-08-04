@@ -171,7 +171,7 @@ class BpInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements, isNestedRoute: isNestedRoute
         )
       ], id:isNestedRoute? 1: null);
   }

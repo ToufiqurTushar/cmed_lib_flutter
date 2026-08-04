@@ -36,8 +36,6 @@ class EyeScreeningResultLogic extends BaseLogic {
     isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     screeningReport.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).measurements!.first: MeasurementDTO();
 
-    RLog.error(isNestedRoute);
-    RLog.error(isThemeV2);
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
     testedResultLeftEyeMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.leftEye ??"";

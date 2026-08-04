@@ -31,7 +31,7 @@ class OxygenSaturationDeviceConnectionView
       v2: GradientWhiteToPrimary(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: controller.isNestedRoute? null: MiniAppBar('label_connecting_device'.tr),
+          appBar: controller.isNestedRoute? null: BasicAppBarV2('label_connecting_device'.tr),
           body: SafeArea(
             child: Column(
               children: [

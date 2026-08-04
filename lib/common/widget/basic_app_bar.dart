@@ -34,33 +34,30 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 
-class MiniAppBar extends StatelessWidget implements PreferredSizeWidget {
+class BasicAppBarV2 extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(52);
 
-  MiniAppBar(
+  BasicAppBarV2(
       this.title, {
         super.key,
         this.trailingWidget,
         this.onClickAction,
         this.color,
-        this.hasProfile,
         this.showTitleBar,
         this.elevation,
-      }
-      );
+      });
 
   final String title;
   final Widget? trailingWidget;
   Function? onClickAction;
   Color? color;
-  bool? hasProfile;
   bool? showTitleBar;
   double? elevation;
 
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: hasProfile, showTitleBar: showTitleBar,elevation:elevation));
+    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: false, showTitleBar: showTitleBar,elevation:0));
   }
 }

@@ -17,8 +17,8 @@ class EyeScreeningResultView extends RapidView<EyeScreeningResultLogic> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          ()=> Scaffold(
-        appBar: controller.isThemeV2? MiniAppBar(controller.getTitle(), hasProfile: false,):BasicAppBar(controller.getTitle()),
+      ()=> Scaffold(
+        appBar: controller.isThemeV2? BasicAppBarV2(controller.getTitle()):BasicAppBar(controller.getTitle()),
         body: SafeArea(
           child: Column(
             children: [

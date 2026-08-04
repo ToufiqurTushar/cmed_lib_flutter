@@ -28,7 +28,7 @@ class BloodGlucoseSelectTimePeriodView
       v2: GradientWhiteToPrimary(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: controller.isNestedRoute?null:MiniAppBar('label_blood_glucose'.tr),
+          appBar: controller.isNestedRoute?null:BasicAppBarV2('label_blood_glucose'.tr),
           body: SafeArea(
             child: Column(
               children: [
