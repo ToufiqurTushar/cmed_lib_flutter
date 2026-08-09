@@ -171,7 +171,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
         measurementTypeCodeId: MeasurementType.BODY_COMPOSITION.value,
         measuredAt: DateTime.now().millisecondsSinceEpoch,
         inputs: {
-          BodyCompositionAttribute.BODY_COMPOSITION.name: bodyComposition.value.cBmi,
+          BodyCompositionAttribute.BODY_COMPOSITION.name: bodyComposition.value.cWeight,
+          //BmiAttribute.HEIGHT.name: heightInCm.value,
+          //BmiAttribute.WEIGHT.name: result.value,
         },
         bodyComposition: bodyComposition.value,
     );
@@ -203,7 +205,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
       isLoading.value = false;
       String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
       Get.offNamed(route, arguments: [ScreeningReportResultDetailsArgument(
-        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
+        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements, updateProfile: true
       )], id: isNestedRoute? 1: null);
     });
   }

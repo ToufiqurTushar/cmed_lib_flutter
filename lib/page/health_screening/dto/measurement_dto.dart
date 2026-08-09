@@ -745,6 +745,10 @@ class MeasurementDTO {
 
       //breath
       //breathRate.value = int.parse(inputs?['breath']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+    } else if (measurementTypeCodeId == MeasurementType.BODY_COMPOSITION.value) {
+      //result?.value =
+      final truncateOffset = bodyComposition?.cWeight?.truncateToDouble() == bodyComposition?.cWeight ? 0 : 2;
+      value = bodyComposition?.cWeight?.toStringAsFixed(truncateOffset) ?? "";
     }
     return value;
   }

@@ -180,7 +180,7 @@ class BmiDeviceConnectionLogic extends BaseLogic {
       String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
       Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult
+            screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult, updateProfile: true
         )
       ], id: isNestedRoute? 1: null);
     });
