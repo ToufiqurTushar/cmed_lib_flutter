@@ -176,10 +176,9 @@ class BloodGlucoseAutoSelectTimePeriodView
                       child: Obx(() {
                         return CMEDWhiteElevatedButton(
                           'label_next'.tr,
-                          () {
+                          controller.selectedItem.value.id == null?null:() {
                             controller.requestMicrophonePermissionAndNavigate();
                           },
-                          isEnable: controller.selectedItem.value.id != null,
                         );
                       }),
                     ),

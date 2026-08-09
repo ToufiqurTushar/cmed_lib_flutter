@@ -59,7 +59,7 @@ class _CMEDBirthDatePickerState extends State<CMEDBirthDatePicker> {
           ),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: const Color(0xFF7ee7af), width: 2.0),
+            border: Border.all(color: const Color(0xFF7ee7af), width: 1.0),
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Material(
