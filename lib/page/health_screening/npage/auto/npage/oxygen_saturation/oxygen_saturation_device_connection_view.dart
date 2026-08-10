@@ -180,7 +180,7 @@ class OxygenSaturationDeviceConnectionView
                             onReconnectDevice: () async {
                               await controller.reconnect();
                             },
-                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null),
+                            onManualSelect: ()=> Get.offNamed(OxygenSaturationInputView.routeName, id:controller.isNestedRoute?1: null, arguments: MeasurementViewArg(isNestedRoute: controller.isNestedRoute, isAuto: false, isThemeV2: controller.isThemeV2)),
                           ),
                         ),
                       ),
