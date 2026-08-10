@@ -92,7 +92,7 @@ class BloodGlucoseInputView extends RapidView<BloodGlucoseInputLogic> {
                                 Expanded(
                                   child: Obx(
                                     () => CMEDDropdownSelect(
-                                      height: 52,
+                                      height: 48,
                                       controller.glucoseUnit,
                                       item: controller
                                           .selectedGlucoseMasterData
