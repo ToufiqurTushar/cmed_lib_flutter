@@ -6,7 +6,7 @@ class HealthyDaysI18N {
         "Excellent": "Excellent",
         "No Yield": "No Yield",
         "Your Healthy days record has been successfully reported. For further support, please Reach out to the CHE/ Nurse.": "Your Healthy days record has been successfully reported. For further support, please Reach out to the CHE/ Nurse.",
-        "Very Good": "Verygood",
+        "Very Good": "Very Good",
         "Low Yield": "Low Yield",
         "Good": "Good",
         "Medium Yield": "Medium Yield",
