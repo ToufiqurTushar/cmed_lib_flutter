@@ -7,6 +7,18 @@ class UserManagementI18N {
       'bn_BD': {
 
       },
+      'te_IN': {
+
+      },
+      'or_IN': {
+
+      },
+      'hi_IN': {
+
+      },
+      'ta_IN': {
+
+      },
     };
   }
 }
