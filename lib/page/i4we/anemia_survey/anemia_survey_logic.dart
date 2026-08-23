@@ -9,6 +9,8 @@ import '../../../common/base/base_logic.dart';
 import '../../../common/widget/app_dialog.dart';
 import 'anemia_survey_argument.dart';
 import 'dto/SurveyResultResponse.dart';
+import 'npage/result/anemia_survey_result_argument.dart';
+import 'npage/result/anemia_survey_result_view.dart';
 
 
 class AnemiaSurveyLogic extends BaseLogic {
@@ -27,16 +29,16 @@ class AnemiaSurveyLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getAgentSubscriptionSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
-      if (response.isOk) {
-        final results = SurveyResultResponseDto.fromJson(response.body).content;
-        if(results?.isNotEmpty??false){
-          selectedSurveyResult.value = results!.first;
-        }
-        RLog.error(response.body);
-      }
-    });
-    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.AGENT_SUBSCRIPTION.name)).then((response) {
+    // await httpProvider.GET(ApiUrl.getAgentSubscriptionSurveyRulesByUserIdUrl(customer.value.userId!)).then((response) {
+    //   if (response.isOk) {
+    //     final results = SurveyResultResponseDto.fromJson(response.body).content;
+    //     if(results?.isNotEmpty??false){
+    //       selectedSurveyResult.value = results!.first;
+    //     }
+    //     RLog.error(response.body);
+    //   }
+    // });
+    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.ANEMIA_ASSESSMENT.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
         //set default value if exist
@@ -84,21 +86,27 @@ class AnemiaSurveyLogic extends BaseLogic {
         SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
-        AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
-          if(anemiaSurveyArgument.redirectToServiceSelectionView??false) {
-            Get.offNamedUntil(
-              '/ServiceSelectionView',
-              ModalRoute.withName('/ServiceView'),
-              arguments: customer,
-            );
-          } else{
-            Get.back();
-          }
+        Future.delayed(Duration.zero, () async {
+          Get.offNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto));
         });
-        // Future.delayed(Duration.zero, () async {
-        //   Get.offNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
-        // });
-      } else {
+      }
+      // if (response.isOk) {
+      //   SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
+      //   RLog.error(response.body);
+      //   RLog.error(selectedSurveyDto.toJson());
+      //   AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
+      //     if(anemiaSurveyArgument.redirectToServiceSelectionView??false) {
+      //       Get.offNamedUntil(
+      //         '/ServiceSelectionView',
+      //         ModalRoute.withName('/ServiceView'),
+      //         arguments: customer,
+      //       );
+      //     } else{
+      //       Get.back();
+      //     }
+      //   });
+      // }
+      else {
         ShowToast.error('error_massage_something_wrong'.tr);
       }
     });

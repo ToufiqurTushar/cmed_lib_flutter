@@ -5,6 +5,8 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../common/widget/basic_app_bar.dart';
 
+import '../result/anemia_survey_result_argument.dart';
+import '../result/anemia_survey_result_view.dart';
 import 'anemia_survey_history_list_logic.dart';
 
 
@@ -44,16 +46,16 @@ class AnemiaSurveyHistoryListView extends RapidView<AnemiaSurveyListLogic> {
                 var title = surveyDto.surveyName!;
                 var subtitle = surveyDto.result!.status!;
                 var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format:CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDigit();
-                // return Text('1');
                 return SurveyResultItemWidget(
                     context: context,
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    icon: surveyDto.icon??"",
-                    date: date ,
+                    image: "",
+                    defaultImage: "assets/images/ic_anemia_survey.svg",
+                    date: date,
                     onTap:(){
-                      //Get.toNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));
+                      Get.toNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto));
                     }
                 );
               }

@@ -35,12 +35,12 @@ class AnemiaSurveyListLogic extends BaseLogic {
 
   getData() async {
     globalState.showBusy();
-    httpProvider.GET(ApiUrl.getFamilyProfileSurveyUrl(customer.value.userId!)).then((response){
+    httpProvider.GET(ApiUrl.getAnemiaSurveyUrl(customer.value.userId!)).then((response){
       globalState.hideBusy();
       if(response.isOk) {
         surveyResultList.addAll(SurveyResultItemDto.fromJsonList(response.body['content']));
       } else {
-        ShowToast.error('something_wrong'.tr);
+        ShowToast.error('error_massage_something_wrong'.tr);
       }
     });
   }

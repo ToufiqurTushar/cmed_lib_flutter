@@ -35,6 +35,10 @@ class ApiUrl {
     return "api/v1/agent/survey?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
 
+  static String getAnemiaSurveyUrl(int userId) {
+    return "api/v1/anemia/assessment?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
+  }
+
   static String postSurveyUrl() {
     return "api/v1/survey/submit";
   }

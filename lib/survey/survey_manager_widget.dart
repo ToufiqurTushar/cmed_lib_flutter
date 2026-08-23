@@ -164,8 +164,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                           onTap: (index) {
                             controller.currentTab.value = index;
                           },
-                          labelColor: Theme.of(context).primaryColor,
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor,),
                           unselectedLabelColor: Colors.black,
+                          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
                           indicatorColor: Theme.of(context).primaryColor,
                           indicatorWeight: 3.0,
                           isScrollable: true,

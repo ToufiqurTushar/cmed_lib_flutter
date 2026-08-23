@@ -54,7 +54,7 @@ class HealthyDaysListLogic extends BaseLogic {
       if(response.isOk) {
         surveyResultList.addAll(SurveyResultItemDto.fromJsonList(response.body['content']));
       } else {
-        ShowToast.error('something_wrong'.tr);
+        ShowToast.error('error_massage_something_wrong'.tr);
       }
     });
   }

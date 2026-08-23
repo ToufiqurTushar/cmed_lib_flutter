@@ -5,6 +5,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/widget/basic_app_bar.dart';
 import 'anemia_survey_i18n.dart';
 import 'anemia_survey_logic.dart';
+import 'npage/history/anemia_survey_history_list_view.dart';
 
 
 class AnemiaSurveyView extends RapidView<AnemiaSurveyLogic> {
@@ -15,7 +16,24 @@ class AnemiaSurveyView extends RapidView<AnemiaSurveyLogic> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: BasicAppBar("Anemia".tr),
+      appBar: BasicAppBar("Anemia".tr, trailingWidget: InkWell(
+        onTap: () {
+          Get.toNamed(AnemiaSurveyHistoryListView.routeName);
+        },
+        child: Visibility(
+          visible: controller.selectedSurvey.value == null,
+          child: Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Row(
+              children: [
+                Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
+                SizedBox(width: 8,),
+                Text('History'.tr)
+              ],
+            ),
+          ),
+        )
+      )),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -54,8 +72,9 @@ class AnemiaSurveyView extends RapidView<AnemiaSurveyLogic> {
                 showSerialNumber: false,
                 isTabStyle: true,
                 tabContents: [
-                  TabPage(id: "t1", title: "GENERAL".tr, listOfQuestionUid: controller.customer.value.isFamilyMember? ['as9_1', 'as9_15']: ['as9_1', 'as9_15', 'as9_16', 'as9_17']),
-                  TabPage(id: "t2", title: "SUBSCRIPTION STATUS".tr, listOfQuestionUid: ['as9_18','as9_2', 'as9_3', 'as9_4', 'as9_5'], isTabVisible: !controller.customer.value.isFamilyMember),
+                  TabPage(id: "t1", title: "High-Risk Group Flags".tr, listOfQuestionUid: controller.customer.value.gender == 2? ['aa1_1', 'aa1_2', 'aa1_3']: ['aa1_3'], isTabVisible: true),
+                  TabPage(id: "t2", title: "Symptom Screening".tr, listOfQuestionUid: ['aa2_1','aa2_2', 'aa2_3', 'aa2_4', 'aa2_5'], isTabVisible: true),
+                  TabPage(id: "t3", title: "Dietary Risk".tr, listOfQuestionUid: ['aa3_1','aa3_2'], isTabVisible: true),
                 ],
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){

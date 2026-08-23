@@ -52,7 +52,7 @@ class HealthAssessmentHistoryListView extends RapidView<HealthAssessmentHistoryL
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    icon: surveyDto.icon??"",
+                    image: surveyDto.icon??"",
                     date: date,
                     onTap:(){
                       Get.toNamed(HealthAssessmentResultView.routeName, arguments: HealthAssessmentResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto,));
