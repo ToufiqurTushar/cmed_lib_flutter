@@ -3,14 +3,14 @@ import 'package:cmed_lib_flutter/survey/dto/tab_page.dart';
 import 'package:cmed_lib_flutter/survey/survey_manager_widget.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/widget/basic_app_bar.dart';
-import 'che_survey_i18n.dart';
-import 'che_survey_logic.dart';
+import 'family_profile_i18n.dart';
+import 'family_profile_logic.dart';
 
 
-class CheSurveyView extends RapidView<CheSurveyLogic> {
-  static String routeName = "/CheSurveyView";
+class FamilyProfileView extends RapidView<FamilyProfileLogic> {
+  static String routeName = "/FamilyProfileView";
 
-  const CheSurveyView({super.key});
+  const FamilyProfileView({super.key});
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
           //     item: controller.selectedCustomerDto.value,
           //     // buttonBesideName: InkWell(
           //     //   onTap: (){
-          //     //     Get.toNamed(CheSurveyHistoryListView.routeName, arguments: controller.customer);
+          //     //     Get.toNamed(FamilyProfileHistoryListView.routeName, arguments: controller.customer);
           //     //   },
           //     //   child: const Visibility(
           //     //     visible: true,
@@ -80,7 +80,7 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
 
   @override
   void loadDependentLogics() {
-    Get.put(CheSurveyLogic());
+    Get.put(FamilyProfileLogic());
   }
 
   @override
@@ -90,9 +90,10 @@ class CheSurveyView extends RapidView<CheSurveyLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return CheSurveyI18N.getTranslations();
+    return FamilyProfileI18N.getTranslations();
   }
 }
+
 
 
 

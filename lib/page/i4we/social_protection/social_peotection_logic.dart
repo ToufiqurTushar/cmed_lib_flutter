@@ -81,7 +81,7 @@ class SocialProtectionLogic extends BaseLogic {
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
         // Future.delayed(Duration.zero, () async {
-        //   Get.offNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
+        //   Get.offNamed(FamilyProfileResultView.routeName, arguments: FamilyProfileResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });
         AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
           Get.back();

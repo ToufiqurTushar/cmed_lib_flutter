@@ -7,21 +7,21 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/api/api_url.dart';
 import '../../../common/base/base_logic.dart';
 import '../../../common/widget/app_dialog.dart';
-import 'che_survey_argument.dart';
+import 'family_profile_argument.dart';
 import 'dto/SurveyResultResponse.dart';
 
 
-class CheSurveyLogic extends BaseLogic {
+class FamilyProfileLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
   var selectedSurveyResult = Rxn<SurveyResultDto>();
-  late CheSurveyArgument cheSurveyArgument;
+  late FamilyProfileArgument familyProfileArgument;
 
   @override
   void onInit() {
     super.onInit();
-    cheSurveyArgument = (Get.arguments as CheSurveyArgument);
-    selectedSurvey.value = cheSurveyArgument.selectedSurvey;
+    familyProfileArgument = (Get.arguments as FamilyProfileArgument);
+    selectedSurvey.value = familyProfileArgument.selectedSurvey;
     fetchSurveyData();
   }
 
@@ -85,7 +85,7 @@ class CheSurveyLogic extends BaseLogic {
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
         AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
-          if(cheSurveyArgument.redirectToServiceSelectionView??false) {
+          if(familyProfileArgument.redirectToServiceSelectionView??false) {
             Get.offNamedUntil(
               '/ServiceSelectionView',
               ModalRoute.withName('/ServiceView'),
@@ -96,7 +96,7 @@ class CheSurveyLogic extends BaseLogic {
           }
         });
         // Future.delayed(Duration.zero, () async {
-        //   Get.offNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
+        //   Get.offNamed(FamilyProfileResultView.routeName, arguments: FamilyProfileResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });
       } else {
         ShowToast.error('error_massage_something_wrong'.tr);

@@ -5,13 +5,13 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../common/widget/basic_app_bar.dart';
 
-import 'che_survey_history_list_logic.dart';
+import 'family_profile_history_list_logic.dart';
 
 
-class CheSurveyHistoryListView extends RapidView<CheSurveyListLogic> {
-  static const routeName = '/CheSurveyHistoryListView';
+class FamilyProfileHistoryListView extends RapidView<FamilyProfileListLogic> {
+  static const routeName = '/FamilyProfileHistoryListView';
   final bool showAppTitle;
-  CheSurveyHistoryListView({super.key, this.showAppTitle = true});
+  FamilyProfileHistoryListView({super.key, this.showAppTitle = true});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class CheSurveyHistoryListView extends RapidView<CheSurveyListLogic> {
                     icon: surveyDto.icon??"",
                     date: date ,
                     onTap:(){
-                      //Get.toNamed(CheSurveyResultView.routeName, arguments: CheSurveyResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));
+                      //Get.toNamed(FamilyProfileResultView.routeName, arguments: FamilyProfileResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));
                     }
                 );
               }
@@ -82,6 +82,7 @@ class CheSurveyHistoryListView extends RapidView<CheSurveyListLogic> {
 
   @override
   void loadDependentLogics() {
-    Get.lazyPut<CheSurveyListLogic>(() => CheSurveyListLogic(),);
+    Get.lazyPut<FamilyProfileListLogic>(() => FamilyProfileListLogic(),);
   }
 }
+

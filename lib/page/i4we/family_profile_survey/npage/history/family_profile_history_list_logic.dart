@@ -7,7 +7,7 @@ import '../../../../../common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 
 
-class CheSurveyListLogic extends BaseLogic {
+class FamilyProfileListLogic extends BaseLogic {
   final HttpProvider httpProvider = Get.find();
   final isHistoryView = false.obs;
 
@@ -35,7 +35,7 @@ class CheSurveyListLogic extends BaseLogic {
 
   getData() async {
     globalState.showBusy();
-    httpProvider.GET(ApiUrl.getCheSurveySurveyUrl(customer.value.userId!)).then((response){
+    httpProvider.GET(ApiUrl.getFamilyProfileSurveyUrl(customer.value.userId!)).then((response){
       globalState.hideBusy();
       if(response.isOk) {
         surveyResultList.addAll(SurveyResultItemDto.fromJsonList(response.body['content']));
@@ -45,3 +45,4 @@ class CheSurveyListLogic extends BaseLogic {
     });
   }
 }
+

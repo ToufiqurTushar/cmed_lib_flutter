@@ -1,4 +1,4 @@
-class CheSurveyI18N {
+class FamilyProfileI18N {
   static Map<String, Map<String, String>> getTranslations() {
     return {
       "en_US": {
@@ -148,3 +148,4 @@ class CheSurveyI18N {
     };
   }
 }
+
