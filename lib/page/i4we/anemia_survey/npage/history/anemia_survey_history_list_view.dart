@@ -5,13 +5,13 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../common/widget/basic_app_bar.dart';
 
-import 'family_profile_history_list_logic.dart';
+import 'anemia_survey_history_list_logic.dart';
 
 
-class FamilyProfileHistoryListView extends RapidView<FamilyProfileListLogic> {
-  static const routeName = '/FamilyProfileHistoryListView';
+class AnemiaSurveyHistoryListView extends RapidView<AnemiaSurveyListLogic> {
+  static const routeName = '/AnemiaSurveyHistoryListView';
   final bool showAppTitle;
-  FamilyProfileHistoryListView({super.key, this.showAppTitle = true});
+  AnemiaSurveyHistoryListView({super.key, this.showAppTitle = true});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class FamilyProfileHistoryListView extends RapidView<FamilyProfileListLogic> {
                     icon: surveyDto.icon??"",
                     date: date ,
                     onTap:(){
-                      //Get.toNamed(FamilyProfileResultView.routeName, arguments: FamilyProfileResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));
+                      //Get.toNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));
                     }
                 );
               }
@@ -82,7 +82,9 @@ class FamilyProfileHistoryListView extends RapidView<FamilyProfileListLogic> {
 
   @override
   void loadDependentLogics() {
-    Get.lazyPut<FamilyProfileListLogic>(() => FamilyProfileListLogic(),);
+    Get.lazyPut<AnemiaSurveyListLogic>(() => AnemiaSurveyListLogic(),);
   }
 }
+
+
 

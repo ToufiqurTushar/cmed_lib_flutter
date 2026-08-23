@@ -3,19 +3,19 @@ import 'package:cmed_lib_flutter/survey/dto/tab_page.dart';
 import 'package:cmed_lib_flutter/survey/survey_manager_widget.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/widget/basic_app_bar.dart';
-import 'family_profile_i18n.dart';
-import 'family_profile_logic.dart';
+import 'anemia_survey_i18n.dart';
+import 'anemia_survey_logic.dart';
 
 
-class FamilyProfileView extends RapidView<FamilyProfileLogic> {
-  static String routeName = "/FamilyProfileView";
+class AnemiaSurveyView extends RapidView<AnemiaSurveyLogic> {
+  static String routeName = "/AnemiaSurveyView";
 
-  const FamilyProfileView({super.key});
+  const AnemiaSurveyView({super.key});
 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: BasicAppBar("Family Profile".tr),
+      appBar: BasicAppBar("Anemia".tr),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,7 +24,7 @@ class FamilyProfileView extends RapidView<FamilyProfileLogic> {
           //     item: controller.selectedCustomerDto.value,
           //     // buttonBesideName: InkWell(
           //     //   onTap: (){
-          //     //     Get.toNamed(FamilyProfileHistoryListView.routeName, arguments: controller.customer);
+          //     //     Get.toNamed(AnemiaSurveyHistoryListView.routeName, arguments: controller.customer);
           //     //   },
           //     //   child: const Visibility(
           //     //     visible: true,
@@ -80,7 +80,7 @@ class FamilyProfileView extends RapidView<FamilyProfileLogic> {
 
   @override
   void loadDependentLogics() {
-    Get.put(FamilyProfileLogic());
+    Get.put(AnemiaSurveyLogic());
   }
 
   @override
@@ -90,9 +90,11 @@ class FamilyProfileView extends RapidView<FamilyProfileLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-    return FamilyProfileI18N.getTranslations();
+    return AnemiaSurveyI18N.getTranslations();
   }
 }
+
+
 
 
 

@@ -7,7 +7,7 @@ import '../../../../../common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 
 
-class FamilyProfileListLogic extends BaseLogic {
+class FamilyProfileSurveyListLogic extends BaseLogic {
   final HttpProvider httpProvider = Get.find();
   final isHistoryView = false.obs;
 
@@ -45,4 +45,5 @@ class FamilyProfileListLogic extends BaseLogic {
     });
   }
 }
+
 

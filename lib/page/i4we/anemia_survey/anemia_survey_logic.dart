@@ -7,21 +7,21 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../common/api/api_url.dart';
 import '../../../common/base/base_logic.dart';
 import '../../../common/widget/app_dialog.dart';
-import 'family_profile_argument.dart';
+import 'anemia_survey_argument.dart';
 import 'dto/SurveyResultResponse.dart';
 
 
-class FamilyProfileLogic extends BaseLogic {
+class AnemiaSurveyLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
   var selectedSurveyResult = Rxn<SurveyResultDto>();
-  late FamilyProfileArgument familyProfileArgument;
+  late AnemiaSurveyArgument anemiaSurveyArgument;
 
   @override
   void onInit() {
     super.onInit();
-    familyProfileArgument = (Get.arguments as FamilyProfileArgument);
-    selectedSurvey.value = familyProfileArgument.selectedSurvey;
+    anemiaSurveyArgument = (Get.arguments as AnemiaSurveyArgument);
+    selectedSurvey.value = anemiaSurveyArgument.selectedSurvey;
     fetchSurveyData();
   }
 
@@ -85,7 +85,7 @@ class FamilyProfileLogic extends BaseLogic {
         RLog.error(response.body);
         RLog.error(selectedSurveyDto.toJson());
         AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
-          if(familyProfileArgument.redirectToServiceSelectionView??false) {
+          if(anemiaSurveyArgument.redirectToServiceSelectionView??false) {
             Get.offNamedUntil(
               '/ServiceSelectionView',
               ModalRoute.withName('/ServiceView'),
@@ -96,7 +96,7 @@ class FamilyProfileLogic extends BaseLogic {
           }
         });
         // Future.delayed(Duration.zero, () async {
-        //   Get.offNamed(FamilyProfileResultView.routeName, arguments: FamilyProfileResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
+        //   Get.offNamed(AnemiaSurveyResultView.routeName, arguments: AnemiaSurveyResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto, customer: customer));
         // });
       } else {
         ShowToast.error('error_massage_something_wrong'.tr);
@@ -104,3 +104,5 @@ class FamilyProfileLogic extends BaseLogic {
     });
   }
 }
+
+

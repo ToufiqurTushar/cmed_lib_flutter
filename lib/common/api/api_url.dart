@@ -27,11 +27,11 @@ class ApiUrl {
     return "api/v1/healthy/days?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
 
-  static String getFamilyProfileSurveyUrl(int userId) {
+  static String getFamilyProfileUrl(int userId) {
     return "api/v1/healthy/days?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
 
-  static String getFamilyProfileUrl(int userId) {
+  static String getFamilyProfileSurveyUrl(int userId) {
     return "api/v1/agent/survey?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
 
@@ -78,4 +78,5 @@ class ApiUrl {
   }
 
 }
+
 
