@@ -2,15 +2,18 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cmed_lib_flutter/common/app_uid_config.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/page/health_screening/dto/measurement_dto.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bp/bp_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_bp_device_lib/bp/riocom/riocom_bp_handler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../../../common/api/api_url.dart';
 import '../../../../../../common/widget/radar_pulsator.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
+import '../../../../nview/device_disconnected_view.dart';
 import '../../enum/screen_enum.dart';
 
 class BpDeviceConnectionLogic extends BaseLogic {
@@ -39,6 +42,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
   final player = AudioPlayer();
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   var bpCurrentStatusObs = BPDeviceStatus.Idle.name.obs;
   var bpValueObs = ''.obs;
@@ -49,8 +53,9 @@ class BpDeviceConnectionLogic extends BaseLogic {
     super.onInit();
     riocomBpHandler = RiocomBpHandler();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 	  Future.delayed(Duration(milliseconds:300), () async {
-		  if(isNestedRoute){
+		  if(isThemeV2){
         connect();
       }
   	});
@@ -80,14 +85,16 @@ class BpDeviceConnectionLogic extends BaseLogic {
         globalState.hideBusy();
         screen_status.value = ScreenEnum.MEASURING.name;
         bpCurrentStatusObs.value = BPDeviceStatus.Measuring.name;
-      } else if (event == "disconnected" || event == "error_connection_lost") {
+      } else if (event == "disconnected" || event == "error_connection_lost" || event == "deviceNotConnected") {
+        globalState.hideBusy();
         screen_status.value = ScreenEnum.DISCONNECTED.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
         isResultFound.value = false;
-        bpCurrentStatusObs.value = BPDeviceStatus.TapConnect.name;
+        bpCurrentStatusObs.value = BPDeviceStatus.DeviceDisconnected.name;
         bpValueObs.value = "";
-      } else if (event == "noDeviceFound" || event == "bluetoothDisabled" || event == "reconnectError" || event == "deviceNotConnected") {
+      } else if (event == "noDeviceFound" || event == "bluetoothDisabled" || event == "reconnectError") {
+        globalState.hideBusy();
         screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
         buttonText.value = 'label_connect'.tr;
         pressure.value = "";
@@ -141,6 +148,9 @@ class BpDeviceConnectionLogic extends BaseLogic {
               measuredAt: DateTime.now().millisecondsSinceEpoch
           );
         }
+        if(isNestedRoute){
+          sendBpAndPulseMeasurement();
+        }
       });
     });
 
@@ -178,12 +188,14 @@ class BpDeviceConnectionLogic extends BaseLogic {
   }
 
   disconnect() async{
+    globalState.hideBusy();
     isLoading.value = false;
     await riocomBpHandler.disconnect().then((bool isDisconnected){
       if(isDisconnected) {
         screen_status.value = ScreenEnum.DISCONNECTED.name;
       }
     });
+    player.dispose();
   }
 
   void sendBpAndPulseMeasurement() {
@@ -217,11 +229,12 @@ class BpDeviceConnectionLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       if (bpMeasurementWithResult != null) {
         allMeasurements[0].result = bpMeasurementWithResult.result;
         if (result.length >= 3) {
-          repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+          repository.sendData(url, (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
             isLoading.value = false;
             screeningReport.value = bpMeasurementWithResult;
             allMeasurements[1].result = pulseMeasurementWithResult!.result;
@@ -231,21 +244,26 @@ class BpDeviceConnectionLogic extends BaseLogic {
                 BPAttribute.PULSE.name: double.parse(result[2])
               });
             }
-
-            // String route = isNestedRoute? '/screening_preview_result_details': '/screening_report_result_details';
-            Get.offNamed('/screening_report_result_details', arguments: [
-              ScreeningReportResultDetailsArgument(
-                  screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
-              )
-            ], id: isNestedRoute? 1: null);
+            updateMeasurementAndNavigate(allMeasurements);
           });
         }
       }
     });
   }
 
-  @override
-  void onClose() async{
+  updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value,
+          isAuto: true,
+          measurementsWithResult: allMeasurements
+      )
+    ], id: isNestedRoute? 1: null);
+  }
+
+     void onClose() async{
+    globalState.hideBusy();
     await disconnect();
   }
 
@@ -257,20 +275,25 @@ class BpDeviceConnectionLogic extends BaseLogic {
 
 // Your existing enum remains perfectly clean and unchanged
 enum BPDeviceStatus {
-  Idle, TapConnect, TapReConnect, Connecting, ReConnecting, DeviceConnected, DeviceNotFound, Measuring, Measured;
+  Idle, Connecting, DeviceConnected, DeviceDisconnected, DeviceNotFound, Measuring, Measured;
 
   // Simply add a mapper translation helper
   DeviceUiState toUiState(BuildContext context, String? liveValue) {
+    RLog.error(this.name);
     return switch (this) {
-      BPDeviceStatus.Idle || BPDeviceStatus.TapConnect || BPDeviceStatus.TapReConnect => DeviceUiState(
+      BPDeviceStatus.Idle => DeviceUiState(
         type: DeviceUiType.interactiveAction,
         title: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
         subtitle: 'label_keep_device_switch_on'.tr,
         themeColor: Theme.of(context).primaryColor,
         actionButtonLabel: 'label_connect'.tr,
-        child: CenterRadar(oneFullRotationInMilliSeconds: 2000)
+        child: InkWell(
+          onTap: (){
+            Get.find<BpDeviceConnectionLogic>().connect();
+          }, child: CenterRadar(oneFullRotationInMilliSeconds: 2000)
+        )
       ),
-      BPDeviceStatus.Connecting || BPDeviceStatus.ReConnecting => DeviceUiState(
+      BPDeviceStatus.Connecting => DeviceUiState(
         type: DeviceUiType.loadingProgress,
         title: Get.find<BpDeviceConnectionLogic>().buttonText.value,
         subtitle: 'label_keep_device_switch_on'.tr,
@@ -279,12 +302,17 @@ enum BPDeviceStatus {
       ),
       BPDeviceStatus.DeviceConnected => DeviceUiState(
         type: DeviceUiType.interactiveAction,
-        title: 'Wear the cuffs properly'.tr,
+        title: ''.tr,
         subtitle: 'Your device is connected and ready to use'.tr,
-        icon: Icons.bluetooth,
+        child: ListTile(leading: Image.asset('assets/images/measurement/wear_the_cuff.png', color: Theme.of(context).primaryColor,), title: Text('Wear the cuffs properly'.tr, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),), subtitle: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text('Wrap the cuff around your bare upper arm. Keep your arm still and resting on a flat surface.'),
+        ),),
         themeColor: Theme.of(context).primaryColor,
         actionButtonLabel: 'label_start'.tr,
       ),
+
+
       BPDeviceStatus.Measuring => DeviceUiState(
         type: DeviceUiType.loadingProgress,
         title: 'label_please_wait_while_taking_measurement'.tr,
@@ -318,7 +346,7 @@ enum BPDeviceStatus {
                   elevation: 0,
                 ),
                 child: Text(
-                  Get.locale?.languageCode == 'bn' ? "পরিমাপ সংরক্ষণ করুন" : "Save Measurement",
+                  "Save Measurement".tr,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -354,12 +382,47 @@ enum BPDeviceStatus {
         ),
       ),
       BPDeviceStatus.DeviceNotFound => DeviceUiState(
-        type: DeviceUiType.errorFault,
-        title: 'label_device_not_found'.tr,
-        subtitle: 'label_keep_device_switch_on'.tr,
-        icon: Icons.error_outline,
+        type: DeviceUiType.successDone,
+        title: ''.tr,
+        subtitle: ''.tr,
+        //icon: Icons.error_outline,
         themeColor: Colors.red,
-        actionButtonLabel: 'label_connect'.tr,
+        child: Center(
+          child: DeviceReconnectViewV2(
+            imageAsset: 'assets/images/measurement/img_bp_ihealth_bp3l_third.png',
+            suggestion: 'label_keep_device_switch_on'.tr,
+            message: 'label_device_not_found'.tr,
+            onReconnectDevice:() async {
+              await Get.find<BpDeviceConnectionLogic>().reconnect();
+            },
+            onManualSelect: ()=>Get.offNamed(BpInputView.routeName, arguments: MeasurementViewArg(
+            isNestedRoute: Get.find<BpDeviceConnectionLogic>().isNestedRoute,
+            isThemeV2: Get.find<BpDeviceConnectionLogic>().isThemeV2,
+          ), id: Get.find<BpDeviceConnectionLogic>().isNestedRoute? 1: null)
+          ),
+        )
+      ),
+      BPDeviceStatus.DeviceDisconnected => DeviceUiState(
+        type: DeviceUiType.successDone,
+        title: ''.tr,
+        subtitle: ''.tr,
+        //icon: Icons.error_outline,
+        themeColor: Colors.red,
+        //actionButtonLabel: 'label_reconnect'.tr,
+        child:Center(
+          child: DeviceReconnectViewV2(
+            imageAsset: 'assets/images/measurement/img_bp_ihealth_bp3l_third.png',
+            suggestion: 'label_keep_device_switch_on'.tr,
+            message: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
+            onReconnectDevice:() async {
+              await Get.find<BpDeviceConnectionLogic>().reconnect();
+            },
+              onManualSelect: ()=>Get.offNamed(BpInputView.routeName, arguments: MeasurementViewArg(
+                isNestedRoute: Get.find<BpDeviceConnectionLogic>().isNestedRoute,
+                isThemeV2: Get.find<BpDeviceConnectionLogic>().isThemeV2,
+              ), id: Get.find<BpDeviceConnectionLogic>().isNestedRoute? 1: null)
+          ),
+        )
       ),
     };
   }
@@ -371,47 +434,4 @@ enum BPDeviceStatus {
     );
   }
 }
-
-
-
-
-// enum OximeterStatus { disconnected, scanning, analyzing, syncError }
-//
-// extension OximeterUiAdapter on OximeterStatus {
-//   DeviceUiState toUiState(String? Spo2) {
-//     return switch (this) {
-//       OximeterStatus.disconnected => const DeviceUiState(
-//         type: DeviceUiType.interactiveAction,
-//         title: 'Oximeter Offline',
-//         subtitle: 'Clip device to your index finger',
-//         icon: Icons.fingerprint,
-//         themeColor: Colors.indigo,
-//         actionButtonLabel: 'Initialize Sensor',
-//       ),
-//       OximeterStatus.scanning => const DeviceUiState(
-//         type: DeviceUiType.loadingProgress,
-//         title: 'Acquiring Signal',
-//         subtitle: 'Reading blood pulse waves...',
-//         icon: Icons.waves,
-//         themeColor: Colors.cyan,
-//       ),
-//       OximeterStatus.analyzing => DeviceUiState(
-//         type: DeviceUiType.successDone,
-//         title: 'Pulse SpO2 Captured',
-//         subtitle: 'Oxygen levels normal',
-//         value: Spo2 ?? '98%',
-//         icon: Icons.health_and_safety,
-//         themeColor: Colors.green,
-//       ),
-//       OximeterStatus.syncError => const DeviceUiState(
-//         type: DeviceUiType.errorFault,
-//         title: 'Hardware Error',
-//         subtitle: 'Sensor dirty or detached from finger',
-//         icon: Icons.warning_amber_rounded,
-//         themeColor: Colors.deepOrange,
-//         actionButtonLabel: 'Clean and Retry',
-//       ),
-//     };
-//   }
-// }
 

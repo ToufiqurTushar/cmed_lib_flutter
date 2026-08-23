@@ -6,11 +6,12 @@ import '../../../../../../../common/widget/basic_app_bar.dart';
 
 class EyeScreeningContrastView extends RapidView<EyeScreeningContrastLogic> {
   static String routeName = '/eye_screening_contrast_view';
+
   @override
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_color_contrast_test'.tr),
+        appBar: controller.isThemeV2? BasicAppBarV2('label_color_contrast_test'.tr,):BasicAppBar('label_color_contrast_test'.tr),
         body: SafeArea(
           child: Column(
             children: [
@@ -85,6 +86,7 @@ class EyeScreeningContrastView extends RapidView<EyeScreeningContrastLogic> {
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningContrastLogic>(() => EyeScreeningContrastLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningContrastLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

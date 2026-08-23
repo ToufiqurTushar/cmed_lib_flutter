@@ -23,6 +23,7 @@ class BpInputLogic extends BaseLogic {
   var screeningReport = MeasurementDTO().obs;
 
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
 
   @override
@@ -34,6 +35,7 @@ class BpInputLogic extends BaseLogic {
     pulseController = TextEditingController();
     print("Get.arguments: ${Get.arguments}");
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
   }
 
   String? validateSystolic(String value) {
@@ -169,7 +171,7 @@ class BpInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements
+            screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: allMeasurements, isNestedRoute: isNestedRoute
         )
       ], id:isNestedRoute? 1: null);
   }

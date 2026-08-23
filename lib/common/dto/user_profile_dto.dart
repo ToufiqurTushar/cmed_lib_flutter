@@ -1,6 +1,7 @@
 import 'package:age_calculator/age_calculator.dart';
 import 'package:cmed_lib_flutter/common/dto/additional_information.dart';
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
+import 'package:flutter_rapid/flutter_rapid.dart';
 
 import 'customer_dto.dart';
 
@@ -597,6 +598,7 @@ class UserProfile {
   CustomerDTO toCustomer() {
     return CustomerDTO(
       username: username,
+      heightCentimeter: height,
       parentUsername: null,
       userId: userId,
       firstName: firstName,

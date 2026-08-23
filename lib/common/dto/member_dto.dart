@@ -236,7 +236,6 @@ class MemberDTO {
 
 
   CustomerDTO toCustomer() {
-    RLog.info(email);
     return CustomerDTO(
       username: username,
       userId: userId,

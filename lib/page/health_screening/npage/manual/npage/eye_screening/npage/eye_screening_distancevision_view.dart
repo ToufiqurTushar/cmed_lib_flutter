@@ -21,7 +21,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
               return true;
             },
             child: Scaffold(
-              appBar: BasicAppBar('label_distance_vision_test'.tr),
+              appBar: controller.isThemeV2? BasicAppBarV2('label_distance_vision_test'.tr):BasicAppBar('label_distance_vision_test'.tr),
               body: SafeArea(
             child: Column(
               children: [
@@ -272,6 +272,7 @@ class EyeScreeningDistancevisionView extends RapidView<EyeScreeningDistancevisio
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningDistancevisionLogic>(() => EyeScreeningDistancevisionLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningDistancevisionLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

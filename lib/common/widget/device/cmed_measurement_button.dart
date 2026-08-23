@@ -2,6 +2,8 @@
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../radar_pulsator.dart';
+
 
 class CMEDDeviceConnectionButton extends StatefulWidget {
   final String title;
@@ -22,6 +24,11 @@ class _AnimatedContainerAppState extends State<CMEDDeviceConnectionButton> {
 
   @override
   Widget build(BuildContext context) {
+    return InkWell(
+        customBorder: const CircleBorder(),
+        onTap: () {
+          widget.onClickAction();
+        }, child: CenterRadar(oneFullRotationInMilliSeconds: 2000, info: widget.title,));
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(

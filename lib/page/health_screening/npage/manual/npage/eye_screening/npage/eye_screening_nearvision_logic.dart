@@ -6,6 +6,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_sc
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
 
 
@@ -33,9 +34,16 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
   var screeningQuestions = <MasterDataDTO>[];
   var countWrongAnswer = 0;
 
+
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
+
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+
     screeningQuestions = <MasterDataDTO>[
       MasterDataDTO(name:"N5", labelEn: letters[0], labelBn: lettersBn[0], value: fontSizes[0]),
       MasterDataDTO(name:"N5", labelEn: letters[1], labelBn: lettersBn[1], value: fontSizes[0]),
@@ -92,9 +100,8 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
   }
 
   screeningComplete() {
-    Get.offNamed(EyeScreeningResultView.routeName, arguments: [
-      {
-        "screeningReport": MeasurementDTO(
+    Get.offNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+      measurements: [MeasurementDTO(
           eyeScreening: [
             EyeScreening(
               eyeScreeningResult : EyeScreeningResult(
@@ -103,9 +110,10 @@ class EyeScreeningNearvisionLogic extends BaseLogic {
               screenType: EyeScreeningTypeEnum.NEAR_VISION_BOTH_EYE.name,
             )
           ],
-        )
-      }
-    ]);
+        )],
+      isNestedRoute: isNestedRoute,
+      isThemeV2: isThemeV2
+    ));
   }
 
   String getImageAsset() {

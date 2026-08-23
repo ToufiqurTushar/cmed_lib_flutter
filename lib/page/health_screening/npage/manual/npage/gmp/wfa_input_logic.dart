@@ -218,7 +218,7 @@ class WfaInputLogic extends BaseLogic {
       Get.offNamed('/screening_report_result_details', arguments: [
         ScreeningReportResultDetailsArgument(
             screeningReport: screeningReportWfa.value,
-            isAuto: false
+            isAuto: false,
         )
       ]);
   }

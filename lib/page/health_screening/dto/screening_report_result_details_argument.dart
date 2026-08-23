@@ -13,6 +13,11 @@ class ScreeningReportResultDetailsArgument {
       this.isHistoryView,
       this.measurementsWithResult,
       this.isNestedRoute,
+      this.isThemeV2,
+      this.hideDownload,
+      this.hideTitle,
+      this.hideAdvice,
+      this.updateProfile,
       this.isAuto,});
 
   ScreeningReportResultDetailsArgument.fromJson(dynamic json) {
@@ -26,6 +31,11 @@ class ScreeningReportResultDetailsArgument {
     isAuto = json['isAuto'];
     isHistoryView = json['isHistoryView'];
     isNestedRoute = json['isNestedRoute'];
+    isThemeV2 = json['isThemeV2'];
+    hideAdvice = json['hideAdvice'];
+    hideDownload = json['hideDownload'];
+    hideTitle = json['hideTitle'];
+    updateProfile = json['updateProfile'];
     measurementsWithResult = json['measurementsWithResult'] != null? List<MeasurementDTO>.from(json['measurementsWithResult'].map((item) => MeasurementDTO.fromJson(item))): null;
   }
   MeasurementDTO? screeningReport;
@@ -39,6 +49,11 @@ class ScreeningReportResultDetailsArgument {
   bool? isAuto;
   bool? isHistoryView;
   bool? isNestedRoute;
+  bool? isThemeV2;
+  bool? hideTitle;
+  bool? hideDownload;
+  bool? hideAdvice;
+  bool? updateProfile;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -53,6 +68,11 @@ class ScreeningReportResultDetailsArgument {
     map['isHistoryView'] = isHistoryView;
     map['measurementsWithResult'] = measurementsWithResult;
     map['isNestedRoute'] = isNestedRoute;
+    map['isThemeV2'] = isThemeV2;
+    map['hideTitle'] = hideTitle;
+    map['hideAdvice'] = hideAdvice;
+    map['hideDownload'] = hideDownload;
+    map['updateProfile'] = updateProfile;
     return map;
   }
 }

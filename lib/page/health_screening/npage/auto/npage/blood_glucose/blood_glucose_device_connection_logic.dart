@@ -12,6 +12,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../common/helper/toast_utils.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
@@ -44,11 +45,13 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
   BloodGlucoseDeviceConnectionLogic({required this.repository});
   var isListning = false.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   Future<void> onInit() async{
     super.onInit();
     dnurseDeviceHandler = Get.find<DnurseDeviceHandler>();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     tag.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).masterDataDTO??MasterDataDTO() : MasterDataDTO();
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
@@ -187,20 +190,29 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    httpProvider.POST(url, (measurement).toJson()).then((response) {
       isLoading.value = false;
-      if (value != null) {
+      if(response.isOk) {
+        final value = MeasurementDTO.fromJson(response.body);
         measurement.result = value.result;
+        measurement.inputsWithUnit = value.inputsWithUnit;
         screeningReport.value = value;
-        Get.offNamed('/screening_report_result_details', arguments: [
-          ScreeningReportResultDetailsArgument(
-              screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
-          )
-        ], id: isNestedRoute? 1: null);
+        updateMeasurementAndNavigate(measurement);
+      } else {
+        ShowToast.error(response.body.toString());
       }
     });
   }
 
+  updateMeasurementAndNavigate(measurement){
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement], isNestedRoute: isNestedRoute
+      )
+    ],id: isNestedRoute? 1: null);
+  }
 
 
   String getMeasurementTag() {
@@ -256,5 +268,19 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
       return englishToBangla[text]??text;
     }
     return text;
+  }
+
+  RxString getImageFromStep() {
+    if(instructionImageSrc.value.contains('img_glucose_dnurse_first')){
+      return 'assets/images/screening/blood_glucose_step_1.png'.obs;
+    }
+    else if(instructionImageSrc.value.contains('img_glucose_dnurse_third')){
+      return 'assets/images/screening/blood_glucose_step_2.png'.obs;
+    }
+    else if(instructionImageSrc.value.contains('img_glucose_dnurse_fourth')){
+      return 'assets/images/screening/blood_glucose_step_3.png'.obs;
+    } else {
+      return 'assets/images/screening/blood_glucose_step_1.png'.obs;
+    }
   }
 }

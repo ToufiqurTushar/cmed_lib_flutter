@@ -193,7 +193,7 @@ class Utils{
     return GetStorage().read(CommonKey.isLoggedIn)??false;
   }
 
-  static void popUntilOrPush({required String routeName}) {
+  static void popUntilOrPushIfNotFound({required String routeName}) {
     if (Get.currentRoute != routeName) {
       bool found = false;
 

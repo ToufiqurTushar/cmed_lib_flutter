@@ -16,6 +16,7 @@ class FatHeightInputLogic extends BaseLogic {
 
   final GlobalKey<FormState> screeningReportFormKey = GlobalKey<FormState>();
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
@@ -26,6 +27,7 @@ class FatHeightInputLogic extends BaseLogic {
     setHeightOfSelectedCustomer();
 
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
   }
 
   setHeightOfSelectedCustomer() {

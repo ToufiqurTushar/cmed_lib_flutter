@@ -6,6 +6,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
+import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
 import '../enum/eye_screening_type_enum.dart';
 
@@ -34,6 +35,17 @@ class EyeScreeningColorblindLogic extends BaseLogic {
   ].obs;
   var screeningIndex = 0.obs;
 
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+  }
+
   nextScreening() {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
@@ -50,9 +62,8 @@ class EyeScreeningColorblindLogic extends BaseLogic {
   }
 
   screeningComplete() {
-    Get.offNamed(EyeScreeningResultView.routeName, arguments: [
-      {
-        "screeningReport": MeasurementDTO(
+    Get.offNamed(EyeScreeningResultView.routeName, arguments: MeasurementViewArg(
+        measurements: [MeasurementDTO(
           eyeScreening: [
             EyeScreening(
               eyeScreeningResult : EyeScreeningResult(
@@ -61,9 +72,11 @@ class EyeScreeningColorblindLogic extends BaseLogic {
               screenType: EyeScreeningTypeEnum.COLOR_BLIND_TEST.name,
             )
           ],
-        )
-      }
-    ]);
+        )],
+        isNestedRoute: isNestedRoute,
+        isThemeV2: isThemeV2
+    ));
+
   }
 
   String getImageAsset() {

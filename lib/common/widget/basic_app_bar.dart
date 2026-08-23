@@ -32,3 +32,32 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: hasProfile, showTitleBar: showTitleBar,elevation:elevation));
   }
 }
+
+
+class BasicAppBarV2 extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Size get preferredSize => Size.fromHeight(52);
+
+  BasicAppBarV2(
+      this.title, {
+        super.key,
+        this.trailingWidget,
+        this.onClickAction,
+        this.color,
+        this.showTitleBar,
+        this.elevation,
+      });
+
+  final String title;
+  final Widget? trailingWidget;
+  Function? onClickAction;
+  Color? color;
+  bool? showTitleBar;
+  double? elevation;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(child: HeaderWithBack(title, trailingWidget: trailingWidget, onClickAction: onClickAction, color: color, hasProfile: false, showTitleBar: showTitleBar,elevation:0));
+  }
+}

@@ -38,6 +38,9 @@ class BmiDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
+  bool isAuto = false;
+  final player = AudioPlayer();
 
   @override
   Future<void> onInit() async{
@@ -47,6 +50,8 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
     });
@@ -68,8 +73,9 @@ class BmiDeviceConnectionLogic extends BaseLogic {
         buttonText.value = 'label_connecting'.tr;
       } else if (status[0] == "CS_ONLINE_WEIGHT") {
         if(isScreenOff.isTrue) {
-          final player = AudioPlayer();
-          player.play(AssetSource('audio/device_connected.mp3'));
+          if(player.state != PlayerState.playing) {
+            player.play(AssetSource('audio/device_connected.mp3'));
+          }
           isScreenOff.value = false;
         }
         if (screen_status.value != ScreenEnum.MEASURING.name) {
@@ -83,12 +89,13 @@ class BmiDeviceConnectionLogic extends BaseLogic {
       } else if (status[0] == "CS_WEIGHT_ACTION_DEVICE_NOT_FOUND" ||
           status[0] == "bluetoothDisabled") {
         screen_status.value = ScreenEnum.DEVICE_NOT_FOUND.name;
-        buttonText.value = 'label_connect'.tr;
+        buttonText.value = 'label_device_not_found'.tr;
         // ShowToast.error('label_device_not_found'.tr);
       } else if (status[0] == "CS_WEIGHT_ACTION_CONNECTED") {
         screen_status.value = ScreenEnum.CONNECTED.name;
-        final player = AudioPlayer();
-        player.play(AssetSource('audio/device_connected.mp3'));
+        if(player.state != PlayerState.playing) {
+          player.play(AssetSource('audio/device_connected.mp3'));
+        }
       } else if (status[0] == "CS_WEIGHT_BLE_DISABLED") {
         ShowToast.error('label_bluetooth_error'.tr);
         screen_status.value = ScreenEnum.CONNECT.name;
@@ -133,11 +140,13 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     isLoading.value = false;
     _cmedBmiDevicesLib.disconnect();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
+    player.dispose();
   }
 
   void sendMeasurement() {
     if (result.value.isEmpty) return;
     if (isLoading.isTrue) return;
+    globalState.showBusy();
     isLoading.value = true;
 
     var measurement = MeasurementDTO(
@@ -150,8 +159,11 @@ class BmiDeviceConnectionLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+
+    repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
+      globalState.hideBusy();
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
@@ -163,13 +175,14 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   updateSelectedCustomerHeightAndNavigate(List<MeasurementDTO> measurementsWithResult) {
     isLoading.value = true;
     customer.value.heightCentimeter = heightInCm.value;
-    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
-      isLoading.value = false,
-      Get.offNamed('/screening_report_result_details', arguments: [
+    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) {
+      isLoading.value = false;
+      String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+      Get.offNamed(route, arguments: [
         ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult
+            screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult, updateProfile: true
         )
-      ]),
+      ], id: isNestedRoute? 1: null);
     });
   }
 

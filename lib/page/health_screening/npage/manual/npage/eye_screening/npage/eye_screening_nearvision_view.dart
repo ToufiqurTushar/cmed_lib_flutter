@@ -12,7 +12,7 @@ class EyeScreeningNearvisionView extends RapidView<EyeScreeningNearvisionLogic> 
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_near_vision_both_eye_test'.tr),
+        appBar: controller.isThemeV2? BasicAppBarV2('label_near_vision_both_eye_test'.tr,): BasicAppBar('label_near_vision_both_eye_test'.tr),
         body: SafeArea(
           child: Column(
             children: [
@@ -130,8 +130,8 @@ class EyeScreeningNearvisionView extends RapidView<EyeScreeningNearvisionLogic> 
 
   @override
   void loadDependentLogics() {
-
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningNearvisionLogic>(() => EyeScreeningNearvisionLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningNearvisionLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

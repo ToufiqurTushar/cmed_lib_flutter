@@ -8,8 +8,8 @@ class CMEDTextUtils {
       fontSize: 16,
       fontWeight: FontWeight.w700);
   static var inputTextLabelStyle = const TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w600,
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
   );
   static var measurementResultValueStyle = const TextStyle(
       fontSize: 20, fontWeight: FontWeight.w500);
@@ -54,7 +54,7 @@ class CMEDTextUtils {
   static var alertTitleTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 14,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
   );
 
   static var listItemTitleTextStyle = const TextStyle(

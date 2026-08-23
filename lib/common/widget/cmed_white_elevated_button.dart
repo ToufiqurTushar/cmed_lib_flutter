@@ -5,7 +5,7 @@ class CMEDWhiteElevatedButton extends StatefulWidget {
   double? width;
   double? height;
   bool? isEnable = true;
-  Function onClickAction;
+  Function? onClickAction;
   Color? buttonBgColor;
   Color? buttonTextColor;
   bool? showIcon;
@@ -47,8 +47,8 @@ class _CMEDWhiteElevatedButtonState extends State<CMEDWhiteElevatedButton> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           padding: const EdgeInsets.symmetric(vertical: 10)),
-      onPressed: () => {
-        if (widget.isEnable ?? true) {widget.onClickAction()} else null
+      onPressed: widget.onClickAction == null? null:() => {
+        if (widget.isEnable ?? true) {widget.onClickAction!()} else null
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -103,10 +103,6 @@ class MuacInputLogic extends BaseLogic {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
-        // bool isValidMeasurementSelectionDetailsLogic = Get.isRegistered<MeasurementSelectionDetailsLogic>();
-        // if(isValidMeasurementSelectionDetailsLogic) {
-        //   Get.find<MeasurementSelectionDetailsLogic>().updateSelectedServiceTypeMeasurementStatus([measurement]);
-        // }
         screeningReport.value = value;
         updateMeasurementAndNavigate(measurement);
       }
@@ -116,7 +112,7 @@ class MuacInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(measurement){
     Get.offNamed('/screening_report_result_details', arguments: [
       ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
+          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement], isNestedRoute: isNestedRoute
       )
     ], id: isNestedRoute? 1: null);
 

@@ -5,9 +5,10 @@ Widget CMEDBottomButton({
   Color? backgroundColor,
   Color? textColor,
   BuildContext? context,
+  EdgeInsets padding = const EdgeInsets.fromLTRB(8,0,8,8),
 }) {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: padding,
     child: SizedBox(
       width: double.infinity,
       height: 52,

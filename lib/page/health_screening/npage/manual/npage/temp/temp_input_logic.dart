@@ -23,6 +23,7 @@ class TempInputLogic extends BaseLogic {
 
   var screeningReport = MeasurementDTO().obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
 
   @override
   void onInit() {
@@ -30,6 +31,7 @@ class TempInputLogic extends BaseLogic {
     dateController = TextEditingController();
     temperatureEditTextController = TextEditingController();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
 
   }
 
@@ -99,7 +101,7 @@ class TempInputLogic extends BaseLogic {
   updateMeasurementAndNavigate(measurement) {
     Get.offNamed('/screening_report_result_details', arguments: [
       ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
+          screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement],isNestedRoute: isNestedRoute
       )
     ], id: isNestedRoute? 1: null);
   }
@@ -111,25 +113,44 @@ class TempInputLogic extends BaseLogic {
     temperatureEditTextController.dispose();
   }
 
-  toggleTemperatureUnit() {
+  toggleTemperatureUnitWithValue() {
+    final text = temperatureEditTextController.text.trim();
+    if (text.isEmpty) {
+      toggleUnit();
+      return;
+    }
+
+    final doubleValue = double.tryParse(text);
+    if (doubleValue == null) {
+      toggleUnit();
+      return;
+    }
+
     if (temperatureUnit.value == TemperatureUnit.FAHRENHEIT.name) {
       temperatureUnit.value = TemperatureUnit.CELSIUS.name;
-      var value =
-          ((double.parse(temperatureEditTextController.value.text) - 32) * 5) /
-              9;
+      var value = ((doubleValue - 32) * 5) / 9;
       temperatureEditTextController.text =
           value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
     } else {
       temperatureUnit.value = TemperatureUnit.FAHRENHEIT.name;
       temperatureEditTextController.text =
-          getTemperatureInFahrenheit(temperatureEditTextController.text);
+          getTemperatureInFahrenheit(text);
     }
     debugPrint(temperatureEditTextController.text.toString());
   }
 
+  void toggleUnit() {
+    if (temperatureUnit.value == TemperatureUnit.FAHRENHEIT.name) {
+      temperatureUnit.value = TemperatureUnit.CELSIUS.name;
+    } else {
+      temperatureUnit.value = TemperatureUnit.FAHRENHEIT.name;
+    }
+  }
+
   String getTemperatureInFahrenheit(String text) {
-    var value =
-        ((double.parse(temperatureEditTextController.value.text) * 9) / 5) + 32;
+    final doubleValue = double.tryParse(text);
+    if (doubleValue == null) return "0";
+    var value = ((doubleValue * 9) / 5) + 32;
     return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 1);
   }
 

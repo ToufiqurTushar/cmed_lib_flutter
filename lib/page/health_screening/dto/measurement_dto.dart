@@ -536,6 +536,9 @@ class MeasurementDTO {
         MeasurementType.CORONA_COVID19_V2.value ||
         measurementTypeCodeId == MeasurementType.COVID19.value) {
     } else if (measurementTypeCodeId == MeasurementType.WAVE_COUNT.value) {}
+    else if (measurementTypeCodeId == MeasurementType.BODY_COMPOSITION.value) {
+      unit = 'kg';
+    }
     return unit;
   }
 
@@ -648,7 +651,7 @@ class MeasurementDTO {
   }
 
   String? getValue1() {
-    String? value;
+    String? value = result?.value?.toStringAsFixed(result?.value?.truncateToDouble() == result?.value ? 0 : 2) ?? "";
     if (measurementTypeCodeId == MeasurementType.BP.value) {
       value = inputs![BPAttribute.SYSTOLIC.name]?.toStringAsFixed(
           inputs![BPAttribute.SYSTOLIC.name]?.truncateToDouble() ==
@@ -727,6 +730,25 @@ class MeasurementDTO {
       value = result?.value?.toStringAsFixed(
           result?.value?.truncateToDouble() == result?.value ? 0 : 2) ??
           "";
+    } else if (measurementTypeCodeId == MeasurementType.BREAST_CANCER.value) {
+      value = "";
+    }
+    else if (measurementTypeCodeId == MeasurementType.EYE_SCREENING.value) {
+      value = "";
+    }
+    else if (measurementTypeCodeId == MeasurementType.ECG.value) {
+      //pressure
+      //value = int.parse(inputs?['pressure']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+
+      //heart rate
+      value = int.parse(inputs?['hrmean']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+
+      //breath
+      //breathRate.value = int.parse(inputs?['breath']?.toString().replaceAll(".00", "").replaceAll(".0", "") ?? "0").toString();
+    } else if (measurementTypeCodeId == MeasurementType.BODY_COMPOSITION.value) {
+      //result?.value =
+      final truncateOffset = bodyComposition?.cWeight?.truncateToDouble() == bodyComposition?.cWeight ? 0 : 2;
+      value = bodyComposition?.cWeight?.toStringAsFixed(truncateOffset) ?? "";
     }
     return value;
   }
@@ -763,6 +785,7 @@ class MeasurementDTO {
         value = inch.toStringAsFixed(inch.truncateToDouble() == inch ? 0 : 2);
       }
     }
+
     return value;
   }
 
@@ -1367,6 +1390,9 @@ class BodyComposition {
     this.cWeightDiff,
     this.cWeightDiffStatus,
     this.maleWeight,});
+
+  factory BodyComposition.fromRawJson(String str) =>
+      BodyComposition.fromJson(json.decode(str));
 
   BodyComposition.fromJson(dynamic json) {
     bodyFatData = json['bodyFatData'] != null ? BodyFatData.fromJson(json['bodyFatData']) : null;

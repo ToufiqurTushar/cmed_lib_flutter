@@ -8,11 +8,13 @@ class BloodGlucoseSelectTimePeriodLogic extends BaseLogic {
 
   var selectedItem = MasterDataDTO().obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   BloodGlucoseSelectTimePeriodLogic();
 
   Future<void> onInit() async{
     super.onInit();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
   }
 
 }

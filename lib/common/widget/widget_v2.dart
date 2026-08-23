@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-Widget GradientWhiteToGreen({required Widget child}) {
+Widget GradientWhiteToPrimary({required Widget child}) {
   return Container(
       width: double.infinity,
       height: double.infinity,
@@ -11,8 +11,8 @@ Widget GradientWhiteToGreen({required Widget child}) {
           end: Alignment.bottomCenter,
           colors: [
             Colors.white,
-            Color(0xFFDEFAE7),
-            Color(0xFFDEFAE7),
+            Colors.white,
+            Colors.white,
             Color(0xFFDEFAE7),
             Color(0xFFDEFAE7),
             Color(0xFFDEFAE7),

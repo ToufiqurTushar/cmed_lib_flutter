@@ -13,7 +13,7 @@ class EyeScreeningColorblindView extends RapidView<EyeScreeningColorblindLogic> 
   Widget build(BuildContext context) {
     return Obx(
           ()=> Scaffold(
-        appBar: BasicAppBar('label_color_blind_test'.tr),
+        appBar: controller.isThemeV2? BasicAppBarV2('label_color_blind_test'.tr, ):BasicAppBar('label_color_blind_test'.tr),
         body: SafeArea(
           child: Column(
             children: [
@@ -117,6 +117,7 @@ class EyeScreeningColorblindView extends RapidView<EyeScreeningColorblindLogic> 
   void loadDependentLogics() {
 
     Get.put(ScreeningReportRepository());
+    //Get.create<EyeScreeningColorblindLogic>(() => EyeScreeningColorblindLogic(repository: Get.find<ScreeningReportRepository>()));
     Get.put(EyeScreeningColorblindLogic(repository: Get.find<ScreeningReportRepository>()));
   }
 }

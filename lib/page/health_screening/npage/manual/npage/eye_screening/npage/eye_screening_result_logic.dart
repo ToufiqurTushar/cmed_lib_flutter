@@ -12,6 +12,10 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../measurement_view_arg.dart';
 import '../../../../../repository/screening_report_repository.dart';
+import 'eye_screening_colorblind_logic.dart';
+import 'eye_screening_contrast_logic.dart';
+import 'eye_screening_distancevision_logic.dart';
+import 'eye_screening_nearvision_logic.dart';
 
 class EyeScreeningResultLogic extends BaseLogic {
   dynamic argumentData = Get.arguments;
@@ -24,11 +28,14 @@ class EyeScreeningResultLogic extends BaseLogic {
   final ScreeningReportRepository repository;
   EyeScreeningResultLogic({required this.repository});
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
   @override
   void onInit() {
     super.onInit();
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
-    screeningReport.value = argumentData[0]['screeningReport'];
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    screeningReport.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).measurements!.first: MeasurementDTO();
+
     RLog.error(screeningReport.value.toJson());
     testedResultMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.message ??"";
     testedResultLeftEyeMessage.value = screeningReport.value.eyeScreening!.first.eyeScreeningResult!.leftEye ??"";
@@ -79,8 +86,12 @@ class EyeScreeningResultLogic extends BaseLogic {
     if(eyeScreeningTypeEnum == EyeScreeningTypeEnum.CONTRAST_TEST) {
       pageRouteName = EyeScreeningContrastView.routeName;
     }
-
-    Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    if(isNestedRoute) {
+      Future.delayed(Duration.zero, () async {
+        Get.offNamed(pageRouteName, arguments: MeasurementViewArg(isThemeV2: isThemeV2, isNestedRoute: isNestedRoute));
+      });
+    }
+    else Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   void startNextEyeScreening() {
@@ -97,7 +108,7 @@ class EyeScreeningResultLogic extends BaseLogic {
     }
 
     if(isNestedRoute){
-      Get.offNamed(EyeScreeningHomeView.routeName);
+      Get.offNamed(pageRouteName);
     } else {
       Get.offNamedUntil(pageRouteName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
     }
@@ -177,7 +188,10 @@ class EyeScreeningResultLogic extends BaseLogic {
 
   startDistanceVisionEyeScreening() {
     saveLocal();
-    Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
+    if(isNestedRoute) {
+      Get.offNamed(EyeScreeningDistancevisionView.routeName);
+    }
+    else Get.offNamedUntil(EyeScreeningDistancevisionView.routeName, (route) => route.settings.name == EyeScreeningHomeView.routeName);
   }
 
   showstartDistanceVisionEyeScreeningButton() {

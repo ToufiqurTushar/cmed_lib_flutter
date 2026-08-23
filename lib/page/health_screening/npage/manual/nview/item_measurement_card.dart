@@ -7,9 +7,10 @@ class ItemMeasurementCard extends StatefulWidget {
   String? label;
   String? subTitle;
   String? asset;
+  bool isThemeV2;
   Function? onClickAction;
 
-  ItemMeasurementCard(this.label, this.asset, {Key? key,required this.codeId, this.subTitle,this.onClickAction}) : super(key: key);
+  ItemMeasurementCard(this.label, this.asset, {Key? key,required this.codeId, this.isThemeV2 = false, this.subTitle,this.onClickAction}) : super(key: key);
 
   @override
   State<ItemMeasurementCard> createState() => _ItemMeasurementCard();
@@ -40,10 +41,23 @@ class _ItemMeasurementCard extends State<ItemMeasurementCard> {
               const SizedBox(
                 height: 2,
               ),
-              SvgPicture.asset(
-                  width: 56,
-                  widget.asset ?? "assets/images/home/home_payment.svg",
-                  semanticsLabel: widget.label ?? "label"),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0, top: 7),
+                    child: SvgPicture.asset(
+                        width: 40,
+                        widget.asset ?? "assets/images/home/home_payment.svg",
+                        semanticsLabel: widget.label ?? "label"),
+                  ),
+                  if(widget.isThemeV2)
+                  SvgPicture.asset(
+                    "assets/icons-v2/seal.svg",
+                    width: 50,
+                    height: 50,
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 2,
               ),

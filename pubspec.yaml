@@ -53,6 +53,7 @@ dependencies:
   crypto: ^3.0.2
   chucker_flutter: ^1.9.2
   uuid: ^4.3.3
+  simple_animations: ^5.0.2
   #plugin
   endometriosis_lib_flutter:
     git:
@@ -91,6 +92,8 @@ dependencies:
       url: https://gitlab.com/cmed-bd/ecg-lib-flutter.git
       #url: git@gitlab.com:cmed-bd/ecg-lib-flutter.git
       ref: susastho_lite_ecg
+  google_fonts: ^8.2.1
+
 
 dev_dependencies:
   flutter_test:
@@ -106,6 +109,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/screening/
 
   # This section identifies this Flutter project as a plugin project.
   # The 'pluginClass' specifies the class (in Java, Kotlin, Swift, Objective-C, etc.)

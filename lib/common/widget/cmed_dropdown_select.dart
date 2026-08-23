@@ -42,10 +42,21 @@ class CMEDDropdownSelect extends StatelessWidget {
         if (label != null)
           Text(
             label!,
-            style: CMEDTextUtils.inputTextLabelStyleForProfileTitle,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
+        SizedBox(height: 8,),
         Container(
-          color: color ?? Theme.of(context).primaryColorLight,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Theme.of(context).primaryColor.withOpacity(0.5),
+              width: 1,
+            ),
+          ),
+          //color: color ?? Theme.of(context).primaryColorLight,
           margin: const EdgeInsets.only(top: 0, bottom: 12),
           height: height??50,
           child: Padding(

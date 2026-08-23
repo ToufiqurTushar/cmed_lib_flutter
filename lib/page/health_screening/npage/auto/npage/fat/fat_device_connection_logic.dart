@@ -40,6 +40,8 @@ class FatDeviceConnectionLogic extends BaseLogic {
 
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
+  bool isThemeV2 = false;
+  final player = AudioPlayer();
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -48,6 +50,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     heightInFeet.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInFeet??"" : "";
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     Future.delayed(Duration.zero, () async {
       if(isNestedRoute)connect();
     });
@@ -85,8 +88,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
         buttonText.value = 'label_connecting'.tr;
       } else if (status[0] == "CS_ONLINE_WEIGHT") {
         if(isScreenOff.isTrue) {
-          final player = AudioPlayer();
-          player.play(AssetSource('audio/device_connected.mp3'));
+          if(player.state != PlayerState.playing) {
+            player.play(AssetSource('audio/device_connected.mp3'));
+          }
           isScreenOff.value = false;
         }
         if (screen_status.value != ScreenEnum.MEASURING.name) {
@@ -108,8 +112,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
         // ShowToast.error('label_device_not_found'.tr);
       } else if (status[0] == "CS_WEIGHT_ACTION_CONNECTED") {
         screen_status.value = ScreenEnum.CONNECTED.name;
-        final player = AudioPlayer();
-        player.play(AssetSource('audio/device_connected.mp3'));
+        if(player.state != PlayerState.playing) {
+          player.play(AssetSource('audio/device_connected.mp3'));
+        }
       } else if (status[0] == "CS_WEIGHT_BLE_DISABLED") {
         ShowToast.error('label_bluetooth_error'.tr);
         screen_status.value = ScreenEnum.CONNECT.name;
@@ -152,19 +157,23 @@ class FatDeviceConnectionLogic extends BaseLogic {
     isLoading.value = false;
     cmedFatDevicesLib.disconnect();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
+    player.dispose();
   }
 
   void sendMeasurement() {
     if (result.value.isEmpty) return;
     if (isLoading.isTrue) return;
     isLoading.value = true;
+    globalState.showBusy();
 
     var measurement = MeasurementDTO(
         userId: customer.value.userId,
         measurementTypeCodeId: MeasurementType.BODY_COMPOSITION.value,
         measuredAt: DateTime.now().millisecondsSinceEpoch,
         inputs: {
-          BodyCompositionAttribute.BODY_COMPOSITION.name: bodyComposition.value.cBmi,
+          BodyCompositionAttribute.BODY_COMPOSITION.name: bodyComposition.value.cWeight,
+          //BmiAttribute.HEIGHT.name: heightInCm.value,
+          //BmiAttribute.WEIGHT.name: result.value,
         },
         bodyComposition: bodyComposition.value,
     );
@@ -177,8 +186,10 @@ class FatDeviceConnectionLogic extends BaseLogic {
     );
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
+      globalState.hideBusy();
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
@@ -190,11 +201,12 @@ class FatDeviceConnectionLogic extends BaseLogic {
   updateSelectedCustomerHeightAndNavigate(List<MeasurementDTO> allMeasurements) {
     isLoading.value = true;
     customer.value.heightCentimeter = heightInCm.value;
-    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
-      isLoading.value = false,
-      Get.offNamed('/screening_report_fat_scale_details', arguments: [ScreeningReportResultDetailsArgument(
-        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements
-      )]),
+    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value){
+      isLoading.value = false;
+      String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+      Get.offNamed(route, arguments: [ScreeningReportResultDetailsArgument(
+        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements, updateProfile: true
+      )], id: isNestedRoute? 1: null);
     });
   }
 

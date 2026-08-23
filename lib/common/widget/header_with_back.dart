@@ -95,82 +95,76 @@ class HeaderWithBack extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                Visibility(
-                  visible: hasProfile??true,
-                  child: Row(
-                    children: <Widget>[
-                      InkWell(
-                        onTap: (){
-                          if(profileUrl?.isEmpty??false) return;
-                          goToFullImageView(profileUrl);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: CachedNetworkImage(
-                            imageUrl: profileUrl ?? 'http://',
-                            imageBuilder: (context, imageProvider) => Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey.shade100,
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              ),
+                if(hasProfile??true)
+                Row(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: (){
+                        if(profileUrl?.isEmpty??false) return;
+                        goToFullImageView(profileUrl);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: CachedNetworkImage(
+                          imageUrl: profileUrl ?? 'http://',
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade100,
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
                             ),
-                            placeholder: (context, url) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
-                            errorWidget: (context, url, error) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
                           ),
+                          placeholder: (context, url) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
+                          errorWidget: (context, url, error) => SvgPicture.asset(Utils.getDefaultProfileAsset(gender), height: 40),
                         ),
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              fullName ?? 'label_guest_login'.tr,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            fullName ?? 'label_guest_login'.tr,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              username?? "01xxxxxxxxx",
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Visibility(
-                          visible: false,
-                          child: Icon(
-                            Icons.arrow_drop_down_outlined,
-                            color: Theme.of(context).primaryColor,
+                          ),
+                          Text(
+                            username?? "01xxxxxxxxx",
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                            ),
                           )
+                        ],
                       ),
-                      if(trailingWidget != null)
-                        trailingWidget!,
-                      Visibility(visible: Get.find<RapidEnvConfig>().debug,child: InkWell(onTap:()=>ChuckerFlutter.showChuckerScreen(),child: Text('Network ')))
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Visibility(
+                        visible: false,
+                        child: Icon(
+                          Icons.arrow_drop_down_outlined,
+                          color: Theme.of(context).primaryColor,
+                        )
+                    ),
+                    if(trailingWidget != null)
+                      trailingWidget!,
+                    Visibility(visible: Get.find<RapidEnvConfig>().debug,child: InkWell(onTap:()=>ChuckerFlutter.showChuckerScreen(),child: Text('Network ')))
+                  ],
                 ),
-                // ),
-                Visibility(
-                  visible: hasProfile??true,
-                  child: const SizedBox(
-                    height: 8,
-                  ),
+                if(hasProfile??true)
+                const SizedBox(
+                  height: 8,
                 ),
               ],
             ),

@@ -264,6 +264,7 @@ class GmpInputLogic extends BaseLogic {
           screeningReportWfl: screeningReportWfl.value,
           screeningReportWflKgValue: getWeightInKg(),
           measurementsWithResult: measurementsWithResult,
+          isNestedRoute: isNestedRoute
         ), id: isNestedRoute? 1: null
     );
   }

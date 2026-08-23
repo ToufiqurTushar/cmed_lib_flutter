@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cmed_ecg_devices_lib/cmed_user.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
 
 class EcgDeviceConnectionLogic extends BaseLogic {
@@ -37,11 +38,16 @@ class EcgDeviceConnectionLogic extends BaseLogic {
   final ScreeningReportRepository repository;
   CMEDUser userData = CMEDUser();
 
+  bool isNestedRoute = false;
+  bool isThemeV2 = false;
+
   EcgDeviceConnectionLogic({required this.repository});
 
   @override
   void onInit() {
     super.onInit();
+    isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
+    isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
     userData = CMEDUser(
         id: customer.value.userId,
         gender: customer.value.getGenderString(),
@@ -175,18 +181,28 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         inputs: inputs
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
-        Get.offNamed('/screening_report_ecg_details', arguments: [ScreeningReportResultDetailsArgument(
-          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: [measurement]
-        )]);
+        updateMeasurementAndNavigate([measurement]);
       }
     });
   }
 
+
+  updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value,
+          isAuto: true,
+          measurementsWithResult: allMeasurements
+      )
+    ], id: isNestedRoute? 1: null);
+  }
   @override
   void onClose() {
     disconnect();
