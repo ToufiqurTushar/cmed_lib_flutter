@@ -33,7 +33,7 @@ Widget RadioGroups({
                 name: field.name!,
                 options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
                   value: option.value,
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4),width:field.options?.length == 2? Get.width*.3: field.options?.length == 3? Get.width*.25: null, child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
+                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4),width:field.options?.length == 2? Get.width*.3: field.options?.length == 3? Get.width*.15: null, child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
                 )).toList(growable: false),
                 wrapAlignment: WrapAlignment.start,
                 decoration: InputDecoration(
