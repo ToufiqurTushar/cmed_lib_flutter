@@ -707,18 +707,21 @@ class SymptomsAfterTakenVaccineDTO {
 }
 
 class ComorbidityList {
-  ComorbidityList({this.existIn, this.comorbidity});
+  ComorbidityList({this.existIn, this.comorbidity, this.comorbidityStatus});
 
   ComorbidityList.fromJson(dynamic json) {
     existIn = json['existIn'];
+    comorbidityStatus = json['comorbidityStatus'];
     comorbidity = json['comorbidity'] != null ? Comorbidity.fromJson(json['comorbidity']) : null;
   }
   int? existIn;
   Comorbidity? comorbidity;
+  String? comorbidityStatus;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['existIn'] = existIn;
+    map['comorbidityStatus'] = comorbidityStatus;
     if (comorbidity != null) {
       map['comorbidity'] = comorbidity?.toJson();
     }
