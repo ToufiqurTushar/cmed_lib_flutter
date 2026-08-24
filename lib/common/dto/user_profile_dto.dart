@@ -673,16 +673,21 @@ class VaccinationHistory {
 
 class DisabilitiesDTO {
   String? name;
+  String? otherValue;
 
-  DisabilitiesDTO({this.name});
+  DisabilitiesDTO({this.name, this.otherValue});
 
   DisabilitiesDTO.fromJson(Map<String, dynamic> json) {
     name = json['name'];
+    otherValue = json['otherValue'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
+    if (otherValue != null) {
+      data['otherValue'] = otherValue;
+    }
     return data;
   }
 }
