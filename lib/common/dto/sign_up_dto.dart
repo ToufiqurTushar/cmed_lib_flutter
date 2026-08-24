@@ -8,6 +8,14 @@ class SignUpDTO {
   int? gender;
   double? height;
   bool? hypertensive;
+  bool? hasAsthma;
+  bool? hasCopd;
+  bool? hasKidneyDisease;
+  bool? hasCardiovascularDisease;
+  bool? hadStroke;
+  bool? hasCancer;
+  bool? hasDisability;
+  bool? hasAnemia;
   String? lastName;
   int? nidNumber;
   String? password;
@@ -35,6 +43,14 @@ class SignUpDTO {
         this.gender,
         this.height,
         this.hypertensive,
+        this.hasAsthma,
+        this.hasCopd,
+        this.hasKidneyDisease,
+        this.hasCardiovascularDisease,
+        this.hadStroke,
+        this.hasCancer,
+        this.hasDisability,
+        this.hasAnemia,
         this.lastName,
         this.nidNumber,
         this.password,
@@ -64,6 +80,14 @@ class SignUpDTO {
     gender = json['gender'];
     height = json['height'];
     hypertensive = json['hypertesive'];
+    hasAsthma = json['has_asthma'];
+    hasCopd = json['has_copd'];
+    hasKidneyDisease = json['has_kidney_disease'];
+    hasCardiovascularDisease = json['has_cardiovascular_disease'];
+    hadStroke = json['had_stroke'];
+    hasCancer = json['has_cancer'];
+    hasDisability = json['has_disability'];
+    hasAnemia = json['has_anemia'];
     lastName = json['last_name'];
     nidNumber = json['nid_number'];
     password = json['password'];
@@ -95,6 +119,14 @@ class SignUpDTO {
     data['gender'] = gender;
     data['height'] = height;
     data['hypertesive'] = hypertensive;
+    data['has_asthma'] = hasAsthma;
+    data['has_copd'] = hasCopd;
+    data['has_kidney_disease'] = hasKidneyDisease;
+    data['has_cardiovascular_disease'] = hasCardiovascularDisease;
+    data['had_stroke'] = hadStroke;
+    data['has_cancer'] = hasCancer;
+    data['has_disability'] = hasDisability;
+    data['has_anemia'] = hasAnemia;
     data['last_name'] = lastName;
     data['nid_number'] = nidNumber;
     data['password'] = password;
