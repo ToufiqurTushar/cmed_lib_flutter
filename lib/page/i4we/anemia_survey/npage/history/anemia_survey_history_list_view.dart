@@ -51,7 +51,6 @@ class AnemiaSurveyHistoryListView extends RapidView<AnemiaSurveyListLogic> {
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    defaultIconBackroundColor: true,
                     image: "",
                     defaultImage: "assets/images/ic_anemia_survey.svg",
                     date: date,

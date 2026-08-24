@@ -2,7 +2,7 @@ import 'package:cmed_lib_flutter/survey/widget/round_image.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 
-Card SurveyResultItemWidget({required BuildContext context, Color? color, bool? defaultIconBackroundColor, required String title, required String image, String? defaultImage, String? subtitle, required String date, required GestureTapCallback onTap}) {
+Card SurveyResultItemWidget({required BuildContext context, Color? color, required String title, required String image, String? defaultImage, String? subtitle, required String date, required GestureTapCallback onTap}) {
   return Card(
     color: Colors.white,
     child: ListTile(
