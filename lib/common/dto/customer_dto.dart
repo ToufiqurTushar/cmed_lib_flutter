@@ -18,6 +18,7 @@ class CustomerDTO extends BaseEntity {
   String? lastNameBn;
   String? lastName;
   int? agentId;
+  List<DisabilitiesDTO>? disabilities;
   int? birthDate;
   int? bloodGroup;
   String? bloodGroupString;
@@ -39,6 +40,7 @@ class CustomerDTO extends BaseEntity {
   bool? isDiabetic;
   bool? isHypertensive;
   bool? hasAsthma;
+  bool? hasAnemia;
   bool? hasCOPD;
   bool? hasKidneyDisease;
   bool? hasHeartDisease;
@@ -111,6 +113,7 @@ class CustomerDTO extends BaseEntity {
     this.lastNameBn,
     this.lastName,
     this.agentId,
+    this.disabilities,
     this.birthDate,
     this.bloodGroup,
     this.bloodGroupString,
@@ -133,6 +136,7 @@ class CustomerDTO extends BaseEntity {
     this.isHypertensive,
     this.hasAsthma,
     this.hasCOPD,
+    this.hasAnemia,
     this.hasKidneyDisease,
     this.hasHeartDisease,
     this.hasStroke,
@@ -220,6 +224,9 @@ class CustomerDTO extends BaseEntity {
       lastNameBn: json['last_name_bn'],
       lastName: json['last_name_en'],
       agentId: json['agent_id'],
+        disabilities: (json['disabilities'] as List?)
+          ?.map((disability) => DisabilitiesDTO.fromJson(disability))
+          .toList(),
       birthDate: json['birthday'],
       bloodGroup: json['blood_group'],
       bloodGroupString: json['blood_group_string'],
@@ -241,6 +248,7 @@ class CustomerDTO extends BaseEntity {
       isDiabetic: json['diabetic'],
       isHypertensive: json['hypertensive'],
       hasAsthma: json['has_asthma'],
+      hasAnemia: json['anemia'],
       hasCOPD: json['copd'],
       hasKidneyDisease: json['ckd'],
       hasHeartDisease: json['heart_disease'],
@@ -318,6 +326,7 @@ class CustomerDTO extends BaseEntity {
       'last_name_bn': lastNameBn,
       'last_name_en': lastName,
       'agent_id': agentId,
+      'disabilities': disabilities?.map((e) => e.toJson()).toList(),
       'birthday': birthDate,
       'blood_group': bloodGroup,
       'blood_group_string': bloodGroupString,
@@ -341,6 +350,7 @@ class CustomerDTO extends BaseEntity {
       'diabetic': isDiabetic,
       'hypertensive': isHypertensive,
       'has_asthma': hasAsthma,
+      'anemia': hasAnemia,
       'copd': hasCOPD,
       'ckd': hasKidneyDisease,
       'heart_disease': hasHeartDisease,
@@ -610,4 +620,26 @@ class UserVEDoc {
     this.heightCentimeter,
     this.weight,
   });
+}
+
+
+class DisabilitiesDTO {
+  String? name;
+  String? otherValue;
+
+  DisabilitiesDTO({this.name, this.otherValue});
+
+  factory DisabilitiesDTO.fromJson(Map<String, dynamic> json) {
+    return DisabilitiesDTO(
+      name: json['name'],
+      otherValue: json['otherValue'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'otherValue': otherValue,
+    };
+  }
 }
