@@ -8,6 +8,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../../../../survey/widget/round_image.dart';
 import '../../anemia_survey_argument.dart';
 import '../../anemia_survey_view.dart';
+import '../history/anemia_survey_history_list_view.dart';
 import 'anemia_survey_result_argument.dart';
 import 'anemia_survey_result_logic.dart';
 import 'anemia_survey_result_logic.dart';
@@ -18,7 +19,24 @@ class AnemiaSurveyResultView extends RapidView<AnemiaSurveyResultLogic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar('Anemia'.tr),
+      appBar: BasicAppBar('Anemia'.tr, trailingWidget: InkWell(
+          onTap: () {
+            Get.offNamed(AnemiaSurveyHistoryListView.routeName);
+          },
+          child: Visibility(
+            visible: !controller.isFromHistory.value,
+            child: Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Row(
+                children: [
+                  Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
+                  SizedBox(width: 8,),
+                  Text('History'.tr)
+                ],
+              ),
+            ),
+          )
+      )),
       body: SafeArea(
         child: Column(
           children: [
@@ -97,7 +115,7 @@ class AnemiaSurveyResultView extends RapidView<AnemiaSurveyResultLogic> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(12.0, 0 ,12, 12),
         child: FrElevatedButton(
-          name:!controller.isHistoryView.value?'FINISH'.tr: 'End'.tr,
+          name:!controller.isFromHistory.value?'FINISH'.tr: 'End'.tr,
           onPressed: () => {
             Get.back()
           },

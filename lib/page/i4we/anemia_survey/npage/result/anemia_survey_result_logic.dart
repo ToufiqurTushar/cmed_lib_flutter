@@ -7,7 +7,7 @@ import 'anemia_survey_result_argument.dart';
 
 
 class AnemiaSurveyResultLogic extends BaseLogic {
-  final isHistoryView = false.obs;
+  final isFromHistory = false.obs;
   final selectedSurveyResult = SurveyResultItemDto().obs;
   late AnemiaSurveyResultArgument anemiaSurveyResultArgument;
 
@@ -15,7 +15,7 @@ class AnemiaSurveyResultLogic extends BaseLogic {
   void onInit() {
     super.onInit();
     anemiaSurveyResultArgument = (Get.arguments as AnemiaSurveyResultArgument);
-    isHistoryView.value = anemiaSurveyResultArgument.isFromHistory;
+    isFromHistory.value = anemiaSurveyResultArgument.isFromHistory;
     selectedSurveyResult.value = anemiaSurveyResultArgument.selectedSurveyResult;
   }
 

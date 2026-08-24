@@ -19,7 +19,7 @@ class AnemiaSurveyHistoryListView extends RapidView<AnemiaSurveyListLogic> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: BasicAppBar("Agent Survey".tr, showTitleBar:showAppTitle),
+      appBar: BasicAppBar("Anemia".tr, showTitleBar:showAppTitle),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,6 +51,7 @@ class AnemiaSurveyHistoryListView extends RapidView<AnemiaSurveyListLogic> {
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
+                    defaultIconBackroundColor: true,
                     image: "",
                     defaultImage: "assets/images/ic_anemia_survey.svg",
                     date: date,
