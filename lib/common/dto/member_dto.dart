@@ -44,6 +44,7 @@ class MemberDTO {
   bool? hasStroke;
   bool? hasCancer;
   bool? hasDisability;
+  bool? hasAnemia;
   int? bloodGroup;
   String? bloodGroupString;
   int? educationQualification;
@@ -100,6 +101,7 @@ class MemberDTO {
     this.hasStroke,
     this.hasCancer,
     this.hasDisability,
+    this.hasAnemia,
     this.bloodGroup,
     this.bloodGroupString,
     this.educationQualification,
@@ -161,6 +163,7 @@ class MemberDTO {
       hasStroke: json['had_stroke'],
       hasCancer: json['has_cancer'],
       hasDisability: json['disable'],
+      hasAnemia: json['has_anemia'],
       bloodGroup: json['blood_group'],
       bloodGroupString: null, // Assuming you will set this separately
       educationQualification: json['educational_qualification'] ?? 1,
@@ -220,6 +223,7 @@ class MemberDTO {
       'had_stroke': hasStroke,
       'has_cancer': hasCancer,
       'disable': hasDisability,
+      'has_anemia': hasAnemia,
       'blood_group': bloodGroup,
       'educational_qualification': educationQualification,
       'relation_with_household_head_obj': relationWithHouseholdHeadObj?.toJson(),
@@ -256,6 +260,7 @@ class MemberDTO {
       hasStroke: hasStroke,
       hasCancer: hasCancer,
       hasDisability: hasDisability,
+      hasAnemia: hasAnemia,
       phone: phone,
       // TODO: ADD IT LATER.:
       //   agentId : pref.agentServerId().get()?.toInt(),
