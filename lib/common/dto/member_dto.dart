@@ -44,6 +44,7 @@ class MemberDTO {
   bool? hasStroke;
   bool? hasCancer;
   bool? hasDisability;
+  List<DisabilitiesDTO>? disabilities;
   bool? hasAnemia;
   int? bloodGroup;
   String? bloodGroupString;
@@ -101,6 +102,7 @@ class MemberDTO {
     this.hasStroke,
     this.hasCancer,
     this.hasDisability,
+    this.disabilities,
     this.hasAnemia,
     this.bloodGroup,
     this.bloodGroupString,
@@ -163,6 +165,9 @@ class MemberDTO {
       hasStroke: json['had_stroke'],
       hasCancer: json['has_cancer'],
       hasDisability: json['disable'],
+      disabilities: (json['disabilities'] as List?)
+          ?.map((d) => DisabilitiesDTO.fromJson(d))
+          .toList(),
       hasAnemia: json['has_anemia'],
       bloodGroup: json['blood_group'],
       bloodGroupString: null, // Assuming you will set this separately
@@ -223,6 +228,7 @@ class MemberDTO {
       'had_stroke': hasStroke,
       'has_cancer': hasCancer,
       'disable': hasDisability,
+      'disabilities': disabilities?.map((e) => e.toJson()).toList(),
       'has_anemia': hasAnemia,
       'blood_group': bloodGroup,
       'educational_qualification': educationQualification,
