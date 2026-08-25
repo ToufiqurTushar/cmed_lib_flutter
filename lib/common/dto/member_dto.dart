@@ -266,6 +266,7 @@ class MemberDTO {
       hasStroke: hasStroke,
       hasCancer: hasCancer,
       hasDisability: hasDisability,
+      disabilities: disabilities,
       hasAnemia: hasAnemia,
       phone: phone,
       // TODO: ADD IT LATER.:
