@@ -29,7 +29,7 @@ Widget MultiSelectCheckbox({
               ),
               child: FormBuilderCheckboxGroup<dynamic>(
                 //enabled: parentCondition,
-                initialValue: field.defaultValue,
+                initialValue: field.defaultValue != null && !(field.defaultValue is List)?[field.defaultValue]:field.defaultValue,
                 name: field.name!,
                 options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
                   value: option.value?.toString()??'',
