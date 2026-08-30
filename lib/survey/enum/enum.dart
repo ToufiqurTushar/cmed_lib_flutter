@@ -8,9 +8,9 @@ enum SurveyTypeEnum {
 
 /// Condition types supported
 enum FBConditionType {
-  equal,
+  equals,
   notEquals,
-  inList,
+  contains,
   notInList,
   lessThan,
   greaterThan,
@@ -26,8 +26,8 @@ enum FBConditionType {
 
   static FBConditionType fromString(String? value) {
     return FBConditionType.values.firstWhere(
-          (e) => e.name == value,
-      orElse: () => FBConditionType.equal, // default
+          (e) => e.name.toLowerCase() == value?.toLowerCase(),
+      orElse: () => FBConditionType.equals, // default
     );
   }
 }

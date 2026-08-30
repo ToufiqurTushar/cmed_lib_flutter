@@ -4,7 +4,7 @@ import 'package:flutter_rapid/flutter_rapid.dart' hide Condition;
 import '../enum/enum.dart';
 import 'Condition.dart';
 import 'SkipRule.dart';
-
+import 'package:flutter_rapid/flutter_rapid.dart';
 class Field {
   Field({
     this.label,
@@ -143,8 +143,13 @@ class Field {
 
       bool r = false;
 
+      if(condition.operator == "CONTAINS"){
+        RLog.error(condition.operator);
+        RLog.error(condition.expectedValue);
+        RLog.error(inputValue);
+      }
       switch (FBConditionType.fromString(condition.operator)) {
-        case FBConditionType.equal:
+        case FBConditionType.equals:
           //RLog.info('${answers}');
           //RLog.info('${inputValue} ${expectedValue}');
           r = inputValue == expectedValue;
@@ -152,8 +157,14 @@ class Field {
         case FBConditionType.notEquals:
           r = inputValue != expectedValue;
           break;
-        case FBConditionType.inList:
-          r = condition.expectedValue?.contains(inputValue)??false;
+        case FBConditionType.contains:
+          if(inputValue != null && condition.expectedValue != null){
+            if (condition.expectedValue!.any((item) => inputValue!.contains(item))) {
+              r = true;
+            } else {
+              r = false;
+            }
+          }
           break;
         case FBConditionType.notInList:
           r = !(condition.expectedValue?.contains(inputValue)??false);
