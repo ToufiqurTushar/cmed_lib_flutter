@@ -15,6 +15,7 @@ class SignUpDTO {
   bool? hadStroke;
   bool? hasCancer;
   bool? hasDisability;
+  List<Disability>? disabilities;
   bool? hasAnemia;
   String? lastName;
   int? nidNumber;
@@ -50,6 +51,7 @@ class SignUpDTO {
         this.hadStroke,
         this.hasCancer,
         this.hasDisability,
+        this.disabilities,
         this.hasAnemia,
         this.lastName,
         this.nidNumber,
@@ -87,6 +89,12 @@ class SignUpDTO {
     hadStroke = json['had_stroke'];
     hasCancer = json['has_cancer'];
     hasDisability = json['has_disability'];
+    if (json['disabilities'] != null) {
+      disabilities = <Disability>[];
+      json['disabilities'].forEach((v) {
+        disabilities!.add(Disability.fromJson(v));
+      });
+    }
     hasAnemia = json['has_anemia'];
     lastName = json['last_name'];
     nidNumber = json['nid_number'];
@@ -126,6 +134,9 @@ class SignUpDTO {
     data['had_stroke'] = hadStroke;
     data['has_cancer'] = hasCancer;
     data['has_disability'] = hasDisability;
+    if (disabilities != null) {
+      data['disabilities'] = disabilities!.map((v) => v.toJson()).toList();
+    }
     data['has_anemia'] = hasAnemia;
     data['last_name'] = lastName;
     data['nid_number'] = nidNumber;
@@ -143,6 +154,25 @@ class SignUpDTO {
     data['unionId'] = unionId;
     data['villageId'] = villageId;
     data['self_registered'] = selfRegistered;
+    return data;
+  }
+}
+
+class Disability {
+  String? name;
+  String? otherValue;
+
+  Disability({this.name, this.otherValue});
+
+  Disability.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    otherValue = json['otherValue'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['otherValue'] = otherValue;
     return data;
   }
 }
