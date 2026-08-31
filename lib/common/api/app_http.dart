@@ -13,8 +13,8 @@ import 'package:cmed_lib_flutter/common/helper/app_info.dart';
 import '../common_key.dart';
 
 enum AppUidEnum{
-  CmedAgentApp,
-  CmedUserApp,
+  DHC,
+  USER_APP,
   I4WE_AGENT,
   I4WE_MEMBER,
 }
@@ -437,13 +437,13 @@ class HttpProvider {
   }
 
   String AppVersionKey() {
-    if(appEnvConfig.appUid == AppUidEnum.CmedUserApp.name) {
+    if(appEnvConfig.appUid == AppUidEnum.USER_APP.name) {
       if (Platform.isIOS) {
         return CORE_USER_IOS_VERSION_KEY;
       }
       return CORE_USER_ANDROID_VERSION_KEY;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.CmedAgentApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.USER_APP.name) {
       if (Platform.isIOS) {
         return CORE_AGENT_IOS_VERSION_KEY;
       }
@@ -465,13 +465,13 @@ class HttpProvider {
   }
 
   String AppStoreUrl() {
-    if(appEnvConfig.appUid == AppUidEnum.CmedUserApp.name) {
+    if(appEnvConfig.appUid == AppUidEnum.USER_APP.name) {
       if (Platform.isIOS) {
         return CORE_USER_IOS_STORE_URL;
       }
       return CORE_USER_ANDROID_STORE_URL;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.CmedAgentApp.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.DHC.name) {
       if (Platform.isIOS) {
         return CORE_AGENT_IOS_STORE_URL;
       }

@@ -17,8 +17,8 @@ class AppUidConfig {
   static RapidEnvConfig get config => AppUidConfig().configInstance;
   static RapidPreferenceStore get prefStore => AppUidConfig().prefStoreInstance;
 
-  static bool get isCmedAgentApp => config.appUid == AppUidEnum.CmedAgentApp.name;
-  static bool get isCmedUserApp => config.appUid == AppUidEnum.CmedUserApp.name;
+  static bool get isCmedAgentApp => config.appUid == AppUidEnum.DHC.name;
+  static bool get isCmedUserApp => config.appUid == AppUidEnum.USER_APP.name;
   static bool get isCmedApp => isCmedAgentApp || isCmedUserApp;
 
   static bool get isI4WeAgentApp => config.appUid == AppUidEnum.I4WE_AGENT.name;
