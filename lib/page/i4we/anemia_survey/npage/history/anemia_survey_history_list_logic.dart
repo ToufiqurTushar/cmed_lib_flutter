@@ -7,8 +7,6 @@ import '../../../../../common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import 'anemia_survey_history_list_argument.dart';
 
-
-
 class AnemiaSurveyListLogic extends BaseLogic {
   final HttpProvider httpProvider = Get.find();
   final isHistoryView = false.obs;

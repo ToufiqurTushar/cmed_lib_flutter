@@ -749,6 +749,9 @@ class MeasurementDTO {
       //result?.value =
       final truncateOffset = bodyComposition?.cWeight?.truncateToDouble() == bodyComposition?.cWeight ? 0 : 2;
       value = bodyComposition?.cWeight?.toStringAsFixed(truncateOffset) ?? "";
+    } else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
+      //result?.value =
+      value = "";
     }
     return value;
   }
@@ -843,6 +846,8 @@ class MeasurementDTO {
       value = "Ft In".trUnit();
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value = "g/dL.".trUnit();
+    }  else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
+      value = "".trUnit();
     } else {
       value = getMeasurementUnitString();
     }
