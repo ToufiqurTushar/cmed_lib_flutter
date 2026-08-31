@@ -11,7 +11,7 @@ Card SurveyResultItemWidget({required BuildContext context, Color? color, requir
         backgroundColor: color??Colors.red,
         child: ClipOval(child: Container(color:Colors.white, child: RoundImage(image, 42, defaultImage: defaultImage??"assets/images/ic_anemia.svg", color: Colors.white,),)),
       ),
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color??Colors.black),),
+      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
       subtitle: subtitle==null?null:Text(subtitle),
       trailing: Text(date, style: const TextStyle(color: Colors.grey, fontSize: 12),),
       onTap: onTap,

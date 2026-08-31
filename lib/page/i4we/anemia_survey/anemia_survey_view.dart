@@ -72,7 +72,7 @@ class AnemiaSurveyView extends RapidView<AnemiaSurveyLogic> {
                 showSerialNumber: false,
                 isTabStyle: true,
                 tabContents: [
-                  TabPage(id: "t1", title: "High-Risk Group Flags".tr, listOfQuestionUid: controller.customer.value.gender == 2? ['aa1_1', 'aa1_2', 'aa1_3']: ['aa1_3'], isTabVisible: true),
+                  TabPage(id: "t1", title: "High-Risk Group Flags".tr, listOfQuestionUid: controller.customer.value.gender == 2 && controller.customer.value.getAgeInYear() >= 9 && controller.customer.value.getAgeInYear() < 50? ['aa1_1', 'aa1_2', 'aa1_3']: ['aa1_3'], isTabVisible: true),
                   TabPage(id: "t2", title: "Symptom Screening".tr, listOfQuestionUid: ['aa2_1','aa2_2', 'aa2_3', 'aa2_4', 'aa2_5'], isTabVisible: true),
                   TabPage(id: "t3", title: "Dietary Risk".tr, listOfQuestionUid: ['aa3_1','aa3_2'], isTabVisible: true),
                 ],
