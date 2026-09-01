@@ -810,6 +810,8 @@ class MeasurementDTO {
       value = inputs![MuacAttribute.MUAC.name];
     } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
       value = result?.value ?? 0.0;
+    } else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
+      value = result?.value ?? 0.0;
     } else {
       value = double.parse(getValue1() ?? "0");
     }
