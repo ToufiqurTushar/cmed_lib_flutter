@@ -50,7 +50,7 @@ class FamilyProfileSurveyHistoryListView extends RapidView<FamilyProfileSurveyLi
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    image: surveyDto.icon??"",
+                    serverImage: surveyDto.icon??"",
                     date: date ,
                     onTap:(){
                       //Get.toNamed(FamilyProfileSurveyResultView.routeName, arguments: FamilyProfileSurveyResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto, customer: controller.customer));

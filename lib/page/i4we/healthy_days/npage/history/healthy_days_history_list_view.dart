@@ -53,7 +53,8 @@ class HealthyDaysHistoryListView extends RapidView<HealthyDaysListLogic> {
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    image: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_healthydays.svg": surveyDto.icon!,
+                    serverImage: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_healthydays.svg": surveyDto.icon!,
+                    defaultImage: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_healthydays.svg": surveyDto.icon!,
                     date: date ,
                     onTap:(){
                       Get.toNamed(HealthyDaysResultView.routeName, arguments: HealthyDaysResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto));
