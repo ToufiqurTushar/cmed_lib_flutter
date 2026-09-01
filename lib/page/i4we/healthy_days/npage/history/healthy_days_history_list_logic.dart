@@ -28,8 +28,8 @@ class HealthyDaysListLogic extends BaseLogic {
       if (arg.date != null) {
         String date = arg.date??'';
         DateTime selectedDate = DateFormat('yyyy-MMM-dd').parse(date);
-        fromDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0).toUtc().millisecondsSinceEpoch;
-        toDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59, 999).toUtc().millisecondsSinceEpoch;
+        fromDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0).millisecondsSinceEpoch;
+        toDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59, 999).millisecondsSinceEpoch;
       }
     }
   }

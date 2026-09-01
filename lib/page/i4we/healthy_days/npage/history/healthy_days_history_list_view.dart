@@ -1,6 +1,7 @@
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_survey_result.dart';
+import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../common/widget/basic_app_bar.dart';
@@ -34,6 +35,7 @@ class HealthyDaysHistoryListView extends RapidView<HealthyDaysListLogic> {
   }
 
   builListContainer(BuildContext context) {
+    final RapidEnvConfig appEnvConfig = Get.find();
     return Stack(
       children: [
         Padding(
@@ -51,7 +53,7 @@ class HealthyDaysHistoryListView extends RapidView<HealthyDaysListLogic> {
                     title: title,
                     subtitle: subtitle,
                     color: surveyDto.result!.colorCode!.toColor(),
-                    image: surveyDto.icon??"",
+                    image: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_healthydays.svg": surveyDto.icon!,
                     date: date ,
                     onTap:(){
                       Get.toNamed(HealthyDaysResultView.routeName, arguments: HealthyDaysResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto));
