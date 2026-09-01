@@ -18,6 +18,7 @@ class BloodGroupingI18N {
 
       "bn_BD": {
         'label_select_blood_typing' : 'রক্তের ধরন নির্বাচন করুন',
+        'Select Blood Typing' : 'রক্তের ধরন নির্বাচন করুন',
         'Blood Grouping' : 'রক্তের গ্রুপিং',
         'Blood Group & Rh Typing' : 'রক্তের গ্রুপ এবং আরএইচ টাইপিং',
         'Agglutination' : 'অ্যাগ্লুটিনেশন',
@@ -31,6 +32,7 @@ class BloodGroupingI18N {
 
       },
       "kn_IN": {
+        "label_select_blood_typing": "ರಕ್ತದ ಗುಂಪು ಆಯ್ಕೆಮಾಡಿ",
         "Select Blood Typing": "ರಕ್ತದ ಗುಂಪು ಆಯ್ಕೆಮಾಡಿ",
         "Blood Grouping": "ರಕ್ತ ಗುಂಪು ನಿರ್ಣಯ",
         "Blood Group & Rh Typing": "ರಕ್ತದ ಗುಂಪು ಮತ್ತು ಆರ್‌ಎಚ್ ಟೈಪಿಂಗ್",
