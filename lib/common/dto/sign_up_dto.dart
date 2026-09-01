@@ -9,13 +9,14 @@ class SignUpDTO {
   double? height;
   bool? hypertensive;
   bool? hasAsthma;
-  bool? hasCopd;
-  bool? hasKidneyDisease;
-  bool? hasCardiovascularDisease;
-  bool? hadStroke;
-  bool? hasCancer;
-  bool? hasDisability;
-  bool? hasAnemia;
+  bool? copd;
+  bool? heartDisease;
+  bool? stroke;
+  bool? cancer;
+  bool? disable;
+  List<Disability>? disabilities;
+  bool? anemia;
+  bool? ckd;
   String? lastName;
   int? nidNumber;
   String? password;
@@ -44,13 +45,14 @@ class SignUpDTO {
         this.height,
         this.hypertensive,
         this.hasAsthma,
-        this.hasCopd,
-        this.hasKidneyDisease,
-        this.hasCardiovascularDisease,
-        this.hadStroke,
-        this.hasCancer,
-        this.hasDisability,
-        this.hasAnemia,
+        this.copd,
+        this.heartDisease,
+        this.stroke,
+        this.cancer,
+        this.disable,
+        this.disabilities,
+        this.anemia,
+        this.ckd,
         this.lastName,
         this.nidNumber,
         this.password,
@@ -81,13 +83,19 @@ class SignUpDTO {
     height = json['height'];
     hypertensive = json['hypertesive'];
     hasAsthma = json['has_asthma'];
-    hasCopd = json['has_copd'];
-    hasKidneyDisease = json['has_kidney_disease'];
-    hasCardiovascularDisease = json['has_cardiovascular_disease'];
-    hadStroke = json['had_stroke'];
-    hasCancer = json['has_cancer'];
-    hasDisability = json['has_disability'];
-    hasAnemia = json['has_anemia'];
+    copd = json['copd'];
+    heartDisease = json['heart_disease'];
+    stroke = json['stroke'];
+    cancer = json['cancer'];
+    disable = json['disable'];
+    if (json['disabilities'] != null) {
+      disabilities = <Disability>[];
+      json['disabilities'].forEach((v) {
+        disabilities!.add(Disability.fromJson(v));
+      });
+    }
+    anemia = json['anemia'];
+    ckd = json['ckd'];
     lastName = json['last_name'];
     nidNumber = json['nid_number'];
     password = json['password'];
@@ -120,13 +128,16 @@ class SignUpDTO {
     data['height'] = height;
     data['hypertesive'] = hypertensive;
     data['has_asthma'] = hasAsthma;
-    data['has_copd'] = hasCopd;
-    data['has_kidney_disease'] = hasKidneyDisease;
-    data['has_cardiovascular_disease'] = hasCardiovascularDisease;
-    data['had_stroke'] = hadStroke;
-    data['has_cancer'] = hasCancer;
-    data['has_disability'] = hasDisability;
-    data['has_anemia'] = hasAnemia;
+    data['copd'] = copd;
+    data['heart_disease'] = heartDisease;
+    data['stroke'] = stroke;
+    data['cancer'] = cancer;
+    data['disable'] = disable;
+    if (disabilities != null) {
+      data['disabilities'] = disabilities!.map((v) => v.toJson()).toList();
+    }
+    data['anemia'] = anemia;
+    data['ckd'] = ckd;
     data['last_name'] = lastName;
     data['nid_number'] = nidNumber;
     data['password'] = password;
@@ -143,6 +154,25 @@ class SignUpDTO {
     data['unionId'] = unionId;
     data['villageId'] = villageId;
     data['self_registered'] = selfRegistered;
+    return data;
+  }
+}
+
+class Disability {
+  String? name;
+  String? otherValue;
+
+  Disability({this.name, this.otherValue});
+
+  Disability.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    otherValue = json['otherValue'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['otherValue'] = otherValue;
     return data;
   }
 }
