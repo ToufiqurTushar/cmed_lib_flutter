@@ -68,13 +68,21 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 2.0),
-                                  child: Text(
-                                    'input_label_oxygen_saturation'.tr,
-                                    style: CMEDTextUtils.inputTextLabelStyle,
-                                  ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 2.0),
+                                      child: Text(
+                                        'input_label_oxygen_saturation'.tr,
+                                        style: CMEDTextUtils.inputTextLabelStyle,
+                                      ),
+                                    ),
+                                    const Text(
+                                      ' *',
+                                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                    ),
+                                  ],
                                 ),
                                 CMEDTextField('input_hint_oxygen_saturation'.tr,
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -89,9 +97,17 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                Text(
-                                  'input_label_pulse_rate'.tr,
-                                  style: CMEDTextUtils.inputTextLabelStyle,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'input_label_pulse_rate'.tr,
+                                      style: CMEDTextUtils.inputTextLabelStyle,
+                                    ),
+                                    const Text(
+                                      ' *',
+                                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                    ),
+                                  ],
                                 ),
                                 CMEDTextField('input_hint_bpm'.tr,
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -190,13 +206,21 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
                               const SizedBox(
                                 height: 4,
                               ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 2.0),
-                                child: Text(
-                                  'input_label_oxygen_saturation'.tr,
-                                  style: CMEDTextUtils.inputTextLabelStyle,
-                                ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                    child: Text(
+                                      'input_label_oxygen_saturation'.tr,
+                                      style: CMEDTextUtils.inputTextLabelStyle,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ' *',
+                                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                  ),
+                                ],
                               ),
                               CMEDTextField('input_hint_oxygen_saturation'.tr,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -211,9 +235,17 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
                               const SizedBox(
                                 height: 4,
                               ),
-                              Text(
-                                'input_label_pulse_rate'.tr,
-                                style: CMEDTextUtils.inputTextLabelStyle,
+                              Row(
+                                children: [
+                                  Text(
+                                    'input_label_pulse_rate'.tr,
+                                    style: CMEDTextUtils.inputTextLabelStyle,
+                                  ),
+                                  const Text(
+                                    ' *',
+                                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                                  ),
+                                ],
                               ),
                               CMEDTextField('input_hint_bpm'.tr,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -27,13 +27,8 @@ class AutoManualSelectionLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
-
-    final arguments = Get.arguments as Map<String, dynamic>?;
-    if (arguments != null && arguments.containsKey('codeId')) {
-      code.value = arguments['codeId']; // Set the dynamic value
-    } else {
-      code.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).codeId??0 : 0;
-    }
+    final arg = buildMeasurementViewArg();
+    code.value = arg.codeId ?? 0;
   }
 
   setImageAndRoute() {
@@ -70,7 +65,7 @@ class AutoManualSelectionLogic extends BaseLogic {
       image.value = "assets/images/screening/ic_bmi_connect.svg";
       connectRoute.value = FatDeviceConnectionView.routeName;
       manualRoute.value = "";
-      isBodyFat.value = true; // Set BMI-specific flag
+      isBodyFat.value = true;
       if(!Platform.isAndroid) {
         isAutoFeatureEnable.value = false;
       }
@@ -83,6 +78,20 @@ class AutoManualSelectionLogic extends BaseLogic {
       }
     }
   }
+
+  MeasurementViewArg buildMeasurementViewArg() {
+    if (Get.arguments == null) {
+      return MeasurementViewArg();
+    }
+    if (Get.arguments is MeasurementViewArg) {
+      return Get.arguments as MeasurementViewArg;
+    }
+    if (Get.arguments is Map) {
+      final map = Get.arguments as Map;
+      return MeasurementViewArg(
+        codeId: map['codeId'] as int?,
+      );
+    }
+    return MeasurementViewArg();
+  }
 }
-
-

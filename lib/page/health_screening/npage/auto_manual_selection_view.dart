@@ -112,14 +112,8 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                       onTap: () {
                         Get.toNamed(
                           controller.connectRoute.value,
-                          arguments: [
-                            {
-                              "heightUnit": Get.arguments['heightUnit'],
-                              "heightInCm": Get.arguments['heightInCm'],
-                              "heightInFeet": Get.arguments['heightInFeet'],
-                              "heightInInch": Get.arguments['heightInInch']
-                            }
-                          ]);
+                          arguments: controller.buildMeasurementViewArg(),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -185,14 +179,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Get.toNamed(controller.connectRoute.value, arguments: [
-                                {
-                                  "heightUnit": Get.arguments['heightUnit'],
-                                  "heightInCm": Get.arguments['heightInCm'],
-                                  "heightInFeet": Get.arguments['heightInFeet'],
-                                  "heightInInch": Get.arguments['heightInInch']
-                                }
-                              ]);
+                              Get.toNamed(controller.connectRoute.value, arguments: controller.buildMeasurementViewArg());
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -215,14 +202,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(controller.manualRoute.value, arguments: [
-                              {
-                                "heightUnit": Get.arguments['heightUnit'],
-                                "heightInCm": Get.arguments['heightInCm'],
-                                "heightInFeet": Get.arguments['heightInFeet'],
-                                "heightInInch": Get.arguments['heightInInch']
-                              }
-                            ]);
+                            Get.toNamed(controller.manualRoute.value, arguments: controller.buildMeasurementViewArg());
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -264,7 +244,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.toNamed(controller.manualRoute.value);
+                  Get.toNamed(controller.manualRoute.value, arguments: controller.buildMeasurementViewArg());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -291,7 +271,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(controller.connectRoute.value);
+                    Get.toNamed(controller.connectRoute.value, arguments: controller.buildMeasurementViewArg());
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),

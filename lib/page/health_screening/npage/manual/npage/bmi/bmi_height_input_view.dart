@@ -235,38 +235,25 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                               'label_enter'.tr,
                                               () {
                                                 if (controller.isValidInput()){
+                                                  bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
+                                                  final measurementArg = MeasurementViewArg(
+                                                    isAuto: isAuto,
+                                                    isNestedRoute: controller.isNestedRoute,
+                                                    codeId: MeasurementType.BMI.value,
+                                                    heightUnit: controller.heightUnit.value,
+                                                    heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                    heightInFeet: controller.heightInFeetEditTextController.text,
+                                                    heightInInch: controller.heightInInchEditTextController.text,
+                                                  );
+
                                                   if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
-                                                    Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                      "codeId": MeasurementType.BMI.value,
-                                                      "heightUnit": controller.heightUnit.value,
-                                                      "heightInCm": controller.getHeightInCentimeter(),
-                                                      "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                      "heightInInch": controller.heightInInchEditTextController.text
-                                                    },);
+                                                    Get.toNamed(AutoManualSelectionView.routeName, arguments: measurementArg);
                                                   } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                    bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
                                                     if(isAuto){
-                                                      Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
-                                                          isAuto: isAuto,
-                                                          isNestedRoute: controller.isNestedRoute,
-                                                          heightUnit: controller.heightUnit.value,
-                                                          heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                          heightInFeet: controller.heightInFeetEditTextController.text,
-                                                          heightInInch: controller.heightInInchEditTextController.text
-                                                      ), id: controller.isNestedRoute? 1: null);
+                                                      Get.offNamed(BmiDeviceConnectionView.routeName, arguments: measurementArg, id: controller.isNestedRoute? 1: null);
                                                     } else {
-                                                      Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
-                                                        MeasurementViewArg(
-                                                          isAuto: isAuto,
-                                                          isNestedRoute: controller.isNestedRoute,
-                                                          heightUnit: controller.heightUnit.value,
-                                                          heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                          heightInFeet: controller.heightInFeetEditTextController.text,
-                                                          heightInInch: controller.heightInInchEditTextController.text
-                                                        ), id: controller.isNestedRoute? 1: null
-                                                      );
+                                                      Get.offNamed(BmiHeightWeightInputView.routeName, arguments: measurementArg, id: controller.isNestedRoute? 1: null);
                                                     }
-        
                                                   }
                                                 }
         
@@ -497,38 +484,25 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
                                                 'label_enter'.tr,
                                                     () {
                                                   if (controller.isValidInput()){
-                                                    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
-                                                      Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                        "codeId": MeasurementType.BMI.value,
-                                                        "heightUnit": controller.heightUnit.value,
-                                                        "heightInCm": controller.getHeightInCentimeter(),
-                                                        "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                        "heightInInch": controller.heightInInchEditTextController.text
-                                                      },);
-                                                    } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
-                                                      bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
-                                                      if(isAuto){
-                                                        Get.offNamed(BmiDeviceConnectionView.routeName, arguments: MeasurementViewArg(
-                                                            isAuto: isAuto,
-                                                            isNestedRoute: controller.isNestedRoute,
-                                                            heightUnit: controller.heightUnit.value,
-                                                            heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                            heightInFeet: controller.heightInFeetEditTextController.text,
-                                                            heightInInch: controller.heightInInchEditTextController.text
-                                                        ), id: controller.isNestedRoute? 1: null);
-                                                      } else {
-                                                        Get.offNamed(BmiHeightWeightInputView.routeName, arguments:
-                                                        MeasurementViewArg(
-                                                            isAuto: isAuto,
-                                                            isNestedRoute: controller.isNestedRoute,
-                                                            heightUnit: controller.heightUnit.value,
-                                                            heightInCm: controller.getHeightInCentimeter().toDouble(),
-                                                            heightInFeet: controller.heightInFeetEditTextController.text,
-                                                            heightInInch: controller.heightInInchEditTextController.text
-                                                        ), id: controller.isNestedRoute? 1: null
-                                                        );
-                                                      }
+                                                    bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
+                                                    final measurementArg = MeasurementViewArg(
+                                                      isAuto: isAuto,
+                                                      isNestedRoute: controller.isNestedRoute,
+                                                      codeId: MeasurementType.BMI.value,
+                                                      heightUnit: controller.heightUnit.value,
+                                                      heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                      heightInFeet: controller.heightInFeetEditTextController.text,
+                                                      heightInInch: controller.heightInInchEditTextController.text,
+                                                    );
 
+                                                    if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
+                                                      Get.toNamed(AutoManualSelectionView.routeName, arguments: measurementArg);
+                                                    } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+                                                      if(isAuto){
+                                                        Get.offNamed(BmiDeviceConnectionView.routeName, arguments: measurementArg, id: controller.isNestedRoute? 1: null);
+                                                      } else {
+                                                        Get.offNamed(BmiHeightWeightInputView.routeName, arguments: measurementArg, id: controller.isNestedRoute? 1: null);
+                                                      }
                                                     }
                                                   }
 
