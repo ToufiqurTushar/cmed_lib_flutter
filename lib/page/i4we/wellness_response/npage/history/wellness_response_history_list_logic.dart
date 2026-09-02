@@ -11,7 +11,7 @@ import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../wellness_response_argument.dart';
 
 
-class WellnessResponseListLogic extends BaseLogic {
+class WellnessResponseHistoryListLogic extends BaseLogic {
   final HttpProvider httpProvider = Get.find();
   final isHistoryView = false.obs;
 

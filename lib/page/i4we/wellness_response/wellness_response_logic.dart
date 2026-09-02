@@ -24,15 +24,28 @@ class WellnessResponseLogic extends BaseLogic {
       selectedSurvey.value = wellnessResponseArgument.selectedSurvey;
     }
     fetchSurveyData();
+    RLog.error(wellnessResponseArgument.isFromHistory??false);
   }
 
   fetchSurveyData() {
     isLoading.value = true;
-    Get.find<HttpProvider>().GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.WELLNESS_RESPONSE.name)).then((response) {
+    httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.WELLNESS_RESPONSE.name)).then((response) {
       if (response.isOk) {
         allSurveys.addAll(SurveyDataResponseDto.fromJson(response.body).content??[]);
         selectedSurvey.value = allSurveys.first;
         RLog.error(response.body);
+        //set default value if exist
+        final selectedSurveyResult = wellnessResponseArgument.surveyResultItemDto;
+        if(selectedSurveyResult != null){
+          RLog.error(selectedSurveyResult.toJson());
+          allSurveys.first.fields!.forEach((eachField){
+            try{
+              eachField.defaultValue = selectedSurveyResult!.inputs[eachField.name];
+            } catch (e){
+              RLog.error(e);
+            }
+          });
+        }
       }
     }).catchError((error) {
 

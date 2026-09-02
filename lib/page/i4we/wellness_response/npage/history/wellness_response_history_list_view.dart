@@ -1,16 +1,16 @@
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_survey_result.dart';
-import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 
 import '../../../../../common/widget/basic_app_bar.dart';
-import '../result/wellness_response_result_argument.dart';
-import '../result/wellness_response_result_view.dart';
+
 import 'wellness_response_history_list_logic.dart';
+import '../../wellness_response_view.dart';
+import '../../wellness_response_argument.dart';
 
 
-class WellnessResponseHistoryListView extends RapidView<WellnessResponseListLogic> {
+class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryListLogic> {
   static const routeName = '/WellnessResponseHistoryListView';
   final bool showAppTitle;
   WellnessResponseHistoryListView({super.key, this.showAppTitle = true});
@@ -19,13 +19,13 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseListLogi
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: showAppTitle?BasicAppBar("Wellness Response".tr): null,
+      appBar: BasicAppBar("Wellness Response".tr, showTitleBar:showAppTitle),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Obx(
-                ()=> builListContainer(context),
+                    ()=> builListContainer(context),
               ),
             ),
           ]
@@ -35,7 +35,6 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseListLogi
   }
 
   builListContainer(BuildContext context) {
-    final RapidEnvConfig appEnvConfig = Get.find();
     return Stack(
       children: [
         Padding(
@@ -44,20 +43,19 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseListLogi
               itemCount:controller.surveyResultList.length,
               itemBuilder: (context, index) {
                 var surveyDto = controller.surveyResultList[index];
-                var title = surveyDto.surveyName!.tr;
-                var subtitle = '';//surveyDto.result!.status!.tr;
+                var title = surveyDto.surveyName!;
+                var subtitle = surveyDto.result?.status??"";
                 var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format:CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDigit();
-                // return Text('1');
                 return SurveyResultItemWidget(
                     context: context,
                     title: title,
                     subtitle: subtitle,
-                    color: surveyDto.result!.colorCode!.toColor(),
-                    serverImage: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_wellness_response.svg": surveyDto.icon!,
-                    defaultImage: appEnvConfig.appUid == AppUidEnum.I4WE_AGENT.name? "assets/images/ic_wellness_response.svg": surveyDto.icon!,
+                    color: Theme.of(context).primaryColor,
+                    serverImage: "",
+                    defaultImage: 'assets/images/ic_wellness_response.svg',
                     date: date ,
                     onTap:(){
-                      Get.toNamed(WellnessResponseResultView.routeName, arguments: WellnessResponseResultArgument(isFromHistory: true, selectedSurveyResult: surveyDto));
+                      Get.toNamed(WellnessResponseView.routeName, arguments: WellnessResponseArgument(isFromHistory: true, surveyResultItemDto: surveyDto));
                     }
                 );
               }
@@ -86,6 +84,8 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseListLogi
 
   @override
   void loadDependentLogics() {
-    Get.lazyPut<WellnessResponseListLogic>(() => WellnessResponseListLogic(),);
+    Get.lazyPut<WellnessResponseHistoryListLogic>(() => WellnessResponseHistoryListLogic(),);
   }
 }
+
+

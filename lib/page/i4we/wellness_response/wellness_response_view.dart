@@ -16,10 +16,10 @@ class WellnessResponseView extends RapidView<WellnessResponseLogic> {
       backgroundColor: Colors.white,
       appBar: BasicAppBar("Wellness Response".tr, trailingWidget: InkWell(
           onTap: () {
-            Get.toNamed(WellnessResponseHistoryListView.routeName);
+            Get.offNamed(WellnessResponseHistoryListView.routeName);
           },
           child: Visibility(
-            visible: controller.selectedSurvey.value == null,
+            visible: controller.wellnessResponseArgument.isFromHistory != true ,
             child: Padding(
               padding: EdgeInsets.only(right: 8.0),
               child: Row(
@@ -44,6 +44,7 @@ class WellnessResponseView extends RapidView<WellnessResponseLogic> {
                 //jsonAssetDirectory: "assets/json/WellnessResponse.json",
                 surveys: controller.allSurveys,
                 showSerialNumber: true,
+                hideSubmit: controller.wellnessResponseArgument.isFromHistory??false,
                 selectedSurvey: controller.selectedSurvey.value,
                 onSelectSurvey: (SurveyDto? selectedSurvey){
                   controller.selectedSurvey.value = selectedSurvey;

@@ -15,12 +15,14 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
   final List<TabPage>? tabContents;
   final SurveyDto? selectedSurvey;
   final bool? showSerialNumber;
+  final bool? hideSubmit;
   final Function(SurveyDto, Map<String, dynamic>)? onSubmit;
   SurveyManagerLogic({
     this.jsonAssetDirectory,
     this.selectedSurvey,
     this.showSerialNumber,
     this.isTabStyle = false,
+    this.hideSubmit = false,
     required this.surveys,
     this.onSubmit,
     this.tabContents

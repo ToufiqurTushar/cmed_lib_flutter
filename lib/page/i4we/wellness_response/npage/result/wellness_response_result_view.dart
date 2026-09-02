@@ -28,7 +28,7 @@ class WellnessResponseResultView extends RapidView<WellnessResponseResultLogic> 
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/images/wellness_response_result.png'),
+                                  //Image.asset('assets/images/ic_wellness_response.png'),
                                   // Padding(
                                   //   padding: const EdgeInsets.fromLTRB(4.0, 12 ,4, 30),
                                   //   child: Container(

@@ -30,6 +30,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   final Function(SurveyDto?)? onSelectSurvey;
   final Future<bool> Function(Map<String, dynamic> answers)? beforeNext;
   final bool showSerialNumber;
+  final bool hideSubmit;
   const SurveyManagerWidget({
     super.key, this.jsonAssetDirectory,
     this.isTabStyle = false,
@@ -41,6 +42,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
     this.beforeNext,
     this.onSubmit,
     this.showSerialNumber = false,
+    this.hideSubmit = false,
     this.tabContents
   });
 
@@ -53,7 +55,8 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       onSubmit: onSubmit,
       selectedSurvey: selectedSurvey,
       showSerialNumber: showSerialNumber,
-      tabContents: tabContents
+      tabContents: tabContents,
+      hideSubmit: hideSubmit,
     )
   );
 
@@ -186,6 +189,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                     children: _buildTabContents(visibleTabs, context, controller.formKey),
                   ),
                 ),
+                if(!hideSubmit)
                 buildBottomNavigation(visibleTabs),
                 //_buildTabHeader(visibleTabs),
                 //Expanded(child: _buildTabContent(visibleTabs, context, controller.formKey)),
@@ -230,6 +234,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                       const SizedBox(height: 16),
                       //result button
                       const SizedBox(height: 8,),
+                      if(!hideSubmit)
                       Obx(
                         ()=> Padding(
                           padding: const EdgeInsets.all(8.0),
