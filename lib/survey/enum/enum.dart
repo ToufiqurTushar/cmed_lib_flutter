@@ -3,7 +3,8 @@ enum SurveyTypeEnum {
   AGENT_SUBSCRIPTION,
   ANEMIA_ASSESSMENT,
   SOCIAL_PROTECTION,
-  HEALTHY_DAYS;
+  HEALTHY_DAYS,
+  WELLNESS_RESPONSE;
 }
 
 /// Condition types supported

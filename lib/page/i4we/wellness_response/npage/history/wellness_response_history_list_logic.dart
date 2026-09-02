@@ -1,0 +1,61 @@
+import 'package:cmed_lib_flutter/common/api/app_http.dart';
+import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
+import 'package:flutter_rapid/flutter_rapid.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../../common/api/api_url.dart';
+import '../../../../../common/base/base_logic.dart';
+import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
+
+import '../../wellness_response_argument.dart';
+
+
+class WellnessResponseListLogic extends BaseLogic {
+  final HttpProvider httpProvider = Get.find();
+  final isHistoryView = false.obs;
+
+  final surveyResultList = <SurveyResultItemDto>[].obs;
+  final selectedSurveyResult = SurveyResultItemDto().obs;
+  int fromDate = 0;
+  int toDate = 0;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if(Get.arguments is WellnessResponseArgument) {
+      final arg = Get.arguments as WellnessResponseArgument;
+      if (arg.date != null) {
+        String date = arg.date??'';
+        DateTime selectedDate = DateFormat('yyyy-MMM-dd').parse(date);
+        fromDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0).millisecondsSinceEpoch;
+        toDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59, 999).millisecondsSinceEpoch;
+      }
+    }
+  }
+
+
+
+  @override
+  void onReady() {
+    super.onReady();
+    getData();
+  }
+
+  @override
+  void onClose() {
+
+  }
+
+  getData() async {
+    globalState.showBusy();
+    httpProvider.GET(ApiUrl.getWellnessResponseSurveyUrl(customer.value.userId!, fromDate: fromDate, toDate: toDate)).then((response){
+      globalState.hideBusy();
+      if(response.isOk) {
+        surveyResultList.addAll(SurveyResultItemDto.fromJsonList(response.body['content']));
+      } else {
+        ShowToast.error('error_massage_something_wrong'.tr);
+      }
+    });
+  }
+}

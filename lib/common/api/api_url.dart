@@ -27,6 +27,13 @@ class ApiUrl {
     return "api/v1/healthy/days?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
 
+  static String getWellnessResponseSurveyUrl(int userId,{int fromDate = 0, int toDate = 0}) {
+    if(fromDate != 0){
+      return "api/v1/wellness/response/survey?direction=DESC&from_date=$fromDate&to_date=$toDate&page=0&size=100&sort_by=id&user_id=$userId";
+    }
+    return "api/v1/wellness/response/survey?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
+  }
+
   static String getFamilyProfileUrl(int userId) {
     return "api/v1/healthy/days?direction=DESC&page=0&size=100&sort_by=id&user_id=$userId";
   }
