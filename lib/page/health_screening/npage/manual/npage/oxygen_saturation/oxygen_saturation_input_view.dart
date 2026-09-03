@@ -306,6 +306,46 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ಆಮ್ಲಜನಕದ ಶುದ್ಧತ್ವ ಮಟ್ಟ ಕಡಿಮೆಯಾಗಿದೆ, ಮೌಲ್ಯಮಾಪನಕ್ಕಾಗಿ ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
         "Very low": "ತುಂಬಾ ಕಡಿಮೆ",
         "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ಆಮ್ಲಜನಕದ ಶುದ್ಧತ್ವ ಮಟ್ಟ ತುಂಬಾ ಕಡಿಮೆಯಾಗಿದೆ, ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ತಕ್ಷಣ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ."
+      },
+      "hi_IN": {
+        "Normal": "सामान्य",
+        "Healthy": "स्वस्थ",
+        "Oxygen saturation level is NORMAL.": "ऑक्सीजन संतृप्ति का स्तर सामान्य है।",
+        "Low": "कम",
+        "High Risk": "उच्च जोखिम",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ऑक्सीजन संतृप्ति का स्तर कम है, कृपया मूल्यांकन के लिए डॉक्टर से परामर्श लें।",
+        "Very low": "बहुत कम",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ऑक्सीजन संतृप्ति का स्तर बहुत कम है, कृपया डॉक्टर से परामर्श लें या तुरंत निकटतम अस्पताल जाएं।"
+      },
+      "ta_IN": {
+        "Normal": "இயல்பு",
+        "Healthy": "ஆரோக்கியமான",
+        "Oxygen saturation level is NORMAL.": "ஆக்சிஜன் செறிவூட்டல் அளவு இயல்பாக உள்ளது.",
+        "Low": "குறைவு",
+        "High Risk": "அதிக ஆபத்து",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ஆக்சிஜன் செறிவூட்டல் அளவு குறைவாக உள்ளது, மதிப்பீட்டிற்காக தயவுசெய்து மருத்துவரை அணுகவும்.",
+        "Very low": "மிகவும் குறைவு",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ஆக்சிஜன் செறிவூட்டல் அளவு மிகவும் குறைவாக உள்ளது, தயவுசெய்து மருத்துவரை அணுகவும் அல்லது உடனடியாக அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்."
+      },
+      "te_IN": {
+        "Normal": "సాధారణం",
+        "Healthy": "ఆరోగ్యకరమైన",
+        "Oxygen saturation level is NORMAL.": "ఆక్సిజన్ సంతృప్తత స్థాయి సాధారణంగా ఉంది.",
+        "Low": "తక్కువ",
+        "High Risk": "అధిక ప్రమాదం",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ఆక్సిజన్ సంతృప్తత స్థాయి తక్కువగా ఉంది, దయచేసి మూల్యాంకనం కోసం వైద్యుడిని సంప్రదించండి.",
+        "Very low": "చాలా తక్కువ",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ఆక్సిజన్ సంతృప్తత స్థాయి చాలా తక్కువగా ఉంది, దయచేసి వైద్యుడిని సంప్రదించండి లేదా వెంటనే సమీపంలోని ఆసుపత్రిని సందర్శించండి."
+      },
+      "or_IN": {
+        "Normal": "ସାଧାରଣ",
+        "Healthy": "ସୁସ୍ଥ",
+        "Oxygen saturation level is NORMAL.": "ଅମ୍ଳଜାନ ସାଚୁରେସନ୍ ସ୍ତର ସାଧାରଣ ଅଛି।",
+        "Low": "କମ୍",
+        "High Risk": "ଅଧିକ ବିପଦ",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ଅମ୍ଳଜାନ ସାଚୁରେସନ୍ ସ୍ତର କମ୍ ଅଛି, ଦୟାକରି ମୂଲ୍ୟାଙ୍କନ ପାଇଁ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Very low": "ବହୁତ କମ୍",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ଅମ୍ଳଜାନ ସାଚୁରେସନ୍ ସ୍ତର ବହୁତ କମ୍ ଅଛି, ଦୟାକରି ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ତୁରନ୍ତ ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।"
       }
     };
   }

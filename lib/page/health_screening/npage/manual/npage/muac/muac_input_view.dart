@@ -229,6 +229,50 @@ class MuacInputView extends RapidView<MuacInputLogic> {
         "Normal": "ಸಾಮಾನ್ಯ",
         "Healthy": "ಸಾಮಾನ್ಯ",
         "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "ಅಭಿನಂದನೆಗಳು! ಉತ್ತಮ ಪೋಷಣೆ ಪಡೆದ ಮಗು. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮಗುವಿಗೆ ಸರಿಯಾದ ನಿಯಮಿತ ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ನೀಡುವ ಮೂಲಕ ಈ ಮಟ್ಟವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ."
+      },
+      "hi_IN": {
+        "Severe Acute Malnutrition": "गंभीर तीव्र कुपोषण",
+        "High Risk": "उच्च जोखिम",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "गंभीर कुपोषण से पीड़ित बच्चा। कृपया घबराएं नहीं और डॉक्टर से परामर्श लें या तुरंत निकटतम अस्पताल जाएं।",
+        "Moderate Acute Malnutrition": "मध्यम तीव्र कुपोषण",
+        "Moderate Risk": "मध्यम जोखिम",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "कुपोषण से पीड़ित बच्चा, कृपया आगे के मूल्यांकन और सलाह के लिए डॉक्टर/पोषण विशेषज्ञ से परामर्श लें।",
+        "Normal": "सामान्य",
+        "Healthy": "स्वस्थ",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "बधाई हो! बच्चा अच्छी तरह से पोषित है। कृपया अपने बच्चे को उचित और नियमित संतुलित आहार देकर इस स्थिति को बनाए रखें।"
+      },
+      "ta_IN": {
+        "Severe Acute Malnutrition": "கடுமையான தீவிர ஊட்டச்சத்து குறைபாடு",
+        "High Risk": "அதிக ஆபத்து",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "கடுமையான ஊட்டச்சத்து குறைபாட்டால் பாதிக்கப்பட்ட குழந்தை. தயவுசெய்து பதற்றமடைய வேண்டாம், மருத்துவரை அணுகவும் அல்லது உடனடியாக அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்.",
+        "Moderate Acute Malnutrition": "மிதமான தீவிர ஊட்டச்சத்து குறைபாடு",
+        "Moderate Risk": "மிதமான ஆபத்து",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "ஊட்டச்சத்து குறைபாடுள்ள குழந்தை, மேலதிக மதிப்பீடு மற்றும் ஆலோசனைக்காக மருத்துவர்/ஊட்டச்சத்து நிபுணரை அணுகவும்.",
+        "Normal": "இயல்பு",
+        "Healthy": "ஆரோக்கியமான",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "வாழ்த்துகள்! குழந்தை நன்கு ஊட்டச்சத்து பெற்றுள்ளது. உங்கள் குழந்தைக்கு சரியான மற்றும் வழக்கமான சமச்சீர் உணவை வழங்குவதன் மூலம் இந்த நிலையைத் தொடர்ந்து பராமரிக்கவும்."
+      },
+      "te_IN": {
+        "Severe Acute Malnutrition": "తీవ్రమైన తీవ్రమైన పోషకాహార లోపం",
+        "High Risk": "అధిక ప్రమాదం",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "తీవ్రమైన పోషకాహార లోపంతో బాధపడుతున్న పిల్లవాడు. దయచేసి భయపడకండి మరియు వైద్యుడిని సంప్రదించండి లేదా వెంటనే సమీపంలోని ఆసుపత్రికి వెళ్లండి.",
+        "Moderate Acute Malnutrition": "మోస్తరు తీవ్రమైన పోషకాహార లోపం",
+        "Moderate Risk": "మోస్తరు ప్రమాదం",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "పోషకాహార లోపంతో బాధపడుతున్న పిల్లవాడు, తదుపరి మూల్యాంకనం మరియు సలహా కోసం దయచేసి వైద్యుడిని/పోషకాహార నిపుణుడిని సంప్రదించండి.",
+        "Normal": "సాధారణం",
+        "Healthy": "ఆరోగ్యకరమైన",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "అభినందనలు! మీ పిల్లవాడు మంచి పోషకాహార స్థితిలో ఉన్నాడు. మీ పిల్లవాడికి సరైన మరియు క్రమమైన సమతుల్య ఆహారం అందించడం ద్వారా ఈ స్థాయిని కొనసాగించండి."
+      },
+      "or_IN": {
+        "Severe Acute Malnutrition": "ଗୁରୁତର ତୀବ୍ର ପୁଷ୍ଟିହୀନତା",
+        "High Risk": "ଉଚ୍ଚ ବିପଦ",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "ଗୁରୁତର ପୁଷ୍ଟିହୀନତାରେ ପୀଡ଼ିତ ଶିଶୁ। ଦୟାକରି ଭୟଭୀତ ହୁଅନ୍ତୁ ନାହିଁ ଏବଂ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ତୁରନ୍ତ ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।",
+        "Moderate Acute Malnutrition": "ମଧ୍ୟମ ତୀବ୍ର ପୁଷ୍ଟିହୀନତା",
+        "Moderate Risk": "ମଧ୍ୟମ ବିପଦ",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "ପୁଷ୍ଟିହୀନତାରେ ପୀଡ଼ିତ ଶିଶୁ, ଅଧିକ ମୂଲ୍ୟାଙ୍କନ ଏବଂ ପରାମର୍ଶ ପାଇଁ ଦୟାକରି ଡାକ୍ତର/ପୁଷ୍ଟିବିଶେଷଜ୍ଞଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Normal": "ସାଧାରଣ",
+        "Healthy": "ସୁସ୍ଥ",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "ଅଭିନନ୍ଦନ! ଶିଶୁଟି ଭଲ ଭାବରେ ପୁଷ୍ଟି ପାଇଛି। ଆପଣଙ୍କ ଶିଶୁକୁ ଉପଯୁକ୍ତ ଏବଂ ନିୟମିତ ସନ୍ତୁଳିତ ଖାଦ୍ୟ ଦେଇ ଏହି ସ୍ଥିତିକୁ ବଜାୟ ରଖନ୍ତୁ।"
       }
     };
   }

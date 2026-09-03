@@ -365,7 +365,78 @@ class WfaInputView extends RapidView<WfaInputLogic> {
         "Your child is well nourished, please continue balanced diet as usual.": "ನಿಮ್ಮ ಮಗುವಿಗೆ ಉತ್ತಮ ಪೋಷಣೆ ಇದೆ, ದಯವಿಟ್ಟು ಎಂದಿನಂತೆ ಸಮತೋಲಿತ ಆಹಾರವನ್ನು ಮುಂದುವರಿಸಿ.",
         "Overweight": "ಅಧಿಕ ತೂಕ",
         "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "ನಿಮ್ಮ ಮಗು ವಯಸ್ಸಿಗೆ ಅನುಗುಣವಾಗಿ ಅಧಿಕ ತೂಕ ಹೊಂದಿದೆ. ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ. ನಿಮ್ಮ ಮಗುವಿಗೆ ಎಣ್ಣೆಯುಕ್ತ ಮತ್ತು ಕೊಬ್ಬಿನ ಆಹಾರವನ್ನು (ಫಾಸ್ಟ್ ಫುಡ್ ಅಥವಾ ಕರಿದ ಆಹಾರ ಪದಾರ್ಥಗಳು) ನೀಡುವುದನ್ನು ನೀವು ನಿಯಂತ್ರಿಸಬೇಕು. ಮತ್ತು ನಿಮ್ಮ ಮಗು ದಿನಕ್ಕೆ ಕನಿಷ್ಠ ಒಂದು ಗಂಟೆಯಾದರೂ ನಿಯಮಿತ ದೈಹಿಕ ಚಟುವಟಿಕೆಯನ್ನು (ಆಟವಾಡುವುದು) ಮಾಡಬೇಕಾಗುತ್ತದೆ. ಇಲ್ಲದಿದ್ದರೆ ಅಧಿಕ ತೂಕವು ಭವಿಷ್ಯದಲ್ಲಿ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಮಧುಮೇಹದಂತಹ ಹಲವಾರು ರೋಗಗಳಿಗೆ ಕಾರಣವಾಗಬಹುದು."
-      }
+      },
+      "hi_IN": {
+        "Severe Underweight": "गंभीर कम वजन",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.":
+            "आपके बच्चे का वजन उम्र के अनुसार बहुत कम है, कृपया तुरंत डॉक्टर से परामर्श लें या नजदीकी अस्पताल जाएँ।",
+        "Moderate Underweight": "मध्यम कम वजन",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.":
+            "आपके बच्चे का वजन उम्र के अनुसार मध्यम रूप से कम है, कृपया जांच के लिए डॉक्टर से परामर्श लें।",
+        "Mild Underweight": "हल्का कम वजन",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.":
+            "आपके बच्चे का वजन उम्र के अनुसार थोड़ा कम है, कृपया जांच के लिए डॉक्टर से परामर्श लें।",
+        "Normal": "सामान्य",
+        "Your child is well nourished, please continue balanced diet as usual.":
+            "आपका बच्चा अच्छी तरह से पोषित है, कृपया हमेशा की तरह संतुलित आहार जारी रखें।",
+        "Overweight": "अधिक वजन",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.":
+            "आपके बच्चे का वजन उम्र के अनुसार अधिक है। वजन कम करने के लिए पोषण विशेषज्ञ या डॉक्टर से परामर्श लें। अपने बच्चे को तैलीय और वसायुक्त भोजन (फास्ट फूड या तले हुए खाद्य पदार्थ) देने से बचें। आपके बच्चे को प्रतिदिन कम से कम एक घंटे नियमित शारीरिक गतिविधि (खेलकूद) करनी चाहिए। अन्यथा अधिक वजन के कारण भविष्य में उच्च रक्तचाप, मधुमेह जैसी कई बीमारियाँ हो सकती हैं।",
+      },
+
+      "ta_IN": {
+        "Severe Underweight": "கடுமையான குறைந்த எடை",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.":
+            "உங்கள் குழந்தையின் வயதிற்கு ஏற்ப எடை மிகவும் குறைவாக உள்ளது, தயவுசெய்து உடனடியாக மருத்துவரை அணுகவும் அல்லது அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்.",
+        "Moderate Underweight": "மிதமான குறைந்த எடை",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.":
+            "உங்கள் குழந்தையின் வயதிற்கு ஏற்ப எடை மிதமாக குறைவாக உள்ளது, தயவுசெய்து மதிப்பீட்டிற்காக மருத்துவரை அணுகவும்.",
+        "Mild Underweight": "லேசான குறைந்த எடை",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.":
+            "உங்கள் குழந்தையின் வயதிற்கு ஏற்ப எடை சற்று குறைவாக உள்ளது, தயவுசெய்து மதிப்பீட்டிற்காக மருத்துவரை அணுகவும்.",
+        "Normal": "சாதாரணம்",
+        "Your child is well nourished, please continue balanced diet as usual.":
+            "உங்கள் குழந்தை நன்கு ஊட்டச்சத்து பெற்றுள்ளது, வழக்கம்போல் சமச்சீர் உணவைத் தொடர்ந்து வழங்குங்கள்.",
+        "Overweight": "அதிக எடை",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.":
+            "உங்கள் குழந்தையின் வயதிற்கு ஏற்ப எடை அதிகமாக உள்ளது. எடையைக் குறைக்க ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும். உங்கள் குழந்தைக்கு எண்ணெய் மற்றும் கொழுப்பு நிறைந்த உணவுகளை (துரித உணவு அல்லது வறுத்த உணவுகள்) வழங்குவதை கட்டுப்படுத்துங்கள். உங்கள் குழந்தை தினமும் குறைந்தது ஒரு மணி நேரம் வழக்கமான உடல் செயல்பாடுகளில் (விளையாட்டு) ஈடுபட வேண்டும். இல்லையெனில் அதிக எடை காரணமாக எதிர்காலத்தில் உயர் இரத்த அழுத்தம், நீரிழிவு போன்ற பல நோய்கள் ஏற்படலாம்.",
+      },
+
+      "te_IN": {
+        "Severe Underweight": "తీవ్ర తక్కువ బరువు",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.":
+            "మీ పిల్లల వయస్సుకు అనుగుణంగా బరువు చాలా తక్కువగా ఉంది, దయచేసి వెంటనే వైద్యుడిని సంప్రదించండి లేదా సమీపంలోని ఆసుపత్రిని సందర్శించండి.",
+        "Moderate Underweight": "మధ్యస్థ తక్కువ బరువు",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.":
+            "మీ పిల్లల వయస్సుకు అనుగుణంగా బరువు మధ్యస్థంగా తక్కువగా ఉంది, దయచేసి పరీక్ష కోసం వైద్యుడిని సంప్రదించండి.",
+        "Mild Underweight": "స్వల్ప తక్కువ బరువు",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.":
+            "మీ పిల్లల వయస్సుకు అనుగుణంగా బరువు కొద్దిగా తక్కువగా ఉంది, దయచేసి పరీక్ష కోసం వైద్యుడిని సంప్రదించండి.",
+        "Normal": "సాధారణం",
+        "Your child is well nourished, please continue balanced diet as usual.":
+            "మీ పిల్లలకు మంచి పోషకాహారం అందుతోంది, ఎప్పటిలాగే సమతుల్య ఆహారాన్ని కొనసాగించండి.",
+        "Overweight": "అధిక బరువు",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.":
+            "మీ పిల్లల వయస్సుకు అనుగుణంగా బరువు ఎక్కువగా ఉంది. బరువు తగ్గించడానికి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి. మీ పిల్లలకు నూనె మరియు కొవ్వు అధికంగా ఉన్న ఆహారాలు (ఫాస్ట్ ఫుడ్ లేదా వేయించిన ఆహార పదార్థాలు) ఇవ్వడాన్ని నియంత్రించండి. మీ పిల్లలు ప్రతిరోజూ కనీసం ఒక గంట క్రమం తప్పకుండా శారీరక కార్యకలాపాల్లో (ఆటలు) పాల్గొనాలి. లేకపోతే అధిక బరువు కారణంగా భవిష్యత్తులో అధిక రక్తపోటు, మధుమేహం వంటి అనేక వ్యాధులు రావచ్చు.",
+      },
+
+      "or_IN": {
+        "Severe Underweight": "ଗୁରୁତର କମ୍ ଓଜନ",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.":
+            "ଆପଣଙ୍କ ଶିଶୁର ବୟସ ଅନୁସାରେ ଓଜନ ବହୁତ କମ୍ ଅଛି, ଦୟାକରି ତୁରନ୍ତ ଡାକ୍ତରଙ୍କ ପରାମର୍ଶ ନିଅନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ଡାକ୍ତରଖାନାକୁ ଯାଆନ୍ତୁ।",
+        "Moderate Underweight": "ମଧ୍ୟମ କମ୍ ଓଜନ",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.":
+            "ଆପଣଙ୍କ ଶିଶୁର ବୟସ ଅନୁସାରେ ଓଜନ ମଧ୍ୟମ ଭାବରେ କମ୍ ଅଛି, ଦୟାକରି ମୂଲ୍ୟାଙ୍କନ ପାଇଁ ଡାକ୍ତରଙ୍କ ପରାମର୍ଶ ନିଅନ୍ତୁ।",
+        "Mild Underweight": "ସାମାନ୍ୟ କମ୍ ଓଜନ",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.":
+            "ଆପଣଙ୍କ ଶିଶୁର ବୟସ ଅନୁସାରେ ଓଜନ ସାମାନ୍ୟ କମ୍ ଅଛି, ଦୟାକରି ମୂଲ୍ୟାଙ୍କନ ପାଇଁ ଡାକ୍ତରଙ୍କ ପରାମର୍ଶ ନିଅନ୍ତୁ।",
+        "Normal": "ସାଧାରଣ",
+        "Your child is well nourished, please continue balanced diet as usual.":
+            "ଆପଣଙ୍କ ଶିଶୁ ଭଲ ଭାବରେ ପୁଷ୍ଟି ପାଇଛି, ପୂର୍ବପରି ସନ୍ତୁଳିତ ଖାଦ୍ୟ ଜାରି ରଖନ୍ତୁ।",
+        "Overweight": "ଅଧିକ ଓଜନ",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.":
+            "ଆପଣଙ୍କ ଶିଶୁର ବୟସ ଅନୁସାରେ ଓଜନ ଅଧିକ ଅଛି। ଓଜନ କମାଇବା ପାଇଁ ପୁଷ୍ଟି ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ପରାମର୍ଶ ନିଅନ୍ତୁ। ଆପଣଙ୍କ ଶିଶୁକୁ ତେଲିଆ ଏବଂ ଚର୍ବିଯୁକ୍ତ ଖାଦ୍ୟ (ଫାଷ୍ଟ ଫୁଡ୍ କିମ୍ବା ଭଜା ଖାଦ୍ୟ) ଦେବାକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ। ଆପଣଙ୍କ ଶିଶୁ ପ୍ରତିଦିନ ଅତି କମରେ ଏକ ଘଣ୍ଟା ନିୟମିତ ଶାରୀରିକ କାର୍ଯ୍ୟକଳାପ (ଖେଳକୁଦ) କରିବା ଆବଶ୍ୟକ। ଅନ୍ୟଥା ଅଧିକ ଓଜନ ଯୋଗୁଁ ଭବିଷ୍ୟତରେ ଉଚ୍ଚ ରକ୍ତଚାପ, ମଧୁମେହ ଭଳି ଅନେକ ରୋଗ ହୋଇପାରେ।",
+      },
     };
   }
 

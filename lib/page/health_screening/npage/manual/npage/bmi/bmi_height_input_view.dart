@@ -617,6 +617,81 @@ class BmiHeightInputView extends RapidView<BmiHeightInputLogic> {
         "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "ನೀವು ತುಂಬಾ ಬೊಜ್ಜು ಹೊಂದಿದ್ದೀರಿ. ನಿಮಗೆ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಹೃದಯ ಸಂಬಂಧಿ ಕಾಯಿಲೆ, ಮಧುಮೇಹ ಬರುವ ಅಪಾಯ ತುಂಬಾ ಹೆಚ್ಚು. ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
         "Morbid Obesity": "ರೋಗಗ್ರಸ್ತ ಬೊಜ್ಜು",
         "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes,, please consult with a nutritionist or physician immediately for weight reduction.": "ನೀವು ಅಸ್ವಸ್ಥ ಬೊಜ್ಜು. ನಿಮಗೆ ಅಧಿಕ ರಕ್ತದೊತ್ತಡ, ಹೃದಯ ಸಂಬಂಧಿ ಕಾಯಿಲೆ, ಮಧುಮೇಹ ಬರುವ ಅಪಾಯ ತುಂಬಾ ಹೆಚ್ಚು, ತೂಕ ಇಳಿಸಿಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ತಕ್ಷಣ ಪೌಷ್ಟಿಕತಜ್ಞರು ಅಥವಾ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ."
+      },
+      "hi_IN": {
+        "Underweight": "कम वजन",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "आपका वजन कम है, कृपया डॉक्टर या पोषण विशेषज्ञ से परामर्श करें।",
+        "Normal": "सामान्य",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "आपका BMI सामान्य है, इसका मतलब है कि आप स्वस्थ हैं। कृपया इस BMI को बनाए रखें।",
+        "Overweight": "अधिक वजन",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "आपका वजन अधिक है, वजन कम करने के लिए कृपया पोषण विशेषज्ञ या डॉक्टर से परामर्श करें।",
+        "Obesity": "मोटापा",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "आप मोटापे से ग्रस्त हैं। यह विभिन्न बीमारियों के लिए उच्च जोखिम वाली स्थिति है। वजन कम करने के लिए कृपया पोषण विशेषज्ञ या डॉक्टर से परामर्श करें।",
+        "Your are UNDERWEIGHT, this may cause several health related problems. Please consult with physician or nutritionist.": "आपका वजन कम है, इससे कई स्वास्थ्य संबंधी समस्याएं हो सकती हैं। कृपया डॉक्टर या पोषण विशेषज्ञ से परामर्श करें।",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "आपका BMI सामान्य स्तर पर है। इस स्तर को बनाए रखने के लिए नियमित शारीरिक गतिविधि करें और संतुलित आहार लें। ये दोनों आपको स्वस्थ महसूस करने और वजन को नियंत्रित रखने में मदद करते हैं।",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "आपका वजन अधिक है, वजन कम करने के लिए कृपया पोषण विशेषज्ञ या डॉक्टर से परामर्श करें।",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction. You have to loose .... kg.": "आप मोटापे से ग्रस्त हैं। मोटापे के कारण आपको उच्च रक्तचाप, हृदय रोग और मधुमेह होने का अधिक जोखिम है। वजन कम करने के लिए कृपया पोषण विशेषज्ञ या डॉक्टर से परामर्श करें। आपको .... किग्रा वजन कम करना होगा।",
+        "Highly Obesity": "अत्यधिक मोटापा",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "आप अत्यधिक मोटापे से ग्रस्त हैं। आपको उच्च रक्तचाप, हृदय रोग और मधुमेह होने का बहुत अधिक जोखिम है। वजन कम करने के लिए कृपया पोषण विशेषज्ञ या डॉक्टर से परामर्श करें।",
+        "Morbid Obesity": "रुग्ण मोटापा",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes,, please consult with a nutritionist or physician immediately for weight reduction.": "आप गंभीर मोटापे से ग्रस्त हैं। आपको उच्च रक्तचाप, हृदय रोग और मधुमेह होने का बहुत अधिक जोखिम है। वजन कम करने के लिए कृपया तुरंत पोषण विशेषज्ञ या डॉक्टर से परामर्श करें।"
+      },
+
+      "ta_IN": {
+        "Underweight": "குறைந்த எடை",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "உங்கள் எடை குறைவாக உள்ளது, தயவுசெய்து மருத்துவர் அல்லது ஊட்டச்சத்து நிபுணரை அணுகவும்.",
+        "Normal": "சாதாரணம்",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "உங்கள் BMI சாதாரண நிலையில் உள்ளது, அதாவது நீங்கள் ஆரோக்கியமாக இருக்கிறீர்கள். தயவுசெய்து இந்த BMI-ஐ பராமரிக்கவும்.",
+        "Overweight": "அதிக எடை",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "உங்கள் எடை அதிகமாக உள்ளது, எடையைக் குறைக்க தயவுசெய்து ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும்.",
+        "Obesity": "உடல் பருமன்",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "நீங்கள் உடல் பருமனால் பாதிக்கப்பட்டுள்ளீர்கள். இது பல்வேறு நோய்களுக்கு அதிக ஆபத்தான நிலையாகும். எடையைக் குறைக்க தயவுசெய்து ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும்.",
+        "Your are UNDERWEIGHT, this may cause several health related problems. Please consult with physician or nutritionist.": "உங்கள் எடை குறைவாக உள்ளது, இது பல்வேறு உடல்நலப் பிரச்சினைகளை ஏற்படுத்தக்கூடும். தயவுசெய்து மருத்துவர் அல்லது ஊட்டச்சத்து நிபுணரை அணுகவும்.",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "உங்கள் BMI சாதாரண நிலையில் உள்ளது. இந்த நிலையைப் பராமரிக்க தொடர்ந்து உடற்பயிற்சி செய்து சமச்சீர் உணவை உட்கொள்ளுங்கள். இவை இரண்டும் நீங்கள் ஆரோக்கியமாக உணரவும், உடல் எடையை கட்டுப்பாட்டில் வைத்திருக்கவும் உதவும்.",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "உங்கள் எடை அதிகமாக உள்ளது, எடையைக் குறைக்க தயவுசெய்து ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும்.",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction. You have to loose .... kg.": "நீங்கள் உடல் பருமனால் பாதிக்கப்பட்டுள்ளீர்கள். உடல் பருமன் காரணமாக உயர் இரத்த அழுத்தம், இதய நோய் மற்றும் நீரிழிவு நோய் ஏற்படும் ஆபத்து அதிகமாக உள்ளது. எடையைக் குறைக்க தயவுசெய்து ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும். நீங்கள் .... கிலோ எடையைக் குறைக்க வேண்டும்.",
+        "Highly Obesity": "கடுமையான உடல் பருமன்",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "நீங்கள் கடுமையான உடல் பருமனால் பாதிக்கப்பட்டுள்ளீர்கள். உயர் இரத்த அழுத்தம், இதய நோய் மற்றும் நீரிழிவு நோய் ஏற்படும் ஆபத்து மிகவும் அதிகமாக உள்ளது. எடையைக் குறைக்க தயவுசெய்து ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும்.",
+        "Morbid Obesity": "நோய்க்காரணமான உடல் பருமன்",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes,, please consult with a nutritionist or physician immediately for weight reduction.": "நீங்கள் தீவிர உடல் பருமனால் பாதிக்கப்பட்டுள்ளீர்கள். உயர் இரத்த அழுத்தம், இதய நோய் மற்றும் நீரிழிவு நோய் ஏற்படும் ஆபத்து மிகவும் அதிகமாக உள்ளது. எடையைக் குறைக்க தயவுசெய்து உடனடியாக ஊட்டச்சத்து நிபுணர் அல்லது மருத்துவரை அணுகவும்."
+      },
+
+      "te_IN": {
+        "Underweight": "తక్కువ బరువు",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "మీ బరువు తక్కువగా ఉంది, దయచేసి వైద్యుడిని లేదా పోషకాహార నిపుణుడిని సంప్రదించండి.",
+        "Normal": "సాధారణం",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "మీ BMI సాధారణ స్థాయిలో ఉంది, అంటే మీరు ఆరోగ్యంగా ఉన్నారని అర్థం. దయచేసి ఈ BMIని కొనసాగించండి.",
+        "Overweight": "అధిక బరువు",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "మీ బరువు అధికంగా ఉంది, బరువు తగ్గడానికి దయచేసి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి.",
+        "Obesity": "ఊబకాయం",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "మీకు ఊబకాయం ఉంది. ఇది వివిధ వ్యాధులకు అధిక ప్రమాదకరమైన పరిస్థితి. బరువు తగ్గడానికి దయచేసి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి.",
+        "Your are UNDERWEIGHT, this may cause several health related problems. Please consult with physician or nutritionist.": "మీ బరువు తక్కువగా ఉంది, దీనివల్ల అనేక ఆరోగ్య సంబంధిత సమస్యలు రావచ్చు. దయచేసి వైద్యుడిని లేదా పోషకాహార నిపుణుడిని సంప్రదించండి.",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "మీ BMI సాధారణ స్థాయిలో ఉంది. ఈ స్థాయిని కొనసాగించడానికి క్రమం తప్పకుండా శారీరక వ్యాయామం చేయండి మరియు సమతుల్య ఆహారం తీసుకోండి. ఇవి రెండూ మీరు ఆరోగ్యంగా ఉండటానికి మరియు బరువును నియంత్రించుకోవడానికి సహాయపడతాయి.",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "మీ బరువు అధికంగా ఉంది, బరువు తగ్గడానికి దయచేసి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి.",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction. You have to loose .... kg.": "మీకు ఊబకాయం ఉంది. ఊబకాయం కారణంగా అధిక రక్తపోటు, గుండె సంబంధిత వ్యాధులు మరియు మధుమేహం వచ్చే ప్రమాదం ఎక్కువగా ఉంటుంది. బరువు తగ్గడానికి దయచేసి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి. మీరు .... కిలోల బరువు తగ్గాలి.",
+        "Highly Obesity": "తీవ్రమైన ఊబకాయం",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "మీకు తీవ్రమైన ఊబకాయం ఉంది. అధిక రక్తపోటు, గుండె సంబంధిత వ్యాధులు మరియు మధుమేహం వచ్చే ప్రమాదం చాలా ఎక్కువగా ఉంది. బరువు తగ్గడానికి దయచేసి పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి.",
+        "Morbid Obesity": "తీవ్ర ఊబకాయం",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes,, please consult with a nutritionist or physician immediately for weight reduction.": "మీకు తీవ్రమైన ఊబకాయం ఉంది. అధిక రక్తపోటు, గుండె సంబంధిత వ్యాధులు మరియు మధుమేహం వచ్చే ప్రమాదం చాలా ఎక్కువగా ఉంది. బరువు తగ్గడానికి దయచేసి వెంటనే పోషకాహార నిపుణుడిని లేదా వైద్యుడిని సంప్రదించండి."
+      },
+
+      "or_IN": {
+        "Underweight": "କମ୍ ଓଜନ",
+        "Your are UNDERWEIGHT, please consult with physician or nutritionist.": "ଆପଣଙ୍କ ଓଜନ କମ୍ ଅଛି, ଦୟାକରି ଡାକ୍ତର କିମ୍ବା ପୋଷଣ ବିଶେଷଜ୍ଞଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Normal": "ସାଧାରଣ",
+        "Your BMI is in NORMAL,  It means you are healthy. Please maintain this BMI.": "ଆପଣଙ୍କ BMI ସାଧାରଣ ଅଛି, ଏହାର ଅର୍ଥ ଆପଣ ସୁସ୍ଥ ଅଛନ୍ତି। ଦୟାକରି ଏହି BMIକୁ ବଜାୟ ରଖନ୍ତୁ।",
+        "Overweight": "ଅଧିକ ଓଜନ",
+        "Your are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "ଆପଣଙ୍କ ଓଜନ ଅଧିକ ଅଛି, ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Obesity": "ମେଦବହୁଳତା",
+        "Your are OBESE. It is high risk condition for different diseases, please consult with nutritionist or physician for weight reduction.": "ଆପଣ ମେଦବହୁଳତାରେ ପୀଡ଼ିତ। ଏହା ବିଭିନ୍ନ ରୋଗ ପାଇଁ ଏକ ଅଧିକ ବିପଦପୂର୍ଣ୍ଣ ସ୍ଥିତି। ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Your are UNDERWEIGHT, this may cause several health related problems. Please consult with physician or nutritionist.": "ଆପଣଙ୍କ ଓଜନ କମ୍ ଅଛି, ଏହା ଅନେକ ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ବନ୍ଧୀୟ ସମସ୍ୟାର କାରଣ ହୋଇପାରେ। ଦୟାକରି ଡାକ୍ତର କିମ୍ବା ପୋଷଣ ବିଶେଷଜ୍ଞଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Your BMI is in NORMAL, to maintain this level - do regular physical activity and eat balanced diet - both of which help you look and feel good and keep weight off.": "ଆପଣଙ୍କ BMI ସାଧାରଣ ସ୍ତରରେ ଅଛି। ଏହି ସ୍ତରକୁ ବଜାୟ ରଖିବା ପାଇଁ ନିୟମିତ ଶାରୀରିକ କାର୍ଯ୍ୟକଳାପ କରନ୍ତୁ ଏବଂ ସନ୍ତୁଳିତ ଖାଦ୍ୟ ଖାଆନ୍ତୁ। ଏହି ଦୁଇଟି ଆପଣଙ୍କୁ ସୁସ୍ଥ ଅନୁଭବ କରିବା ଏବଂ ଓଜନ ନିୟନ୍ତ୍ରଣରେ ରଖିବାରେ ସାହାଯ୍ୟ କରେ।",
+        "You are OVERWEIGHT, please consult with nutritionist or physician for weight reduction.": "ଆପଣଙ୍କ ଓଜନ ଅଧିକ ଅଛି, ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "You are OBESE. Being OBESE you are in high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction. You have to loose .... kg.": "ଆପଣ ମେଦବହୁଳତାରେ ପୀଡ଼ିତ। ମେଦବହୁଳତା ଯୋଗୁଁ ଉଚ୍ଚ ରକ୍ତଚାପ, ହୃଦ୍‌ରୋଗ ଏବଂ ମଧୁମେହ ହେବାର ଆଶଙ୍କା ଅଧିକ ଅଛି। ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ। ଆପଣଙ୍କୁ .... କିଲୋଗ୍ରାମ୍ ଓଜନ କମାଇବାକୁ ପଡ଼ିବ।",
+        "Highly Obesity": "ଅତ୍ୟଧିକ ମେଦବହୁଳତା",
+        "You are HIGHLY OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes, please consult with nutritionist or physician for weight reduction.": "ଆପଣ ଅତ୍ୟଧିକ ମେଦବହୁଳତାରେ ପୀଡ଼ିତ। ଉଚ୍ଚ ରକ୍ତଚାପ, ହୃଦ୍‌ରୋଗ ଏବଂ ମଧୁମେହ ହେବାର ଆଶଙ୍କା ବହୁତ ଅଧିକ ଅଛି। ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।",
+        "Morbid Obesity": "ରୋଗଗ୍ରସ୍ତ ମେଦବହୁଳତା",
+        "You are MORBID OBESE. You are in very high risk to develop hypertension, cardiovascular disease, diabetes,, please consult with a nutritionist or physician immediately for weight reduction.": "ଆପଣ ଗୁରୁତର ମେଦବହୁଳତାରେ ପୀଡ଼ିତ। ଉଚ୍ଚ ରକ୍ତଚାପ, ହୃଦ୍‌ରୋଗ ଏବଂ ମଧୁମେହ ହେବାର ଆଶଙ୍କା ବହୁତ ଅଧିକ ଅଛି। ଓଜନ କମାଇବା ପାଇଁ ଦୟାକରି ତୁରନ୍ତ ପୋଷଣ ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ସହିତ ପରାମର୍ଶ କରନ୍ତୁ।"
       }
     };
   }
