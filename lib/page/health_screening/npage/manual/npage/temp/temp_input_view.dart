@@ -401,6 +401,61 @@ class TempInputView extends RapidView<TempInputLogic> {
           "HIGH temperature, consult with doctor or visit nearby hospital.": "ಹೆಚ್ಚಿನ ತಾಪಮಾನ, ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ.",
           "Very high": "ತುಂಬಾ ಹೆಚ್ಚು",
           "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ತುಂಬಾ ಹೆಚ್ಚಿನ ತಾಪಮಾನ, ತಕ್ಷಣ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗೆ ಭೇಟಿ ನೀಡಿ."
+        },
+        "hi_IN": {
+          "Very low": "बहुत कम",
+          "High Risk": "उच्च जोखिम",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "बहुत कम तापमान होने पर अपने आप को कंबल / बेड शीट से ढकें और दोबारा जांच करें या तुरंत डॉक्टर से परामर्श लें या निकटतम अस्पताल जाएं।",
+          "Low": "कम",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "कम तापमान होने पर अपने आप को कंबल या बेड शीट से ढकें और दोबारा जांच करें।",
+          "Normal": "सामान्य",
+          "NORMAL temperature": "सामान्य तापमान",
+          "High": "अधिक",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "अधिक तापमान होने पर डॉक्टर से परामर्श लें या निकटतम अस्पताल जाएं।",
+          "Very high": "बहुत अधिक",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "बहुत अधिक तापमान होने पर तुरंत डॉक्टर से परामर्श लें या निकटतम अस्पताल जाएं।"
+        },
+
+        "ta_IN": {
+          "Very low": "மிகவும் குறைவு",
+          "High Risk": "அதிக ஆபத்து",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "வெப்பநிலை மிகவும் குறைவாக இருந்தால் போர்வை / படுக்கை விரிப்பால் உங்களை மூடிக்கொண்டு மீண்டும் பரிசோதிக்கவும் அல்லது உடனடியாக மருத்துவரை அணுகவும் அல்லது அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்.",
+          "Low": "குறைவு",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "வெப்பநிலை குறைவாக இருந்தால் போர்வை அல்லது படுக்கை விரிப்பால் உங்களை மூடிக்கொண்டு மீண்டும் பரிசோதிக்கவும்.",
+          "Normal": "இயல்பு",
+          "NORMAL temperature": "இயல்பான வெப்பநிலை",
+          "High": "அதிகம்",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "வெப்பநிலை அதிகமாக இருந்தால் மருத்துவரை அணுகவும் அல்லது அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்.",
+          "Very high": "மிகவும் அதிகம்",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "வெப்பநிலை மிகவும் அதிகமாக இருந்தால் உடனடியாக மருத்துவரை அணுகவும் அல்லது அருகிலுள்ள மருத்துவமனைக்குச் செல்லவும்."
+        },
+
+        "te_IN": {
+          "Very low": "చాలా తక్కువ",
+          "High Risk": "అధిక ప్రమాదం",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "ఉష్ణోగ్రత చాలా తక్కువగా ఉంటే దుప్పటి / బెడ్ షీట్‌తో మిమ్మల్ని మీరు కప్పుకుని మళ్లీ తనిఖీ చేయండి లేదా వెంటనే వైద్యుడిని సంప్రదించండి లేదా సమీపంలోని ఆసుపత్రికి వెళ్లండి.",
+          "Low": "తక్కువ",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "ఉష్ణోగ్రత తక్కువగా ఉంటే దుప్పటి లేదా బెడ్ షీట్‌తో మిమ్మల్ని మీరు కప్పుకుని మళ్లీ తనిఖీ చేయండి.",
+          "Normal": "సాధారణం",
+          "NORMAL temperature": "సాధారణ ఉష్ణోగ్రత",
+          "High": "అధికం",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "ఉష్ణోగ్రత ఎక్కువగా ఉంటే వైద్యుడిని సంప్రదించండి లేదా సమీపంలోని ఆసుపత్రికి వెళ్లండి.",
+          "Very high": "చాలా ఎక్కువ",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ఉష్ణోగ్రత చాలా ఎక్కువగా ఉంటే వెంటనే వైద్యుడిని సంప్రదించండి లేదా సమీపంలోని ఆసుపత్రికి వెళ్లండి."
+        },
+
+        "or_IN": {
+          "Very low": "ବହୁତ କମ୍",
+          "High Risk": "ଅଧିକ ବିପଦ",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "ତାପମାତ୍ରା ବହୁତ କମ୍ ଥିଲେ କମ୍ବଳ / ବେଡ୍ ସିଟ୍ ଦ୍ୱାରା ନିଜକୁ ଘୋଡ଼ାଇ ନିଅନ୍ତୁ ଏବଂ ପୁଣି ଯାଞ୍ଚ କରନ୍ତୁ କିମ୍ବା ତୁରନ୍ତ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।",
+          "Low": "କମ୍",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "ତାପମାତ୍ରା କମ୍ ଥିଲେ କମ୍ବଳ କିମ୍ବା ବେଡ୍ ସିଟ୍ ଦ୍ୱାରା ନିଜକୁ ଘୋଡ଼ାଇ ନିଅନ୍ତୁ ଏବଂ ପୁଣି ଯାଞ୍ଚ କରନ୍ତୁ।",
+          "Normal": "ସାଧାରଣ",
+          "NORMAL temperature": "ସାଧାରଣ ତାପମାତ୍ରା",
+          "High": "ଅଧିକ",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "ତାପମାତ୍ରା ଅଧିକ ଥିଲେ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।",
+          "Very high": "ବହୁତ ଅଧିକ",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ତାପମାତ୍ରା ବହୁତ ଅଧିକ ଥିଲେ ତୁରନ୍ତ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।"
         }
       };
   }
