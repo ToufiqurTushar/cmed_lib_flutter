@@ -68,8 +68,11 @@ class HealthAssesmentI18N {
         "Mild seasonal allergies or heat-related symptoms.": "Mild seasonal allergies or heat-related symptoms.",
         "Strong climate sensitivity, consider preventive healthcare measures.": "Strong climate sensitivity, consider preventive healthcare measures.",
         "Low Risk": "Low Risk",
+        "No Risk": "No Risk",
         "Moderate Risk": "Moderate Risk",
-        "High Risk": "High Risk"
+        "High Risk": "High Risk",
+        "HEALTH ASSESSMENT MENU": "HEALTH ASSESSMENT MENU",
+        "FINISH": "FINISH",
       },
       "kn_IN": {
         "Anaemia": "ರಕ್ತಹೀನತೆ",
@@ -140,6 +143,10 @@ class HealthAssesmentI18N {
         "Low Risk": "ಕಡಿಮೆ ಅಪಾಯ",
         "Moderate Risk": "ಮಧ್ಯಮ ಅಪಾಯ",
         "High Risk": "ಹೆಚ್ಚಿನ ಅಪಾಯ",
+        "No Risk": "ಯಾವುದೇ ಅಪಾಯವಿಲ್ಲ",
+        "HEALTH ASSESSMENT MENU": "ಆರೋಗ್ಯ ಮೌಲ್ಯಮಾಪನ ಮೆನು",
+        "FINISH": "ಮುಗಿಸಿ",
+        "BMI": "ಬಿ ಎಂ ಐ",
       },
       "te_IN": {
         "Anaemia": "రక్తహీనత",
@@ -209,7 +216,11 @@ class HealthAssesmentI18N {
         "Strong climate sensitivity, consider preventive healthcare measures.": "బలమైన వాతావరణ సున్నితత్వం, నివారణ ఆరోగ్య సంరక్షణ చర్యలను పరిగణించండి.",
         "Low Risk": "తక్కువ ప్రమాదం",
         "Moderate Risk": "మధ్యస్థ ప్రమాదం",
-        "High Risk": "అధిక ప్రమాదం"
+        "High Risk": "అధిక ప్రమాదం",
+        "No Risk": "ఏ ప్రమాదం లేదు",
+        "HEALTH ASSESSMENT MENU": "ఆరోగ్య మూల్యాంకన మెనూ",
+        "FINISH": "ముగించు",
+        "BMI": "బి ఎం ఐ",
       },
       "or_IN": {
         "Anaemia": "ରକ୍ତହୀନତା",
@@ -279,7 +290,11 @@ class HealthAssesmentI18N {
         "Strong climate sensitivity, consider preventive healthcare measures.": "ପ୍ରବଳ ଜଳବାୟୁ ସମ୍ବେଦନଶୀଳତା, ପ୍ରତିରୋଧକ ସ୍ୱାସ୍ଥ୍ୟସେବା ପଦକ୍ଷେପ ବିଷୟରେ ବିଚାର କରନ୍ତୁ।",
         "Low Risk": "କମ୍ ବିପଦ",
         "Moderate Risk": "ମଧ୍ୟମ ବିପଦ",
-        "High Risk": "ଅଧିକ ବିପଦ"
+        "High Risk": "ଅଧିକ ବିପଦ",
+        "No Risk": "କୌଣସି ବିପଦ ନାହିଁ",
+        "HEALTH ASSESSMENT MENU": "ସ୍ୱାସ୍ଥ୍ୟ ମୂଲ୍ୟାୟନ ମେନୁ",
+        "FINISH": "ସମାପ୍ତ",
+        "BMI": "ବିଏମଆଇ",
       },
       "hi_IN": {
         "Anaemia": "एनीमिया",
@@ -349,7 +364,11 @@ class HealthAssesmentI18N {
         "Strong climate sensitivity, consider preventive healthcare measures.": "तेज जलवायु संवेदनशीलता, निवारक स्वास्थ्य देखभाल उपायों पर विचार करें।",
         "Low Risk": "कम जोखिम",
         "Moderate Risk": "मध्यम जोखिम",
-        "High Risk": "उच्च जोखिम"
+        "High Risk": "उच्च जोखिम",
+        "No Risk": "कोई जोखिम नहीं",
+        "HEALTH ASSESSMENT MENU": "स्वास्थ्य मूल्यांकन मेनू",
+        "FINISH": "समाप्त करें",
+        "BMI": "बीएमआई",
       },
       "ta_IN": {
         "Anaemia": "இரத்த சோகை",
@@ -419,7 +438,11 @@ class HealthAssesmentI18N {
         "Strong climate sensitivity, consider preventive healthcare measures.": "வலுவான காலநிலை உணர்திறன், தடுப்பு சுகாதார நடவடிக்கைகளை பரிசீலிக்கவும்.",
         "Low Risk": "குறைந்த ஆபத்து",
         "Moderate Risk": "மிதமான ஆபத்து",
-        "High Risk": "அதிக ஆபத்து"
+        "High Risk": "அதிக ஆபத்து",
+        "No Risk": "ஆபத்து இல்லை",
+        "HEALTH ASSESSMENT MENU": "சுகாதார மதிப்பீட்டு மெனு",
+        "FINISH": "முடிக்கவும்",
+        "BMI": "பி எம் ஐ",
       }
     };
   }
