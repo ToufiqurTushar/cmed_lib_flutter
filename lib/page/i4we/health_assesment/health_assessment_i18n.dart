@@ -73,6 +73,7 @@ class HealthAssesmentI18N {
         "High Risk": "High Risk",
         "HEALTH ASSESSMENT MENU": "HEALTH ASSESSMENT MENU",
         "FINISH": "FINISH",
+        'label_bmi': 'BMI',
       },
       "kn_IN": {
         "Anaemia": "ರಕ್ತಹೀನತೆ",
@@ -147,6 +148,7 @@ class HealthAssesmentI18N {
         "HEALTH ASSESSMENT MENU": "ಆರೋಗ್ಯ ಮೌಲ್ಯಮಾಪನ ಮೆನು",
         "FINISH": "ಮುಗಿಸಿ",
         "BMI": "ಬಿ ಎಂ ಐ",
+        'label_bmi': 'ಬಿ ಎಂ ಐ',
       },
       "te_IN": {
         "Anaemia": "రక్తహీనత",
@@ -221,6 +223,7 @@ class HealthAssesmentI18N {
         "HEALTH ASSESSMENT MENU": "ఆరోగ్య మూల్యాంకన మెనూ",
         "FINISH": "ముగించు",
         "BMI": "బి ఎం ఐ",
+        'label_bmi': 'బి ఎం ఐ',
       },
       "or_IN": {
         "Anaemia": "ରକ୍ତହୀନତା",
@@ -295,6 +298,7 @@ class HealthAssesmentI18N {
         "HEALTH ASSESSMENT MENU": "ସ୍ୱାସ୍ଥ୍ୟ ମୂଲ୍ୟାୟନ ମେନୁ",
         "FINISH": "ସମାପ୍ତ",
         "BMI": "ବିଏମଆଇ",
+        'label_bmi': 'ବିଏମଆଇ',
       },
       "hi_IN": {
         "Anaemia": "एनीमिया",
@@ -369,6 +373,7 @@ class HealthAssesmentI18N {
         "HEALTH ASSESSMENT MENU": "स्वास्थ्य मूल्यांकन मेनू",
         "FINISH": "समाप्त करें",
         "BMI": "बीएमआई",
+        'label_bmi': 'बीएमआई',
       },
       "ta_IN": {
         "Anaemia": "இரத்த சோகை",
@@ -443,6 +448,7 @@ class HealthAssesmentI18N {
         "HEALTH ASSESSMENT MENU": "சுகாதார மதிப்பீட்டு மெனு",
         "FINISH": "முடிக்கவும்",
         "BMI": "பி எம் ஐ",
+        'label_bmi': 'பி எம் ஐ',
       }
     };
   }
