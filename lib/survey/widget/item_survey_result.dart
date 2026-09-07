@@ -10,7 +10,7 @@ Card SurveyResultItemWidget({required BuildContext context, Color? color, requir
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: subtitle != null && subtitle.isNotEmpty?CrossAxisAlignment.end:CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 22,

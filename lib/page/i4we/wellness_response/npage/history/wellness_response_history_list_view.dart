@@ -44,12 +44,20 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
               itemBuilder: (context, index) {
                 var surveyDto = controller.surveyResultList[index];
                 var title = surveyDto.surveyName!;
-                var subtitle = surveyDto.result?.status??"";
                 var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format:CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDigit();
+                var daysAgo = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(surveyDto.surveyOn!)).inDays;
+                var subtitle = "${daysAgo} days ago";
+                if(daysAgo == 0){
+                  subtitle = "Today".tr;
+                } else if(daysAgo == 1){
+                  subtitle = "Yesterday".tr;
+                } else {
+                  
+                }
                 return SurveyResultItemWidget(
                     context: context,
                     title: title,
-                    subtitle: subtitle,
+                    subtitle: subtitle.toString(),
                     color: Theme.of(context).primaryColor,
                     serverImage: "",
                     defaultImage: 'assets/images/ic_wellness_response.svg',
