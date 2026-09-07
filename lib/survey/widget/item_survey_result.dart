@@ -43,7 +43,7 @@ Card SurveyResultItemWidget({required BuildContext context, Color? color, requir
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: TextStyle(color: color, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.grey,),
                     ),
                   ]
                 ],
