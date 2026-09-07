@@ -94,6 +94,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months months ago',
         'single_day_ago': '@days day ago',
         'single_days_ago': '@days days ago',
+        'Wellness Response': 'Wellness Response',
       },
 
       'bn': {
@@ -106,6 +107,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months মাস আগে',
         'single_day_ago': '@days দিন আগে',
         'single_days_ago': '@days দিন আগে',
+        'Wellness Response': 'ওয়েলনেস প্রতিক্রিয়া',
       },
 
       'kn': {
@@ -118,6 +120,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months ತಿಂಗಳುಗಳ ಹಿಂದೆ',
         'single_day_ago': '@days ದಿನ ಹಿಂದೆ',
         'single_days_ago': '@days ದಿನಗಳ ಹಿಂದೆ',
+        'Wellness Response': 'ವೆಲ್ಲ್ನೆಸ್ ಪ್ರತಿಕ್ರಿಯೆ',
       },
 
       'hi': {
@@ -130,6 +133,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months महीने पहले',
         'single_day_ago': '@days दिन पहले',
         'single_days_ago': '@days दिन पहले',
+        'Wellness Response': 'वेलनेस प्रतिक्रिया',
       },
 
       'te': {
@@ -142,6 +146,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months నెలలు క్రితం',
         'single_day_ago': '@days రోజు క్రితం',
         'single_days_ago': '@days రోజులు క్రితం',
+        'Wellness Response': 'వెల్నెస్ రిస్పాన్స్',
       },
 
       'ta': {
@@ -154,6 +159,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months மாதங்கள் முன்பு',
         'single_day_ago': '@days நாள் முன்பு',
         'single_days_ago': '@days நாட்கள் முன்பு',
+        'Wellness Response': 'நலன் பதில்',
       },
 
       'or': {
@@ -166,6 +172,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'single_months_ago': '@months ମାସ ପୂର୍ବରୁ',
         'single_day_ago': '@days ଦିନ ପୂର୍ବରୁ',
         'single_days_ago': '@days ଦିନ ପୂର୍ବରୁ',
+        'Wellness Response': 'ସୁସ୍ଥତା ପ୍ରତିକ୍ରିୟା',
       },
     };
   }
