@@ -60,21 +60,37 @@ class WellnessResponseHistoryListLogic extends BaseLogic {
   }
 
   String formatSingleUnitAgo(DateTime dateTime) {
-    final now = DateTime.now();
+    final difference = DateTime.now().difference(dateTime);
 
-    final years = now.year - dateTime.year;
-    final months = (now.year - dateTime.year) * 12 +
-        now.month - dateTime.month;
-    final days = now.difference(dateTime).inDays;
+    final days = difference.inDays;
 
-    if (years >= 1) {
-      return "$years ${years == 1 ? 'year' : 'years'} ago";
+    if (days < 30) {
+      final key = days == 1 ? 'single_day_ago' : 'single_days_ago';
+
+      return key.tr.replaceAll(
+        '@days',
+        days.toString(),
+      );
     }
 
-    if (months >= 1) {
-      return "$months ${months == 1 ? 'month' : 'months'} ago";
+    final months = days ~/ 30;
+
+    if (months < 12) {
+      final key = months == 1 ? 'single_month_ago' : 'single_months_ago';
+
+      return key.tr.replaceAll(
+        '@months',
+        months.toString(),
+      );
     }
 
-    return "$days ${days == 1 ? 'day' : 'days'} ago";
+    final years = months ~/ 12;
+
+    final key = years == 1 ? 'single_year_ago' : 'single_years_ago';
+
+    return key.tr.replaceAll(
+      '@years',
+      years.toString(),
+    );
   }
 }

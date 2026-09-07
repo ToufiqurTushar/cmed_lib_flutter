@@ -50,7 +50,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
                 var subtitle = "${daysAgo} days ago";
                 if(daysAgo == 0){
                   subtitle = "Today".tr;
-                } else if(daysAgo == 2){
+                } else if(daysAgo == 1){
                   subtitle = "Yesterday".tr;
                 } else {
                   subtitle = controller.formatSingleUnitAgo(DateTime.fromMillisecondsSinceEpoch(surveyDto.surveyOn!));
@@ -88,42 +88,84 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'year_month_day_ago': '@years years @months months and @days days ago',
         'month_day_ago': '@months months and @days days ago',
         'day_ago': '@days days ago',
+        'single_year_ago': '@years year ago',
+        'single_years_ago': '@years years ago',
+        'single_month_ago': '@months month ago',
+        'single_months_ago': '@months months ago',
+        'single_day_ago': '@days day ago',
+        'single_days_ago': '@days days ago',
       },
 
       'bn': {
         'year_month_day_ago': '@years বছর @months মাস এবং @days দিন আগে',
         'month_day_ago': '@months মাস এবং @days দিন আগে',
         'day_ago': '@days দিন আগে',
+        'single_year_ago': '@years বছর আগে',
+        'single_years_ago': '@years বছর আগে',
+        'single_month_ago': '@months মাস আগে',
+        'single_months_ago': '@months মাস আগে',
+        'single_day_ago': '@days দিন আগে',
+        'single_days_ago': '@days দিন আগে',
       },
 
       'kn': {
         'year_month_day_ago': '@years ವರ್ಷ @months ತಿಂಗಳು ಮತ್ತು @days ದಿನಗಳ ಹಿಂದೆ',
         'month_day_ago': '@months ತಿಂಗಳು ಮತ್ತು @days ದಿನಗಳ ಹಿಂದೆ',
         'day_ago': '@days ದಿನಗಳ ಹಿಂದೆ',
+        'single_year_ago': '@years ವರ್ಷ ಹಿಂದೆ',
+        'single_years_ago': '@years ವರ್ಷಗಳ ಹಿಂದೆ',
+        'single_month_ago': '@months ತಿಂಗಳು ಹಿಂದೆ',
+        'single_months_ago': '@months ತಿಂಗಳುಗಳ ಹಿಂದೆ',
+        'single_day_ago': '@days ದಿನ ಹಿಂದೆ',
+        'single_days_ago': '@days ದಿನಗಳ ಹಿಂದೆ',
       },
 
       'hi': {
         'year_month_day_ago': '@years वर्ष @months महीने और @days दिन पहले',
         'month_day_ago': '@months महीने और @days दिन पहले',
         'day_ago': '@days दिन पहले',
+        'single_year_ago': '@years वर्ष पहले',
+        'single_years_ago': '@years वर्ष पहले',
+        'single_month_ago': '@months महीना पहले',
+        'single_months_ago': '@months महीने पहले',
+        'single_day_ago': '@days दिन पहले',
+        'single_days_ago': '@days दिन पहले',
       },
 
       'te': {
         'year_month_day_ago': '@years సంవత్సరాలు @months నెలలు మరియు @days రోజులు క్రితం',
         'month_day_ago': '@months నెలలు మరియు @days రోజులు క్రితం',
         'day_ago': '@days రోజుల క్రితం',
+        'single_year_ago': '@years సంవత్సరం క్రితం',
+        'single_years_ago': '@years సంవత్సరాలు క్రితం',
+        'single_month_ago': '@months నెల క్రితం',
+        'single_months_ago': '@months నెలలు క్రితం',
+        'single_day_ago': '@days రోజు క్రితం',
+        'single_days_ago': '@days రోజులు క్రితం',
       },
 
       'ta': {
         'year_month_day_ago': '@years ஆண்டுகள் @months மாதங்கள் மற்றும் @days நாட்களுக்கு முன்பு',
         'month_day_ago': '@months மாதங்கள் மற்றும் @days நாட்களுக்கு முன்பு',
         'day_ago': '@days நாட்களுக்கு முன்பு',
+        'single_year_ago': '@years ஆண்டு முன்பு',
+        'single_years_ago': '@years ஆண்டுகள் முன்பு',
+        'single_month_ago': '@months மாதம் முன்பு',
+        'single_months_ago': '@months மாதங்கள் முன்பு',
+        'single_day_ago': '@days நாள் முன்பு',
+        'single_days_ago': '@days நாட்கள் முன்பு',
       },
 
       'or': {
         'year_month_day_ago': '@years ବର୍ଷ @months ମାସ ଏବଂ @days ଦିନ ପୂର୍ବରୁ',
         'month_day_ago': '@months ମାସ ଏବଂ @days ଦିନ ପୂର୍ବରୁ',
         'day_ago': '@days ଦିନ ପୂର୍ବରୁ',
+        'single_year_ago': '@years ବର୍ଷ ପୂର୍ବରୁ',
+        'single_years_ago': '@years ବର୍ଷ ପୂର୍ବରୁ',
+        'single_month_ago': '@months ମାସ ପୂର୍ବରୁ',
+        'single_months_ago': '@months ମାସ ପୂର୍ବରୁ',
+        'single_day_ago': '@days ଦିନ ପୂର୍ବରୁ',
+        'single_days_ago': '@days ଦିନ ପୂର୍ବରୁ',
       },
     };
   }
@@ -138,5 +180,3 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
     Get.lazyPut<WellnessResponseHistoryListLogic>(() => WellnessResponseHistoryListLogic(),);
   }
 }
-
-
