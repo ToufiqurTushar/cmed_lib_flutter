@@ -108,11 +108,42 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         'month_day_ago': '@months months and @days days ago',
         'day_ago': '@days days ago',
       },
+
       'bn': {
         'year_month_day_ago': '@years বছর @months মাস এবং @days দিন আগে',
         'month_day_ago': '@months মাস এবং @days দিন আগে',
         'day_ago': '@days দিন আগে',
-      }
+      },
+
+      'kn': {
+        'year_month_day_ago': '@years ವರ್ಷ @months ತಿಂಗಳು ಮತ್ತು @days ದಿನಗಳ ಹಿಂದೆ',
+        'month_day_ago': '@months ತಿಂಗಳು ಮತ್ತು @days ದಿನಗಳ ಹಿಂದೆ',
+        'day_ago': '@days ದಿನಗಳ ಹಿಂದೆ',
+      },
+
+      'hi': {
+        'year_month_day_ago': '@years वर्ष @months महीने और @days दिन पहले',
+        'month_day_ago': '@months महीने और @days दिन पहले',
+        'day_ago': '@days दिन पहले',
+      },
+
+      'te': {
+        'year_month_day_ago': '@years సంవత్సరాలు @months నెలలు మరియు @days రోజులు క్రితం',
+        'month_day_ago': '@months నెలలు మరియు @days రోజులు క్రితం',
+        'day_ago': '@days రోజుల క్రితం',
+      },
+
+      'ta': {
+        'year_month_day_ago': '@years ஆண்டுகள் @months மாதங்கள் மற்றும் @days நாட்களுக்கு முன்பு',
+        'month_day_ago': '@months மாதங்கள் மற்றும் @days நாட்களுக்கு முன்பு',
+        'day_ago': '@days நாட்களுக்கு முன்பு',
+      },
+
+      'or': {
+        'year_month_day_ago': '@years ବର୍ଷ @months ମାସ ଏବଂ @days ଦିନ ପୂର୍ବରୁ',
+        'month_day_ago': '@months ମାସ ଏବଂ @days ଦିନ ପୂର୍ବରୁ',
+        'day_ago': '@days ଦିନ ପୂର୍ବରୁ',
+      },
     };
   }
 
