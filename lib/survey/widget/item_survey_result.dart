@@ -9,52 +9,57 @@ Card SurveyResultItemWidget({required BuildContext context, Color? color, requir
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        child: Row(
-          crossAxisAlignment: subtitle != null && subtitle.isNotEmpty?CrossAxisAlignment.end:CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 22,
-              backgroundColor: color ?? Colors.red,
-              child: ClipOval(
-                child: Container(
-                  color: Colors.white,
-                  child: RoundImage(
-                    serverImage,
-                    42,
-                    defaultImage: defaultImage ?? "assets/images/ic_anemia.svg",
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: color ?? Colors.red,
+                child: ClipOval(
+                  child: Container(
                     color: Colors.white,
+                    child: RoundImage(
+                      serverImage,
+                      42,
+                      defaultImage: defaultImage ?? "assets/images/ic_anemia.svg",
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                        color: isColoredTitle ? color ?? Colors.black : Colors.black),
-                  ),
-                  if (subtitle != null && subtitle.isNotEmpty) ...[
-                    const SizedBox(height: 4),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
-                      subtitle,
-                      style: TextStyle(color: Colors.grey,),
+                      title,
+                      style: TextStyle(
+                          color: isColoredTitle ? color ?? Colors.black : Colors.black),
                     ),
-                  ]
-                ],
+                    if (subtitle != null && subtitle.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(color: Colors.grey,),
+                      ),
+                    ]
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              date,
-              style: const TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-          ],
+              const SizedBox(width: 8),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  date,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),
