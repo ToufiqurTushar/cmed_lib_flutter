@@ -45,7 +45,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
               itemBuilder: (context, index) {
                 var surveyDto = controller.surveyResultList[index];
                 var title = surveyDto.surveyName!;
-                var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format:CustomDateUtils.HH_MM_A_DD_MMM_YYYY).trDigit();
+                var date = CustomDateUtils.format(surveyDto.surveyOn??DateTime.now().millisecondsSinceEpoch, format: 'EEE, dd MMM yyyy, hh:mma',).trDigit();
                 var daysAgo = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(surveyDto.surveyOn!)).inDays;
                 var subtitle = "${daysAgo} days ago";
                 if(daysAgo == 0){
