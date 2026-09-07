@@ -53,7 +53,7 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
                 } else if(daysAgo == 2){
                   subtitle = "Yesterday".tr;
                 } else {
-                  subtitle = formatAgeAgo(DateTime.fromMillisecondsSinceEpoch(DateTime.now().subtract(Duration(days: 200)).millisecondsSinceEpoch));
+                  subtitle = controller.formatSingleUnitAgo(DateTime.fromMillisecondsSinceEpoch(surveyDto.surveyOn!));
                 }
                 return SurveyResultItemWidget(
                     context: context,
@@ -79,25 +79,6 @@ class WellnessResponseHistoryListView extends RapidView<WellnessResponseHistoryL
         )
       ],
     );
-  }
-
-  String formatAgeAgo(DateTime date) {
-    DateDuration age = AgeCalculator.age(date);
-    if(age.years == 0 && age.months == 0) {
-      return 'day_ago'.trParams({
-        'days': age.days.toString(),
-      });
-    } else if(age.years == 0) {
-      return 'month_day_ago'.trParams({
-        'months': age.months.toString(),
-        'days': age.days.toString(),
-      });
-    }
-    return 'year_month_day_ago'.trParams({
-      'years': age.years.toString(),
-      'months': age.months.toString(),
-      'days': age.days.toString(),
-    });
   }
 
   @override

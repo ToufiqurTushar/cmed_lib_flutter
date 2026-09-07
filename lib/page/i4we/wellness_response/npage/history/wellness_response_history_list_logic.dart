@@ -58,4 +58,23 @@ class WellnessResponseHistoryListLogic extends BaseLogic {
       }
     });
   }
+
+  String formatSingleUnitAgo(DateTime dateTime) {
+    final now = DateTime.now();
+
+    final years = now.year - dateTime.year;
+    final months = (now.year - dateTime.year) * 12 +
+        now.month - dateTime.month;
+    final days = now.difference(dateTime).inDays;
+
+    if (years >= 1) {
+      return "$years ${years == 1 ? 'year' : 'years'} ago";
+    }
+
+    if (months >= 1) {
+      return "$months ${months == 1 ? 'month' : 'months'} ago";
+    }
+
+    return "$days ${days == 1 ? 'day' : 'days'} ago";
+  }
 }
