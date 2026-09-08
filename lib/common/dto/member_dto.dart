@@ -339,6 +339,14 @@ class MemberDTO {
         return 'Other'; // Replace with localized string
     }
   }
+
+  String genderSvgIcon() {
+    return gender == 1
+        ? 'assets/images/ic_male.svg'
+        : gender == 2
+        ? 'assets/images/ic_female.svg'
+        : 'assets/images/ic_transgender.svg';
+    }
 }
 
 

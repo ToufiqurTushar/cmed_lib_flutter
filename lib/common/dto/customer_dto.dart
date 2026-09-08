@@ -559,6 +559,14 @@ class CustomerDTO extends BaseEntity {
     return '';
   }
 
+  String genderSvgIcon() {
+    return gender == 1
+        ? 'assets/images/ic_male.svg'
+        : gender == 2
+        ? 'assets/images/ic_female.svg'
+        : 'assets/images/ic_transgender.svg';
+    }
+
   @override
   String toString() {
     return jsonEncode(this);
