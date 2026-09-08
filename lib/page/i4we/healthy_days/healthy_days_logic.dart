@@ -61,7 +61,7 @@ class HealthyDaysLogic extends BaseLogic {
           Get.offNamed(HealthyDaysResultView.routeName, arguments: HealthyDaysResultArgument(isFromHistory: false, selectedSurveyResult: surveyResultItemDto, selectedSurvey: selectedSurveyDto));
         });
       } else if(response.statusCode == 400){
-        ShowToast.error(response.body);
+        ShowToast.error(response.body.tr);
       }
     });
   }
