@@ -5,19 +5,15 @@ import '../dto/field_dto.dart';
 import 'item_label.dart';
 
 Widget RadioGroups({
-  required Field field,
-  required context,
-  required GlobalKey<FormBuilderState> formKey,
-  double elevation = 0,
-  double padding = 0,
-  Function? onChanged,
-}) {
-  final totalLabelLength = field.options!
-      .map((o) => o.title!.length)
-      .fold<int>(0, (a, b) => a + b);
-
+    required Field field,
+    required context,
+    required GlobalKey<FormBuilderState> formKey,
+    double elevation = 0,
+    double padding = 0,
+    Function? onChanged
+  }) {
+  final totalLabelLength = field.options!.map((o) => o.title!.length).fold<int>(0, (a, b) => a + b);
   final useVertical = field.options!.length > 3 || totalLabelLength > 30;
-
   return Card(
     elevation: elevation,
     margin: EdgeInsets.all(0),
@@ -25,51 +21,26 @@ Widget RadioGroups({
     child: Padding(
       padding: EdgeInsets.all(padding),
       child: ListBody(
-        children: [
-          if (field.label != null) ItemLabel(field),
-          Theme(
-            data: Theme.of(context).copyWith(
-              radioTheme: Theme.of(context).radioTheme.copyWith(
-                fillColor: MaterialStateProperty.all(Colors.black),
-              ),
-            ),
-            child: Theme(
+          children: [
+            if(field.label != null) ItemLabel(field),
+            Theme(
               data: Theme.of(context).copyWith(
                 radioTheme: Theme.of(context).radioTheme.copyWith(
                   fillColor: MaterialStateProperty.all(Colors.black),
                 ),
               ),
               child: FormBuilderRadioGroup<dynamic>(
+                //enabled: parentCondition,
                 initialValue: field.defaultValue,
                 name: field.name!,
-                orientation: useVertical
-                    ? OptionsOrientation.vertical
-                    : OptionsOrientation
-                          .wrap,
+                orientation: useVertical? OptionsOrientation.vertical: OptionsOrientation.wrap,
+                options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
+                  value: option.value,
+                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4), child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
+                )).toList(growable: false),
                 wrapAlignment: WrapAlignment.start,
                 wrapSpacing: 16.0,
                 wrapRunSpacing: 8.0,
-                options: field.options!
-                    .map((FieldOption option) {
-                      return FormBuilderFieldOption(
-                        value: option.value,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 4,
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              option.title!,
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                            ),
-                          ),
-                        ),
-                      );
-                    })
-                    .toList(growable: false),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
@@ -92,28 +63,23 @@ Widget RadioGroups({
                 activeColor: Theme.of(context).primaryColor,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (val) {
-                  if (onChanged != null) {
+                  if(onChanged != null) {
                     onChanged(val);
                   }
                 },
                 valueTransformer: null,
                 controlAffinity: ControlAffinity.leading,
-                validator: field.required!
-                    ? FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: 'Select'.tr),
-                      ])
-                    : null,
+                validator: field.required!? FormBuilderValidators.compose([
+                  FormBuilderValidators.required(errorText: 'Select'.tr)
+                ]) : null,
+
               ),
             ),
-          ),
-          if (field.description != null &&
-              field.description != "" &&
-              !field.readOnly!)
-            Padding(
+            if(field.description != null && field.description != "" && !field.readOnly!) Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 4),
               child: Text(field.description!),
             ),
-        ],
+          ]
       ),
     ),
   );
