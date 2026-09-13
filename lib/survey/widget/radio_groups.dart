@@ -12,8 +12,6 @@ Widget RadioGroups({
   double padding = 0,
   Function? onChanged,
 }) {
-  // Decide layout direction based on option count / total label length,
-  // instead of hardcoding pixel widths per option.
   final totalLabelLength = field.options!
       .map((o) => o.title!.length)
       .fold<int>(0, (a, b) => a + b);
