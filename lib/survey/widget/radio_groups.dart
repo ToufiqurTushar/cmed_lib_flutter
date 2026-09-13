@@ -12,6 +12,8 @@ Widget RadioGroups({
     double padding = 0,
     Function? onChanged
   }) {
+  final totalLabelLength = field.options!.map((o) => o.title!.length).fold<int>(0, (a, b) => a + b);
+  final useVertical = field.options!.length > 3 || totalLabelLength > 30;
   return Card(
     elevation: elevation,
     margin: EdgeInsets.all(0),
@@ -31,11 +33,14 @@ Widget RadioGroups({
                 //enabled: parentCondition,
                 initialValue: field.defaultValue,
                 name: field.name!,
+                orientation: useVertical? OptionsOrientation.vertical: OptionsOrientation.wrap,
                 options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
                   value: option.value,
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4),width:field.options?.length == 2? Get.width*.3: field.options?.length == 3? Get.width*.15: null, child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
+                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4), child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
                 )).toList(growable: false),
                 wrapAlignment: WrapAlignment.start,
+                wrapSpacing: 16.0,
+                wrapRunSpacing: 8.0,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
