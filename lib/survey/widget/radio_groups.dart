@@ -1,19 +1,8 @@
-import 'dart:math' as math;
-import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../dto/field_dto.dart';
 import 'item_label.dart';
-
-double _measureTextWidth(String text, TextStyle? style, {double maxWidth = double.infinity}) {
-  final painter = TextPainter(
-    text: TextSpan(text: text, style: style),
-    maxLines: 1,
-    textDirection: TextDirection.ltr,
-  )..layout(maxWidth: maxWidth);
-  return painter.width;
-}
 
 Widget RadioGroups({
   required Field field,
@@ -23,7 +12,13 @@ Widget RadioGroups({
   double padding = 0,
   Function? onChanged,
 }) {
-  final textStyle = Theme.of(context).textTheme.bodyMedium;
+  // Decide layout direction based on option count / total label length,
+  // instead of hardcoding pixel widths per option.
+  final totalLabelLength = field.options!
+      .map((o) => o.title!.length)
+      .fold<int>(0, (a, b) => a + b);
+
+  final useVertical = field.options!.length > 3 || totalLabelLength > 30;
 
   return Card(
     elevation: elevation,
@@ -37,84 +32,85 @@ Widget RadioGroups({
           Theme(
             data: Theme.of(context).copyWith(
               radioTheme: Theme.of(context).radioTheme.copyWith(
-                    fillColor: MaterialStateProperty.all(Colors.black),
-                  ),
+                fillColor: MaterialStateProperty.all(Colors.black),
+              ),
             ),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final availableWidth = constraints.maxWidth;
-                final optionCount = field.options!.length;
-
-                return FormBuilderRadioGroup<dynamic>(
-                  initialValue: field.defaultValue,
-                  name: field.name!,
-                  options: field.options!.map((FieldOption option) {
-                    final textWidth = _measureTextWidth(
-                      option.title!,
-                      textStyle,
-                      maxWidth: availableWidth,
-                    );
-
-                    const extraChrome = 48.0;
-                    final desiredWidth = textWidth + extraChrome;
-                    final equalShare = availableWidth / optionCount;
-                    final itemWidth = math.max(desiredWidth, math.min(equalShare, desiredWidth));
-
-                    return FormBuilderFieldOption(
-                      value: option.value,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        width: optionCount <= 4 ? itemWidth : null,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            option.title!,
-                            textAlign: TextAlign.left,
-                            softWrap: true,
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                radioTheme: Theme.of(context).radioTheme.copyWith(
+                  fillColor: MaterialStateProperty.all(Colors.black),
+                ),
+              ),
+              child: FormBuilderRadioGroup<dynamic>(
+                initialValue: field.defaultValue,
+                name: field.name!,
+                orientation: useVertical
+                    ? OptionsOrientation.vertical
+                    : OptionsOrientation
+                          .wrap,
+                wrapAlignment: WrapAlignment.start,
+                wrapSpacing: 16.0,
+                wrapRunSpacing: 8.0,
+                options: field.options!
+                    .map((FieldOption option) {
+                      return FormBuilderFieldOption(
+                        value: option.value,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 4,
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              option.title!,
+                              textAlign: TextAlign.left,
+                              softWrap: true,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }).toList(growable: false),
-                  wrapAlignment: WrapAlignment.start,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.zero,
-                    fillColor: Theme.of(context).primaryColorLight,
-                    filled: true,
-                    isDense: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                    ),
-                    focusedErrorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                    ),
+                      );
+                    })
+                    .toList(growable: false),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.zero,
+                  fillColor: Theme.of(context).primaryColorLight,
+                  filled: true,
+                  isDense: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
                   ),
-                  activeColor: Theme.of(context).primaryColor,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onChanged: (val) {
-                    if (onChanged != null) {
-                      onChanged(val);
-                    }
-                  },
-                  valueTransformer: null,
-                  controlAffinity: ControlAffinity.leading,
-                  validator: field.required!
-                      ? FormBuilderValidators.compose(
-                          [FormBuilderValidators.required(errorText: 'Select'.tr)],
-                        )
-                      : null,
-                );
-              },
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                  ),
+                  focusedErrorBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                  ),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: (val) {
+                  if (onChanged != null) {
+                    onChanged(val);
+                  }
+                },
+                valueTransformer: null,
+                controlAffinity: ControlAffinity.leading,
+                validator: field.required!
+                    ? FormBuilderValidators.compose([
+                        FormBuilderValidators.required(errorText: 'Select'.tr),
+                      ])
+                    : null,
+              ),
             ),
           ),
-          if (field.description != null && field.description != "" && !field.readOnly!)
+          if (field.description != null &&
+              field.description != "" &&
+              !field.readOnly!)
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 4),
               child: Text(field.description!),
