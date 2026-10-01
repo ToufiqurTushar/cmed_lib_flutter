@@ -42,6 +42,17 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                 Obx(() => Expanded(
                   child: Stack(
                     children: [
+                      kDebugMode ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                              onTap: (){
+                                changeEvent(context);
+                              },
+                              child: Text('ChangeEvent')
+                          ),
+                        ],
+                      ) : const SizedBox.shrink(),
                       Visibility(
                         visible: controller.screen_status.value ==
                             ScreenEnum.CONNECT.name ||
@@ -352,6 +363,17 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
                         ),
                       ),
                       // Container(child: Text(""),),
+                      kDebugMode ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                              onTap: (){
+                                changeEvent(context);
+                              },
+                              child: Text('ChangeEvent')
+                          ),
+                        ],
+                      ) : const SizedBox.shrink(),
                     ],
                   ),
                 ))
@@ -411,7 +433,8 @@ class BmiDeviceConnectionView extends RapidView<BmiDeviceConnectionLogic> {
           actions: [
             TextButton(
               onPressed: () {
-                controller.result.value = "10";
+                controller.result.value = "50";
+                controller.reading.value = "50";
                 controller.screen_status.value = ScreenEnum.RESULT_FOUND.name;
                 Navigator.pop(context);
               },

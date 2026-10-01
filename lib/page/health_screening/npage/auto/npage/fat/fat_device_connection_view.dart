@@ -470,7 +470,8 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
           actions: [
             TextButton(
               onPressed: () {
-                controller.result.value = "10";
+                controller.result.value = "50";//weight
+                controller.reading.value = "50";//weight
                 controller.screen_status.value = ScreenEnum.RESULT_FOUND.name;
                 String jsonString = '''{
   "bodyFatData": {
