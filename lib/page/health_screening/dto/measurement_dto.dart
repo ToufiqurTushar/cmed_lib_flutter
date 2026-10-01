@@ -929,9 +929,9 @@ class Location {
     this.altitude,});
 
   Location.fromJson(dynamic json) {
-    latitude = json['latitude'] != null ? json['latitude'].cast<String>() : [];
-    longitude = json['longitude'] != null ? json['longitude'].cast<String>() : [];
-    altitude = json['altitude'] != null ? json['altitude'].cast<String>() : [];
+    latitude = json['latitude'] != null ? json['latitude'].cast<String>() : null;
+    longitude = json['longitude'] != null ? json['longitude'].cast<String>() : null;
+    altitude = json['altitude'] != null ? json['altitude'].cast<String>() : null;
   }
   List<String>? latitude;
   List<String>? longitude;
