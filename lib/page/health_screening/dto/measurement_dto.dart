@@ -154,8 +154,7 @@ class MeasurementDTO {
     measuredAt = json['measured_at'];
     ecgGraphValue = json['ecg_graph_value'];
     tag = json['tag'];
-    location =
-    json['location'] != null ? Location.fromJson(json['location']) : null;
+    location = json['location'] != null ? Location.fromJson(json['location']) : null;
     offline = json['offline'];
     createdByUuid = json['created_by_uuid'];
     companyId = json['company_id'];
@@ -197,7 +196,7 @@ class MeasurementDTO {
     data['user_phone_number'] = userPhoneNumber;
     data['user_date_of_birth'] = userDateOfBirth;
     if (userBloodGroup != null) {
-      data['user_blood_group'] = userBloodGroup!.toJson();
+      //data['user_blood_group'] = userBloodGroup!.toJson();
     }
     data['gender'] = gender;
     data['user_email'] = userEmail;
@@ -214,7 +213,7 @@ class MeasurementDTO {
     data['ecg_graph_value'] = ecgGraphValue;
     data['tag'] = tag;
     if (location != null) {
-      data['location'] = location!.toJson();
+      //data['location'] = location!.toJson();
     }
     data['offline'] = offline;
     data['created_by_uuid'] = createdByUuid;
