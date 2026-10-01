@@ -226,17 +226,20 @@ class FatHeightInputView extends RapidView<FatHeightInputLogic> {
                                           () {
                                             if (controller.isValidInput()){
                                               if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp){
-                                                Get.toNamed(AutoManualSelectionView.routeName, arguments: {
-                                                  "codeId": MeasurementType.BODY_COMPOSITION.value,
-                                                  "heightUnit": controller.heightUnit.value,
-                                                  "heightInCm": controller.getHeightInCentimeter(),
-                                                  "heightInFeet": controller.heightInFeetEditTextController.text,
-                                                  "heightInInch": controller.heightInInchEditTextController.text
-                                                },);
+                                                Get.toNamed(AutoManualSelectionView.routeName, arguments: 						MeasurementViewArg(
+                                                  codeId: MeasurementType.BODY_COMPOSITION.value,
+                                                  isThemeV2: controller.isThemeV2,
+                                                  isNestedRoute: controller.isNestedRoute,
+                                                  heightUnit: controller.heightUnit.value,
+                                                  heightInCm: controller.getHeightInCentimeter().toDouble(),
+                                                  heightInFeet: controller.heightInFeetEditTextController.text,
+                                                  heightInInch: controller.heightInInchEditTextController.text
+                                                ),);
                                               } else if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
                                                 bool isAuto = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAuto??false : false;
                                                 Get.offNamed(FatDeviceConnectionView.routeName, arguments: MeasurementViewArg(
                                                     isAuto: isAuto,
+                                                    codeId: MeasurementType.BODY_COMPOSITION.value,
                                                     isThemeV2: controller.isThemeV2,
                                                     isNestedRoute: controller.isNestedRoute,
                                                     heightUnit: controller.heightUnit.value,
