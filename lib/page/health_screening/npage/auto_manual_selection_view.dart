@@ -112,7 +112,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                       onTap: () {
                         Get.toNamed(
                           controller.connectRoute.value,
-                          arguments: controller.buildMeasurementViewArg(),
+                          arguments: controller.getMeasurementViewArg(),
                         );
                       },
                       child: Padding(
@@ -179,7 +179,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Get.toNamed(controller.connectRoute.value, arguments: controller.buildMeasurementViewArg());
+                              Get.toNamed(controller.connectRoute.value, arguments: controller.getMeasurementViewArg());
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -202,7 +202,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(controller.manualRoute.value, arguments: controller.buildMeasurementViewArg());
+                            Get.toNamed(controller.manualRoute.value, arguments: controller.getMeasurementViewArg());
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -244,7 +244,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.toNamed(controller.manualRoute.value, arguments: controller.buildMeasurementViewArg());
+                  Get.toNamed(controller.manualRoute.value, arguments: controller.getMeasurementViewArg());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -271,7 +271,7 @@ class AutoManualSelectionView extends RapidView<AutoManualSelectionLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(controller.connectRoute.value, arguments: controller.buildMeasurementViewArg());
+                    Get.toNamed(controller.connectRoute.value, arguments: controller.getMeasurementViewArg());
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),

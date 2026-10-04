@@ -13,11 +13,13 @@ class MeasurementViewArg {
       this.heightInFeet,
       this.heightInInch,
       this.codeId,
+      this.isAutoConnect = true,
 
   });
   bool? isNestedRoute;
   bool? isThemeV2;
   bool? isAuto;
+  bool? isAutoConnect;
   MasterDataDTO? masterDataDTO;
   List<MeasurementDTO>? measurements;
   String? heightUnit;

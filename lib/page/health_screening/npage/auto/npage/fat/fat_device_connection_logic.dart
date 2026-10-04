@@ -14,6 +14,7 @@ import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
 import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
+import 'fat_device_connection_view.dart';
 
 class FatDeviceConnectionLogic extends BaseLogic {
   dynamic argumentData = Get.arguments;
@@ -41,6 +42,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
   final RxString buttonText = 'label_connect'.tr.obs;
   bool isNestedRoute = false;
   bool isThemeV2 = false;
+  bool isAutoConnect = true;
   final player = AudioPlayer();
   @override
   Future<void> onInit() async {
@@ -51,11 +53,12 @@ class FatDeviceConnectionLogic extends BaseLogic {
     heightInInch.value = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).heightInInch??"" : "";
     isNestedRoute = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isNestedRoute??false : false;
     isThemeV2 = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isThemeV2??false : false;
+    isAutoConnect = Get.arguments is MeasurementViewArg? (Get.arguments as MeasurementViewArg).isAutoConnect!: isAutoConnect;
     Future.delayed(Duration.zero, () async {
-      if(isNestedRoute)connect();
+      if(isAutoConnect)connect();
     });
 
-
+    RLog.info("height: ${heightInCm.value}");
   }
 
   void setUserDataForDevice() {
@@ -217,5 +220,9 @@ class FatDeviceConnectionLogic extends BaseLogic {
 
   stopMeasurement() {
      cmedFatDevicesLib.disconnect();
+  }
+
+  reconnect() {
+    Get.offNamed(FatDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false);
   }
 }

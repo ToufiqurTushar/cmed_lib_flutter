@@ -27,7 +27,7 @@ class AutoManualSelectionLogic extends BaseLogic {
   @override
   void onInit() {
     super.onInit();
-    final arg = buildMeasurementViewArg();
+    final arg = getMeasurementViewArg();
     code.value = arg.codeId ?? 0;
   }
 
@@ -79,7 +79,7 @@ class AutoManualSelectionLogic extends BaseLogic {
     }
   }
 
-  MeasurementViewArg buildMeasurementViewArg() {
+  MeasurementViewArg getMeasurementViewArg() {
     if (Get.arguments == null) {
       return MeasurementViewArg();
     }

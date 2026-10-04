@@ -62,11 +62,11 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                         visible: controller.screen_status.value == ScreenEnum.DEVICE_NOT_FOUND.name,
                         child: Center(
                           child: DeviceReconnectView(
-                            imageAsset: 'assets/images/device/img_bmi_first.svg',
+                            imageAsset: 'assets/images/screening/ic_bmi_connect.svg',
                             suggestion: 'label_keep_device_switch_on'.tr,
                             message: 'label_device_not_found'.tr,
                             onReconnectDevice: () async {
-                              await controller.connect();
+                              await controller.reconnect();
                             },
                             //onManualSelect: ()=> Get.offNamed(BmiHeightInputView.routeName, id:controller.isNestedRoute?1: null),
                           ),
@@ -156,7 +156,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                             imageAsset: 'assets/images/screening/ic_bmi_connect.svg',
                             suggestion: 'label_keep_device_switch_on'.tr,
                             message: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
-                            onReconnectDevice:()=> controller.connect(),
+                            onReconnectDevice:()=> controller.reconnect(),
                           ),
                         ),
                       ),
@@ -216,11 +216,11 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                             visible: controller.screen_status.value == ScreenEnum.DEVICE_NOT_FOUND.name,
                             child: Center(
                               child: DeviceReconnectView(
-                                imageAsset: 'assets/images/device/img_bmi_first.svg',
+                                imageAsset: 'assets/images/screening/ic_bmi_connect.svg',
                                 suggestion: 'label_keep_device_switch_on'.tr,
                                 message: 'label_device_not_found'.tr,
                                 onReconnectDevice: () async {
-                                  await controller.connect();
+                                  await controller.reconnect();
                                 },
                                 //onManualSelect: ()=> Get.offNamed(BmiHeightInputView.routeName, id:controller.isNestedRoute?1: null),
                               ),
@@ -288,7 +288,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
                                 imageAsset: 'assets/images/screening/ic_bmi_connect.svg',
                                 suggestion: 'label_keep_device_switch_on'.tr,
                                 message: 'label_device_disconnected_please_reconnect_to_get_measurements'.tr,
-                                onReconnectDevice:()=> controller.connect(),
+                                onReconnectDevice:()=> controller.reconnect(),
                               ),
                             ),
                           ),
@@ -442,7 +442,7 @@ class FatDeviceConnectionView extends RapidView<FatDeviceConnectionLogic> {
   @override
   void loadDependentLogics() {
     Get.put(ScreeningReportRepository());
-    Get.put(FatDeviceConnectionLogic(repository: Get.find<ScreeningReportRepository>(), profileRepository: Get.find<ProfileRepository>() ));
+    Get.lazyPut(() => FatDeviceConnectionLogic(repository: Get.find<ScreeningReportRepository>(), profileRepository: Get.find<ProfileRepository>() ), fenix: true);
   }
 
   void changeEvent(BuildContext context) {

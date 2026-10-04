@@ -14,7 +14,7 @@ import 'package:cmed_lib_flutter/common/widget/device/cmed_measurement_running_m
 import 'package:cmed_lib_flutter/common/helper/text_utils.dart';
 import '../../../../dto/measurement_dto.dart';
 import '../../enum/screen_enum.dart';
-
+import 'package:flutter/foundation.dart';
 class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
   static String routeName = '/ecg_device_connection_page';
 
@@ -197,7 +197,7 @@ class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
                           child: const Center(
                               child: CircularProgressIndicator()));
                     }),
-                    Align(
+                    kDebugMode?Align(
                       alignment: AlignmentGeometry.topCenter,
                       child: InkWell(
                           onTap: (){
@@ -205,7 +205,7 @@ class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
                           },
                           child: Text('ChangeEvent')
                       ),
-                    ),
+                    ):SizedBox.shrink(),
                     Visibility(
                       visible: controller.screen_status.value ==
                           ScreenEnum.RESULT_FOUND.name,
@@ -502,7 +502,7 @@ class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
                               child: const Center(
                                   child: CircularProgressIndicator()));
                         }),
-                        Align(
+                        kDebugMode? Align(
                           alignment: AlignmentGeometry.topCenter,
                           child: InkWell(
                               onTap: (){
@@ -510,7 +510,7 @@ class EcgDeviceConnectionView extends RapidView<EcgDeviceConnectionLogic> {
                               },
                               child: Text('ChangeEvent')
                           ),
-                        ),
+                        ):SizedBox.shrink(),
                         // Container(child: Text(""),),
                       ],
                     ),
