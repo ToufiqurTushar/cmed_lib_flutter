@@ -199,6 +199,6 @@ class BmiDeviceConnectionLogic extends BaseLogic {
   }
 
   reconnect() {
-    Get.offNamed(BmiDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false);
+    Get.offNamed(BmiDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false, id: isNestedRoute? 1: null);
   }
 }

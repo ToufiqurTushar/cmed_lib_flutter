@@ -223,6 +223,6 @@ class FatDeviceConnectionLogic extends BaseLogic {
   }
 
   reconnect() {
-    Get.offNamed(FatDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false);
+    Get.offNamed(FatDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false, id: isNestedRoute? 1: null);
   }
 }
