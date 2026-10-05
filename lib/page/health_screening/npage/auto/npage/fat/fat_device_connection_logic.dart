@@ -156,11 +156,11 @@ class FatDeviceConnectionLogic extends BaseLogic {
     return text;
   }
 
-  disconnect() {
+  Future<void> disconnect() async{
     isLoading.value = false;
-    cmedFatDevicesLib.disconnect();
+    await stopMeasurement();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
-    player.dispose();
+    await player.dispose();
   }
 
   void sendMeasurement() {
@@ -214,15 +214,18 @@ class FatDeviceConnectionLogic extends BaseLogic {
   }
 
   @override
-  void onClose() {
-    disconnect();
+  Future<void> onClose() async{
+    await disconnect();
+    super.onClose();
   }
 
-  stopMeasurement() {
-     cmedFatDevicesLib.disconnect();
+  Future<void> stopMeasurement() async{
+     await cmedFatDevicesLib.disconnect();
   }
 
-  reconnect() {
-    Get.offNamed(FatDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false, id: isNestedRoute? 1: null);
+  Future<void> reconnect() async{
+    await stopMeasurement();
+    cmedFatDevicesLib.connect();
   }
+
 }

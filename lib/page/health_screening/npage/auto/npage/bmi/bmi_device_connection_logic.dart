@@ -139,11 +139,11 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     return text;
   }
 
-  disconnect() {
+  Future<void> disconnect() async{
     isLoading.value = false;
-    _cmedBmiDevicesLib.disconnect();
+    await stopMeasurement();
     screen_status.value = ScreenEnum.DISCONNECTED.name;
-    player.dispose();
+    await player.dispose();
   }
 
   void sendMeasurement() {
@@ -189,16 +189,19 @@ class BmiDeviceConnectionLogic extends BaseLogic {
     });
   }
 
+
   @override
-  void onClose() {
-    disconnect();
+  Future<void> onClose() async{
+    await disconnect();
+    super.onClose();
   }
 
-  stopMeasurement() {
-     _cmedBmiDevicesLib.disconnect();
+  Future<void> stopMeasurement() async{
+    await _cmedBmiDevicesLib.disconnect();
   }
 
-  reconnect() {
-    Get.offNamed(BmiDeviceConnectionView.routeName, arguments: Get.arguments, preventDuplicates: false, id: isNestedRoute? 1: null);
+  Future<void> reconnect() async{
+    await stopMeasurement();
+    _cmedBmiDevicesLib.connect();
   }
 }
