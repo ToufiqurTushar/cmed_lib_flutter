@@ -378,7 +378,37 @@ class OxygenSaturationInputView extends RapidView<OxygenSaturationLogic> {
         "Oxygen saturation level is LOW, please consult doctor for evaluation.": "ଅମ୍ଳଜାନ ସାଚୁରେସନ୍ ସ୍ତର କମ୍ ଅଛି, ଦୟାକରି ମୂଲ୍ୟାଙ୍କନ ପାଇଁ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ।",
         "Very low": "ବହୁତ କମ୍",
         "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "ଅମ୍ଳଜାନ ସାଚୁରେସନ୍ ସ୍ତର ବହୁତ କମ୍ ଅଛି, ଦୟାକରି ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ତୁରନ୍ତ ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।"
-      }
+      },
+      "ur_PK": {
+        "Normal": "نارمل",
+        "Healthy": "صحت مند",
+        "Oxygen saturation level is NORMAL.": "آکسیجن سنترپتی کی سطح نارمل ہے۔",
+        "Low": "کم",
+        "High Risk": "ہائی رسک",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "آکسیجن سیچوریشن لیول کم ہے، براہ کرم تشخیص کے لیے ڈاکٹر سے رجوع کریں۔",
+        "Very low": "بہت کم",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "آکسیجن سیچوریشن لیول بہت کم ہے، براہ کرم ڈاکٹر سے رجوع کریں یا فوری طور پر قریبی ہسپتال جائیں۔",
+      },
+      "ar_SA": {
+        "Normal": "طبيعي",
+        "Healthy": "صحيح",
+        "Oxygen saturation level is NORMAL.": "مستوى تشبع الأكسجين طبيعي.",
+        "Low": "قليل",
+        "High Risk": "خطر مرتفع",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "مستوى تشبع الأكسجين منخفض، يرجى استشارة الطبيب لإجراء التقييم.",
+        "Very low": "منخفض جداً",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "مستوى تشبع الأكسجين منخفض للغاية، يرجى استشارة الطبيب أو زيارة أقرب مستشفى على الفور.",
+      },
+      "es_ES": {
+        "Normal": "Normal",
+        "Healthy": "Saludable",
+        "Oxygen saturation level is NORMAL.": "El nivel de saturación de oxígeno es NORMAL.",
+        "Low": "Bajo",
+        "High Risk": "Alto riesgo",
+        "Oxygen saturation level is LOW, please consult doctor for evaluation.": "El nivel de saturación de oxígeno es BAJO, por favor consulte a un médico para una evaluación.",
+        "Very low": "Muy bajo",
+        "Oxygen saturation level is VERY LOW, please consult with doctor or visit nearby hospital immediately.": "El nivel de saturación de oxígeno es MUY BAJO, por favor consulte a un médico o acuda al hospital más cercano de inmediato.",
+      },
     };
   }
 

@@ -19,6 +19,9 @@ class UserManagementI18N {
       'ta_IN': {
 
       },
+      'ur_PK': {},
+      'ar_SA': {},
+      'es_ES': {},
     };
   }
 }

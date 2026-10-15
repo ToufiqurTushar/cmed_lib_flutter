@@ -437,6 +437,42 @@ class WfaInputView extends RapidView<WfaInputLogic> {
         "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.":
             "ଆପଣଙ୍କ ଶିଶୁର ବୟସ ଅନୁସାରେ ଓଜନ ଅଧିକ ଅଛି। ଓଜନ କମାଇବା ପାଇଁ ପୁଷ୍ଟି ବିଶେଷଜ୍ଞ କିମ୍ବା ଡାକ୍ତରଙ୍କ ପରାମର୍ଶ ନିଅନ୍ତୁ। ଆପଣଙ୍କ ଶିଶୁକୁ ତେଲିଆ ଏବଂ ଚର୍ବିଯୁକ୍ତ ଖାଦ୍ୟ (ଫାଷ୍ଟ ଫୁଡ୍ କିମ୍ବା ଭଜା ଖାଦ୍ୟ) ଦେବାକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ। ଆପଣଙ୍କ ଶିଶୁ ପ୍ରତିଦିନ ଅତି କମରେ ଏକ ଘଣ୍ଟା ନିୟମିତ ଶାରୀରିକ କାର୍ଯ୍ୟକଳାପ (ଖେଳକୁଦ) କରିବା ଆବଶ୍ୟକ। ଅନ୍ୟଥା ଅଧିକ ଓଜନ ଯୋଗୁଁ ଭବିଷ୍ୟତରେ ଉଚ୍ଚ ରକ୍ତଚାପ, ମଧୁମେହ ଭଳି ଅନେକ ରୋଗ ହୋଇପାରେ।",
       },
+      "ur_PK": {
+        "Severe Underweight": "شدید کم وزن",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "آپ کے بچے کا وزن عمر کے لحاظ سے بہت کم ہے، براہ کرم ڈاکٹر سے مشورہ کریں یا فوری طور پر قریبی ہسپتال جائیں۔",
+        "Moderate Underweight": "اعتدال سے کم وزن",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "آپ کے بچے کا وزن عمر کے لحاظ سے اعتدال سے کم ہے، براہ کرم تشخیص کے لیے ڈاکٹر سے رجوع کریں۔",
+        "Mild Underweight": "ہلکا کم وزن",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "آپ کے بچے کا وزن عمر کے لحاظ سے ہلکا کم ہے، براہ کرم تشخیص کے لیے ڈاکٹر سے رجوع کریں۔",
+        "Normal": "نارمل",
+        "Your child is well nourished, please continue balanced diet as usual.": "آپ کا بچہ اچھی طرح سے پرورش پا رہا ہے، براہ کرم معمول کے مطابق متوازن خوراک جاری رکھیں۔",
+        "Overweight": "زیادہ وزن",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "آپ کا بچہ ہے عمر کے حساب سے وزن زیادہ ہے۔ وزن کم کرنے کے لیے برائے مہربانی ماہر غذائیت یا معالج سے رجوع کریں۔ آپ کو اپنے بچے کو تیل اور چکنائی والی خوراک (فاسٹ فوڈ یا تلی ہوئی کھانے کی اشیاء) دینے پر کنٹرول کرنا ہوگا۔ اور آپ کے بچے کو روزانہ کم از کم ایک گھنٹہ باقاعدہ جسمانی سرگرمی (کھیلنا) کرنے کی ضرورت ہے۔  بصورت دیگر زیادہ وزن مستقبل کی بالغ زندگی میں ہائی بلڈ پریشر، ذیابیطس جیسی کئی بیماریوں کا سبب بن سکتا ہے۔",
+      },
+      "ar_SA": {
+        "Severe Underweight": "نقص حاد في الوزن",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "يعاني طفلك من نقص حاد في الوزن بالنسبة لعمره، يرجى استشارة الطبيب أو زيارة أقرب مستشفى على الفور.",
+        "Moderate Underweight": "نقص الوزن المعتدل",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "يعاني طفلك من نقص معتدل في الوزن بالنسبة لعمره، يرجى استشارة الطبيب لإجراء التقييم.",
+        "Mild Underweight": "نقص طفيف في الوزن",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "يعاني طفلك من نقص طفيف في الوزن بالنسبة لعمره، يرجى استشارة الطبيب لإجراء التقييم.",
+        "Normal": "طبيعي",
+        "Your child is well nourished, please continue balanced diet as usual.": "طفلك يتمتع بتغذية جيدة، يرجى الاستمرار في اتباع نظام غذائي متوازن كالمعتاد.",
+        "Overweight": "زيادة الوزن",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "طفلك يعاني من زيادة الوزن بالنسبة لعمره. يُرجى استشارة أخصائي تغذية أو طبيب مختص لإنقاص وزنه. عليكِ الحد من تناول الأطعمة الدهنية والمُشبعة بالزيوت (كالوجبات السريعة والأطعمة المقلية) لطفلك، كما يحتاج طفلك إلى ممارسة النشاط البدني بانتظام (كاللعب) لمدة ساعة على الأقل يوميًا. وإلا، فإن زيادة الوزن قد تُسبب له العديد من الأمراض في المستقبل، مثل ارتفاع ضغط الدم والسكري.",
+      },
+      "es_ES": {
+        "Severe Underweight": "Bajo peso severo",
+        "Your child is severely underweight according to age, please consult with doctor or visit nearby hospital immediately.": "Su hijo/a tiene un peso muy inferior al normal para su edad; por favor, consulte con un médico o acuda al hospital más cercano de inmediato.",
+        "Moderate Underweight": "Bajo peso moderado",
+        "Your child is moderately underweight according to age, please consult with doctor for evaluation.": "Su hijo/a tiene un peso ligeramente inferior al normal para su edad; consulte con un médico para que lo evalúe.",
+        "Mild Underweight": "Ligeramente por debajo del peso",
+        "Your child has mild underweight according to age, please consult doctor for evaluation.": "Su hijo/a tiene un peso ligeramente inferior al normal para su edad; consulte con un médico para que lo evalúe.",
+        "Normal": "Normal",
+        "Your child is well nourished, please continue balanced diet as usual.": "Su hijo/a está bien alimentado/a, por favor continúe con su dieta equilibrada habitual.",
+        "Overweight": "Sobrepeso",
+        "You are child is overweight according to age. Please consult with nutritionist or physician for weight reduction. You have to control to give oily & fatty food (fast food or fried food items) to your child. and your child need to do regular physical activity (playing) at least one hour daily.  Otherwise excess weight can cause several disease conditions like hypertension, diabetes in future adult life.": "Su hijo tiene sobrepeso para su edad. Consulte con un nutricionista o médico para ayudarle a bajar de peso. Debe controlar el consumo de alimentos grasos y aceitosos (comida rápida o frita). Además, su hijo necesita realizar actividad física regularmente (jugar) al menos una hora al día. De lo contrario, el exceso de peso puede causarle diversas enfermedades como hipertensión y diabetes en la edad adulta.",
+      },
     };
   }
 

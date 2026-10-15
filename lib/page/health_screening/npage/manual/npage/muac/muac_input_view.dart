@@ -273,7 +273,40 @@ class MuacInputView extends RapidView<MuacInputLogic> {
         "Normal": "ସାଧାରଣ",
         "Healthy": "ସୁସ୍ଥ",
         "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "ଅଭିନନ୍ଦନ! ଶିଶୁଟି ଭଲ ଭାବରେ ପୁଷ୍ଟି ପାଇଛି। ଆପଣଙ୍କ ଶିଶୁକୁ ଉପଯୁକ୍ତ ଏବଂ ନିୟମିତ ସନ୍ତୁଳିତ ଖାଦ୍ୟ ଦେଇ ଏହି ସ୍ଥିତିକୁ ବଜାୟ ରଖନ୍ତୁ।"
-      }
+      },
+      "ur_PK": {
+        "Severe Acute Malnutrition": "شدید شدید غذائی قلت",
+        "High Risk": "ہائی رسک",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "شدید غذائیت کا شکار بچہ۔ براہ کرم گھبرائیں نہیں اور ڈاکٹر سے رجوع کریں یا فوراً قریبی ہسپتال جائیں۔",
+        "Moderate Acute Malnutrition": "اعتدال پسند شدید غذائیت",
+        "Moderate Risk": "اعتدال پسند خطرہ",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "غذائیت کا شکار بچہ، مزید تشخیص اور مشورہ کے لیے براہ کرم ڈاکٹر/غذائیت کے ماہر سے رجوع کریں۔",
+        "Normal": "نارمل",
+        "Healthy": "صحت مند",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "مبارک ہو! اچھی پرورش والا بچہ۔ براہ کرم اپنے بچے کو مناسب باقاعدگی سے متوازن غذا فراہم کرکے اس سطح کو برقرار رکھیں۔",
+      },
+      "ar_SA": {
+        "Severe Acute Malnutrition": "سوء التغذية الحاد الوخيم",
+        "High Risk": "خطر مرتفع",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "طفل يعاني من سوء تغذية حاد. من فضلك لا داعي للذعر واستشر طبيباً أو توجه إلى أقرب مستشفى على الفور.",
+        "Moderate Acute Malnutrition": "سوء التغذية الحاد المتوسط",
+        "Moderate Risk": "خطر متوسط",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "في حالة سوء التغذية، يرجى استشارة الطبيب/أخصائي التغذية لإجراء المزيد من التقييم وتقديم النصائح.",
+        "Normal": "طبيعي",
+        "Healthy": "صحيح",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "تهانينا! طفلك يتمتع بتغذية جيدة. يُرجى الحفاظ على هذا المستوى من خلال تزويد طفلك بنظام غذائي متوازن ومنتظم.",
+      },
+      "es_ES": {
+        "Severe Acute Malnutrition": "Desnutrición aguda grave",
+        "High Risk": "Alto riesgo",
+        "Severely malnourished child. Please don't panic and consult a doctor or go to the nearest hospital right away.": "Niño gravemente desnutrido. Por favor, no se alarme y consulte a un médico o acuda inmediatamente al hospital más cercano.",
+        "Moderate Acute Malnutrition": "Desnutrición aguda moderada",
+        "Moderate Risk": "Riesgo moderado",
+        "Malnourished child , please consult doctor/nutritionist for further evaluation and advice.": "Niño desnutrido, consulte a un médico o nutricionista para una evaluación y asesoramiento adicionales.",
+        "Normal": "Normal",
+        "Healthy": "Saludable",
+        "Congratulations! Well nourished child. Please maintain this level by providing your child with proper regular balanced diet.": "¡Felicidades! ¡Qué bien nutrido está tu hijo! Por favor, mantén este nivel proporcionándole una dieta equilibrada y regular.",
+      },
     };
   }
 
