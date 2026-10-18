@@ -456,7 +456,46 @@ class TempInputView extends RapidView<TempInputLogic> {
           "HIGH temperature, consult with doctor or visit nearby hospital.": "ତାପମାତ୍ରା ଅଧିକ ଥିଲେ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।",
           "Very high": "ବହୁତ ଅଧିକ",
           "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ତାପମାତ୍ରା ବହୁତ ଅଧିକ ଥିଲେ ତୁରନ୍ତ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ନିକଟସ୍ଥ ହସ୍ପିଟାଲକୁ ଯାଆନ୍ତୁ।"
-        }
+        },
+        "ur_PK": {
+          "Very low": "بہت کم",
+          "High Risk": "ہائی رسک",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "بہت کم درجہ حرارت میں اپنے آپ کو کمبل / بستر کی چادر سے ڈھانپیں اور دوبارہ چیک کریں یا، فوری طور پر ڈاکٹر سے مشورہ کریں یا قریبی ہسپتال جائیں۔",
+          "Low": "کم",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "کم درجہ حرارت، اپنے آپ کو کمبل یا بیڈ شیٹ سے ڈھانپیں اور دوبارہ چیک کریں۔",
+          "Normal": "نارمل",
+          "NORMAL temperature": "نارمل درجہ حرارت",
+          "High": "اعلی",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "زیادہ درجہ حرارت، ڈاکٹر سے مشورہ کریں یا قریبی ہسپتال جائیں۔",
+          "Very high": "بہت اعلیٰ",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "بہت زیادہ درجہ حرارت، فوری طور پر ڈاکٹر سے مشورہ کریں یا قریبی ہسپتال جائیں۔",
+        },
+        "ar_SA": {
+          "Very low": "منخفض جداً",
+          "High Risk": "خطر مرتفع",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "في حالة انخفاض درجة الحرارة بشكل كبير، قم بتغطية نفسك ببطانية / ملاءة سرير، ثم تحقق مرة أخرى، أو استشر طبيباً على الفور أو قم بزيارة أقرب مستشفى.",
+          "Low": "قليل",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "درجة حرارة منخفضة، غطِ نفسك ببطانية أو ملاءة سرير وتحقق مرة أخرى.",
+          "Normal": "طبيعي",
+          "NORMAL temperature": "درجة حرارة طبيعية",
+          "High": "عالي",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "في حالة ارتفاع درجة الحرارة، استشر طبيباً أو قم بزيارة أقرب مستشفى.",
+          "Very high": "مرتفع جداً",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "ارتفاع شديد في درجة الحرارة، استشر الطبيب فوراً أو قم بزيارة أقرب مستشفى.",
+        },
+        "es_ES": {
+          "Very low": "Muy bajo",
+          "High Risk": "Alto riesgo",
+          "VERY LOW temperature cover yourself with blanket / bed sheet and check again or, consult with doctor immediately or visit nearby hospital.": "Si la temperatura es MUY BAJA, cúbrase con una manta o sábana y vuelva a comprobarla, o bien, consulte a un médico inmediatamente o acuda al hospital más cercano.",
+          "Low": "Bajo",
+          "LOW temperature, cover yourself with blanket or bed sheet and check again.": "Si la temperatura es baja, cúbrase con una manta o una sábana y vuelva a comprobarlo.",
+          "Normal": "Normal",
+          "NORMAL temperature": "temperatura NORMAL",
+          "High": "Alto",
+          "HIGH temperature, consult with doctor or visit nearby hospital.": "Fiebre alta, consulte a un médico o acuda al hospital más cercano.",
+          "Very high": "Muy alto",
+          "VERY HIGH temperature, consult with doctor immediately or visit nearby hospital.": "Fiebre MUY ALTA, consulte a un médico de inmediato o acuda al hospital más cercano.",
+        },
       };
   }
 
