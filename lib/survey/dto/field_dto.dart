@@ -5,6 +5,8 @@ import '../enum/enum.dart';
 import 'Condition.dart';
 import 'SkipRule.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
+import '../../page/rgp/dto/HouseholdSurevyMember.dart';
+
 class Field {
   Field({
     this.label,
@@ -22,7 +24,8 @@ class Field {
     this.defaultValue,
     this.visibilityConditions,
     this.requiredConditions,
-    this.skipRule
+    this.skipRule,
+    this.members,
   });
 
   Field.fromJson(dynamic json) {
@@ -63,6 +66,16 @@ class Field {
       });
     }
     skipRule = json['skip_rule'] != null ? SkipRule.fromJson(json['skip_rule']) : null;
+    if (json['members'] != null) {
+      members = [];
+      json['members'].forEach((v) {
+        if (v is HouseholdSurevyMember) {
+          members?.add(v);
+        } else {
+          members?.add(HouseholdSurevyMember.fromJson(v));
+        }
+      });
+    }
   }
   String? serial;
   String? label;
@@ -80,6 +93,7 @@ class Field {
   List<FieldCondition>? visibilityConditions;
   List<FieldCondition>? requiredConditions;
   SkipRule? skipRule;
+  List<HouseholdSurevyMember>? members;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -106,6 +120,9 @@ class Field {
     }
     if (skipRule != null) {
       map['skip_rule'] = skipRule?.toJson();
+    }
+    if (members != null) {
+      map['members'] = members?.map((v) => v.toJson()).toList();
     }
     
     

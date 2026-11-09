@@ -37,4 +37,23 @@ class HouseholdSurevyMember {
     return map;
   }
 
+  HouseholdSurevyMember copyWith({
+    int? userId,
+    int? memberId,
+    int? profileId,
+    String? display,
+    String? value,
+    int? lmpDate,
+    int? eddDate,
+  }) {
+    return HouseholdSurevyMember(
+      userId: userId ?? this.userId,
+      memberId: memberId ?? this.memberId,
+      profileId: profileId ?? this.profileId,
+      display: display ?? this.display,
+      value: value ?? this.value,
+      lmpDate: lmpDate ?? this.lmpDate,
+      eddDate: eddDate ?? this.eddDate,
+    );
+  }
 }

@@ -38,7 +38,10 @@ class HouseholdSurveyI18N {
         "Employee State Insurance Corporation (ESIC)": "Employee State Insurance Corporation (ESIC)",
         "Gruha Arogya Scheme": "Gruha Arogya Scheme",
         "Private Health Insurance": "Private Health Insurance",
-        "Ayushmaan Bharat Health Account (ABHA)": "Ayushmaan Bharat Health Account (ABHA)"
+        "Ayushmaan Bharat Health Account (ABHA)": "Ayushmaan Bharat Health Account (ABHA)",
+        "Select Member": "Select Member",
+        "Done": "Done",
+        "No members found": "No members found",
       },
       "bn_BD": {
         "Household Survey": "হাউসহোল্ড সার্ভে",
@@ -49,6 +52,9 @@ class HouseholdSurveyI18N {
         "Civic IDs": "নাগরিক পরিচয়পত্র",
         "Yes/No": "হ্যাঁ/না",
         "write here": "এখানে লিখুন",
+        "Select Member": "সদস্য নির্বাচন করুন",
+        "Done": "সম্পন্ন হয়েছে",
+        "No members found": "কোনো সদস্য পাওয়া যায়নি",
       },
       "kn_IN": {
         "Household Survey": "ಮನೆ ಸಮೀಕ್ಷೆ",

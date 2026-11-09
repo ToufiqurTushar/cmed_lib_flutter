@@ -656,10 +656,13 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       //formKey.currentState?.patchValue(controller.answers);
       //RLog.warning(value);
       // formKey.currentState?.fields[field.name]?.didChange(value);
-      return _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
-        controller.answers[field.name!] = val;
-        controller.answers.refresh();
-      });
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
+          controller.answers[field.name!] = val;
+          controller.answers.refresh();
+        }),
+      );
     });
   }
 

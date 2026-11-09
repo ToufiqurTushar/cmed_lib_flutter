@@ -153,7 +153,6 @@ class SurveyManagerLogic extends RapidStartLogic  with SingleGetTickerProviderMi
     }
 
     if(isTabStyle) {
-      RLog.warning('isTabStyle field name: , serial: ');
       tabPages = _loadTabs(selectedSurvey!, tabContents);
     }
   }
