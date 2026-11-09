@@ -51,7 +51,7 @@ class SocialProtectionLogic extends BaseLogic {
           });
         }
         selectedSurvey.value = allSurveys.first;
-        // modify visibility condition
+        // modify visibility condition if need(demo code access)
         selectedSurvey.value!.fields!.forEach((field) {
           FieldCondition(hide: true, operator: FBConditionType.isHidden.name);
         });

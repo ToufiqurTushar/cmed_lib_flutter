@@ -144,6 +144,7 @@ class Field {
   get decimal => inputType == 'decimal';
   get multiSelect => inputType == 'multiSelect';
   get checkboxHouseholdMember => inputType == 'checkboxHouseholdMember';
+  get checkboxSingle => inputType == 'checkboxSingle';
 
   bool visibleWhen(GlobalKey<FormBuilderState> formKey, Map<String, dynamic> answers) {
     final results = <bool>[];
@@ -160,13 +161,13 @@ class Field {
       //final dynamic expectedValue = 'yes';
 
       bool r = false;
-      RLog.info('sourceField: ${condition.sourceField}\n'
-          'inputValue: $inputValue\n'
-          'expectedValue:$expectedValue\n'
-          'logic:${condition.logic}\n'
-          'operator: ${condition.operator}\n'
-          'effectType: ${condition.effectType}\n'
-      );
+      // RLog.info('sourceField: ${condition.sourceField}\n'
+      //     'inputValue: $inputValue\n'
+      //     'expectedValue:$expectedValue\n'
+      //     'logic:${condition.logic}\n'
+      //     'operator: ${condition.operator}\n'
+      //     'effectType: ${condition.effectType}\n'
+      // );
 
       switch (FBConditionType.fromString(condition.operator)) {
         case FBConditionType.equals:

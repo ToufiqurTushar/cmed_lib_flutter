@@ -36,7 +36,19 @@ Widget RadioGroups({
                 orientation: useVertical? OptionsOrientation.vertical: OptionsOrientation.wrap,
                 options: field.options!.map((FieldOption option) => FormBuilderFieldOption(
                   value: option.value,
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 4), child: Align(alignment: Alignment.centerLeft, child: Text(option.title!, textAlign: TextAlign.left,)),),
+                  // FIX: Wrap inside IntrinsicWidth so individual options wrap horizontally correctly
+                  child: IntrinsicWidth(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          option.title!,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                  ),
                 )).toList(growable: false),
                 wrapAlignment: WrapAlignment.start,
                 wrapSpacing: 16.0,

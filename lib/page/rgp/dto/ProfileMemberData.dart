@@ -4,7 +4,7 @@ import 'DiseaseMembers.dart';
 class ProfileMemberData {
   ProfileMemberData({
       this.householdId, 
-      this.householdSurevyMember,
+      this.nidMembers,
       this.bcnMembers, 
       this.pregnantMembers, 
       this.diseaseMembers, 
@@ -15,9 +15,9 @@ class ProfileMemberData {
   ProfileMemberData.fromJson(dynamic json) {
     householdId = json['household_id'];
     if (json['nid_members'] != null) {
-      householdSurevyMember = [];
+      nidMembers = [];
       json['nid_members'].forEach((v) {
-        householdSurevyMember?.add(HouseholdSurevyMember.fromJson(v));
+        nidMembers?.add(HouseholdSurevyMember.fromJson(v));
       });
     }
     if (json['bcn_members'] != null) {
@@ -47,7 +47,7 @@ class ProfileMemberData {
     }
   }
   int? householdId;
-  List<HouseholdSurevyMember>? householdSurevyMember;
+  List<HouseholdSurevyMember>? nidMembers;
   List<HouseholdSurevyMember>? bcnMembers;
   List<HouseholdSurevyMember>? pregnantMembers;
   DiseaseMembers? diseaseMembers;
@@ -57,8 +57,8 @@ class ProfileMemberData {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['household_id'] = householdId;
-    if (householdSurevyMember != null) {
-      map['nid_members'] = householdSurevyMember?.map((v) => v.toJson()).toList();
+    if (nidMembers != null) {
+      map['nid_members'] = nidMembers?.map((v) => v.toJson()).toList();
     }
     if (bcnMembers != null) {
       map['bcn_members'] = bcnMembers?.map((v) => v.toJson()).toList();

@@ -1,6 +1,7 @@
 import 'package:cmed_lib_flutter/survey/survey_manager_logic.dart';
 import 'package:cmed_lib_flutter/survey/widget/app_dialog.dart';
 import 'package:cmed_lib_flutter/survey/widget/checkbox_household_member.dart';
+import 'package:cmed_lib_flutter/survey/widget/checkbox_single.dart';
 import 'package:cmed_lib_flutter/survey/widget/decimal_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/dropdown_select.dart';
 import 'package:cmed_lib_flutter/survey/widget/edittext.dart';
@@ -536,9 +537,37 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               formKey: formKey,
               padding: 12,
               elevation: 2,
-              onChanged: (val){
+              onChanged: (val, [members]){
                 onSelectAnswer?.call(field.name!, val);
                 onChanged?.call(field.name!, val);
+                if (members != null) {
+                  controller.answers['${field.name}_members'] = members;
+                } else {
+                  controller.answers.remove('${field.name}_members');
+                }
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
+    else if(field.checkboxSingle) {
+      return Column(
+        children: [
+          CheckboxSingle(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val, [members]){
+                onSelectAnswer?.call(field.name!, val);
+                onChanged?.call(field.name!, val);
+                if (members != null) {
+                  controller.answers['${field.name}_members'] = members;
+                } else {
+                  controller.answers.remove('${field.name}_members');
+                }
               }
           ),
           const SizedBox(height: 8,)
@@ -611,6 +640,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   }
 
 
+  //demo code
   Widget _buildCurrentTabContents(List<TabPage> visibleTabs, context, formKey) {
     return Obx(() {
       final tabIndex = controller.currentTab.value;
@@ -656,12 +686,15 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       //formKey.currentState?.patchValue(controller.answers);
       //RLog.warning(value);
       // formKey.currentState?.fields[field.name]?.didChange(value);
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
-          controller.answers[field.name!] = val;
-          controller.answers.refresh();
-        }),
+      return IgnorePointer(
+        ignoring: field.readOnly??false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
+            controller.answers[field.name!] = val;
+            controller.answers.refresh();
+          }),
+        ),
       );
     });
   }

@@ -9,6 +9,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../common/api/api_url.dart';
 import '../../common/base/base_logic.dart';
 import '../../common/widget/app_dialog.dart';
+import '../../survey/dto/Condition.dart';
 import 'dto/HouseholdSurveyContexDto.dart';
 import 'dto/HouseholdSurveyRequestDto.dart';
 import 'dto/HouseholdSurevyMember.dart';
@@ -55,7 +56,15 @@ class HouseholdSurveyLogic extends BaseLogic {
         // modify visibility condition
         selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
         selectedSurvey.value!.fields!.forEach((field) {
-          final  checkboxHouseholdMemberTypeFieldKey = ['hs_18_8_nid', 'hs_18_11_bcn', 'hs_18_17_pregnant', 'hs_18_19_diabetes', 'hs_18_21_high_bp', 'hs_18_23_kidney', 'hs_18_25_cancer', 'hs_18_27_low_bp', 'hs_18_29_malnutrition_u5', 'hs_18_31_eye', 'hs_18_33_ear', 'hs_18_35_pneumonia', 'hs_18_37_diarrhea', 'hs_18_39_hepatitis', 'hs_18_40_paralysis', 'hs_18_43_other_complicated'];
+          if(field.inputType == 'switchButton') {
+            field.inputType = 'checkboxSingle';
+          }
+          if(field.name!.contains("_count")){
+            field.visibilityConditions = [FieldCondition(hide: false, operator: FBConditionType.isHidden.name)];
+            field.readOnly = true;
+            field.min = 0;
+          }
+          final  checkboxHouseholdMemberTypeFieldKey = ['hs_18_8_nid',  'hs_18_11_bcn', 'hs_18_17_pregnant', 'hs_18_19_diabetes', 'hs_18_21_high_bp', 'hs_18_23_kidney', 'hs_18_25_cancer', 'hs_18_27_low_bp', 'hs_18_29_malnutrition_u5', 'hs_18_31_eye', 'hs_18_33_ear', 'hs_18_35_pneumonia', 'hs_18_37_diarrhea', 'hs_18_39_hepatitis', 'hs_18_40_paralysis', 'hs_18_43_other_complicated'];
           if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
             field.inputType = 'checkboxHouseholdMember';
             if (field.members == null || field.members!.isEmpty) {
@@ -90,7 +99,8 @@ class HouseholdSurveyLogic extends BaseLogic {
         surveyOn: DateTime.now().millisecondsSinceEpoch,
         inputs: formMap,
         profileMemberData: ProfileMemberData(
-          householdId: customer.value.householdId!
+          householdId: customer.value.householdId!,
+          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>)
         )
     );
     globalState.showBusy();
