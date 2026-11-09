@@ -30,7 +30,7 @@ class HouseholdSurveyLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getHouseholdContextUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
+    await httpProvider.GET(ApiUrl.getHouseholdSurveyContextUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
       if (response.isOk && response.statusCode == 200) {
         final results = SurveyResultResponseDto.fromJson(response.body).content;
         if(results?.isNotEmpty??false){
@@ -55,9 +55,12 @@ class HouseholdSurveyLogic extends BaseLogic {
         selectedSurvey.value = allSurveys.first;
         // modify visibility condition
         selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
-        // selectedSurvey.value!.fields!.forEach((field) {
-        //   FieldCondition(hide: true, operator: FBConditionType.isHidden.name);
-        // });
+        selectedSurvey.value!.fields!.forEach((field) {
+          final  checkboxHouseholdMemberTypeFieldKey = ['hs_18_9_nid', 'hs_18_11_bcn', 'hs_18_17_pregnant', 'hs_18_19_diabetes', 'hs_18_21_high_bp', 'hs_18_23_kidney', 'hs_18_25_cancer', 'hs_18_27_low_bp', 'hs_18_29_malnutrition_u5', 'hs_18_31_eye', 'hs_18_33_ear', 'hs_18_35_pneumonia', 'hs_18_37_diarrhea', 'hs_18_39_hepatitis', 'hs_18_40_paralysis', 'hs_18_43_other_complicated'];
+          if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
+            field.inputType = field.checkboxHouseholdMember;
+          }
+        });
         Logger().e(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {

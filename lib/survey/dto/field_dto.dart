@@ -126,6 +126,7 @@ class Field {
   get dateTime => inputType == 'dateTime';
   get decimal => inputType == 'decimal';
   get multiSelect => inputType == 'multiSelect';
+  get checkboxHouseholdMember => inputType == 'checkboxHouseholdMember';
 
   bool visibleWhen(GlobalKey<FormBuilderState> formKey, Map<String, dynamic> answers) {
     final results = <bool>[];
@@ -358,15 +359,20 @@ class Field {
     if(results.isNotEmpty) {
       //RLog.info(results.first.toString());
       var isVisible = visibilityConditions?.first.logic == FBConditionLogic.AND ? results.every((e) => e) : results.any((e) => e);
-      if(!isVisible){
-        answers.remove(name);
-        final fieldState = formKey.currentState?.fields[name];
-        if (fieldState != null) {
-          //formKey.currentState!.unregisterField(name!, fieldState);
-          formKey.currentState!.fields[name!]?.didChange(null);
-          print('$name is null');
-        } else {
-          //print('$name not found in form state.');
+      if (!isVisible) {
+        if (answers.containsKey(name) || (name != null && formKey.currentState?.fields[name]?.value != null)) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (name != null && answers.containsKey(name)) {
+              answers.remove(name);
+            }
+            if (name != null) {
+              final fieldState = formKey.currentState?.fields[name];
+              if (fieldState != null && fieldState.value != null) {
+                fieldState.didChange(null);
+                print('$name is null');
+              }
+            }
+          });
         }
       }
       return isVisible;

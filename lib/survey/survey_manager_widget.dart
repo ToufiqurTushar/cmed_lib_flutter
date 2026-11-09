@@ -1,5 +1,6 @@
 import 'package:cmed_lib_flutter/survey/survey_manager_logic.dart';
 import 'package:cmed_lib_flutter/survey/widget/app_dialog.dart';
+import 'package:cmed_lib_flutter/survey/widget/checkbox_household_member.dart';
 import 'package:cmed_lib_flutter/survey/widget/decimal_edittext.dart';
 import 'package:cmed_lib_flutter/survey/widget/dropdown_select.dart';
 import 'package:cmed_lib_flutter/survey/widget/edittext.dart';
@@ -231,11 +232,13 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                         // }
                         //bool visible = field.visibleWhen(controller.formKey, controller.answers);
 
-                        return Obx((){
-                          // RxBool fieldVisibility = true.obs;
-                          // // Future.delayed(Duration.zero, () async {
-                          // //   fieldVisibility.value = field.visibleWhen(controller.formKey, controller.answers);
-                          // // });
+                        final hasVisibilityConditions = field.visibilityConditions != null && field.visibilityConditions!.isNotEmpty;
+                        if (!hasVisibilityConditions) {
+                          return _buildReactiveField(field, context, controller.formKey);
+                        }
+
+                        return Obx(() {
+                          final isVisible = field.visibleWhen(controller.formKey, controller.answers);
                           return AnimatedSwitcher(
                             duration: const Duration(milliseconds: 250),
                             transitionBuilder: (child, anim) {
@@ -250,7 +253,9 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                                 ),
                               );
                             },
-                            child: field.visibleWhen(controller.formKey, controller.answers).obs.value ? _buildReactiveField(field, context, controller.formKey) : const SizedBox.shrink(),
+                            child: isVisible
+                                ? _buildReactiveField(field, context, controller.formKey)
+                                : const SizedBox.shrink(),
                           );
                         });
                       }).toList(),
@@ -522,6 +527,24 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         ],
       );
     }
+    else if(field.checkboxHouseholdMember) {
+      return Column(
+        children: [
+          CheckboxHouseholdMember(
+              field: field,
+              context: context,
+              formKey: formKey,
+              padding: 12,
+              elevation: 2,
+              onChanged: (val){
+                onSelectAnswer?.call(field.name!, val);
+                onChanged?.call(field.name!, val);
+              }
+          ),
+          const SizedBox(height: 8,)
+        ],
+      );
+    }
     return Text("Unknown Input Type: ${field.inputType}");
   }
 
@@ -560,6 +583,10 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         final currentTab = visibleTabs[index];
         Widget tabContent = ListView(
           children: (currentTab.questions??[]).map((field) {
+            final hasVisibilityConditions = field.visibilityConditions != null && field.visibilityConditions!.isNotEmpty;
+            if (!hasVisibilityConditions) {
+              return _buildReactiveField(field, context, formKey);
+            }
             bool visible = field.visibleWhen(controller.formKey, controller.answers);
             return AnimatedSwitcher(
               duration: const Duration(milliseconds: 250),

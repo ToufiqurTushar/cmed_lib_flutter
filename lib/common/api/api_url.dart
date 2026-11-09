@@ -54,7 +54,7 @@ class ApiUrl {
     return "api/v1/survey/submit";
   }
 
-  static String getHouseholdContextUrl({required int householdId, required int userId}) {
+  static String getHouseholdSurveyContextUrl({required int householdId, required int userId}) {
     return "api/v1/household-survey/context?household_id=$householdId&user_id=$userId";
   }
 
