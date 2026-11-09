@@ -4,6 +4,7 @@ import 'package:cmed_lib_flutter/survey/dto/field_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:cmed_lib_flutter/survey/enum/enum.dart';
+import 'package:logger/logger.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../common/api/api_url.dart';
 import '../../common/base/base_logic.dart';
@@ -29,7 +30,7 @@ class HouseholdSurveyLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getLastHouseholdSurveyUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
+    await httpProvider.GET(ApiUrl.getHouseholdContextUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
       if (response.isOk && response.statusCode == 200) {
         final results = SurveyResultResponseDto.fromJson(response.body).content;
         if(results?.isNotEmpty??false){
@@ -53,10 +54,11 @@ class HouseholdSurveyLogic extends BaseLogic {
         }
         selectedSurvey.value = allSurveys.first;
         // modify visibility condition
-        selectedSurvey.value!.fields!.forEach((field) {
-          FieldCondition(hide: true, operator: FBConditionType.isHidden.name);
-        });
-        RLog.info(selectedSurvey.value!.toJson());
+        selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
+        // selectedSurvey.value!.fields!.forEach((field) {
+        //   FieldCondition(hide: true, operator: FBConditionType.isHidden.name);
+        // });
+        Logger().e(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {
 

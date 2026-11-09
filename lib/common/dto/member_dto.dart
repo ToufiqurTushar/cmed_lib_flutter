@@ -407,10 +407,10 @@ class RelationWithHouseholdHeadObj {
 
   factory RelationWithHouseholdHeadObj.fromJson(Map<String, dynamic> json) {
     return RelationWithHouseholdHeadObj(
-      labelBn: json['labelBn'] ?? '',
-      labelEn: json['labelEn'] ?? '',
+      labelBn: json['labelBn'] ?? json['label_bn'] ?? '',
+      labelEn: json['labelEn'] ?? json['label_en'] ?? '',
       type: json['type'] ?? 0,
-      id: json['id'] ?? 0,
+      id: json['id'] ?? json['value'] ?? 0,
     );
   }
 

@@ -56,7 +56,7 @@ class SocialProtectionView extends RapidView<SocialProtectionLogic> {
                   controller.selectedSurvey.value = selectedSurvey;
                 },
                 onSelectAnswer: (String fieldName, val){
-                  print(val);
+                  print("fieldName $fieldName: $val");
                 },
                 beforeNext: (answers) async {
                   final result = await controller.modifyAddSocialProtectionQuestionOptions(answers);

@@ -26,12 +26,12 @@ class MasterDataDTO  {
     uuid = json['uuid'];
     createdAt = json['created_at'];
     lastUpdated = json['last_updated'];
-    labelEn = json['label_en'];
-    labelBn = json['label_bn'];
+    labelEn = json['label_en'] ?? json['labelEn'];
+    labelBn = json['label_bn'] ?? json['labelBn'];
     name = json['name'];
     image = json['image'];
     type = json['type'];
-    value = json['value'];
+    value = json['value'] ?? json['id'];
     gender = json['gender'];
     mapData = json['mapData'];
     number = json['number'];

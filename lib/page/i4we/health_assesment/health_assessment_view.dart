@@ -49,7 +49,7 @@ class HealthAssessmentView extends RapidView<HealthAssessmentLogic> {
                 },
                 showSerialNumber: true,
                 onSelectAnswer: (String fieldName, val){
-
+                  print("fieldName $fieldName: $val");
                 },
                 onSubmit: (selectedGeoup, formMap){
                   print('onSubmit');

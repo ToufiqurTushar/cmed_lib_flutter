@@ -142,12 +142,14 @@ class Field {
       //final dynamic expectedValue = 'yes';
 
       bool r = false;
+      RLog.info('sourceField: ${condition.sourceField}\n'
+          'inputValue: $inputValue\n'
+          'expectedValue:$expectedValue\n'
+          'logic:${condition.logic}\n'
+          'operator: ${condition.operator}\n'
+          'effectType: ${condition.effectType}\n'
+      );
 
-      if(condition.operator == "CONTAINS"){
-        RLog.error(condition.operator);
-        RLog.error(condition.expectedValue);
-        RLog.error(inputValue);
-      }
       switch (FBConditionType.fromString(condition.operator)) {
         case FBConditionType.equals:
           //RLog.info('${answers}');
@@ -247,7 +249,6 @@ class Field {
         case FBConditionType.isHidden:
           //RLog.error('check isHidden operator');
           r = !(condition.hide??false);
-          RLog.error('$r');
           break;
       }
 

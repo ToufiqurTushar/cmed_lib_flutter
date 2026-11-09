@@ -229,38 +229,61 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
                         // if(showSerialNumber) {
                         //   field.serial = '${(index+1)}';
                         // }
-                        return _buildReactiveField(field, context, controller.formKey);
+                        //bool visible = field.visibleWhen(controller.formKey, controller.answers);
+
+                        return Obx((){
+                          // RxBool fieldVisibility = true.obs;
+                          // // Future.delayed(Duration.zero, () async {
+                          // //   fieldVisibility.value = field.visibleWhen(controller.formKey, controller.answers);
+                          // // });
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            transitionBuilder: (child, anim) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(0, 0.2),
+                                  end: Offset.zero,
+                                ).animate(anim),
+                                child: FadeTransition(
+                                  opacity: anim,
+                                  child: child,
+                                ),
+                              );
+                            },
+                            child: field.visibleWhen(controller.formKey, controller.answers).obs.value ? _buildReactiveField(field, context, controller.formKey) : const SizedBox.shrink(),
+                          );
+                        });
                       }).toList(),
                       const SizedBox(height: 16),
                       //result button
                       const SizedBox(height: 8,),
                       if(!hideSubmit)
-                      Obx(
-                        ()=> Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 50,
-                            child: FrElevatedButton(
-                              name:'SEE RESULT'.tr, onPressed: () async => {
+                        Obx(
+                          ()=> Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: 50,
+                              child: FrElevatedButton(
+                                name:'SEE RESULT'.tr, onPressed: () async => {
                                 controller.formSubmit(selectedSurvey)
                               },
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: controller.isFormValid.value? Theme.of(context).primaryColor: Colors.grey,
-                                foregroundColor: Colors.white,
-                                elevation: 10,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: controller.isFormValid.value? Theme.of(context).primaryColor: Colors.grey,
+                                  foregroundColor: Colors.white,
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20), // Rounded corners
+                                  ),
+                                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                 ),
-                                textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   );
                 },
@@ -558,8 +581,8 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         );
         return tabContent;
       }).toList();
-
   }
+
 
   Widget _buildCurrentTabContents(List<TabPage> visibleTabs, context, formKey) {
     return Obx(() {

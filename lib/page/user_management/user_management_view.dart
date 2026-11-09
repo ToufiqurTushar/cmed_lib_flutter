@@ -35,7 +35,7 @@ class UserManagementView extends RapidView<UserManagementLogic> {
                       controller.selectedSurvey.value = selectedSurvey;
                     },
                     onSelectAnswer: (String fieldName, val){
-
+                      print("fieldName $fieldName: $val");
                     },
                     onSubmit: (selectedGeoup, formMap){
                       print('onSubmit');

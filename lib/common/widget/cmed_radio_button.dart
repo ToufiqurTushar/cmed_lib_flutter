@@ -31,19 +31,12 @@ class _CMEDRadioButtonState extends State<CMEDRadioButton> {
   String label = '';
 
   @override
-  void didUpdateWidget(covariant CMEDRadioButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.selectedItemPosition != null &&
-        widget.selectedItemPosition! >= 0 &&
-        widget.selectedItemPosition! < widget.radioItems.length) {
-      _selectedValue = widget.radioItems[widget.selectedItemPosition!];
-    } else if (widget.selectedItemPosition == null) {
-      _selectedValue = null;
-    }
+  void initState() {
+    super.initState();
+    _initSelectedValue();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void _initSelectedValue() {
     if (widget.selectedItemPosition != null &&
         widget.selectedItemPosition! >= 0 &&
         widget.selectedItemPosition! < widget.radioItems.length) {
@@ -51,8 +44,33 @@ class _CMEDRadioButtonState extends State<CMEDRadioButton> {
     } else if (widget.isSelectDefaultValue != null && widget.isSelectDefaultValue!) {
       _selectedValue = widget.radioItems.isNotEmpty ? widget.radioItems[0] : MasterDataDTO(labelEn: '', value: -1);
     } else {
-      _selectedValue ??= MasterDataDTO(labelEn: '', value: -1);
+      _selectedValue = MasterDataDTO(labelEn: '', value: -1);
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant CMEDRadioButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedItemPosition != oldWidget.selectedItemPosition) {
+      if (widget.selectedItemPosition != null &&
+          widget.selectedItemPosition! >= 0 &&
+          widget.selectedItemPosition! < widget.radioItems.length) {
+        _selectedValue = widget.radioItems[widget.selectedItemPosition!];
+      } else if (widget.selectedItemPosition == null) {
+        _selectedValue = null;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _selectedValue ??= (widget.selectedItemPosition != null &&
+            widget.selectedItemPosition! >= 0 &&
+            widget.selectedItemPosition! < widget.radioItems.length)
+        ? widget.radioItems[widget.selectedItemPosition!]
+        : (widget.isSelectDefaultValue != null && widget.isSelectDefaultValue!)
+            ? (widget.radioItems.isNotEmpty ? widget.radioItems[0] : MasterDataDTO(labelEn: '', value: -1))
+            : MasterDataDTO(labelEn: '', value: -1);
 
     return RadioGroup<MasterDataDTO>.builder(
       direction: widget.isHorizontal ?? false ? Axis.horizontal : Axis.vertical,

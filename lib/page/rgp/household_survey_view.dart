@@ -43,7 +43,7 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
               const Center(child: CircularProgressIndicator()):
               SurveyManagerWidget(
                 surveys: controller.allSurveys,
-                showSerialNumber: false,
+                showSerialNumber: true,
                 isTabStyle: false,
                 hideTabView: true,
                 selectedSurvey: controller.selectedSurvey.value,
@@ -51,12 +51,12 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
                   controller.selectedSurvey.value = selectedSurvey;
                 },
                 onSelectAnswer: (String fieldName, val){
-                  print(val);
+                  print("fieldName $fieldName: $val");
                 },
-                beforeNext: (answers) async {
-                  final result = await controller.modifyAddHouseholdSurveyQuestionOptions(answers);
-                  return result;
-                },
+                // beforeNext: (answers) async {
+                //   final result = await controller.modifyAddHouseholdSurveyQuestionOptions(answers);
+                //   return result;
+                // },
                 onSubmit: (selectedGroup, formMap){
                   print('onSubmit');
                   controller.submitSurvey(selectedGroup, formMap);
