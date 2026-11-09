@@ -67,4 +67,17 @@ class MasterDataDTO  {
     }
   }
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MasterDataDTO &&
+          runtimeType == other.runtimeType &&
+          ((id != null && other.id != null && id == other.id) ||
+              (value != null && other.value != null && value == other.value) ||
+              (uuid != null && other.uuid != null && uuid == other.uuid) ||
+              (labelEn != null && other.labelEn != null && labelEn == other.labelEn));
+
+  @override
+  int get hashCode => id?.hashCode ?? value?.hashCode ?? uuid?.hashCode ?? labelEn?.hashCode ?? super.hashCode;
 }

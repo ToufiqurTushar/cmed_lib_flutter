@@ -4,7 +4,8 @@ enum SurveyTypeEnum {
   ANEMIA_ASSESSMENT,
   SOCIAL_PROTECTION,
   HEALTHY_DAYS,
-  WELLNESS_RESPONSE;
+  WELLNESS_RESPONSE,
+  HOUSEHOLD_SURVEY;
 }
 
 /// Condition types supported

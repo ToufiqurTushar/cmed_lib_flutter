@@ -13,6 +13,7 @@ class ApiUrl {
     return "api/v1/social-protection/survey?direction=DESC&page=0&size=1&sort_by=id&&user_id=$userId";
   }
 
+
   static String getHealthAssessmentSurveyUrl(int userId,{int fromDate = 0, int toDate = 0}) {
     if(fromDate != 0){
       return "api/v1/health/assessment?direction=DESC&from_date=$fromDate&to_date=$toDate&page=0&size=100&sort_by=id&user_id=$userId";
@@ -51,6 +52,14 @@ class ApiUrl {
 
   static String postSurveyUrl() {
     return "api/v1/survey/submit";
+  }
+
+  static String getLastHouseholdSurveyUrl({required int householdId, required int userId}) {
+    return "api/v1/household-survey/latest?household_id=$householdId&user_id=$userId";
+  }
+
+  static String postHouseholdSurveyUrl() {
+    return "api/v1/household-survey/submit";
   }
   static String socialProtectionEligibility({required List<dynamic> civicIds, required int userId}) {
     final uri = Uri(

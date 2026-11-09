@@ -59,6 +59,16 @@ class MemberDTO {
   double? income;
   AdditionalInformation? additionalInformation;
   String? maritalStatus;
+  bool? doesEarn;
+  bool? doesStudy;
+  String? educationInstitutionLevel;
+  String get livingStatus => (dead == true || (dateOfDeath != null && dateOfDeath! > 0)) ? 'DEAD' : 'ALIVE';
+  set livingStatus(dynamic value) {
+    dead = (value == true || value?.toString().toUpperCase() == 'DEAD' || value?.toString().toUpperCase() == 'DEATH');
+  }
+  bool? dead;
+  int? dateOfDeath;
+  String? birthCertificateNumber;
 
 
   MemberDTO({
@@ -115,7 +125,14 @@ class MemberDTO {
     this.income,
     this.maritalStatus,
     this.additionalInformation,
-  });
+    this.doesEarn,
+    this.doesStudy,
+    this.educationInstitutionLevel,
+    dynamic livingStatus,
+    bool? dead,
+    this.dateOfDeath,
+    this.birthCertificateNumber,
+  }) : dead = dead ?? (livingStatus != null ? (livingStatus == true || livingStatus?.toString().toUpperCase() == 'DEAD' || livingStatus?.toString().toUpperCase() == 'DEATH') : null);
 
   // Generate a random UUID
   // static String _generateUUID() {
@@ -182,6 +199,12 @@ class MemberDTO {
       religionBranch: json['religion_branch'],
       additionalInformation: json['additional_information'] != null ? AdditionalInformation.fromJson(json['additional_information']) : null,
       income: json['income'],
+      doesEarn: json['does_earn'],
+      doesStudy: json['does_study'],
+      educationInstitutionLevel: json['education_institution_level'],
+      dead: (json['dead'] == true || json['living_status'] == false || json['living_status']?.toString().toUpperCase() == 'DEAD' || json['living_status']?.toString().toUpperCase() == 'DEATH' || (json['date_of_death'] != null && json['date_of_death'] > 0)),
+      dateOfDeath: (json['dead'] == true || json['living_status'] == false || json['living_status']?.toString().toUpperCase() == 'DEAD' || json['living_status']?.toString().toUpperCase() == 'DEATH' || (json['date_of_death'] != null && json['date_of_death'] > 0)) ? json['date_of_death'] : null,
+      birthCertificateNumber: json['birth_certificate_number'],
     );
   }
 
@@ -240,6 +263,12 @@ class MemberDTO {
       'income': income,
       'religion_branch': religionBranch,
       'additional_information': additionalInformation?.toJson(),
+      'does_earn': doesEarn,
+      'does_study': doesStudy,
+      'education_institution_level': educationInstitutionLevel,
+      'dead': (dead == true || (dateOfDeath != null && dateOfDeath! > 0)),
+      'date_of_death': (dead == true || (dateOfDeath != null && dateOfDeath! > 0)) ? dateOfDeath : null,
+      'birth_certificate_number': birthCertificateNumber,
     };
   }
 
@@ -292,6 +321,14 @@ class MemberDTO {
       additionalInformation: additionalInformation,
       email: email,
       isHouseholdHead: isHouseholdHead,
+      doesEarn: doesEarn,
+      doesStudy: doesStudy,
+      educationInstitutionLevel: educationInstitutionLevel,
+      dead: dead,
+      dateOfDeath: dateOfDeath,
+      birthCertificateNumber: birthCertificateNumber,
+      relationWithHouseHolder: relationWithHouseHolder,
+      relationWithHouseholdHeadObj: relationWithHouseholdHeadObj,
     );
   }
 
@@ -303,13 +340,17 @@ class MemberDTO {
   }
 
   String getAgeString() {
-    if (birthday != null) {
+    if (birthday != null && birthday != 0) {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(birthday!);
-      String age = "(${CalendarUtil.instance.getFullAgeString(dateTime)})";
-      return age;
-    } else {
-      return "Birthdate is not available";
+      String ageStr = CalendarUtil.instance.getFullAgeString(dateTime);
+      if (ageStr.isNotEmpty) {
+        return "($ageStr)";
+      }
     }
+    if (age != null && age! > 0) {
+      return "(${age}Y)";
+    }
+    return "";
   }
 
   // String getPhoneNumber() {

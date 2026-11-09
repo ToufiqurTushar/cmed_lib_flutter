@@ -31,11 +31,25 @@ class _CMEDRadioButtonState extends State<CMEDRadioButton> {
   String label = '';
 
   @override
+  void didUpdateWidget(covariant CMEDRadioButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedItemPosition != null &&
+        widget.selectedItemPosition! >= 0 &&
+        widget.selectedItemPosition! < widget.radioItems.length) {
+      _selectedValue = widget.radioItems[widget.selectedItemPosition!];
+    } else if (widget.selectedItemPosition == null) {
+      _selectedValue = null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (widget.isSelectDefaultValue != null && widget.isSelectDefaultValue!) {
-      _selectedValue ??= widget.radioItems[0];
-    } else if (widget.selectedItemPosition != null) {
-      _selectedValue ??= widget.radioItems[widget.selectedItemPosition!];
+    if (widget.selectedItemPosition != null &&
+        widget.selectedItemPosition! >= 0 &&
+        widget.selectedItemPosition! < widget.radioItems.length) {
+      _selectedValue = widget.radioItems[widget.selectedItemPosition!];
+    } else if (widget.isSelectDefaultValue != null && widget.isSelectDefaultValue!) {
+      _selectedValue = widget.radioItems.isNotEmpty ? widget.radioItems[0] : MasterDataDTO(labelEn: '', value: -1);
     } else {
       _selectedValue ??= MasterDataDTO(labelEn: '', value: -1);
     }

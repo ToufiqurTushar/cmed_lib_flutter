@@ -4,6 +4,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
 import 'package:uuid/validation.dart';
 import '../enum/sample_collection_type.dart';
+import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'additional_information.dart';
 import 'base_entity_dto.dart';
 import 'lab_technitian_investigations_dto.dart';
@@ -94,6 +95,8 @@ class CustomerDTO extends BaseEntity {
   String? unionNameEn;
   String? unionNameBn;
   String? userAddress;
+  String? addressDetailsEn;
+  String? addressDetailsBn;
   String? pageTitle;
   String? religion;
   String? religionBranch;
@@ -104,6 +107,18 @@ class CustomerDTO extends BaseEntity {
   String? maritalStatus;
   String? fromWhere;
   bool isHouseholdHead = true;
+  bool? doesEarn;
+  bool? doesStudy;
+  String? educationInstitutionLevel;
+  String get livingStatus => (dead == true || (dateOfDeath != null && dateOfDeath! > 0)) ? 'DEAD' : 'ALIVE';
+  set livingStatus(dynamic value) {
+    dead = (value == true || value?.toString().toUpperCase() == 'DEAD' || value?.toString().toUpperCase() == 'DEATH');
+  }
+  bool? dead;
+  int? dateOfDeath;
+  String? birthCertificateNumber;
+  int? relationWithHouseHolder;
+  RelationWithHouseholdHeadObj? relationWithHouseholdHeadObj;
 
   CustomerDTO({
     this.pinCode,
@@ -187,6 +202,8 @@ class CustomerDTO extends BaseEntity {
     this.unionNameEn,
     this.unionNameBn,
     this.userAddress,
+    this.addressDetailsEn,
+    this.addressDetailsBn,
     this.pageTitle,
     this.religion,
     this.religionBranch,
@@ -197,8 +214,17 @@ class CustomerDTO extends BaseEntity {
     this.additionalInformation,
     this.fromWhere,
     this.isHouseholdHead = true,
+    this.doesEarn,
+    this.doesStudy,
+    this.educationInstitutionLevel,
+    dynamic livingStatus,
+    bool? dead,
+    this.dateOfDeath,
+    this.birthCertificateNumber,
+    this.relationWithHouseHolder,
+    this.relationWithHouseholdHeadObj,
 
-  });
+  }) : dead = dead ?? (livingStatus != null ? (livingStatus == true || livingStatus?.toString().toUpperCase() == 'DEAD' || livingStatus?.toString().toUpperCase() == 'DEATH') : null);
 
   factory CustomerDTO.fromJson(Map<String, dynamic> json) {
     var familyMembersFromJson = json['familyMembers'] as List?;
@@ -301,6 +327,8 @@ class CustomerDTO extends BaseEntity {
       unionNameEn: json['union_name_en'],
       unionNameBn: json['union_name_bn'],
       userAddress: json['user_address'],
+      addressDetailsEn: json['address_details_en'],
+      addressDetailsBn: json['address_details_bn'],
       parentUserPhone: json['parent_user_phone'],
       parentUsername: json['parent_username'],
       pageTitle: json['pageTitle'],
@@ -310,7 +338,17 @@ class CustomerDTO extends BaseEntity {
       maritalStatus: json['marital_status'],
       religionBranch: json['religion_branch'],
       income: json['income'],
-      isHouseholdHead: json['isHouseholdHead']??true,
+      isHouseholdHead: json['household_head'] ?? json['isHouseholdHead'] ?? true,
+      doesEarn: json['does_earn'],
+      doesStudy: json['does_study'],
+      educationInstitutionLevel: json['education_institution_level'],
+      dead: (json['dead'] == true || json['living_status'] == false || json['living_status']?.toString().toUpperCase() == 'DEAD' || json['living_status']?.toString().toUpperCase() == 'DEATH' || (json['date_of_death'] != null && json['date_of_death'] > 0)),
+      dateOfDeath: (json['dead'] == true || json['living_status'] == false || json['living_status']?.toString().toUpperCase() == 'DEAD' || json['living_status']?.toString().toUpperCase() == 'DEATH' || (json['date_of_death'] != null && json['date_of_death'] > 0)) ? json['date_of_death'] : null,
+      birthCertificateNumber: json['birth_certificate_number'],
+      relationWithHouseHolder: json['relation_with_household_head'],
+      relationWithHouseholdHeadObj: json['relation_with_household_head_obj'] != null
+          ? RelationWithHouseholdHeadObj.fromJson(json['relation_with_household_head_obj'])
+          : null,
       additionalInformation: json['additional_information'] != null ? AdditionalInformation.fromJson(json['additional_information']) : null,
 
     );
@@ -396,6 +434,8 @@ class CustomerDTO extends BaseEntity {
       'upazila_name_bn': upazilaNameBn,
       'union_name_bn': unionNameEn,
       'user_address': userAddress,
+      'address_details_en': addressDetailsEn,
+      'address_details_bn': addressDetailsBn,
       'parent_username': parentUsername,
       'pageTitle': pageTitle,
       'religion': religion,
@@ -405,6 +445,15 @@ class CustomerDTO extends BaseEntity {
       'income': income,
       'religion_branch': religionBranch,
       'isHouseholdHead': isHouseholdHead,
+      'household_head': isHouseholdHead,
+      'does_earn': doesEarn,
+      'does_study': doesStudy,
+      'education_institution_level': educationInstitutionLevel,
+      'dead': (dead == true || (dateOfDeath != null && dateOfDeath! > 0)),
+      'date_of_death': (dead == true || (dateOfDeath != null && dateOfDeath! > 0)) ? dateOfDeath : null,
+      'birth_certificate_number': birthCertificateNumber,
+      'relation_with_household_head': relationWithHouseHolder,
+      'relation_with_household_head_obj': relationWithHouseholdHeadObj?.toJson(),
       'additional_information': additionalInformation?.toJson(),
     };
   }
@@ -425,6 +474,14 @@ class CustomerDTO extends BaseEntity {
     return nonEmptyParts.join(', ');
   }
 
+
+  String getHouseholdId(){
+    return householdId?.toString()??"";
+  }
+
+  String getHouseholdAddress(){
+    return Utils.isLocaleBn()? (addressDetailsBn??addressDetailsEn??""): (addressDetailsEn??"");
+  }
 
   int getAgeInYear() {
     if(birthDate != null) {
@@ -489,13 +546,17 @@ class CustomerDTO extends BaseEntity {
   }
 
   String getAgeString() {
-    if (birthDate != null) {
+    if (birthDate != null && birthDate != 0) {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(birthDate!);
-      String age = "(${CalendarUtil.instance.getFullAgeString(dateTime)})";
-      return age;
-    } else {
-      return "Birthdate is not available";
+      String ageStr = CalendarUtil.instance.getFullAgeString(dateTime);
+      if (ageStr.isNotEmpty) {
+        return "($ageStr)";
+      }
     }
+    if (age != null) {
+      return "(${age}Y)";
+    }
+    return "";
   }
 
 

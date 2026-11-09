@@ -77,8 +77,17 @@ class UserProfile {
   int? presentAddressId;
   int? primaryOccupation;
   String? prosperitySchoolCenterNumber;
+  int? parentUserId;
   MasterDataDTO? relationWithHouseholdHeadObj;
   int? relationWithHouseholdHead;
+  bool? doesEarn;
+  bool? doesStudy;
+  String? educationInstitutionLevel;
+  String get livingStatus => (dead == true || (dateOfDeath != null && dateOfDeath! > 0)) ? 'DEAD' : 'ALIVE';
+  set livingStatus(dynamic value) {
+    dead = (value == true || value?.toString().toUpperCase() == 'DEAD' || value?.toString().toUpperCase() == 'DEATH');
+  }
+  bool? isHouseholdHead;
   bool? schoolGoingChildren;
   int? secondaryOccupation;
   List<SymptomsAfterTakenVaccineDTO>? symptomsAfterTakenVaccine;
@@ -187,7 +196,13 @@ class UserProfile {
     this.presentAddressId,
     this.primaryOccupation,
     this.prosperitySchoolCenterNumber,
+    this.parentUserId,
     this.relationWithHouseholdHeadObj,
+    this.doesEarn,
+    this.doesStudy,
+    this.educationInstitutionLevel,
+    dynamic livingStatus,
+    this.isHouseholdHead,
     this.schoolGoingChildren,
     this.secondaryOccupation,
     this.symptomsAfterTakenVaccine,
@@ -221,7 +236,11 @@ class UserProfile {
     this.i4weAgentSubscriptionExpiryDate,
     this.onboardedByAgentContactNumber,
     this.onboardedByAgentName,
-  });
+  }) {
+    if (livingStatus != null && dead == null) {
+      dead = (livingStatus == true || livingStatus.toString().toUpperCase() == 'DEAD' || livingStatus.toString().toUpperCase() == 'DEATH');
+    }
+  }
 
   UserProfile.fromJson(Map<String, dynamic> json) {
     username = json['username'];
@@ -236,8 +255,13 @@ class UserProfile {
     companyJobTitle = json['company_job_title'];
     coronaAffectedStatus = json['corona_affected_status'];
     dateOfConception = json['date_of_conception'];
-    dateOfDeath = json['date_of_death'];
-    dead = json['dead'];
+    final bool isUserDead = json['dead'] == true ||
+        json['living_status'] == false ||
+        json['living_status']?.toString().toUpperCase() == 'DEAD' ||
+        json['living_status']?.toString().toUpperCase() == 'DEATH' ||
+        (json['date_of_death'] != null && json['date_of_death'] > 0);
+    dead = isUserDead;
+    dateOfDeath = isUserDead ? json['date_of_death'] : null;
     deadDueToCorona = json['deadDueToCorona'];
     diabetic = json['diabetic'];
     if (json['disabilities'] != null) {
@@ -302,7 +326,12 @@ class UserProfile {
     presentAddressId = json['present_address_id'];
     primaryOccupation = json['primary_occupation'];
     prosperitySchoolCenterNumber = json['prosperity_school_center_number'];
+    parentUserId = json['parent_user_id'];
     relationWithHouseholdHead = json['relation_with_household_head'];
+    doesEarn = json['does_earn'];
+    doesStudy = json['does_study'];
+    educationInstitutionLevel = json['education_institution_level'];
+    isHouseholdHead = json['household_head'] ?? json['isHouseholdHead'];
     relationWithHouseholdHeadObj = json['relation_with_household_head_obj'] != null
         ? MasterDataDTO.fromJson(json['relation_with_household_head_obj'])
         : null;
@@ -406,16 +435,22 @@ class UserProfile {
     data['company_employee_id'] = companyEmployeeId;
     data['company_job_title'] = companyJobTitle;
     data['corona_affected_status'] = coronaAffectedStatus;
+    final isDead = (dead == true || (dateOfDeath != null && dateOfDeath! > 0));
     data['date_of_conception'] = dateOfConception;
-    data['date_of_death'] = dateOfDeath;
-    data['dead'] = dead;
+    data['dead'] = isDead;
+    data['date_of_death'] = isDead ? dateOfDeath : null;
     data['deadDueToCorona'] = deadDueToCorona;
     data['diabetic'] = diabetic;
     if (disabilities != null) {
       data['disabilities'] = disabilities!.map((v) => v.toJson()).toList();
     }
     data['disable'] = disable;
+    data['parent_user_id'] = parentUserId;
     data['relation_with_household_head'] = relationWithHouseholdHead;
+    data['does_earn'] = doesEarn;
+    data['does_study'] = doesStudy;
+    data['education_institution_level'] = educationInstitutionLevel;
+    data['household_head'] = isHouseholdHead;
     data['does_go_to_prosperity_school'] = doesGoToProsperitySchool;
     data['edd_date'] = eddDate;
     data['education_institute'] = educationInstitute;

@@ -117,16 +117,24 @@ class CalendarUtil {
   }
 
   String getFullAgeString(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    if (birthDate.isAfter(currentDate)) {
+      return '0D';
+    }
     List<String> ageParts = getAgeFromGivenBirthDate(birthDate);
     StringBuffer stringBuffer = StringBuffer();
 
-    int years = int.parse(ageParts[0]);
-    int months = int.parse(ageParts[1]);
-    int days = int.parse(ageParts[2]);
+    int years = int.tryParse(ageParts[0]) ?? 0;
+    int months = int.tryParse(ageParts[1]) ?? 0;
+    int days = int.tryParse(ageParts[2]) ?? 0;
 
     if (years > 0) stringBuffer.write('${years}Y');
     if (months > 0) stringBuffer.write(' ${months}M');
     if (days > 0) stringBuffer.write(' ${days}D');
+
+    if (stringBuffer.isEmpty) {
+      stringBuffer.write('0D');
+    }
 
     return stringBuffer.toString().trim();
   }
