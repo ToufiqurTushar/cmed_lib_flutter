@@ -119,6 +119,16 @@ class HouseholdSurveyLogic extends BaseLogic {
         // }
         // modify visibility condition
         selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
+        selectedSurvey.value!.fields!.add(
+          Field(
+            label: "Total Patient",
+            name: "hs_18_44_total_patient",
+            inputType: "text",
+            required: true,
+            ignore: true,
+            defaultValue: DateTime.now().millisecondsSinceEpoch,
+          ),
+        );
         selectedSurvey.value!.fields!.asMap().forEach((index, field) {
           if(field.inputType == 'switchButton') {
             field.inputType = 'checkboxSingle';

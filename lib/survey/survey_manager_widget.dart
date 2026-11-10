@@ -693,7 +693,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
       }
 
       return IgnorePointer(
-        ignoring: field.readOnly??false,
+        ignoring: field.ignore??false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {

@@ -1,67 +1,181 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../common/helper/utils.dart';
 import '../dto/field_dto.dart';
+import '../survey_manager_logic.dart';
 import 'item_label.dart';
 
-
 Widget NumberEditText({
-    Key? key,
-    required Field field,
-    required context,
-    required GlobalKey<FormBuilderState> formKey,
-    double elevation = 0,
-    double padding = 0,
-    Function? onChanged,
-  }) {
-  final currentVal = formKey.currentState?.fields[field.name]?.value ?? field.defaultValue;
-  return Card(
-    key: key,
+  Key? key,
+  required Field field,
+  required BuildContext context,
+  required GlobalKey<FormBuilderState> formKey,
+  double elevation = 0,
+  double padding = 0,
+  Function? onChanged,
+}) {
+  return NumberEditTextWidget(
+    key: key ?? ValueKey('number_${field.name}'),
+    field: field,
+    formKey: formKey,
     elevation: elevation,
-    margin: EdgeInsets.all(0),
-    color: Colors.white,
-    child: Padding(
-      padding: EdgeInsets.all(padding),
-      child: Column(
+    padding: padding,
+    onChanged: onChanged,
+  );
+}
+
+class NumberEditTextWidget extends StatefulWidget {
+  final Field field;
+  final GlobalKey<FormBuilderState> formKey;
+  final double elevation;
+  final double padding;
+  final Function? onChanged;
+
+  const NumberEditTextWidget({
+    super.key,
+    required this.field,
+    required this.formKey,
+    this.elevation = 0,
+    this.padding = 0,
+    this.onChanged,
+  });
+
+  @override
+  State<NumberEditTextWidget> createState() => _NumberEditTextWidgetState();
+}
+
+class _NumberEditTextWidgetState extends State<NumberEditTextWidget> {
+  late final TextEditingController _controller;
+  final FocusNode _focusNode = FocusNode();
+
+  dynamic _getLatestValue() {
+    if (Get.isRegistered<SurveyManagerLogic>()) {
+      final logic = Get.find<SurveyManagerLogic>();
+      if (logic.answers.containsKey(widget.field.name)) {
+        return logic.answers[widget.field.name];
+      }
+    }
+    return widget.formKey.currentState?.fields[widget.field.name]?.value ??
+        widget.field.defaultValue;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final initialVal = _getLatestValue();
+    _controller = TextEditingController(
+      text: initialVal != null && initialVal != '' ? '$initialVal' : '',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant NumberEditTextWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _syncValue();
+  }
+
+  void _syncValue() {
+    final latestVal = _getLatestValue();
+    final latestStr = latestVal != null && latestVal != '' ? '$latestVal' : '';
+    if (_controller.text != latestStr) {
+      if (!_focusNode.hasFocus || widget.field.readOnly == true) {
+        _controller.text = latestStr;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            widget.formKey.currentState?.fields[widget.field.name]?.didChange(latestStr);
+          }
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _syncValue();
+    return Card(
+      elevation: widget.elevation,
+      margin: EdgeInsets.zero,
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(widget.padding),
+        child: Column(
           children: [
-            if(field.label != null) ItemLabel(field),
+            if (widget.field.label != null) ItemLabel(widget.field),
             FormBuilderTextField(
-              key: ValueKey('${field.name}_${currentVal ?? field.defaultValue}'),
-              name: field.name!,
-              initialValue: (currentVal ?? field.defaultValue)?.toString()??'',
+              controller: _controller,
+              focusNode: _focusNode,
+              name: widget.field.name!,
+              readOnly: widget.field.readOnly ?? false,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
-                ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.numeric(), isRequired: field.required),
-                ValidationWrapper(FormBuilderValidators.max(field.max??0, errorText: "Must be less than or equal to ${field.max}"), isRequired: field.required, isAapplyValidation: field.max != null),
-                ValidationWrapper(FormBuilderValidators.min(field.min??0, errorText: "Must be greater than or equal to ${field.min}"), isRequired: field.required, isAapplyValidation: field.min != null),
+                ValidationWrapper(
+                  FormBuilderValidators.required(),
+                  isRequired: widget.field.required,
+                ),
+                ValidationWrapper(
+                  FormBuilderValidators.numeric(),
+                  isRequired: widget.field.required,
+                ),
+                ValidationWrapper(
+                  FormBuilderValidators.max(
+                    widget.field.max ?? 0,
+                    errorText: "Must be less than or equal to ${widget.field.max}",
+                  ),
+                  isRequired: widget.field.required,
+                  isAapplyValidation: widget.field.max != null,
+                ),
+                ValidationWrapper(
+                  FormBuilderValidators.min(
+                    widget.field.min ?? 0,
+                    errorText: "Must be greater than or equal to ${widget.field.min}",
+                  ),
+                  isRequired: widget.field.required,
+                  isAapplyValidation: widget.field.min != null,
+                ),
               ]),
               valueTransformer: null,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                  hint: Text((field.hint!=null && field.hint!.isNotEmpty)?field.hint!:"Write here".tr, style: TextStyle(color: Colors.grey),),
-                  filled: true,
-                  fillColor: Theme.of(context).primaryColorLight,
-                  border: InputBorder.none,
-                  errorStyle: const TextStyle(color: Colors.red, fontSize: 12)
+                hint: Text(
+                  (widget.field.hint != null && widget.field.hint!.isNotEmpty)
+                      ? widget.field.hint!
+                      : "Write here".tr,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                filled: true,
+                fillColor: Theme.of(context).primaryColorLight,
+                border: InputBorder.none,
+                errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
               ),
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
               keyboardType: TextInputType.number,
               onChanged: (val) {
-                if (field.readOnly != true) {
-                  onChanged?.call(val);
+                if (widget.field.readOnly != true) {
+                  widget.onChanged?.call(val);
                 }
               },
             ),
-            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
-              Text(field.description!, textAlign: TextAlign.left,),
-          ]
+            if ((widget.field.description?.isNotEmpty ?? false) &&
+                !(widget.field.readOnly ?? false))
+              Text(
+                widget.field.description!,
+                textAlign: TextAlign.left,
+              ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
-

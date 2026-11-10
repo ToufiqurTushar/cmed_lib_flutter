@@ -166,7 +166,11 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
       }
     }
     final count = isChecked ? selectedMembers.length : 0;
-    _updateCountField('${widget.field.name}_count', count);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateCountField('${widget.field.name}_count', count);
+      }
+    });
   }
 
 
@@ -1199,7 +1203,130 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
   }
 
   void _updateCountField(String fieldName, int count) {
-    widget.formKey.currentState?.fields[fieldName]?.didChange(count.toString());
-    RLog.warning("fieldName:${fieldName}, count:$count");
+    void executeUpdate() {
+      if (!mounted) return;
+      RLog.warning("fieldName:${fieldName}, count:$count");
+      final baseName = widget.field.name ?? '';
+      final nameParts = baseName.split('_');
+      final keyword = nameParts.length > 3 ? nameParts.sublist(3).join('_') : nameParts.last;
+
+      final logic = Get.isRegistered<SurveyManagerLogic>() ? Get.find<SurveyManagerLogic>() : null;
+      final matchedKeys = <String>{fieldName, '${baseName}_count'};
+
+      if (logic != null) {
+        logic.answers[fieldName] = count;
+        logic.answers['${baseName}_count'] = count;
+
+        for (final survey in [...logic.allSurveys, ...logic.selectedSurveys]) {
+          for (final f in (survey.fields ?? [])) {
+            final fName = f.name;
+            if (fName != null && fName.endsWith('_count')) {
+              if (fName == fieldName || fName == '${baseName}_count' || (keyword.isNotEmpty && fName.contains(keyword))) {
+                matchedKeys.add(fName);
+                f.defaultValue = count;
+              }
+            }
+          }
+        }
+
+        for (final tab in logic.tabPages) {
+          for (final f in (tab.questions ?? [])) {
+            final fName = f.name;
+            if (fName != null && fName.endsWith('_count')) {
+              if (fName == fieldName || fName == '${baseName}_count' || (keyword.isNotEmpty && fName.contains(keyword))) {
+                matchedKeys.add(fName);
+                f.defaultValue = count;
+              }
+            }
+          }
+        }
+
+        for (final k in logic.answers.keys) {
+          if (k.endsWith('_count') && (k == fieldName || k == '${baseName}_count' || (keyword.isNotEmpty && k.contains(keyword)))) {
+            matchedKeys.add(k);
+          }
+        }
+      }
+
+      final formFields = widget.formKey.currentState?.fields;
+      if (formFields != null) {
+        for (final k in formFields.keys) {
+          if (k.endsWith('_count') && (k == fieldName || k == '${baseName}_count' || (keyword.isNotEmpty && k.contains(keyword)))) {
+            matchedKeys.add(k);
+          }
+        }
+      }
+
+      for (final k in matchedKeys) {
+        if (logic != null) {
+          logic.answers[k] = count;
+        }
+        try {
+          final f = widget.formKey.currentState?.fields[k];
+          if (f != null && f.value?.toString() != '$count') {
+            f.didChange('$count');
+          }
+        } catch (_) {}
+      }
+
+      const totalPatientField = 'hs_18_44_total_patient';
+      if (logic != null) {
+        final uniquePatients = <dynamic>{};
+        for (final key in [
+          'hs_18_18_diabetes_members',
+          'hs_18_20_high_bp_members',
+          'hs_18_22_kidney_members',
+          'hs_18_24_cancer_members',
+          'hs_18_26_low_bp_members',
+          'hs_18_28_malnutrition_u5_members',
+          'hs_18_30_eye_members',
+          'hs_18_32_ear_members',
+          'hs_18_34_pneumonia_members',
+          'hs_18_36_diarrhea_members',
+          'hs_18_38_hepatitis_members',
+          'hs_18_40_paralysis_members',
+          'hs_18_42_other_complicated_members',
+        ]) {
+          final list = logic.answers[key];
+          if (list is List) {
+            for (final m in list) {
+              if (m is HouseholdSurevyMember) {
+                uniquePatients.add(_memberKey(m));
+              } else if (m is Map) {
+                uniquePatients.add(m['user_id'] ?? m['member_id'] ?? m['profile_id']);
+              }
+            }
+          }
+        }
+        if (uniquePatients.isNotEmpty || logic.answers.containsKey(totalPatientField)) {
+          final totalPatients = uniquePatients.length;
+          logic.answers[totalPatientField] = totalPatients;
+          for (final survey in [...logic.allSurveys, ...logic.selectedSurveys]) {
+            for (final f in (survey.fields ?? [])) {
+              if (f.name == totalPatientField) f.defaultValue = totalPatients;
+            }
+          }
+          for (final tab in logic.tabPages) {
+            for (final f in (tab.questions ?? [])) {
+              if (f.name == totalPatientField) f.defaultValue = totalPatients;
+            }
+          }
+          try {
+            final tpField = widget.formKey.currentState?.fields[totalPatientField];
+            if (tpField != null && tpField.value?.toString() != '$totalPatients') {
+              tpField.didChange('$totalPatients');
+            }
+          } catch (_) {}
+        }
+      }
+
+      logic?.answers.refresh();
+    }
+
+    if (WidgetsBinding.instance.buildOwner?.debugBuilding ?? false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => executeUpdate());
+    } else {
+      executeUpdate();
+    }
   }
 }
