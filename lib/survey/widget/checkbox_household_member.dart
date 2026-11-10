@@ -166,65 +166,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
       }
     }
     final count = isChecked ? selectedMembers.length : 0;
-    _updateCountField(count);
+    _updateCountField('${widget.field.name}_count', count);
   }
 
-  void _updateCountField(int count) {
-    if (widget.field.name == null) return;
-    final baseName = widget.field.name!;
-    final directKey = '${baseName}_count';
-
-    final nameParts = baseName.split('_');
-    final keyword = nameParts.length > 3 ? nameParts.sublist(3).join('_') : nameParts.last;
-
-    final logic = Get.isRegistered<SurveyManagerLogic>() ? Get.find<SurveyManagerLogic>() : null;
-    final matchedKeys = <String>{directKey};
-
-    if (logic != null) {
-      logic.answers[directKey] = count;
-
-      for (final survey in [...logic.allSurveys, ...logic.selectedSurveys]) {
-        for (final f in (survey.fields ?? [])) {
-          final fName = f.name;
-          if (fName != null && fName.endsWith('_count')) {
-            if (fName == directKey || (keyword.isNotEmpty && fName.contains(keyword))) {
-              matchedKeys.add(fName);
-              f.defaultValue = count;
-            }
-          }
-        }
-      }
-
-      for (final k in logic.answers.keys) {
-        if (k.endsWith('_count') && (k == directKey || (keyword.isNotEmpty && k.contains(keyword)))) {
-          matchedKeys.add(k);
-        }
-      }
-    }
-
-    final formFields = widget.formKey.currentState?.fields;
-    if (formFields != null) {
-      for (final k in formFields.keys) {
-        if (k.endsWith('_count') && (k == directKey || (keyword.isNotEmpty && k.contains(keyword)))) {
-          matchedKeys.add(k);
-        }
-      }
-    }
-
-    for (final k in matchedKeys) {
-      if (logic != null) {
-        logic.answers[k] = count;
-      }
-      try {
-        final f = widget.formKey.currentState?.fields[k];
-        if (f != null && f.value?.toString() != '$count') {
-          f.didChange('$count');
-        }
-      } catch (_) {}
-    }
-
-    logic?.answers.refresh();
-  }
 
   void _parseMembers(List list) {
     selectedMembers = list.map((item) {
@@ -665,7 +609,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     }
 
     final count = isChecked ? membersVal.length : 0;
-    _updateCountField(count);
+    _updateCountField('${widget.field.name}_count', count);
 
     try {
       widget.onChanged?.call(statusVal, membersVal);
@@ -1000,7 +944,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                   }
                 }
                 final count = isChecked ? latest.length : 0;
-                _updateCountField(count);
+                _updateCountField('${widget.field.name}_count', count);
               },
               validator: (val) {
                 if (isChecked && widget.field.required == true && (val == null || val.isEmpty)) {
@@ -1252,5 +1196,10 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         ),
       ),
     );
+  }
+
+  void _updateCountField(String fieldName, int count) {
+    widget.formKey.currentState?.fields[fieldName]?.didChange(count.toString());
+    RLog.warning("fieldName:${fieldName}, count:$count");
   }
 }
