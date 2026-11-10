@@ -328,7 +328,7 @@ class HouseholdSurveyLogic extends BaseLogic {
     for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
       final fakeKey = fakeHouseholdSurveyCountKeys[i];
       final realKey = householdSurveyCountKeys[i];
-      if(formMap[fakeKey] != null || formMap[fakeKey] != ""){
+      if(formMap[fakeKey] != null && formMap[fakeKey] != ""){
         formMap[realKey] = formMap[fakeKey];
       }
       formMap.remove(fakeKey);
