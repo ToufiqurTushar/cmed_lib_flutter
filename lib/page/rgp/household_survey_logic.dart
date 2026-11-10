@@ -99,11 +99,51 @@ class HouseholdSurveyLogic extends BaseLogic {
       if (response.isOk) {
         allSurveys.value = SurveyDataResponseDto.fromJson(response.body).content!;
         //set default value if exist
-        if(householdSurveyContexDto != null){
-          allSurveys.first.fields!.forEach((eachField){
-            try{
-              //eachField.defaultValue = householdSurveyContexDto.defaultInputs!.inputs[eachField.name];
-            } catch (e){
+        if (householdSurveyContexDto != null) {
+          final defaultInputs = householdSurveyContexDto!.defaultInputs;
+          final Map<String, dynamic>? inputsMap =
+              (defaultInputs != null && defaultInputs['inputs'] is Map)
+                  ? Map<String, dynamic>.from(defaultInputs['inputs'])
+                  : defaultInputs;
+
+          final preselected = householdSurveyContexDto!.preselectedProfileMemberData != null
+              ? ProfileMemberData.fromJson(
+                  householdSurveyContexDto!.preselectedProfileMemberData!.toJson())
+              : null;
+
+          allSurveys.first.fields?.forEach((eachField) {
+            try {
+              if (eachField.name == null) return;
+
+              // 1. Direct field value from inputsMap
+              if (inputsMap != null) {
+                if (inputsMap.containsKey(eachField.name)) {
+                  eachField.defaultValue = inputsMap[eachField.name];
+                } else if (householdSurveyCountKeys.contains(eachField.name)) {
+                  final fakeKey = fakeHouseholdSurveyCountKeys[
+                      householdSurveyCountKeys.indexOf(eachField.name!)];
+                  if (inputsMap.containsKey(fakeKey)) {
+                    eachField.defaultValue = inputsMap[fakeKey];
+                  }
+                }
+              }
+
+              // 2. Preselected members list from inputsMap (e.g. hs_18_8_nid_members)
+              if (inputsMap != null &&
+                  inputsMap.containsKey('${eachField.name}_members')) {
+                eachField.defaultValue = inputsMap['${eachField.name}_members'];
+              }
+
+              // 3. Preselected profile member data from context
+              if (preselected != null &&
+                  checkboxHouseholdMemberTypeFieldKey.contains(eachField.name)) {
+                final preselectedMembers =
+                    _getPreselectedMembersForField(eachField.name!, preselected);
+                if (preselectedMembers != null && preselectedMembers.isNotEmpty) {
+                  eachField.defaultValue = preselectedMembers;
+                }
+              }
+            } catch (e) {
               RLog.error(e);
             }
           });
@@ -215,6 +255,46 @@ class HouseholdSurveyLogic extends BaseLogic {
     }).whenComplete(() {
       isLoading.value = false;
     });
+  }
+
+  List<HouseholdSurevyMember>? _getPreselectedMembersForField(
+      String fieldName, ProfileMemberData preselected) {
+    switch (fieldName) {
+      case 'hs_18_8_nid':
+        return preselected.nidMembers;
+      case 'hs_18_10_bcn':
+        return preselected.bcnMembers;
+      case 'hs_18_16_pregnant':
+        return preselected.pregnantMembers;
+      case 'hs_18_18_diabetes':
+        return preselected.diseaseMembers?.diabetes;
+      case 'hs_18_20_high_bp':
+        return preselected.diseaseMembers?.highbp;
+      case 'hs_18_30_eye':
+        return preselected.diseaseMembers?.eyeproblem;
+      case 'hs_18_22_kidney':
+        return preselected.diseaseMembers?.kidneyDisease;
+      case 'hs_18_24_cancer':
+        return preselected.diseaseMembers?.cancer;
+      case 'hs_18_26_low_bp':
+        return preselected.diseaseMembers?.lowbp;
+      case 'hs_18_28_malnutrition_u5':
+        return preselected.diseaseMembers?.malnutritionU5;
+      case 'hs_18_32_ear':
+        return preselected.diseaseMembers?.earproblem;
+      case 'hs_18_34_pneumonia':
+        return preselected.diseaseMembers?.pneumonia;
+      case 'hs_18_36_diarrhea':
+        return preselected.diseaseMembers?.diarrhea;
+      case 'hs_18_38_hepatitis':
+        return preselected.diseaseMembers?.hepatitis;
+      case 'hs_18_40_paralysis':
+        return preselected.diseaseMembers?.paralysis;
+      case 'hs_18_42_other_complicated':
+        return preselected.diseaseMembers?.otherComplicated;
+      default:
+        return null;
+    }
   }
 
   void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
