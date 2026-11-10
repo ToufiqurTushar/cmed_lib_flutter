@@ -443,7 +443,8 @@ class SurveyMember {
       hasBcn: json['has_bcn'],
       birthCertificateNumber: json['birth_certificate_number'],
       hasHealthCard: json['has_health_card'],
-      healthCardIssueDate: json['health_card_issue_date'],
+      //disable as no need
+      //healthCardIssueDate: json['health_card_issue_date'],
       pregnant: json['pregnant'],
       pregnancyEligible: json['pregnancy_eligible'],
       lmpDate: json['lmp_date'],

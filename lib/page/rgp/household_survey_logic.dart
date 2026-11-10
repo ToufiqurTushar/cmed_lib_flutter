@@ -131,7 +131,17 @@ class HouseholdSurveyLogic extends BaseLogic {
               // 2. Preselected members list from inputsMap (e.g. hs_18_8_nid_members)
               if (inputsMap != null &&
                   inputsMap.containsKey('${eachField.name}_members')) {
-                eachField.defaultValue = inputsMap['${eachField.name}_members'];
+                final raw = inputsMap['${eachField.name}_members'];
+                if (raw is List) {
+                  eachField.preselectedMembers = raw.map((item) {
+                    if (item is HouseholdSurevyMember) return item;
+                    if (item is Map) return HouseholdSurevyMember.fromJson(item);
+                    return HouseholdSurevyMember(display: item.toString());
+                  }).toList();
+                  if (eachField.preselectedMembers?.isNotEmpty == true) {
+                    eachField.defaultValue = "yes";
+                  }
+                }
               }
 
               // 3. Preselected profile member data from context
@@ -140,7 +150,21 @@ class HouseholdSurveyLogic extends BaseLogic {
                 final preselectedMembers =
                     _getPreselectedMembersForField(eachField.name!, preselected);
                 if (preselectedMembers != null && preselectedMembers.isNotEmpty) {
-                  eachField.defaultValue = preselectedMembers;
+                  eachField.defaultValue = "yes";
+                  eachField.preselectedMembers = preselectedMembers;
+                }
+              }
+
+              // Safeguard: For checkboxHouseholdMember, defaultValue MUST NEVER be a List!
+              if (checkboxHouseholdMemberTypeFieldKey.contains(eachField.name)) {
+                if (eachField.defaultValue is List) {
+                  final list = eachField.defaultValue as List;
+                  eachField.preselectedMembers ??= list.map((item) {
+                    if (item is HouseholdSurevyMember) return item;
+                    if (item is Map) return HouseholdSurevyMember.fromJson(item);
+                    return HouseholdSurevyMember(display: item.toString());
+                  }).toList();
+                  eachField.defaultValue = (eachField.preselectedMembers?.isNotEmpty == true) ? "yes" : "no";
                 }
               }
             } catch (e) {
@@ -197,7 +221,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                     Field(
                       label: field.label,
                       hint: field.hint,
-                      name: "${field.name}_input",
+                      name: "${field.name}_input_",
                       inputType: "text",
                       required: true,
                       defaultValue: "",
@@ -208,14 +232,14 @@ class HouseholdSurveyLogic extends BaseLogic {
                   fields = [
                     Field(
                         label: "LMP",
-                        name: "${field.name}_lmp",
+                        name: "${field.name}_lmp_",
                         inputType: "date",
                         required: true,
                         defaultValue: DateTime.now().millisecondsSinceEpoch,
                     ),
                      Field(
                         label: "EDD",
-                        name: "${field.name}_edd",
+                        name: "${field.name}_edd_",
                         inputType: "date",
                         required: true,
                         defaultValue: (DateTime.now().add(const Duration(days: 280))).millisecondsSinceEpoch,
@@ -228,7 +252,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                     Field(
                         label: field.label,
                         hint: field.hint,
-                        name: "${field.name}_input",
+                        name: "${field.name}_input_",
                         inputType: "text",
                         required: false,
                         defaultValue: "",
@@ -302,9 +326,10 @@ class HouseholdSurveyLogic extends BaseLogic {
     for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
       final fakeKey = fakeHouseholdSurveyCountKeys[i];
       final realKey = householdSurveyCountKeys[i];
-      if(formMap[fakeKey] == null || formMap[fakeKey] == ""){
+      if(formMap[fakeKey] != null || formMap[fakeKey] != ""){
         formMap[realKey] = formMap[fakeKey];
       }
+      formMap.remove(fakeKey);
     }
 
     //other filed modification like profile data
@@ -316,17 +341,17 @@ class HouseholdSurveyLogic extends BaseLogic {
         inputs: formMap,
         profileMemberData: ProfileMemberData(
           householdId: customer.value.householdId!,
-          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
-          bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>),
-          pregnantMembers: (formMap["hs_18_16_pregnant_members"] as List<HouseholdSurevyMember>),
+          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>?),
+          bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>?),
+          pregnantMembers: (formMap["hs_18_16_pregnant_members"] as List<HouseholdSurevyMember>?),
           //chronicRemovals: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           //deadMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           diseaseMembers: DiseaseMembers(
-            diabetes:(formMap["hs_18_18_diabetes_members"] as List<HouseholdSurevyMember>),
-            highbp:(formMap["hs_18_20_high_bp_members"] as List<HouseholdSurevyMember>),
-            eyeproblem:(formMap["hs_18_30_eye_members"] as List<HouseholdSurevyMember>),
-            kidneyDisease:(formMap["hs_18_22_kidney_members"] as List<HouseholdSurevyMember>),
-            cancer:(formMap["hs_18_24_cancer_members"] as List<HouseholdSurevyMember>),
+            diabetes:(formMap["hs_18_18_diabetes_members"] as List<HouseholdSurevyMember>?),
+            highbp:(formMap["hs_18_20_high_bp_members"] as List<HouseholdSurevyMember>?),
+            eyeproblem:(formMap["hs_18_30_eye_members"] as List<HouseholdSurevyMember>?),
+            kidneyDisease:(formMap["hs_18_22_kidney_members"] as List<HouseholdSurevyMember>?),
+            cancer:(formMap["hs_18_24_cancer_members"] as List<HouseholdSurevyMember>?),
             lowbp:(formMap["hs_18_26_low_bp_members"] as List<HouseholdSurevyMember>?),
             malnutritionU5:(formMap["hs_18_28_malnutrition_u5_members"] as List<HouseholdSurevyMember>?),
             earproblem:(formMap["hs_18_32_ear_members"] as List<HouseholdSurevyMember>?),
@@ -338,19 +363,33 @@ class HouseholdSurveyLogic extends BaseLogic {
           )
         )
     );
-    globalState.showBusy();
-    final requestBody = surveyResultData.toJson();
-    //requestBody['inputs'].remove("hs_18_8_nid_members");
-    //requestBody['inputs'].remove("hs_18_10_bcn_members");
-    RLog.info(requestBody);
+
+    final requestBody = surveyResultData.toSurveyMap();
+
+    final surveyMap = requestBody['survey']['inputs'];
+    if (surveyMap is Map) {
+      final inputsKeys = List<String>.from(surveyMap.keys);
+      for (final key in inputsKeys) {
+        if (key.endsWith('_members') ||
+            fakeHouseholdSurveyCountKeys.contains(key) ||
+            key.contains('_input_') ||
+            key.contains('_lmp_') ||
+            key.contains('_edd_') ||
+            key.startsWith('__')) {
+          requestBody['survey']['inputs'].remove(key);
+        }
+      }
+    }
+    RLog.error(requestBody);
     //RLog.info(surveyResultData.toJson());
+    globalState.showBusy();
     httpProvider.POST(ApiUrl.postHouseholdSurveyUrl(), requestBody).then((response) {
       globalState.hideBusy();
       isLoading.value = false;
       if (response.isOk) {
-        SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
-        RLog.error(response.body);
-        RLog.error(selectedSurveyDto.toJson());
+        // SurveyResultItemDto surveyResultItemDto = SurveyResultItemDto.fromJson(response.body);
+        // RLog.error(response.body);
+        // RLog.error(selectedSurveyDto.toJson());
         AppDialogs.showSingleButtonDialog(centerImageUrl: 'assets/images/ic_success.svg', 'Survey Completed Successfully'.tr, positiveButtonText: 'OK'.tr, cancelable: false,onButtonClick:(){
           Get.back();
         });

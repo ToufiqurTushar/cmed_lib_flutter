@@ -675,10 +675,18 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
   Widget _buildReactiveField(Field field, context, formKey){
     return Obx(() {
       final value = controller.answers[field.name];
+      if (field.checkboxHouseholdMember && value is List) {
+        Future.delayed(Duration.zero, () async {
+          controller.answers[field.name!] = "yes";
+        });
+      }
       //check:default value exist
       if(value == null && field.defaultValue!=null){
+        final defVal = (field.checkboxHouseholdMember && field.defaultValue is List)
+            ? "yes"
+            : field.defaultValue;
         Future.delayed(Duration.zero, () async {
-          controller.answers[field.name!] = field.defaultValue;
+          controller.answers[field.name!] = defVal;
         });
       }
       field.defaultValue = value??field.defaultValue;

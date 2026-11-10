@@ -100,4 +100,34 @@ class ProfileMemberData {
     }
     return map;
   }
+
+  Map<String, dynamic> toSurveyMap() {
+    final map = <String, dynamic>{};
+    map['household_id'] = householdId;
+    if (nidMembers != null) {
+      map['nid_members'] = nidMembers?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (bcnMembers != null) {
+      map['bcn_members'] = bcnMembers?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (pregnantMembers != null) {
+      map['pregnant_members'] = pregnantMembers?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (healthCardMembers != null) {
+      map['health_card_members'] = healthCardMembers?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (deadMembers != null) {
+      map['dead_members'] = deadMembers?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (diseaseMembers != null) {
+      map['disease_members'] = diseaseMembers?.toSurveyMap();
+    }
+    if (chronicRemovals != null) {
+      map['chronic_removals'] = chronicRemovals?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (doctorVisits != null) {
+      map['doctor_visits'] = doctorVisits?.map((v) => v.toSurveyMap()).toList();
+    }
+    return map;
+  }
 }

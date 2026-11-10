@@ -101,6 +101,50 @@ class DiseaseMembers {
     return map;
   }
 
+  Map<String, dynamic> toSurveyMap() {
+    final map = <String, dynamic>{};
+    if (diabetes != null) {
+      map['DIABETES'] = diabetes?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (highbp != null) {
+      map['HIGH_BP'] = highbp?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (kidneyDisease != null) {
+      map['KIDNEY_DISEASE'] = kidneyDisease?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (cancer != null) {
+      map['CANCER'] = cancer?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (lowbp != null) {
+      map['LOW_BP'] = lowbp?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (malnutritionU5 != null) {
+      map['MALNUTRITION_U5'] = malnutritionU5?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (eyeproblem != null) {
+      map['EYE_PROBLEM'] = eyeproblem?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (earproblem != null) {
+      map['EAR_PROBLEM'] = earproblem?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (pneumonia != null) {
+      map['PNEUMONIA'] = pneumonia?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (diarrhea != null) {
+      map['DIARRHEA'] = diarrhea?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (hepatitis != null) {
+      map['HEPATITIS'] = hepatitis?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (paralysis != null) {
+      map['PARALYSIS'] = paralysis?.map((v) => v.toSurveyMap()).toList();
+    }
+    if (otherComplicated != null) {
+      map['OTHER_COMPLICATED'] = otherComplicated?.map((v) => v.toSurveyMap()).toList();
+    }
+    return map;
+  }
+
   DiseaseMembers copyWith({
     List<HouseholdSurevyMember>? diabetes,
     List<HouseholdSurevyMember>? highbp,

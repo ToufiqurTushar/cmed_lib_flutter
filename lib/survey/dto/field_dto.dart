@@ -27,6 +27,7 @@ class Field {
     this.requiredConditions,
     this.skipRule,
     this.members,
+    this.preselectedMembers,
     this.fields,
     this.isHidden = false,
   });
@@ -111,6 +112,7 @@ class Field {
   List<FieldCondition>? requiredConditions;
   SkipRule? skipRule;
   List<HouseholdSurevyMember>? members;
+  List<HouseholdSurevyMember>? preselectedMembers;
   List<Field>? fields;
 
   Map<String, dynamic> toJson() {

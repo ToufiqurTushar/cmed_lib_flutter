@@ -25,5 +25,14 @@ class HouseholdSurveyRequestDto extends SurveyResultItemDto{
     }
     return map;
   }
+  Map<String, dynamic> toSurveyMap() {
+    final map = <String, dynamic>{};
+    map['survey'] = super.toJson();
+    if (profileMemberData != null) {
+      map['profile_member_data'] = profileMemberData?.toSurveyMap();
+    }
+    return map;
+  }
+
 
 }

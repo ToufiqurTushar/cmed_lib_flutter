@@ -123,6 +123,48 @@ class HouseholdSurevyMember {
     return map;
   }
 
+  Map<String, dynamic> toSurveyMap() {
+    final map = <String, dynamic>{};
+    map['user_id'] = userId;
+    map['member_id'] = memberId;
+    map['profile_id'] = profileId;
+    map['value'] = value;
+    map['lmp_date'] = lmpDate;
+    map['edd_date'] = eddDate;
+    if (healthCardNumber != null) {
+      map['health_card_number'] = healthCardNumber;
+    }
+    if (healthCardCost != null) {
+      map['health_card_cost'] = healthCardCost;
+    }
+    if (healthCardIssueDate != null) {
+      map['health_card_issue_date'] = healthCardIssueDate;
+    }
+    if (healthCardExpireDate != null) {
+      map['health_card_expire_date'] = healthCardExpireDate;
+    }
+    if (dead != null) {
+      map['dead'] = dead;
+    }
+    if (dateOfDeath != null) {
+      map['date_of_death'] = dateOfDeath;
+    }
+    if (condition != null) {
+      map['condition'] = condition;
+    }
+    if (reason != null) {
+      map['reason'] = reason;
+    }
+    if (inputs != null) {
+      inputs!.forEach((key, val) {
+        if (!map.containsKey(key)) {
+          map[key] = val;
+        }
+      });
+    }
+    return map;
+  }
+
   HouseholdSurevyMember copyWith({
     int? userId,
     int? memberId,

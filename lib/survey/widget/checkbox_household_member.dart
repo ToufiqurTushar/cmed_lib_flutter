@@ -129,13 +129,20 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         widget.formKey.currentState?.fields['${widget.field.name}_members']?.value ??
         widget.formKey.currentState?.value['${widget.field.name}_members'] ??
         widget.formKey.currentState?.initialValue['${widget.field.name}_members'] ??
-        widget.field.defaultValue;
+        widget.field.preselectedMembers;
+
+    if (currentMembers == null && widget.field.defaultValue is List) {
+      currentMembers = widget.field.defaultValue;
+    }
 
     dynamic currentStatus =
         widget.formKey.currentState?.fields[widget.field.name]?.value ??
         widget.formKey.currentState?.value[widget.field.name] ??
-        widget.formKey.currentState?.initialValue[widget.field.name] ??
-        widget.field.defaultValue;
+        widget.formKey.currentState?.initialValue[widget.field.name];
+
+    if (currentStatus == null && widget.field.defaultValue is! List) {
+      currentStatus = widget.field.defaultValue;
+    }
 
     if (Get.isRegistered<SurveyManagerLogic>()) {
       final logic = Get.find<SurveyManagerLogic>();
@@ -144,7 +151,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         currentMembers = membersFromAnswers;
       }
       final statusFromAnswers = logic.answers[widget.field.name];
-      if (statusFromAnswers != null) {
+      if (statusFromAnswers != null && statusFromAnswers is! List) {
         currentStatus = statusFromAnswers;
       }
     }
@@ -165,9 +172,38 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         isChecked = false;
       }
     }
+
+    final yesVal = _getYesValue();
+    final noVal = _getNoValue();
+    final statusVal = isChecked ? yesVal : noVal;
+    final membersVal = isChecked
+        ? selectedMembers.map((m) => m.copyWith()).toList()
+        : <HouseholdSurevyMember>[];
+
     final count = isChecked ? selectedMembers.length : 0;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
+        // Enforce widget.field.name is ALWAYS "yes" or "no", never a List!
+        final statusField = widget.formKey.currentState?.fields[widget.field.name];
+        if (statusField != null && (statusField.value is List || statusField.value != statusVal)) {
+          statusField.didChange(statusVal);
+        }
+
+        final membersField = widget.formKey.currentState?.fields['${widget.field.name}_members'];
+        if (membersField != null && membersField.value != membersVal) {
+          membersField.didChange(membersVal);
+        }
+
+        if (Get.isRegistered<SurveyManagerLogic>()) {
+          final logic = Get.find<SurveyManagerLogic>();
+          logic.answers[widget.field.name!] = statusVal;
+          if (membersVal.isNotEmpty) {
+            logic.answers['${widget.field.name}_members'] = membersVal;
+          } else {
+            logic.answers.remove('${widget.field.name}_members');
+          }
+        }
+
         _updateCountField('${widget.field.name}_count', count);
       }
     });
@@ -411,6 +447,54 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
 
     _syncValueToMember(member, originalField, val);
 
+    // Conditional update: If LMP date is modified, automatically calculate EDD = LMP + 280 days
+    final fieldNameLower = (originalField.name ?? '').toLowerCase();
+    if (fieldNameLower.contains('lmp') || fieldNameLower.contains('emp')) {
+      int? lmpEpoch;
+      if (val is int) {
+        lmpEpoch = val;
+      } else if (val is num) {
+        lmpEpoch = val.toInt();
+      } else if (val is DateTime) {
+        lmpEpoch = val.millisecondsSinceEpoch;
+      } else if (val != null) {
+        lmpEpoch = int.tryParse(val.toString());
+      }
+
+      if (lmpEpoch != null) {
+        final lmpDateTime = DateTime.fromMillisecondsSinceEpoch(lmpEpoch);
+        final eddDateTime = lmpDateTime.add(const Duration(days: 280));
+        final eddEpoch = eddDateTime.millisecondsSinceEpoch;
+
+        member.eddDate = eddEpoch;
+
+        final memberFields = _getMemberFields(member);
+        final eddField = memberFields?.firstWhereOrNull(
+          (f) => (f.name ?? '').toLowerCase().contains('edd'),
+        );
+
+        if (eddField != null) {
+          final eddUniqueName = _getMemberScopedFieldName(member, eddField);
+          member.inputs ??= {};
+          if (eddField.name != null) {
+            member.inputs![eddField.name!] = eddEpoch;
+          }
+          member.inputs![eddUniqueName] = eddEpoch;
+          eddField.defaultValue = eddEpoch;
+
+          if (Get.isRegistered<SurveyManagerLogic>()) {
+            final logic = Get.find<SurveyManagerLogic>();
+            logic.answers[eddUniqueName] = eddEpoch;
+            if (eddField.name != null) {
+              logic.answers[eddField.name!] = eddEpoch;
+            }
+          }
+
+          widget.formKey.currentState?.fields[eddUniqueName]?.didChange(eddEpoch);
+        }
+      }
+    }
+
     if (Get.isRegistered<SurveyManagerLogic>()) {
       final logic = Get.find<SurveyManagerLogic>();
       logic.answers[uniqueFieldName] = val;
@@ -419,6 +503,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
       }
     }
 
+    setState(() {});
     _notify(checkFieldState, membersFieldState);
   }
 
@@ -882,6 +967,22 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         child: FormBuilderField<dynamic>(
           name: widget.field.name!,
           initialValue: isChecked ? _getYesValue() : _getNoValue(),
+          valueTransformer: (val) {
+            if (val is List || val == null) {
+              return isChecked ? _getYesValue() : _getNoValue();
+            }
+            return val;
+          },
+          onSaved: (val) {
+            final yesVal = _getYesValue();
+            final noVal = _getNoValue();
+            final finalVal = (val is List || val == null)
+                ? (isChecked ? yesVal : noVal)
+                : val;
+            if (Get.isRegistered<SurveyManagerLogic>()) {
+              Get.find<SurveyManagerLogic>().answers[widget.field.name!] = finalVal;
+            }
+          },
           validator: widget.field.required == true
               ? FormBuilderValidators.compose([
                   (val) {
@@ -894,6 +995,11 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                 ])
               : null,
           builder: (FormFieldState<dynamic> checkFieldState) {
+            if (checkFieldState.value is List) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                checkFieldState.didChange(isChecked ? _getYesValue() : _getNoValue());
+              });
+            }
             return FormBuilderField<List<HouseholdSurevyMember>>(
               name: '${widget.field.name}_members',
               initialValue: isChecked ? selectedMembers : <HouseholdSurevyMember>[],
