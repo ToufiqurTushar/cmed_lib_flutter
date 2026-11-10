@@ -1,3 +1,4 @@
+import 'ChronicRemovalDto.dart';
 import 'HouseholdSurevyMember.dart';
 import 'DiseaseMembers.dart';
 
@@ -50,7 +51,7 @@ class ProfileMemberData {
     if (json['chronic_removals'] != null) {
       chronicRemovals = [];
       json['chronic_removals'].forEach((v) {
-        chronicRemovals?.add(HouseholdSurevyMember.fromJson(v));
+        chronicRemovals?.add(ChronicRemovalDto.fromJson(v));
       });
     }
     if (json['doctor_visits'] != null) {
@@ -68,7 +69,7 @@ class ProfileMemberData {
   List<HouseholdSurevyMember>? healthCardMembers;
   List<HouseholdSurevyMember>? deadMembers;
   DiseaseMembers? diseaseMembers;
-  List<HouseholdSurevyMember>? chronicRemovals;
+  List<ChronicRemovalDto>? chronicRemovals;
   List<HouseholdSurevyMember>? doctorVisits;
 
   Map<String, dynamic> toJson() {
@@ -123,7 +124,7 @@ class ProfileMemberData {
       map['disease_members'] = diseaseMembers?.toSurveyMap();
     }
     if (chronicRemovals != null) {
-      map['chronic_removals'] = chronicRemovals?.map((v) => v.toSurveyMap()).toList();
+      map['chronic_removals'] = chronicRemovals?.map((v) => v.toJson()).toList();
     }
     if (doctorVisits != null) {
       map['doctor_visits'] = doctorVisits?.map((v) => v.toSurveyMap()).toList();

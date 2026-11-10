@@ -60,6 +60,13 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
                     print("fieldName $fieldName: $val");
                   },
                   beforeNext: (answers) async {
+                    if (Get.isRegistered<SurveyManagerLogic>()) {
+                      final logic = Get.find<SurveyManagerLogic>();
+                      final isValid = logic.formKey.currentState?.saveAndValidate() ?? true;
+                      if (!isValid) {
+                        return false;
+                      }
+                    }
                     return true;
                   },
                   onSubmit: (selectedGeoup, formMap){

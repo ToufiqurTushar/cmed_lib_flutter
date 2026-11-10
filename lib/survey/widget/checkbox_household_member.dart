@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -334,9 +335,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         name.contains('bcn') ||
         member.value == null ||
         member.value!.isEmpty) {
-      if (strVal != null && strVal.isNotEmpty) {
-        member.value = strVal;
-      }
+      member.value = strVal ?? '';
     }
 
     if (name.contains('lmp')) {
@@ -537,6 +536,78 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     _notify(checkFieldState, membersFieldState);
   }
 
+  bool _isNidField(Field field) {
+    final name = (field.name ?? '').toLowerCase();
+    final label = (field.label ?? '').toLowerCase();
+    if (name.contains('count') || label.contains('count')) return false;
+    return name.contains('nid') ||
+        label.contains('national id') ||
+        label.contains('nid') ||
+        label.contains('জাতীয় পরিচয়পত্র');
+  }
+
+  bool _isBcnField(Field field) {
+    final name = (field.name ?? '').toLowerCase();
+    final label = (field.label ?? '').toLowerCase();
+    if (name.contains('count') || label.contains('count')) return false;
+    return name.contains('bcn') ||
+        name.contains('birth') ||
+        label.contains('birth certificate') ||
+        label.contains('bcn') ||
+        label.contains('জন্ম নিবন্ধন');
+  }
+
+  String? _validateNidOrBcnValue(String? value, {required bool isNid, bool isRequired = false}) {
+    final text = value?.trim() ?? '';
+    if (text.isEmpty) {
+      if (isRequired) return 'Required field!'.tr;
+      return null;
+    }
+    if (!RegExp(r'^\d+$').hasMatch(text) ||
+        (text.length != 10 && text.length != 13 && text.length != 17)) {
+      return isNid
+          ? 'NID must be 10, 13, or 17 digits'.tr
+          : 'Birth Certificate Number must be 10, 13, or 17 digits'.tr;
+    }
+    return null;
+  }
+
+  String? _getMemberNidOrBcnValue(HouseholdSurevyMember m) {
+    final memberKey = _memberKey(m).toString();
+    if (widget.formKey.currentState != null) {
+      final subFieldName = _getMemberScopedFieldName(m, Field(name: "${widget.field.name}_input_"));
+      final fieldState = widget.formKey.currentState!.fields[subFieldName];
+      if (fieldState != null && fieldState.value != null && fieldState.value.toString().trim().isNotEmpty) {
+        return fieldState.value.toString().trim();
+      }
+      for (final entry in widget.formKey.currentState!.fields.entries) {
+        if (entry.key.contains(memberKey) &&
+            (entry.key.toLowerCase().contains('nid') || entry.key.toLowerCase().contains('bcn')) &&
+            entry.value.value != null &&
+            entry.value.value.toString().trim().isNotEmpty) {
+          return entry.value.value.toString().trim();
+        }
+      }
+    }
+    if (m.inputs != null) {
+      for (final entry in m.inputs!.entries) {
+        if ((entry.key.toLowerCase().contains('nid') || entry.key.toLowerCase().contains('bcn')) &&
+            entry.value != null &&
+            entry.value.toString().trim().isNotEmpty) {
+          return entry.value.toString().trim();
+        }
+      }
+    }
+    if (m.value != null && m.value!.trim().isNotEmpty) {
+      return m.value!.trim();
+    }
+    final ctrl = _controllers[_memberKey(m)];
+    if (ctrl != null && ctrl.text.trim().isNotEmpty) {
+      return ctrl.text.trim();
+    }
+    return null;
+  }
+
   Widget _buildMemberFieldWidget({
     required HouseholdSurevyMember member,
     required Field field,
@@ -556,6 +627,26 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     scopedField.options?.forEach((e) {
       e.title = e.title?.tr;
     });
+
+    final isNid = _isNidField(field) || _isNidField(widget.field);
+    final isBcn = _isBcnField(field) || _isBcnField(widget.field);
+
+    String? Function(String?)? customValidator;
+    TextInputType? customKeyboardType;
+    List<TextInputFormatter>? customInputFormatters;
+
+    if (isNid || isBcn) {
+      customKeyboardType = TextInputType.number;
+      customInputFormatters = [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(17),
+      ];
+      customValidator = (val) => _validateNidOrBcnValue(
+        val,
+        isNid: isNid,
+        isRequired: scopedField.required ?? false,
+      );
+    }
 
     void onValueChanged(dynamic val) {
       _onMemberFieldValueChanged(
@@ -626,6 +717,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         formKey: widget.formKey,
         padding: 0,
         elevation: 0,
+        validator: customValidator,
+        keyboardType: customKeyboardType,
+        inputFormatters: customInputFormatters,
         onChanged: onValueChanged,
       );
     } else if (scopedField.date || scopedField.dateStart || scopedField.dateEnd) {
@@ -662,6 +756,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         formKey: widget.formKey,
         padding: 0,
         elevation: 0,
+        validator: customValidator,
+        keyboardType: customKeyboardType,
+        inputFormatters: customInputFormatters,
         onChanged: onValueChanged,
       );
     }
@@ -1059,6 +1156,24 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
               validator: (val) {
                 if (isChecked && widget.field.required == true && (val == null || val.isEmpty)) {
                   return 'Please select at least one member'.tr;
+                }
+                if (isChecked && val != null && val.isNotEmpty) {
+                  final isNid = _isNidField(widget.field);
+                  final isBcn = _isBcnField(widget.field);
+                  if (isNid || isBcn) {
+                    for (final m in val) {
+                      final memberValue = _getMemberNidOrBcnValue(m);
+                      if (memberValue == null || memberValue.isEmpty) {
+                        return isNid
+                            ? 'Please enter NID for all selected members'.tr
+                            : 'Please enter Birth Certificate Number for all selected members'.tr;
+                      }
+                      final error = _validateNidOrBcnValue(memberValue, isNid: isNid, isRequired: true);
+                      if (error != null) {
+                        return error;
+                      }
+                    }
+                  }
                 }
                 return null;
               },

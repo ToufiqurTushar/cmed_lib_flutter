@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import 'package:cmed_lib_flutter/page/rgp/dto/ChronicRemovalDto.dart';
 import 'package:cmed_lib_flutter/page/rgp/household_survey_argument.dart';
 import 'package:cmed_lib_flutter/survey/dto/field_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
@@ -183,18 +184,19 @@ class HouseholdSurveyLogic extends BaseLogic {
         //
         //   });
         // }
+
         // modify visibility condition
         selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
-        selectedSurvey.value!.fields!.add(
-          Field(
-            label: "Total Patient",
-            name: "hs_18_44_total_patient",
-            inputType: "number",
-            required: false,
-            ignore: true,
-            defaultValue: null,
-          ),
-        );
+        // selectedSurvey.value!.fields!.add(
+        //   Field(
+        //     label: "Total Patient",
+        //     name: "hs_18_44_total_patient",
+        //     inputType: "number",
+        //     required: false,
+        //     ignore: true,
+        //     defaultValue: null,
+        //   ),
+        // );
         selectedSurvey.value!.fields!.asMap().forEach((index, field) {
           if(field.inputType == 'switchButton') {
             field.inputType = 'checkboxSingle';
@@ -205,6 +207,11 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.ignore = true;
             //add fake_key_count for view(health information)
             field.name = fakeHouseholdSurveyCountKeys[householdSurveyCountKeys.indexWhere((key)=>key  == field.name!)];
+          }
+
+          //ignore survey date editing
+          if(field.name == 'hs_18_survey_date'){
+            field.ignore = true;
           }
 
           if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
@@ -219,10 +226,15 @@ class HouseholdSurveyLogic extends BaseLogic {
                 field.name == 'hs_18_8_nid' ||
                 field.name == 'hs_18_10_bcn'
                 ) {
+                  final isNid = field.name == 'hs_18_8_nid';
                   fields = [
                     Field(
                       label: field.label,
-                      hint: field.hint,
+                      hint: (field.hint?.isNotEmpty == true)
+                          ? field.hint
+                          : (isNid
+                              ? "NID must be 10, 13, or 17 digits".tr
+                              : "Birth Certificate Number must be 10, 13, or 17 digits".tr),
                       name: "${field.name}_input_",
                       inputType: "text",
                       required: true,
@@ -346,7 +358,14 @@ class HouseholdSurveyLogic extends BaseLogic {
           nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>?),
           bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>?),
           pregnantMembers: (formMap["hs_18_16_pregnant_members"] as List<HouseholdSurevyMember>?),
-          //chronicRemovals: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
+          chronicRemovals: [
+            ChronicRemovalDto(
+              userId: 1,
+              memberId: 1,
+              profileId: 1,
+              condition: "DIABETES",
+            )
+          ],
           //deadMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           diseaseMembers: DiseaseMembers(
             diabetes:(formMap["hs_18_18_diabetes_members"] as List<HouseholdSurevyMember>?),
@@ -384,7 +403,7 @@ class HouseholdSurveyLogic extends BaseLogic {
             key.startsWith('__');
 
         final bool matchesZeroCount = key.endsWith('_count') &&
-            (value == 0 || value == '0' || value == null);
+            (value == 0 || value == '0' || value == null || value == "");
 
         return matchesGeneralCriteria || matchesZeroCount;
       });

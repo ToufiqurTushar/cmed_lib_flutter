@@ -14,8 +14,52 @@ Widget EditText({
     double elevation = 0,
     double padding = 0,
     Function? onChanged,
+    String? Function(String?)? validator,
+    TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
   RLog.warning(field.defaultValue);
+
+  String? Function(String?)? activeValidator = validator;
+  TextInputType? activeKeyboardType = keyboardType;
+  List<TextInputFormatter>? activeInputFormatters = inputFormatters;
+
+  if (activeValidator == null) {
+    final nameLower = (field.name ?? '').toLowerCase();
+    final labelLower = (field.label ?? '').toLowerCase();
+    final isCount = nameLower.contains('count') || labelLower.contains('count');
+    if (!isCount) {
+      final isNid = nameLower.contains('nid') ||
+          labelLower.contains('national id') ||
+          labelLower.contains('nid') ||
+          labelLower.contains('জাতীয় পরিচয়পত্র');
+      final isBcn = nameLower.contains('bcn') ||
+          nameLower.contains('birth') ||
+          labelLower.contains('birth certificate') ||
+          labelLower.contains('bcn') ||
+          labelLower.contains('জন্ম নিবন্ধন');
+
+      if (isNid || isBcn) {
+        activeKeyboardType ??= TextInputType.number;
+        activeInputFormatters ??= [
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(17),
+        ];
+        activeValidator = (val) {
+          final text = val?.trim() ?? '';
+          if (text.isEmpty) return null;
+          if (!RegExp(r'^\d+$').hasMatch(text) ||
+              (text.length != 10 && text.length != 13 && text.length != 17)) {
+            return isNid
+                ? 'NID must be 10, 13, or 17 digits'.tr
+                : 'Birth Certificate Number must be 10, 13, or 17 digits'.tr;
+          }
+          return null;
+        };
+      }
+    }
+  }
+
   return Card(
     elevation: elevation,
     margin: EdgeInsets.all(0),
@@ -29,8 +73,11 @@ Widget EditText({
               name: field.name!,
               initialValue: field.defaultValue,
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: activeKeyboardType,
+              inputFormatters: activeInputFormatters,
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
+                if (activeValidator != null) activeValidator,
               ]),
               valueTransformer: null,
               textInputAction: TextInputAction.next,
