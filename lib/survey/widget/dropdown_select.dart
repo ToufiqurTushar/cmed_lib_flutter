@@ -76,9 +76,9 @@ Widget DropdownSelect({
                 ),
               ),
             ),
-            if(field.description != null && field.description != "" && !field.readOnly!) Padding(
+            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false)) Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 4),
-              child: Text(field.description!),
+              child: Text(field.description!, textAlign: TextAlign.left,),
             ),
           ]
       ),

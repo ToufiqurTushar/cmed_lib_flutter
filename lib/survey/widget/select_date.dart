@@ -1,5 +1,4 @@
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -86,7 +85,8 @@ Widget SelectDate({
                 );
               },
             ),
-            if(field.description!.isNotEmpty  && !field.readOnly!) Text(field.description!),
+            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
+              Text(field.description!, textAlign: TextAlign.left,),
           ]
       ),
     ),

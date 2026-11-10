@@ -42,12 +42,13 @@ Widget EditText({
                 errorStyle: const TextStyle(color: Colors.red, fontSize: 12)
               ),
               onChanged: (val) {
-                if(field.readOnly == false){
+                if (field.readOnly != true) {
                   onChanged?.call(val);
                 }
               },
             ),
-            if(field.description!.isNotEmpty  && !field.readOnly!) Text(field.description!),
+            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
+              Text(field.description!, textAlign: TextAlign.left,),
           ]
       ),
     ),

@@ -24,6 +24,26 @@ class HouseholdSurveyLogic extends BaseLogic {
   late HouseholdSurveyArg householdSurveyArg;
   HouseholdSurveyContexDto? householdSurveyContexDto;
 
+  List<String> get checkboxHouseholdMemberTypeFieldKey => [
+    "hs_18_8_nid",
+    "hs_18_10_bcn",
+    "hs_18_16_pregnant",
+    "hs_18_18_diabetes",
+    "hs_18_20_high_bp",
+    "hs_18_30_eye",
+    "hs_18_22_kidney",
+    "hs_18_24_cancer",
+    "hs_18_26_low_bp",
+    "hs_18_28_malnutrition_u5",
+    "hs_18_32_ear",
+    "hs_18_34_pneumonia",
+    "hs_18_36_diarrhea",
+    "hs_18_38_hepatitis",
+    "hs_18_40_paralysis",
+    "hs_18_42_other_complicated",
+  ];
+  List<String> get householdSurveyCountKeys => ['hs_18_9_nid_count', 'hs_18_11_bcn_count', 'hs_18_17_pregnant_count', 'hs_18_19_diabetes_count', 'hs_18_21_high_bp_count', 'hs_18_23_kidney_count', 'hs_18_25_cancer_count', 'hs_18_27_low_bp_count', 'hs_18_29_malnutrition_u5_count', 'hs_18_31_eye_count', 'hs_18_33_ear_count', 'hs_18_35_pneumonia_count', 'hs_18_37_diarrhea_count', 'hs_18_39_hepatitis_count', 'hs_18_41_paralysis_count', 'hs_18_43_other_complicated_count'];
+
   @override
   void onInit() {
     super.onInit();
@@ -65,24 +85,7 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.readOnly = true;
             field.min = 0;
           }
-          const checkboxHouseholdMemberTypeFieldKey = [
-            "hs_18_8_nid",
-            "hs_18_10_bcn",
-            "hs_18_16_pregnant",
-            "hs_18_18_diabetes",
-            "hs_18_20_high_bp",
-            "hs_18_30_eye",
-            "hs_18_22_kidney",
-            "hs_18_24_cancer",
-            "hs_18_26_low_bp",
-            "hs_18_28_malnutrition_u5",
-            "hs_18_32_ear",
-            "hs_18_34_pneumonia",
-            "hs_18_36_diarrhea",
-            "hs_18_38_hepatitis",
-            "hs_18_40_paralysis",
-            "hs_18_42_other_complicated",
-          ];
+
           if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
             field.inputType = 'checkboxHouseholdMember';
             if (field.members == null || field.members!.isEmpty) {
@@ -90,27 +93,34 @@ class HouseholdSurveyLogic extends BaseLogic {
                 final displayName = (Get.locale?.languageCode == 'en'
                         ? (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)
                         : (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)) ??'N/A';
+                final fields = (field.name == 'hs_18_8_nid')?
+                  [
+                    Field(
+                      label: field.label,
+                      hint: field.hint,
+                      name: "${field.name}_text",
+                      inputType: "text",
+                      required: true,
+                      defaultValue: "",
+                      isHidden: true
+                    )
+                  ]: [
+                    Field(
+                        label: field.label,
+                        hint: field.hint,
+                        name: "${field.name}_text",
+                        inputType: "text",
+                        required: false,
+                        defaultValue: "",
+                        isHidden: true
+                    )
+                  ];
                 return HouseholdSurevyMember(
                   userId: m.userId,
                   memberId: m.memberId!,
                   profileId: m.profileId,
                   display: displayName,
-                  fields: [
-                    Field(
-                      label: "Nid1",
-                      hint: "Nid1",
-                      name: "${field.name}_text1",
-                      inputType: "text",
-                      required: true,
-                    ),
-                    Field(
-                      label: "Nid2",
-                      hint: "Nid2",
-                      name: "${field.name}_text2",
-                      inputType: "text",
-                      required: true,
-                    ),
-                  ]
+                  fields: fields
                 );
               }).toList();
             }

@@ -26,6 +26,8 @@ class Field {
     this.requiredConditions,
     this.skipRule,
     this.members,
+    this.fields,
+    this.isHidden = false,
   });
 
   Field.fromJson(dynamic json) {
@@ -44,6 +46,7 @@ class Field {
     inputType = json['input_type'];
     required = json['required'];
     readOnly = json['read_only'];
+    isHidden = json['is_hidden'];
     name = json['name'];
     if (json['options'] != null) {
       options = [];
@@ -76,6 +79,16 @@ class Field {
         }
       });
     }
+    if (json['fields'] != null) {
+      fields = [];
+      json['fields'].forEach((v) {
+        if (v is Field) {
+          fields?.add(v);
+        } else {
+          fields?.add(Field.fromJson(v));
+        }
+      });
+    }
   }
   String? serial;
   String? label;
@@ -86,6 +99,7 @@ class Field {
   String? inputType;
   bool? required;
   bool? readOnly;
+  bool isHidden = false;
   num? min;
   num? max;
   List<FieldOption>? options;
@@ -94,6 +108,7 @@ class Field {
   List<FieldCondition>? requiredConditions;
   SkipRule? skipRule;
   List<HouseholdSurevyMember>? members;
+  List<Field>? fields;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -107,6 +122,7 @@ class Field {
     map['input_type'] = inputType;
     map['required'] = required;
     map['read_only'] = readOnly;
+    map['is_hidden'] = isHidden;
     map['name'] = name;
     if (options != null) {
       map['options'] = options?.map((v) => v.toJson()).toList();
@@ -123,6 +139,9 @@ class Field {
     }
     if (members != null) {
       map['members'] = members?.map((v) => v.toJson()).toList();
+    }
+    if (fields != null) {
+      map['fields'] = fields?.map((v) => v.toJson()).toList();
     }
     
     

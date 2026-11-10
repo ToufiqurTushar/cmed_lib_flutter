@@ -17,10 +17,12 @@ class HouseholdSurevyMember {
     this.dateOfDeath,
     this.condition,
     this.reason,
-    this.fields
+    this.fields,
+    this.inputs,
   });
 
   HouseholdSurevyMember.fromJson(dynamic json) {
+    if (json == null || json is! Map) return;
     userId = json['user_id'];
     memberId = json['member_id'];
     profileId = json['profile_id'];
@@ -38,7 +40,19 @@ class HouseholdSurevyMember {
     dateOfDeath = json['date_of_death'];
     condition = json['condition']?.toString();
     reason = json['reason']?.toString();
-
+    if (json['fields'] != null) {
+      fields = [];
+      json['fields'].forEach((v) {
+        if (v is Field) {
+          fields?.add(v);
+        } else {
+          fields?.add(Field.fromJson(v));
+        }
+      });
+    }
+    if (json['inputs'] != null && json['inputs'] is Map) {
+      inputs = Map<String, dynamic>.from(json['inputs']);
+    }
   }
 
   int? userId;
@@ -57,6 +71,7 @@ class HouseholdSurevyMember {
   String? condition;
   String? reason;
   List<Field>? fields;
+  Map<String, dynamic>? inputs;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -91,6 +106,16 @@ class HouseholdSurevyMember {
     if (reason != null) {
       map['reason'] = reason;
     }
+    if (inputs != null) {
+      inputs!.forEach((key, val) {
+        if (!map.containsKey(key)) {
+          map[key] = val;
+        }
+      });
+    }
+    if (fields != null) {
+      map['fields'] = fields?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 
@@ -110,6 +135,8 @@ class HouseholdSurevyMember {
     int? dateOfDeath,
     String? condition,
     String? reason,
+    List<Field>? fields,
+    Map<String, dynamic>? inputs,
   }) {
     return HouseholdSurevyMember(
       userId: userId ?? this.userId,
@@ -127,6 +154,8 @@ class HouseholdSurevyMember {
       dateOfDeath: dateOfDeath ?? this.dateOfDeath,
       condition: condition ?? this.condition,
       reason: reason ?? this.reason,
+      fields: fields ?? this.fields?.map((f) => Field.fromJson(f.toJson())).toList(),
+      inputs: inputs ?? (this.inputs != null ? Map<String, dynamic>.from(this.inputs!) : null),
     );
   }
 }

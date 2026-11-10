@@ -79,7 +79,8 @@ Widget SwitchButtons({
                 );
               },
             ),
-            if(field.description!.isNotEmpty  && !field.readOnly!) Text(field.description!),
+            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
+              Text(field.description!, textAlign: TextAlign.left,),
           ]
       ),
     ),
