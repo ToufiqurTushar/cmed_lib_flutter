@@ -49,8 +49,8 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
                   isTabStyle: true,
                   hideTabView: false,
                   tabContents: [
-                    TabPage(id: "t1", title: "Survey".tr, listOfQuestionUid: ['hs_18_survey_date', 'hs_18_1_safe_water', 'hs_18_2_sanitary_latrine', 'hs_18_3_bondhu_chula', 'hs_18_4_solar_panel', 'hs_18_5_electricity', 'hs_18_6_backyard_vegetables', 'hs_18_7_iodized_salt', 'hs_18_8_nid', 'hs_18_10_bcn', 'hs_18_12_health_card', 'hs_18_13_health_card_issue_date', 'hs_18_14_monthly_income', 'hs_18_15_monthly_health_expense', 'hs_18_16_pregnant', 'hs_18_18_diabetes', 'hs_18_20_high_bp', 'hs_18_22_kidney', 'hs_18_24_cancer', 'hs_18_26_low_bp', 'hs_18_28_malnutrition_u5', 'hs_18_30_eye', 'hs_18_32_ear', 'hs_18_34_pneumonia', 'hs_18_36_diarrhea', 'hs_18_38_hepatitis', 'hs_18_40_paralysis', 'hs_18_42_other_complicated', 'hs_18_44_total_patient']),
-                    TabPage(id: "t2", title: "Health Information".tr, listOfQuestionUid: controller.fakeHouseholdSurveyCountKeys),
+                    TabPage(id: "t1", title: "Survey".tr, listOfQuestionUid: ['hs_18_survey_date', 'hs_18_1_safe_water', 'hs_18_2_sanitary_latrine', 'hs_18_3_bondhu_chula', 'hs_18_4_solar_panel', 'hs_18_5_electricity', 'hs_18_6_backyard_vegetables', 'hs_18_7_iodized_salt', 'hs_18_8_nid', 'hs_18_10_bcn', 'hs_18_12_health_card', 'hs_18_13_health_card_issue_date', 'hs_18_14_monthly_income', 'hs_18_15_monthly_health_expense', 'hs_18_16_pregnant', 'hs_18_18_diabetes', 'hs_18_20_high_bp', 'hs_18_22_kidney', 'hs_18_24_cancer', 'hs_18_26_low_bp', 'hs_18_28_malnutrition_u5', 'hs_18_30_eye', 'hs_18_32_ear', 'hs_18_34_pneumonia', 'hs_18_36_diarrhea', 'hs_18_38_hepatitis', 'hs_18_40_paralysis', 'hs_18_42_other_complicated']),
+                    TabPage(id: "t2", title: "Health Information".tr, listOfQuestionUid: [...controller.fakeHouseholdSurveyCountKeys, 'hs_18_44_total_patient']),
                   ],
                   selectedSurvey: controller.selectedSurvey.value,
                   onSelectSurvey: (SurveyDto? selectedSurvey){

@@ -123,10 +123,10 @@ class HouseholdSurveyLogic extends BaseLogic {
           Field(
             label: "Total Patient",
             name: "hs_18_44_total_patient",
-            inputType: "text",
-            required: true,
+            inputType: "number",
+            required: false,
             ignore: true,
-            defaultValue: DateTime.now().millisecondsSinceEpoch,
+            defaultValue: null,
           ),
         );
         selectedSurvey.value!.fields!.asMap().forEach((index, field) {
