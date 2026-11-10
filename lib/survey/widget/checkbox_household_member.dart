@@ -46,6 +46,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     with AutomaticKeepAliveClientMixin {
   bool isChecked = false;
   List<HouseholdSurevyMember> selectedMembers = [];
+  final Map<dynamic, TextEditingController> _controllers = {};
 
   @override
   bool get wantKeepAlive => true;
@@ -54,6 +55,23 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
   void initState() {
     super.initState();
     _initData();
+  }
+
+  TextEditingController _getController(HouseholdSurevyMember member) {
+    final key = _memberKey(member);
+    if (!_controllers.containsKey(key)) {
+      _controllers[key] = TextEditingController(text: member.value ?? '');
+    }
+    return _controllers[key]!;
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _controllers.values) {
+      controller.dispose();
+    }
+    _controllers.clear();
+    super.dispose();
   }
 
   dynamic _getYesValue() {
@@ -142,11 +160,22 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
   void _parseMembers(List list) {
     selectedMembers = list.map((item) {
       if (item is HouseholdSurevyMember) {
-        return item.copyWith();
+        final copy = item.copyWith();
+        final ctrl = _getController(copy);
+        if (copy.value != null && copy.value!.isNotEmpty) {
+          ctrl.text = copy.value!;
+        }
+        return copy;
       } else if (item is Map) {
-        return HouseholdSurevyMember.fromJson(item);
+        final parsed = HouseholdSurevyMember.fromJson(item);
+        final ctrl = _getController(parsed);
+        if (parsed.value != null && parsed.value!.isNotEmpty) {
+          ctrl.text = parsed.value!;
+        }
+        return parsed;
       }
-      return HouseholdSurevyMember(display: item.toString());
+      final m = HouseholdSurevyMember(display: item.toString());
+      return m;
     }).toList();
   }
 
@@ -157,16 +186,21 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     FormFieldState<dynamic> checkFieldState,
     FormFieldState<List<HouseholdSurevyMember>> membersFieldState,
   ) {
+    // Sync text from controllers into the members
+    for (final m in selectedMembers) {
+      final ctrl = _controllers[_memberKey(m)];
+      if (ctrl != null) {
+        m.value = ctrl.text;
+      }
+    }
+
     final statusVal = isChecked ? _getYesValue() : _getNoValue();
     final membersVal = isChecked
-        ? List<HouseholdSurevyMember>.from(selectedMembers)
+        ? selectedMembers.map((m) => m.copyWith(value: m.value)).toList()
         : <HouseholdSurevyMember>[];
 
     checkFieldState.didChange(statusVal);
-    widget.formKey.currentState?.fields[widget.field.name]?.didChange(statusVal);
-
     membersFieldState.didChange(membersVal);
-    widget.formKey.currentState?.fields['${widget.field.name}_members']?.didChange(membersVal);
 
     if (Get.isRegistered<SurveyManagerLogic>()) {
       final logic = Get.find<SurveyManagerLogic>();
@@ -358,8 +392,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
           setState(() {
             isChecked = false;
           });
-          checkFieldState.didChange(false);
-          widget.formKey.currentState?.fields[widget.field.name]?.didChange(false);
+          _notify(checkFieldState, membersFieldState);
         }
         return;
       }
@@ -367,24 +400,27 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
       setState(() {
         final existingValues = <dynamic, String?>{};
         for (final m in selectedMembers) {
-          existingValues[_memberKey(m)] = m.value;
+          final ctrl = _controllers[_memberKey(m)];
+          existingValues[_memberKey(m)] = ctrl?.text ?? m.value;
         }
 
         final newList = <HouseholdSurevyMember>[];
         for (final m in availableMembers) {
           final key = _memberKey(m);
           if (resultKeys.contains(key)) {
+            final val = existingValues[key] ?? '';
             newList.add(
               HouseholdSurevyMember(
                 userId: m.userId,
                 memberId: m.memberId,
                 profileId: m.profileId,
                 display: m.display,
-                value: existingValues[key] ?? '',
+                value: val,
                 lmpDate: m.lmpDate,
                 eddDate: m.eddDate,
               ),
             );
+            _getController(m).text = val;
           }
         }
         selectedMembers = newList;
@@ -428,6 +464,33 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
             return FormBuilderField<List<HouseholdSurevyMember>>(
               name: '${widget.field.name}_members',
               initialValue: isChecked ? selectedMembers : <HouseholdSurevyMember>[],
+              onSaved: (val) {
+                for (final m in selectedMembers) {
+                  final ctrl = _controllers[_memberKey(m)];
+                  if (ctrl != null) {
+                    m.value = ctrl.text;
+                  }
+                }
+                if (val != null) {
+                  for (final m in val) {
+                    final ctrl = _controllers[_memberKey(m)];
+                    if (ctrl != null) {
+                      m.value = ctrl.text;
+                    }
+                  }
+                }
+                final latest = selectedMembers.map((m) => m.copyWith(value: m.value)).toList();
+                if (Get.isRegistered<SurveyManagerLogic>()) {
+                  final logic = Get.find<SurveyManagerLogic>();
+                  if (isChecked && latest.isNotEmpty) {
+                    logic.answers['${widget.field.name}_members'] = latest;
+                    logic.answers['${widget.field.name}_count'] = latest.length;
+                  } else {
+                    logic.answers.remove('${widget.field.name}_members');
+                    logic.answers.remove('${widget.field.name}_count');
+                  }
+                }
+              },
               validator: (val) {
                 if (isChecked && widget.field.required == true && (val == null || val.isEmpty)) {
                   return 'Please select at least one member'.tr;
@@ -446,6 +509,10 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                           isChecked = !isChecked;
                           if (!isChecked) {
                             selectedMembers.clear();
+                            for (final ctrl in _controllers.values) {
+                              ctrl.dispose();
+                            }
+                            _controllers.clear();
                           }
                         });
                         _notify(checkFieldState, membersFieldState);
@@ -558,7 +625,8 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                           ? null
                                           : () {
                                               setState(() {
-                                                selectedMembers.removeAt(index);
+                                                final removed = selectedMembers.removeAt(index);
+                                                _controllers.remove(_memberKey(removed))?.dispose();
                                                 if (selectedMembers.isEmpty) {
                                                   isChecked = false;
                                                 }
@@ -587,7 +655,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                 const SizedBox(height: 6),
                                 TextFormField(
                                   key: ValueKey('${_memberKey(member)}_input'),
-                                  initialValue: member.value,
+                                  controller: _getController(member),
                                   readOnly: widget.field.readOnly ?? false,
                                   decoration: InputDecoration(
                                     hintText: widget.field.label ?? widget.field.hint ?? '',
@@ -611,7 +679,8 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                     ),
                                   ),
                                   onChanged: (text) {
-                                    selectedMembers[index] = member.copyWith(value: text);
+                                    member.value = text;
+                                    selectedMembers[index].value = text;
                                     _notify(checkFieldState, membersFieldState);
                                   },
                                 ),

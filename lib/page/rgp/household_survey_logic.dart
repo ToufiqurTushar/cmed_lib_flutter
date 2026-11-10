@@ -10,6 +10,7 @@ import '../../common/api/api_url.dart';
 import '../../common/base/base_logic.dart';
 import '../../common/widget/app_dialog.dart';
 import '../../survey/dto/Condition.dart';
+import 'dto/DiseaseMembers.dart';
 import 'dto/HouseholdSurveyContexDto.dart';
 import 'dto/HouseholdSurveyRequestDto.dart';
 import 'dto/HouseholdSurevyMember.dart';
@@ -64,7 +65,24 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.readOnly = true;
             field.min = 0;
           }
-          final  checkboxHouseholdMemberTypeFieldKey = ['hs_18_8_nid',  'hs_18_11_bcn', 'hs_18_17_pregnant', 'hs_18_19_diabetes', 'hs_18_21_high_bp', 'hs_18_23_kidney', 'hs_18_25_cancer', 'hs_18_27_low_bp', 'hs_18_29_malnutrition_u5', 'hs_18_31_eye', 'hs_18_33_ear', 'hs_18_35_pneumonia', 'hs_18_37_diarrhea', 'hs_18_39_hepatitis', 'hs_18_40_paralysis', 'hs_18_43_other_complicated'];
+          const checkboxHouseholdMemberTypeFieldKey = [
+            "hs_18_8_nid",
+            "hs_18_10_bcn",
+            "hs_18_16_pregnant",
+            "hs_18_18_diabetes",
+            "hs_18_20_high_bp",
+            "hs_18_30_eye",
+            "hs_18_22_kidney",
+            "hs_18_24_cancer",
+            "hs_18_26_low_bp",
+            "hs_18_28_malnutrition_u5",
+            "hs_18_32_ear",
+            "hs_18_34_pneumonia",
+            "hs_18_36_diarrhea",
+            "hs_18_38_hepatitis",
+            "hs_18_40_paralysis",
+            "hs_18_42_other_complicated",
+          ];
           if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
             field.inputType = 'checkboxHouseholdMember';
             if (field.members == null || field.members!.isEmpty) {
@@ -77,6 +95,22 @@ class HouseholdSurveyLogic extends BaseLogic {
                   memberId: m.memberId!,
                   profileId: m.profileId,
                   display: displayName,
+                  fields: [
+                    Field(
+                      label: "Nid1",
+                      hint: "Nid1",
+                      name: "${field.name}_text1",
+                      inputType: "text",
+                      required: true,
+                    ),
+                    Field(
+                      label: "Nid2",
+                      hint: "Nid2",
+                      name: "${field.name}_text2",
+                      inputType: "text",
+                      required: true,
+                    ),
+                  ]
                 );
               }).toList();
             }
@@ -100,12 +134,35 @@ class HouseholdSurveyLogic extends BaseLogic {
         inputs: formMap,
         profileMemberData: ProfileMemberData(
           householdId: customer.value.householdId!,
-          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>)
+          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
+          bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>),
+          pregnantMembers: (formMap["hs_18_16_pregnant"] as List<HouseholdSurevyMember>),
+          //chronicRemovals: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
+          //deadMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
+          diseaseMembers: DiseaseMembers(
+            diabetes:(formMap["hs_18_18_diabetes_members"] as List<HouseholdSurevyMember>),
+            highbp:(formMap["hs_18_20_high_bp_members"] as List<HouseholdSurevyMember>),
+            eyeproblem:(formMap["hs_18_30_eye_members"] as List<HouseholdSurevyMember>),
+            kidneyDisease:(formMap["hs_18_22_kidney_members"] as List<HouseholdSurevyMember>),
+            cancer:(formMap["hs_18_24_cancer"] as List<HouseholdSurevyMember>),
+            lowbp:(formMap["hs_18_26_low_bp_members"] as List<HouseholdSurevyMember>),
+            malnutritionU5:(formMap["hs_18_28_malnutrition_u5_members"] as List<HouseholdSurevyMember>),
+            earproblem:(formMap["hs_18_32_ear_members"] as List<HouseholdSurevyMember>),
+            pneumonia:(formMap["hs_18_34_pneumonia_members"] as List<HouseholdSurevyMember>),
+            diarrhea:(formMap["hs_18_36_diarrhea_members"] as List<HouseholdSurevyMember>),
+            hepatitis:(formMap["hs_18_38_hepatitis_members"] as List<HouseholdSurevyMember>),
+            paralysis:(formMap["hs_18_40_paralysis_members"] as List<HouseholdSurevyMember>),
+            otherComplicated:(formMap["hs_18_42_other_complicated_members"] as List<HouseholdSurevyMember>),
+          )
         )
     );
     globalState.showBusy();
+    final requestBody = surveyResultData.toJson();
+    requestBody['inputs'].remove("hs_18_8_nid_members");
+    requestBody['inputs'].remove("hs_18_10_bcn_members");
+    RLog.info(requestBody);
     RLog.info(surveyResultData.toJson());
-    httpProvider.POST(ApiUrl.postHouseholdSurveyUrl(), surveyResultData.toJson()).then((response) {
+    httpProvider.POST(ApiUrl.postHouseholdSurveyUrl(), requestBody).then((response) {
       globalState.hideBusy();
       isLoading.value = false;
       if (response.isOk) {

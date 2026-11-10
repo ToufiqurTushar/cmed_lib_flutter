@@ -3,13 +3,15 @@ import 'DiseaseMembers.dart';
 
 class ProfileMemberData {
   ProfileMemberData({
-      this.householdId, 
-      this.nidMembers,
-      this.bcnMembers, 
-      this.pregnantMembers, 
-      this.diseaseMembers, 
-      this.chronicRemovals, 
-      this.deadMembers,
+    this.householdId,
+    this.nidMembers,
+    this.bcnMembers,
+    this.pregnantMembers,
+    this.healthCardMembers,
+    this.deadMembers,
+    this.diseaseMembers,
+    this.chronicRemovals,
+    this.doctorVisits,
   });
 
   ProfileMemberData.fromJson(dynamic json) {
@@ -32,11 +34,10 @@ class ProfileMemberData {
         pregnantMembers?.add(HouseholdSurevyMember.fromJson(v));
       });
     }
-    diseaseMembers = json['disease_members'] != null ? DiseaseMembers.fromJson(json['disease_members']) : null;
-    if (json['chronic_removals'] != null) {
-      chronicRemovals = [];
-      json['chronic_removals'].forEach((v) {
-        chronicRemovals?.add(HouseholdSurevyMember.fromJson(v));
+    if (json['health_card_members'] != null) {
+      healthCardMembers = [];
+      json['health_card_members'].forEach((v) {
+        healthCardMembers?.add(HouseholdSurevyMember.fromJson(v));
       });
     }
     if (json['dead_members'] != null) {
@@ -45,14 +46,30 @@ class ProfileMemberData {
         deadMembers?.add(HouseholdSurevyMember.fromJson(v));
       });
     }
+    diseaseMembers = json['disease_members'] != null ? DiseaseMembers.fromJson(json['disease_members']) : null;
+    if (json['chronic_removals'] != null) {
+      chronicRemovals = [];
+      json['chronic_removals'].forEach((v) {
+        chronicRemovals?.add(HouseholdSurevyMember.fromJson(v));
+      });
+    }
+    if (json['doctor_visits'] != null) {
+      doctorVisits = [];
+      json['doctor_visits'].forEach((v) {
+        doctorVisits?.add(HouseholdSurevyMember.fromJson(v));
+      });
+    }
   }
+
   int? householdId;
   List<HouseholdSurevyMember>? nidMembers;
   List<HouseholdSurevyMember>? bcnMembers;
   List<HouseholdSurevyMember>? pregnantMembers;
+  List<HouseholdSurevyMember>? healthCardMembers;
+  List<HouseholdSurevyMember>? deadMembers;
   DiseaseMembers? diseaseMembers;
   List<HouseholdSurevyMember>? chronicRemovals;
-  List<HouseholdSurevyMember>? deadMembers;
+  List<HouseholdSurevyMember>? doctorVisits;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -66,16 +83,21 @@ class ProfileMemberData {
     if (pregnantMembers != null) {
       map['pregnant_members'] = pregnantMembers?.map((v) => v.toJson()).toList();
     }
+    if (healthCardMembers != null) {
+      map['health_card_members'] = healthCardMembers?.map((v) => v.toJson()).toList();
+    }
+    if (deadMembers != null) {
+      map['dead_members'] = deadMembers?.map((v) => v.toJson()).toList();
+    }
     if (diseaseMembers != null) {
       map['disease_members'] = diseaseMembers?.toJson();
     }
     if (chronicRemovals != null) {
       map['chronic_removals'] = chronicRemovals?.map((v) => v.toJson()).toList();
     }
-    if (deadMembers != null) {
-      map['dead_members'] = deadMembers?.map((v) => v.toJson()).toList();
+    if (doctorVisits != null) {
+      map['doctor_visits'] = doctorVisits?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
