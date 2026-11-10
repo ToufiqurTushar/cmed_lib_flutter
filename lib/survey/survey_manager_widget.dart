@@ -687,7 +687,7 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         final fState = formKey.currentState!.fields[field.name]!;
         if (fState.value?.toString() != value.toString()) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            fState.didChange(value.toString());
+            fState.didChange(value);
           });
         }
       }

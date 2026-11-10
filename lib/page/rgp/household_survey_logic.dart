@@ -20,7 +20,7 @@ import 'dto/SurveyResultResponse.dart';
 class HouseholdSurveyLogic extends BaseLogic {
   var allSurveys = <SurveyDto>[].obs;
   var selectedSurvey = Rxn<SurveyDto>();
-  var selectedSurveyResult = Rxn<SurveyResultDto>();
+  //var selectedSurveyResult = Rxn<SurveyResultDto>();
   late HouseholdSurveyArg householdSurveyArg;
   HouseholdSurveyContexDto? householdSurveyContexDto;
 
@@ -99,15 +99,15 @@ class HouseholdSurveyLogic extends BaseLogic {
       if (response.isOk) {
         allSurveys.value = SurveyDataResponseDto.fromJson(response.body).content!;
         //set default value if exist
-        // if(selectedSurveyResult.value != null){
-        //   allSurveys.first.fields!.forEach((eachField){
-        //     try{
-        //       eachField.defaultValue = selectedSurveyResult.value!.inputs[eachField.name];
-        //     } catch (e){
-        //       RLog.error(e);
-        //     }
-        //   });
-        // }
+        if(householdSurveyContexDto != null){
+          allSurveys.first.fields!.forEach((eachField){
+            try{
+              //eachField.defaultValue = householdSurveyContexDto.defaultInputs!.inputs[eachField.name];
+            } catch (e){
+              RLog.error(e);
+            }
+          });
+        }
         selectedSurvey.value = allSurveys.first;
         //add fake_key_count for view(health information)
         // for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
@@ -238,7 +238,7 @@ class HouseholdSurveyLogic extends BaseLogic {
           householdId: customer.value.householdId!,
           nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>),
-          pregnantMembers: (formMap["hs_18_16_pregnant"] as List<HouseholdSurevyMember>),
+          pregnantMembers: (formMap["hs_18_16_pregnant_members"] as List<HouseholdSurevyMember>),
           //chronicRemovals: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           //deadMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           diseaseMembers: DiseaseMembers(
@@ -246,15 +246,15 @@ class HouseholdSurveyLogic extends BaseLogic {
             highbp:(formMap["hs_18_20_high_bp_members"] as List<HouseholdSurevyMember>),
             eyeproblem:(formMap["hs_18_30_eye_members"] as List<HouseholdSurevyMember>),
             kidneyDisease:(formMap["hs_18_22_kidney_members"] as List<HouseholdSurevyMember>),
-            cancer:(formMap["hs_18_24_cancer"] as List<HouseholdSurevyMember>),
-            lowbp:(formMap["hs_18_26_low_bp_members"] as List<HouseholdSurevyMember>),
-            malnutritionU5:(formMap["hs_18_28_malnutrition_u5_members"] as List<HouseholdSurevyMember>),
-            earproblem:(formMap["hs_18_32_ear_members"] as List<HouseholdSurevyMember>),
-            pneumonia:(formMap["hs_18_34_pneumonia_members"] as List<HouseholdSurevyMember>),
-            diarrhea:(formMap["hs_18_36_diarrhea_members"] as List<HouseholdSurevyMember>),
-            hepatitis:(formMap["hs_18_38_hepatitis_members"] as List<HouseholdSurevyMember>),
-            paralysis:(formMap["hs_18_40_paralysis_members"] as List<HouseholdSurevyMember>),
-            otherComplicated:(formMap["hs_18_42_other_complicated_members"] as List<HouseholdSurevyMember>),
+            cancer:(formMap["hs_18_24_cancer_members"] as List<HouseholdSurevyMember>),
+            lowbp:(formMap["hs_18_26_low_bp_members"] as List<HouseholdSurevyMember>?),
+            malnutritionU5:(formMap["hs_18_28_malnutrition_u5_members"] as List<HouseholdSurevyMember>?),
+            earproblem:(formMap["hs_18_32_ear_members"] as List<HouseholdSurevyMember>?),
+            pneumonia:(formMap["hs_18_34_pneumonia_members"] as List<HouseholdSurevyMember>?),
+            diarrhea:(formMap["hs_18_36_diarrhea_members"] as List<HouseholdSurevyMember>?),
+            hepatitis:(formMap["hs_18_38_hepatitis_members"] as List<HouseholdSurevyMember>?),
+            paralysis:(formMap["hs_18_40_paralysis_members"] as List<HouseholdSurevyMember>?),
+            otherComplicated:(formMap["hs_18_42_other_complicated_members"] as List<HouseholdSurevyMember>?),
           )
         )
     );

@@ -1,5 +1,5 @@
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -7,15 +7,28 @@ import '../../common/helper/utils.dart';
 import '../dto/field_dto.dart';
 import 'item_label.dart';
 
+int? _parseDateTimeEpoch(dynamic val) {
+  if (val == null) return null;
+  if (val is int) return val;
+  if (val is num) return val.toInt();
+  if (val is DateTime) return val.millisecondsSinceEpoch;
+  if (val is String) {
+    final parsedInt = int.tryParse(val);
+    if (parsedInt != null) return parsedInt;
+    final parsedDt = DateTime.tryParse(val);
+    if (parsedDt != null) return parsedDt.millisecondsSinceEpoch;
+  }
+  return null;
+}
 
 Widget SelectDateTime({
-    required Field field,
-    required context,
-    required GlobalKey<FormBuilderState> formKey,
-    double elevation = 0,
-    double padding = 0,
-    Function? onChanged,
-  }) {
+  required Field field,
+  required context,
+  required GlobalKey<FormBuilderState> formKey,
+  double elevation = 0,
+  double padding = 0,
+  Function? onChanged,
+}) {
   return Card(
     elevation: elevation,
     margin: EdgeInsets.all(0),
@@ -23,88 +36,125 @@ Widget SelectDateTime({
     child: Padding(
       padding: EdgeInsets.all(padding),
       child: Column(
-          children: [
-            if(field.label != null) ItemLabel(field),
-            FormBuilderField<dynamic>(
-              name: field.name!,
-              initialValue: field.defaultValue,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: FormBuilderValidators.compose([
-                ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),
-              ]),
-              valueTransformer: null,
-              onChanged: (val) {
-                if(onChanged != null) {
-                  onChanged(val);
-                }
-              },
-              builder: (FormFieldState<dynamic> fieldState) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        final pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: field.defaultValue!=null? CustomDateUtils.getDateTimeFromEpoch(fieldState.value): DateTime.now(),
-                          firstDate: field.min!=null? CustomDateUtils.getDateTimeFromEpoch(field.min!.toInt()): DateTime(1900),
-                          lastDate: field.max!=null? CustomDateUtils.getDateTimeFromEpoch(field.max!.toInt()): DateTime(DateTime.now().year+100),
-                        );
-                        if (pickedDate != null) {
-                          //final formatted = "${picked.year}-${picked.month}-${picked.day}";
-                          TimeOfDay? pickedTime = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          );
-                          if (pickedTime == null) return;
-                          final combinedDateTime = DateTime(
-                            pickedDate.year,
-                            pickedDate.month,
-                            pickedDate.day,
-                            pickedTime.hour,
-                            pickedTime.minute,
-                          );
+        children: [
+          if (field.label != null) ItemLabel(field),
+          FormBuilderField<dynamic>(
+            name: field.name!,
+            initialValue: field.defaultValue,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: FormBuilderValidators.compose([
+              ValidationWrapper(
+                FormBuilderValidators.required(),
+                isRequired: field.required,
+              ),
+            ]),
+            valueTransformer: null,
+            onChanged: (val) {
+              if (onChanged != null) {
+                onChanged(val);
+              }
+            },
+            builder: (FormFieldState<dynamic> fieldState) {
+              final currentEpoch = _parseDateTimeEpoch(fieldState.value) ??
+                  _parseDateTimeEpoch(field.defaultValue);
+              final minEpoch = _parseDateTimeEpoch(field.min);
+              final maxEpoch = _parseDateTimeEpoch(field.max);
 
-                          final formatted = combinedDateTime.millisecondsSinceEpoch;
-                          fieldState.didChange(formatted);
-                        }
-                      },
-                      child: Container(
-                        height: 48,
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorLight,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                              (fieldState.value != null) ? CustomDateUtils.format(fieldState.value): ((field.hint!=null && field.hint!.isNotEmpty)?field.hint!:"Select date"),
-                                style: TextStyle(
-                                  color: fieldState.value == null ? Colors.grey : Colors.black,
-                                ),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      final initialDate = currentEpoch != null
+                          ? DateTime.fromMillisecondsSinceEpoch(currentEpoch)
+                          : DateTime.now();
+                      final firstDate = minEpoch != null
+                          ? DateTime.fromMillisecondsSinceEpoch(minEpoch)
+                          : DateTime(1900);
+                      final lastDate = maxEpoch != null
+                          ? DateTime.fromMillisecondsSinceEpoch(maxEpoch)
+                          : DateTime(DateTime.now().year + 100);
+
+                      final safeInitialDate = initialDate.isBefore(firstDate)
+                          ? firstDate
+                          : (initialDate.isAfter(lastDate) ? lastDate : initialDate);
+
+                      final pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: safeInitialDate,
+                        firstDate: firstDate,
+                        lastDate: lastDate,
+                      );
+                      if (pickedDate != null) {
+                        TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (pickedTime == null) return;
+                        final combinedDateTime = DateTime(
+                          pickedDate.year,
+                          pickedDate.month,
+                          pickedDate.day,
+                          pickedTime.hour,
+                          pickedTime.minute,
+                        );
+
+                        final formatted = combinedDateTime.millisecondsSinceEpoch;
+                        fieldState.didChange(formatted);
+                      }
+                    },
+                    child: Container(
+                      height: 48,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorLight,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              currentEpoch != null
+                                  ? CustomDateUtils.format(currentEpoch)
+                                  : ((field.hint != null && field.hint!.isNotEmpty)
+                                      ? field.hint!
+                                      : "Select date".tr),
+                              style: TextStyle(
+                                color: currentEpoch == null ? Colors.grey : Colors.black,
                               ),
                             ),
-                            Icon(Icons.calendar_month, color:  Theme.of(context).primaryColor,)
-                          ],
-                        ),
+                          ),
+                          Icon(
+                            Icons.calendar_month,
+                            color: Theme.of(context).primaryColor,
+                          )
+                        ],
                       ),
                     ),
-                    if(fieldState.errorText != null) Padding(
+                  ),
+                  if (fieldState.errorText != null)
+                    Padding(
                       padding: const EdgeInsets.only(left: 2, top: 4),
-                      child: Text(fieldState.errorText!, style: const TextStyle(color: Colors.red, fontSize: 12),),
+                      child: Text(
+                        fieldState.errorText!,
+                        style: const TextStyle(color: Colors.red, fontSize: 12),
+                      ),
                     ),
-                  ],
-                );
-              },
+                ],
+              );
+            },
+          ),
+          if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                field.description!,
+                textAlign: TextAlign.left,
+              ),
             ),
-            if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
-              Text(field.description!, textAlign: TextAlign.left,),
-          ]
+        ],
       ),
     ),
   );
 }
-
