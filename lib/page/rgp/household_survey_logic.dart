@@ -42,7 +42,42 @@ class HouseholdSurveyLogic extends BaseLogic {
     "hs_18_40_paralysis",
     "hs_18_42_other_complicated",
   ];
-  List<String> get householdSurveyCountKeys => ['hs_18_9_nid_count', 'hs_18_11_bcn_count', 'hs_18_17_pregnant_count', 'hs_18_19_diabetes_count', 'hs_18_21_high_bp_count', 'hs_18_23_kidney_count', 'hs_18_25_cancer_count', 'hs_18_27_low_bp_count', 'hs_18_29_malnutrition_u5_count', 'hs_18_31_eye_count', 'hs_18_33_ear_count', 'hs_18_35_pneumonia_count', 'hs_18_37_diarrhea_count', 'hs_18_39_hepatitis_count', 'hs_18_41_paralysis_count', 'hs_18_43_other_complicated_count'];
+  List<String> get householdSurveyCountKeys => [
+    'hs_18_9_nid_count',
+    'hs_18_11_bcn_count',
+    'hs_18_17_pregnant_count',
+    'hs_18_19_diabetes_count',
+    'hs_18_21_high_bp_count',
+    'hs_18_23_kidney_count',
+    'hs_18_25_cancer_count',
+    'hs_18_27_low_bp_count',
+    'hs_18_29_malnutrition_u5_count',
+    'hs_18_31_eye_count',
+    'hs_18_33_ear_count',
+    'hs_18_35_pneumonia_count',
+    'hs_18_37_diarrhea_count',
+    'hs_18_39_hepatitis_count',
+    'hs_18_41_paralysis_count',
+    'hs_18_43_other_complicated_count'
+  ];
+  List<String> get fakeHouseholdSurveyCountKeys => [
+    'hs_18_8_nid_count',
+    'hs_18_10_bcn_count',
+    'hs_18_16_pregnant_count',
+    'hs_18_15_diabetes_count',
+    'hs_18_20_high_bp_count',
+    'hs_18_22_kidney_count',
+    'hs_18_24_cancer_count',
+    'hs_18_26_low_bp_count',
+    'hs_18_25_malnutrition_u5_count',
+    'hs_18_30_eye_count',
+    'hs_18_32_ear_count',
+    'hs_18_34_pneumonia_count',
+    'hs_18_36_diarrhea_count',
+    'hs_18_38_hepatitis_count',
+    'hs_18_40_paralysis_count',
+    'hs_18_42_other_complicated_count'
+  ];
 
   @override
   void onInit() {
@@ -74,9 +109,17 @@ class HouseholdSurveyLogic extends BaseLogic {
         //   });
         // }
         selectedSurvey.value = allSurveys.first;
+        //add fake_key_count for view(health information)
+        // for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
+        //   final fakeKey = fakeHouseholdSurveyCountKeys[i];
+        //   final realKey = householdSurveyCountKeys[i];
+        //   selectedSurvey.value!.fields?.forEach((){
+        //
+        //   });
+        // }
         // modify visibility condition
         selectedSurvey.value!.fields!.removeWhere((Field field)=> field.visibilityConditions?.first.sourceField == "__rgp_extended_enabled__");
-        selectedSurvey.value!.fields!.forEach((field) {
+        selectedSurvey.value!.fields!.asMap().forEach((index, field) {
           if(field.inputType == 'switchButton') {
             field.inputType = 'checkboxSingle';
           }
@@ -84,6 +127,8 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.visibilityConditions = null;
             field.readOnly = true;
             field.min = 0;
+            //add fake_key_count for view(health information)
+            field.name = fakeHouseholdSurveyCountKeys[householdSurveyCountKeys.indexWhere((key)=>key  == field.name!)];
           }
 
           if(checkboxHouseholdMemberTypeFieldKey.contains(field.name)) {
@@ -96,14 +141,13 @@ class HouseholdSurveyLogic extends BaseLogic {
                 List<Field> fields = [];
                 if(
                 field.name == 'hs_18_8_nid' ||
-                field.name == 'hs_18_10_bcn' ||
-                field.name == 'hs_18_42_other_complicated'
+                field.name == 'hs_18_10_bcn'
                 ) {
                   fields = [
                     Field(
                       label: field.label,
                       hint: field.hint,
-                      name: "${field.name}_text",
+                      name: "${field.name}_input",
                       inputType: "text",
                       required: true,
                       defaultValue: "",
@@ -113,16 +157,14 @@ class HouseholdSurveyLogic extends BaseLogic {
                 else if(field.name == 'hs_18_16_pregnant') {
                   fields = [
                     Field(
-                        label: field.label,
-                        hint: field.hint,
+                        label: "LMP",
                         name: "${field.name}_lmp",
                         inputType: "date",
                         required: true,
                         defaultValue: DateTime.now().millisecondsSinceEpoch,
                     ),
                      Field(
-                        label: field.label,
-                        hint: field.hint,
+                        label: "EDD",
                         name: "${field.name}_edd",
                         inputType: "date",
                         required: true,
@@ -130,12 +172,13 @@ class HouseholdSurveyLogic extends BaseLogic {
                     )
                   ];
                 }
+
                 else {
                   fields = [
                     Field(
                         label: field.label,
                         hint: field.hint,
-                        name: "${field.name}_text",
+                        name: "${field.name}_input",
                         inputType: "text",
                         required: false,
                         defaultValue: "",
@@ -149,7 +192,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                     profileId: m.profileId,
                     display: displayName,
                     fields: fields,
-                    isHidden: field.name == 'hs_18_16_pregnant' && m.gender != 'Female'? true: false,
+                    isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >59))? true: false,
                 );
               }).toList();
             }
@@ -165,6 +208,16 @@ class HouseholdSurveyLogic extends BaseLogic {
   }
 
   void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
+    //add count key to formMap for submitting(currently dat stored in fake key for showing UI Only)
+    for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
+      final fakeKey = fakeHouseholdSurveyCountKeys[i];
+      final realKey = householdSurveyCountKeys[i];
+      if(formMap[fakeKey] == null || formMap[fakeKey] == ""){
+        formMap[realKey] = formMap[fakeKey];
+      }
+    }
+
+    //other filed modification like profile data
     final surveyResultData = HouseholdSurveyRequestDto(
         surveyId: selectedSurveyDto.id,
         userId: customer.value.userId,
@@ -197,10 +250,10 @@ class HouseholdSurveyLogic extends BaseLogic {
     );
     globalState.showBusy();
     final requestBody = surveyResultData.toJson();
-    requestBody['inputs'].remove("hs_18_8_nid_members");
-    requestBody['inputs'].remove("hs_18_10_bcn_members");
+    //requestBody['inputs'].remove("hs_18_8_nid_members");
+    //requestBody['inputs'].remove("hs_18_10_bcn_members");
     RLog.info(requestBody);
-    RLog.info(surveyResultData.toJson());
+    //RLog.info(surveyResultData.toJson());
     httpProvider.POST(ApiUrl.postHouseholdSurveyUrl(), requestBody).then((response) {
       globalState.hideBusy();
       isLoading.value = false;

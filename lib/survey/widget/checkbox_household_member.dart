@@ -7,6 +7,7 @@ import '../survey_manager_logic.dart';
 import 'decimal_edittext.dart';
 import 'dropdown_select.dart';
 import 'edittext.dart';
+import 'item_label.dart';
 import 'multiselect_checkbox.dart';
 import 'number_edittext.dart';
 import 'radio_groups.dart';
@@ -1005,14 +1006,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                             ),
                             const SizedBox(width: 10),
                             Expanded(
-                              child: Text(
-                                widget.field.label ?? '',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
+                              child:  ItemLabel(widget.field),
                             ),
                           ],
                         ),
@@ -1050,7 +1044,6 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                 'Select Member'.tr,
                                 style: TextStyle(
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w500,
                                   color: Colors.grey.shade800,
                                 ),
                               ),
@@ -1098,7 +1091,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                       child: Text(
                                         member.display ?? '',
                                         style: const TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black87,
                                         ),

@@ -2,6 +2,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../dto/field_dto.dart';
+import 'item_label.dart';
 
 Widget CheckboxSingle({
   required Field field,
@@ -127,14 +128,7 @@ Widget CheckboxSingle({
                           ),
                           const SizedBox(width: 10),
                           Expanded(
-                            child: Text(
-                              field.label ?? '',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
+                            child: ItemLabel(field),
                           ),
                         ],
                       ),

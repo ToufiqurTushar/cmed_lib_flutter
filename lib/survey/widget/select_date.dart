@@ -86,7 +86,7 @@ Widget SelectDate({
               },
             ),
             if ((field.description?.isNotEmpty ?? false) && !(field.readOnly ?? false))
-              Text(field.description!, textAlign: TextAlign.left,),
+              Align(alignment: Alignment.centerLeft, child: Text(field.description!, textAlign: TextAlign.left,)),
           ]
       ),
     ),

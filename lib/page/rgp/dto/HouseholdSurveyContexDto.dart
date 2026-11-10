@@ -327,8 +327,8 @@ class DiseaseMember {
   final dynamic healthCardCost;
   final String? healthCardIssueDate;
   final String? healthCardExpireDate;
-  final String? lmpDate;
-  final String? eddDate;
+  final int? lmpDate;
+  final int? eddDate;
 
   DiseaseMember({
     this.userId,
@@ -400,8 +400,8 @@ class SurveyMember {
   final String? healthCardIssueDate;
   final bool? pregnant;
   final bool? pregnancyEligible;
-  final String? lmpDate;
-  final String? eddDate;
+  final int? lmpDate;
+  final int? eddDate;
   final List<String>? activeDiseases;
   final List<String>? chronicConditions;
 
