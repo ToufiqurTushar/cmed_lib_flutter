@@ -8,6 +8,7 @@ import 'item_label.dart';
 
 
 Widget IntNumberEditText({
+    Key? key,
     required Field field,
     required context,
     required GlobalKey<FormBuilderState> formKey,
@@ -15,7 +16,9 @@ Widget IntNumberEditText({
     double padding = 0,
     Function? onChanged,
   }) {
+  final currentVal = formKey.currentState?.fields[field.name]?.value ?? field.defaultValue;
   return Card(
+    key: key,
     elevation: elevation,
     margin: EdgeInsets.all(0),
     color: Colors.white,
@@ -25,8 +28,9 @@ Widget IntNumberEditText({
           children: [
             if(field.label != null) ItemLabel(field),
             FormBuilderTextField(
+              key: ValueKey('${field.name}_${currentVal ?? field.defaultValue}'),
               name: field.name!,
-              initialValue: field.defaultValue?.toString()??'',
+              initialValue: (currentVal ?? field.defaultValue)?.toString()??'',
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: FormBuilderValidators.compose([
                 ValidationWrapper(FormBuilderValidators.required(), isRequired: field.required),

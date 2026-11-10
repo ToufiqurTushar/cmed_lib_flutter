@@ -17,6 +17,7 @@ class Field {
     this.inputType,
     this.required,
     this.readOnly,
+    this.ignore,
     this.name,
     this.min,
     this.max,
@@ -40,6 +41,7 @@ class Field {
       });
     }
     description = json['description'];
+    ignore = json['ignore'];
     hint = json['hint'];
     min = json['min'];
     max = json['max'];
@@ -99,6 +101,7 @@ class Field {
   String? inputType;
   bool? required;
   bool? readOnly;
+  bool? ignore;
   bool? isHidden;
   num? min;
   num? max;
@@ -119,6 +122,7 @@ class Field {
     }
     map['description'] = description;
     map['hint'] = hint;
+    map['ignore'] = ignore;
     map['input_type'] = inputType;
     map['required'] = required;
     map['read_only'] = readOnly;

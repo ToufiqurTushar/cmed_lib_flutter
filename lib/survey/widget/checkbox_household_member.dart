@@ -165,6 +165,65 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         isChecked = false;
       }
     }
+    final count = isChecked ? selectedMembers.length : 0;
+    _updateCountField(count);
+  }
+
+  void _updateCountField(int count) {
+    if (widget.field.name == null) return;
+    final baseName = widget.field.name!;
+    final directKey = '${baseName}_count';
+
+    final nameParts = baseName.split('_');
+    final keyword = nameParts.length > 3 ? nameParts.sublist(3).join('_') : nameParts.last;
+
+    final logic = Get.isRegistered<SurveyManagerLogic>() ? Get.find<SurveyManagerLogic>() : null;
+    final matchedKeys = <String>{directKey};
+
+    if (logic != null) {
+      logic.answers[directKey] = count;
+
+      for (final survey in [...logic.allSurveys, ...logic.selectedSurveys]) {
+        for (final f in (survey.fields ?? [])) {
+          final fName = f.name;
+          if (fName != null && fName.endsWith('_count')) {
+            if (fName == directKey || (keyword.isNotEmpty && fName.contains(keyword))) {
+              matchedKeys.add(fName);
+              f.defaultValue = count;
+            }
+          }
+        }
+      }
+
+      for (final k in logic.answers.keys) {
+        if (k.endsWith('_count') && (k == directKey || (keyword.isNotEmpty && k.contains(keyword)))) {
+          matchedKeys.add(k);
+        }
+      }
+    }
+
+    final formFields = widget.formKey.currentState?.fields;
+    if (formFields != null) {
+      for (final k in formFields.keys) {
+        if (k.endsWith('_count') && (k == directKey || (keyword.isNotEmpty && k.contains(keyword)))) {
+          matchedKeys.add(k);
+        }
+      }
+    }
+
+    for (final k in matchedKeys) {
+      if (logic != null) {
+        logic.answers[k] = count;
+      }
+      try {
+        final f = widget.formKey.currentState?.fields[k];
+        if (f != null && f.value?.toString() != '$count') {
+          f.didChange('$count');
+        }
+      } catch (_) {}
+    }
+
+    logic?.answers.refresh();
   }
 
   void _parseMembers(List list) {
@@ -600,12 +659,13 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
       logic.answers[widget.field.name!] = statusVal;
       if (membersVal.isNotEmpty) {
         logic.answers['${widget.field.name}_members'] = membersVal;
-        logic.answers['${widget.field.name}_count'] = membersVal.length;
       } else {
         logic.answers.remove('${widget.field.name}_members');
-        logic.answers.remove('${widget.field.name}_count');
       }
     }
+
+    final count = isChecked ? membersVal.length : 0;
+    _updateCountField(count);
 
     try {
       widget.onChanged?.call(statusVal, membersVal);
@@ -935,12 +995,12 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                   final logic = Get.find<SurveyManagerLogic>();
                   if (isChecked && latest.isNotEmpty) {
                     logic.answers['${widget.field.name}_members'] = latest;
-                    logic.answers['${widget.field.name}_count'] = latest.length;
                   } else {
                     logic.answers.remove('${widget.field.name}_members');
-                    logic.answers.remove('${widget.field.name}_count');
                   }
                 }
+                final count = isChecked ? latest.length : 0;
+                _updateCountField(count);
               },
               validator: (val) {
                 if (isChecked && widget.field.required == true && (val == null || val.isEmpty)) {
@@ -1063,7 +1123,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                       ...List.generate(selectedMembers.length, (index) {
                         final member = selectedMembers[index];
                         final memberFields = _getMemberFields(member);
+                        final memberKey = _memberKey(member);
                         return Card(
+                          key: ValueKey('member_card_$memberKey'),
                           elevation: 1.5,
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           shape: RoundedRectangleBorder(
@@ -1108,7 +1170,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                 const SizedBox(height: 8),
                                 if (memberFields != null && memberFields.isNotEmpty)
                                   ...memberFields.map((subField) {
+                                    final subFieldName = _getMemberScopedFieldName(member, subField);
                                     return Visibility(
+                                      key: ValueKey('member_field_$subFieldName'),
                                       visible: !(subField.isHidden??false),
                                       child: Padding(
                                         padding: const EdgeInsets.only(bottom: 8.0),

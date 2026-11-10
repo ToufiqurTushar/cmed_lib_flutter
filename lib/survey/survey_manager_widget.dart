@@ -119,7 +119,6 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         );
       }
 
-      controller.formKey = GlobalKey<FormBuilderState>();
       final visibleTabs = controller.getVisibleTabs();
 
       return WillPopScope(
@@ -683,15 +682,25 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         });
       }
       field.defaultValue = value??field.defaultValue;
-      //formKey.currentState?.patchValue(controller.answers);
-      //RLog.warning(value);
-      // formKey.currentState?.fields[field.name]?.didChange(value);
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
-          controller.answers[field.name!] = val;
-          controller.answers.refresh();
-        }),
+
+      if (value != null && formKey.currentState?.fields[field.name] != null) {
+        final fState = formKey.currentState!.fields[field.name]!;
+        if (fState.value?.toString() != value.toString()) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            fState.didChange(value.toString());
+          });
+        }
+      }
+
+      return IgnorePointer(
+        ignoring: field.readOnly??false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
+            controller.answers[field.name!] = val;
+            controller.answers.refresh();
+          }),
+        ),
       );
     });
   }

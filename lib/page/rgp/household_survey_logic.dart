@@ -123,10 +123,10 @@ class HouseholdSurveyLogic extends BaseLogic {
           if(field.inputType == 'switchButton') {
             field.inputType = 'checkboxSingle';
           }
-          if(field.name!.contains("_count")){
+          if(householdSurveyCountKeys.contains(field.name)){
             field.visibilityConditions = null;
-            field.readOnly = true;
             field.min = 0;
+            field.ignore = true;
             //add fake_key_count for view(health information)
             field.name = fakeHouseholdSurveyCountKeys[householdSurveyCountKeys.indexWhere((key)=>key  == field.name!)];
           }
