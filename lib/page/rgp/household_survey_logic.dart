@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import 'package:cmed_lib_flutter/page/rgp/household_survey_argument.dart';
 import 'package:cmed_lib_flutter/survey/dto/field_dto.dart';
@@ -364,22 +366,31 @@ class HouseholdSurveyLogic extends BaseLogic {
         )
     );
 
-    final requestBody = surveyResultData.toSurveyMap();
 
-    final surveyMap = requestBody['survey']['inputs'];
-    if (surveyMap is Map) {
-      final inputsKeys = List<String>.from(surveyMap.keys);
-      for (final key in inputsKeys) {
-        if (key.endsWith('_members') ||
+    // 1. Force a deep clone to make the entire map fully mutable
+    final Map<String, dynamic> requestBody = jsonDecode(
+      jsonEncode(surveyResultData.toSurveyMap()),
+    );
+
+    // 2. Access and clean the inputs map safely
+    final surveyMap = requestBody['survey']?['inputs'];
+    if (surveyMap is Map<String, dynamic>) {
+      surveyMap.removeWhere((key, value) {
+        final bool matchesGeneralCriteria = key.endsWith('_members') ||
             fakeHouseholdSurveyCountKeys.contains(key) ||
             key.contains('_input_') ||
             key.contains('_lmp_') ||
             key.contains('_edd_') ||
-            key.startsWith('__')) {
-          requestBody['survey']['inputs'].remove(key);
-        }
-      }
+            key.startsWith('__');
+
+        final bool matchesZeroCount = key.endsWith('_count') &&
+            (value == 0 || value == '0' || value == null);
+
+        return matchesGeneralCriteria || matchesZeroCount;
+      });
     }
+
+
     RLog.error(requestBody);
     //RLog.info(surveyResultData.toJson());
     globalState.showBusy();
