@@ -1110,7 +1110,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                 if (memberFields != null && memberFields.isNotEmpty)
                                   ...memberFields.map((subField) {
                                     return Visibility(
-                                      visible: !subField.isHidden,
+                                      visible: !(subField.isHidden??false),
                                       child: Padding(
                                         padding: const EdgeInsets.only(bottom: 8.0),
                                         child: _buildMemberFieldWidget(

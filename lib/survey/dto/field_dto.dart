@@ -99,7 +99,7 @@ class Field {
   String? inputType;
   bool? required;
   bool? readOnly;
-  bool isHidden = false;
+  bool? isHidden;
   num? min;
   num? max;
   List<FieldOption>? options;

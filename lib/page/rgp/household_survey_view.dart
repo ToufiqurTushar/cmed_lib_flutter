@@ -44,7 +44,7 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
               SurveyManagerWidget(
                 //jsonAssetDirectory: "assets/json/healthydays.json",
                   surveys: controller.allSurveys,
-                  showSerialNumber: true,
+                  showSerialNumber: false,
                   isTabStyle: true,
                   hideTabView: false,
                   tabContents: [

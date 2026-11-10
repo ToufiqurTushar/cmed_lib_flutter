@@ -19,6 +19,7 @@ class HouseholdSurevyMember {
     this.reason,
     this.fields,
     this.inputs,
+    this.isHidden,
   });
 
   HouseholdSurevyMember.fromJson(dynamic json) {
@@ -37,6 +38,7 @@ class HouseholdSurevyMember {
     healthCardIssueDate = json['health_card_issue_date'];
     healthCardExpireDate = json['health_card_expire_date'];
     dead = json['dead'];
+    isHidden = json['isHidden'];
     dateOfDeath = json['date_of_death'];
     condition = json['condition']?.toString();
     reason = json['reason']?.toString();
@@ -67,6 +69,7 @@ class HouseholdSurevyMember {
   int? healthCardIssueDate;
   int? healthCardExpireDate;
   bool? dead;
+  bool? isHidden;
   int? dateOfDeath;
   String? condition;
   String? reason;
@@ -82,6 +85,7 @@ class HouseholdSurevyMember {
     map['value'] = value;
     map['lmp_date'] = lmpDate;
     map['edd_date'] = eddDate;
+    map['isHidden'] = isHidden;
     if (healthCardNumber != null) {
       map['health_card_number'] = healthCardNumber;
     }

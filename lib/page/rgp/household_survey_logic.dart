@@ -81,7 +81,7 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.inputType = 'checkboxSingle';
           }
           if(field.name!.contains("_count")){
-            field.visibilityConditions = [FieldCondition(hide: false, operator: FBConditionType.isHidden.name)];
+            field.visibilityConditions = null;
             field.readOnly = true;
             field.min = 0;
           }
@@ -93,8 +93,13 @@ class HouseholdSurveyLogic extends BaseLogic {
                 final displayName = (Get.locale?.languageCode == 'en'
                         ? (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)
                         : (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)) ??'N/A';
-                final fields = (field.name == 'hs_18_8_nid')?
-                  [
+                List<Field> fields = [];
+                if(
+                field.name == 'hs_18_8_nid' ||
+                field.name == 'hs_18_10_bcn' ||
+                field.name == 'hs_18_42_other_complicated'
+                ) {
+                  fields = [
                     Field(
                       label: field.label,
                       hint: field.hint,
@@ -102,9 +107,31 @@ class HouseholdSurveyLogic extends BaseLogic {
                       inputType: "text",
                       required: true,
                       defaultValue: "",
-                      isHidden: true
                     )
-                  ]: [
+                  ];
+                }
+                else if(field.name == 'hs_18_16_pregnant') {
+                  fields = [
+                    Field(
+                        label: field.label,
+                        hint: field.hint,
+                        name: "${field.name}_lmp",
+                        inputType: "date",
+                        required: true,
+                        defaultValue: DateTime.now().millisecondsSinceEpoch,
+                    ),
+                     Field(
+                        label: field.label,
+                        hint: field.hint,
+                        name: "${field.name}_edd",
+                        inputType: "date",
+                        required: true,
+                        defaultValue: (DateTime.now().add(const Duration(days: 280))).millisecondsSinceEpoch,
+                    )
+                  ];
+                }
+                else {
+                  fields = [
                     Field(
                         label: field.label,
                         hint: field.hint,
@@ -115,12 +142,14 @@ class HouseholdSurveyLogic extends BaseLogic {
                         isHidden: true
                     )
                   ];
+                }
                 return HouseholdSurevyMember(
-                  userId: m.userId,
-                  memberId: m.memberId!,
-                  profileId: m.profileId,
-                  display: displayName,
-                  fields: fields
+                    userId: m.userId,
+                    memberId: m.memberId,
+                    profileId: m.profileId,
+                    display: displayName,
+                    fields: fields,
+                    isHidden: field.name == 'hs_18_16_pregnant' && m.gender != 'Female'? true: false,
                 );
               }).toList();
             }
