@@ -622,10 +622,15 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     FormFieldState<dynamic> checkFieldState,
   ) {
     final themeColor = Theme.of(context).primaryColor;
-    final availableMembers = widget.field.members ?? [];
+    final availableMembers = (widget.field.members ?? [])
+        .where((m) => m.isHidden != true)
+        .toList();
 
     // Pre-populate with currently selected member keys
-    final selectedKeys = selectedMembers.map((m) => _memberKey(m)).toSet();
+    final selectedKeys = selectedMembers
+        .where((m) => m.isHidden != true)
+        .map((m) => _memberKey(m))
+        .toSet();
 
     showDialog<Set<dynamic>>(
       context: context,
@@ -832,6 +837,7 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
               healthCardIssueDate: oldMember?.healthCardIssueDate ?? m.healthCardIssueDate,
               healthCardExpireDate: oldMember?.healthCardExpireDate ?? m.healthCardExpireDate,
               dead: oldMember?.dead ?? m.dead,
+              isHidden: oldMember?.isHidden ?? m.isHidden,
               dateOfDeath: oldMember?.dateOfDeath ?? m.dateOfDeath,
               condition: oldMember?.condition ?? m.condition,
               reason: oldMember?.reason ?? m.reason,
