@@ -1,14 +1,9 @@
 import 'package:cmed_lib_flutter/common/helper/date_utils.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
-import 'package:cmed_lib_flutter/page/rgp/npage/result/household_survey_result_argument.dart';
-import 'package:cmed_lib_flutter/page/rgp/npage/result/household_survey_result_view.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_survey_result.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
-import '../../household_survey_argument.dart';
-import '../../household_survey_view.dart';
-import 'household_survey_history_list_argument.dart';
 import 'household_survey_history_list_logic.dart';
 
 class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic> {

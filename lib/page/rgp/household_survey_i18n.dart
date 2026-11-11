@@ -3,6 +3,7 @@ class HouseholdSurveyI18N {
     return {
       "en_US": {
         "Household": "Household",
+        "Household ID": "Household ID",
         "Health": "Health",
         "Overview": "Overview",
         "Household Survey": "Household Survey",
@@ -165,6 +166,7 @@ class HouseholdSurveyI18N {
       },
       "bn_BD": {
         "Household": "পরিবার",
+        "Household ID": "হাউসহোল্ড আইডি",
         "Health": "স্বাস্থ্যগত",
         "Overview": "সার্বিক চিত্র",
         "Household Survey": "হাউসহোল্ড সার্ভে",

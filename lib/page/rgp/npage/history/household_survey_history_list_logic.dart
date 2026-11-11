@@ -22,6 +22,7 @@ class HouseholdSurveyListLogic extends BaseLogic {
   int toDate = 0;
   int? householdId;
   int? targetUserId;
+  bool? isFromActivity;
 
   @override
   void onInit() {
@@ -33,6 +34,7 @@ class HouseholdSurveyListLogic extends BaseLogic {
       }
       householdId = arg.householdId;
       targetUserId = arg.userId;
+      isFromActivity = arg.isFromActivity;
       if (arg.date != null && arg.date!.isNotEmpty) {
         try {
           String date = arg.date!;
@@ -55,13 +57,11 @@ class HouseholdSurveyListLogic extends BaseLogic {
 
   getData() async {
     final effectiveHouseholdId = householdId ?? customer.value.householdId ?? 0;
-    final effectiveUserId = targetUserId ?? customer.value.userId ?? 0;
 
     globalState.showBusy();
-    httpProvider
-        .GET(ApiUrl.getHouseholdSurveyListUrl(
+    httpProvider.GET(ApiUrl.getHouseholdSurveyListUrl(
       householdId: effectiveHouseholdId,
-      userId: effectiveUserId,
+      userId: (isFromActivity??false)? targetUserId:null ,//null=for all user within household
       fromDate: fromDate,
       toDate: toDate,
       page: 0,

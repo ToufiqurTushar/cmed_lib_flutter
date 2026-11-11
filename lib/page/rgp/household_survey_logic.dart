@@ -282,14 +282,14 @@ class HouseholdSurveyLogic extends BaseLogic {
                 else if(field.name == 'hs_18_16_pregnant') {
                   fields = [
                     Field(
-                        label: "LMP",
+                        label: "LMP Date".tr,
                         name: "${field.name}_lmp_",
                         inputType: "date",
                         required: true,
                         defaultValue: DateTime.now().millisecondsSinceEpoch,
                     ),
                      Field(
-                        label: "EDD",
+                        label: "EDD Date".tr,
                         name: "${field.name}_edd_",
                         inputType: "date",
                         required: true,

@@ -8,10 +8,12 @@ class HouseholdSurveyHistoryListArgument {
     this.householdId,
     this.userId,
     this.customer,
+    this.isFromActivity,
   });
   String? date;
   int? householdId;
   int? userId;
+  bool? isFromActivity;
   CustomerDTO? customer;
 }
 
