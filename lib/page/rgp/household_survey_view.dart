@@ -18,24 +18,31 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: BasicAppBar("Household Survey".tr, trailingWidget: InkWell(
-        onTap: () {
-          Get.offNamed(HouseholdSurveyHistoryListView.routeName);
-        },
-        child: Visibility(
-          visible: controller.selectedSurvey.value == null,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Row(
-              children: [
-                Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
-                const SizedBox(width: 8,),
-                Text('History'.tr)
-              ],
-            ),
-          ),
-        ),
-      )),
+      appBar: BasicAppBar(
+        controller.householdSurveyArg.isFromHistory
+            ? "Household Survey Details".tr
+            : "Household Survey".tr,
+        trailingWidget: controller.householdSurveyArg.isFromHistory
+            ? null
+            : InkWell(
+                onTap: () {
+                  Get.offNamed(HouseholdSurveyHistoryListView.routeName);
+                },
+                child: Visibility(
+                  visible: controller.selectedSurvey.value == null,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
+                        const SizedBox(width: 8,),
+                        Text('History'.tr)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,7 +51,7 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
               ()=> controller.isLoading.value?
               const Center(child: CircularProgressIndicator()):
               SurveyManagerWidget(
-                //jsonAssetDirectory: "assets/json/healthydays.json",
+                  hideSubmit: controller.householdSurveyArg.isFromHistory,
                   surveys: controller.allSurveys,
                   showSerialNumber: false,
                   isTabStyle: true,

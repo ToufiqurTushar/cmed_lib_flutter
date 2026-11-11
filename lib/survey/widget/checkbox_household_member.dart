@@ -205,7 +205,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
           }
         }
 
-        _updateCountField('${widget.field.name}_count', count);
+        if (!(widget.field.readOnly ?? false) || count > 0) {
+          _updateCountField('${widget.field.name}_count', count);
+        }
       }
     });
   }
@@ -222,10 +224,16 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
         member = HouseholdSurevyMember(display: item.toString());
       }
 
-      if ((member.fields == null || member.fields!.isEmpty) && widget.field.members != null) {
+      if (widget.field.members != null) {
         final def = widget.field.members!.firstWhereOrNull((m) => _memberKey(m) == _memberKey(member));
-        if (def?.fields != null && def!.fields!.isNotEmpty) {
-          member.fields = def.fields!.map((f) => Field.fromJson(f.toJson())).toList();
+        if (def != null) {
+          if (member.display == null || member.display!.isEmpty) {
+            member.display = def.display;
+          }
+
+          if ((member.fields == null || member.fields!.isEmpty) && def.fields != null && def.fields!.isNotEmpty) {
+            member.fields = def.fields!.map((f) => Field.fromJson(f.toJson())).toList();
+          }
         }
       }
       if ((member.fields == null || member.fields!.isEmpty) &&
@@ -1151,7 +1159,9 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                   }
                 }
                 final count = isChecked ? latest.length : 0;
-                _updateCountField('${widget.field.name}_count', count);
+                if (!(widget.field.readOnly ?? false) || count > 0) {
+          _updateCountField('${widget.field.name}_count', count);
+        }
               },
               validator: (val) {
                 if (isChecked && widget.field.required == true && (val == null || val.isEmpty)) {
@@ -1250,42 +1260,42 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
 
                     // When checked: Show "+ Select Member" button and selected cards
                     if (isChecked) ...[
-                      const SizedBox(height: 10),
-                      InkWell(
-                        onTap: widget.field.readOnly == true
-                            ? null
-                            : () => _openMemberSelectionDialog(context, membersFieldState, checkFieldState),
-                        borderRadius: BorderRadius.circular(4),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: 22,
-                                height: 22,
-                                decoration: BoxDecoration(
-                                  color: themeColor,
-                                  shape: BoxShape.circle,
+                      if (widget.field.readOnly != true) ...[
+                        const SizedBox(height: 10),
+                        InkWell(
+                          onTap: () => _openMemberSelectionDialog(context, membersFieldState, checkFieldState),
+                          borderRadius: BorderRadius.circular(4),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 22,
+                                  height: 22,
+                                  decoration: BoxDecoration(
+                                    color: themeColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.add,
+                                    size: 16,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 16,
-                                  color: Colors.white,
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Select Member'.tr,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey.shade800,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Select Member'.tr,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey.shade800,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                       const SizedBox(height: 6),
 
                       // Selected members list
@@ -1309,21 +1319,21 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                               children: [
                                 Row(
                                   children: [
-                                    InkWell(
-                                      onTap: widget.field.readOnly == true
-                                          ? null
-                                          : () => _removeMember(
-                                              index,
-                                              checkFieldState,
-                                              membersFieldState,
-                                            ),
-                                      child: const Icon(
-                                        Icons.delete_rounded,
-                                        color: Colors.redAccent,
-                                        size: 22,
+                                    if (widget.field.readOnly != true) ...[
+                                      InkWell(
+                                        onTap: () => _removeMember(
+                                          index,
+                                          checkFieldState,
+                                          membersFieldState,
+                                        ),
+                                        child: const Icon(
+                                          Icons.delete_rounded,
+                                          color: Colors.redAccent,
+                                          size: 22,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
+                                      const SizedBox(width: 8),
+                                    ],
                                     Expanded(
                                       child: Text(
                                         member.display ?? '',
@@ -1343,13 +1353,16 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
                                     return Visibility(
                                       key: ValueKey('member_field_$subFieldName'),
                                       visible: !(subField.isHidden??false),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(bottom: 8.0),
-                                        child: _buildMemberFieldWidget(
-                                          member: member,
-                                          field: subField,
-                                          checkFieldState: checkFieldState,
-                                          membersFieldState: membersFieldState,
+                                      child: IgnorePointer(
+                                        ignoring: subField.ignore??false,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(bottom: 8.0),
+                                          child: _buildMemberFieldWidget(
+                                            member: member,
+                                            field: subField,
+                                            checkFieldState: checkFieldState,
+                                            membersFieldState: membersFieldState,
+                                          ),
                                         ),
                                       ),
                                     );

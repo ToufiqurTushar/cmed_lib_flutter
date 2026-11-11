@@ -92,12 +92,39 @@ class HouseholdSurveyLogic extends BaseLogic {
 
   fetchSurveyData() async {
     isLoading.value = true;
-    await httpProvider.GET(ApiUrl.getHouseholdSurveyContextUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
-      RLog.error(response.body);
-      if (response.isOk && response.statusCode == 200) {
-        householdSurveyContexDto = HouseholdSurveyContexDto.fromJson(response.body);
+    if (householdSurveyArg.isFromHistory) {
+      try {
+        final response = await httpProvider.GET(
+          ApiUrl.getHouseholdSurveyContextUrl(
+            householdId: customer.value.householdId!,
+            userId: customer.value.userId!,
+          ),
+        );
+        if (response.isOk && response.statusCode == 200) {
+          final liveContext = HouseholdSurveyContexDto.fromJson(response.body);
+          final historyMap = householdSurveyArg.historyItem is Map
+              ? Map<String, dynamic>.from(householdSurveyArg.historyItem)
+              : <String, dynamic>{};
+          householdSurveyContexDto = HouseholdSurveyContexDto.fromHistoryItem(
+            historyMap,
+            members: liveContext.members,
+            livePreselected: liveContext.preselectedProfileMemberData,
+          );
+        } else {
+          householdSurveyContexDto = householdSurveyArg.historyContextDto;
+        }
+      } catch (e) {
+        RLog.error("Error fetching live members for history view: $e");
+        householdSurveyContexDto = householdSurveyArg.historyContextDto;
       }
-    });
+    } else {
+      await httpProvider.GET(ApiUrl.getHouseholdSurveyContextUrl(householdId: customer.value.householdId!, userId: customer.value.userId!)).then((response) {
+        RLog.error(response.body);
+        if (response.isOk && response.statusCode == 200) {
+          householdSurveyContexDto = HouseholdSurveyContexDto.fromJson(response.body);
+        }
+      });
+    }
     httpProvider.GET(ApiUrl.getSurveyRulesUrl(surveyType:SurveyTypeEnum.HOUSEHOLD_SURVEY.name)).then((response) {
       if (response.isOk) {
         allSurveys.value = SurveyDataResponseDto.fromJson(response.body).content!;
@@ -117,6 +144,10 @@ class HouseholdSurveyLogic extends BaseLogic {
           allSurveys.first.fields?.forEach((eachField) {
             try {
               if (eachField.name == null) return;
+
+              if (householdSurveyArg.isFromHistory) {
+                eachField.readOnly = true;
+              }
 
               // 1. Direct field value from inputsMap
               if (inputsMap != null) {
@@ -200,6 +231,7 @@ class HouseholdSurveyLogic extends BaseLogic {
         selectedSurvey.value!.fields!.asMap().forEach((index, field) {
           if(householdSurveyArg.isFromHistory) {
             field.ignore = true;
+            field.readOnly = true;
           }
 
           if(field.inputType == 'switchButton') {
@@ -260,6 +292,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                         name: "${field.name}_edd_",
                         inputType: "date",
                         required: true,
+                        ignore: true,
                         defaultValue: (DateTime.now().add(const Duration(days: 280))).millisecondsSinceEpoch,
                     )
                   ];

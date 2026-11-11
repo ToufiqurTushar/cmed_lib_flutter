@@ -3,10 +3,12 @@ import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:cmed_lib_flutter/common/widget/basic_app_bar.dart';
 import 'package:cmed_lib_flutter/page/rgp/npage/result/household_survey_result_argument.dart';
 import 'package:cmed_lib_flutter/page/rgp/npage/result/household_survey_result_view.dart';
+import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:cmed_lib_flutter/survey/widget/item_survey_result.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import '../../household_survey_argument.dart';
 import '../../household_survey_view.dart';
+import 'household_survey_history_list_argument.dart';
 import 'household_survey_history_list_logic.dart';
 
 class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic> {
@@ -38,9 +40,13 @@ class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic>
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller.surveyResultList.length,
+            itemCount: controller.surveyHistoryList.isNotEmpty
+                ? controller.surveyHistoryList.length
+                : controller.surveyResultList.length,
             itemBuilder: (context, index) {
-              var surveyDto = controller.surveyResultList[index];
+              var surveyDto = controller.surveyHistoryList.isNotEmpty
+                  ? (controller.surveyHistoryList[index].survey ?? SurveyResultItemDto())
+                  : controller.surveyResultList[index];
               var title = (surveyDto.surveyName != null && surveyDto.surveyName!.isNotEmpty)
                   ? surveyDto.surveyName!.tr
                   : "Household Survey".tr;
@@ -64,14 +70,7 @@ class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic>
                 defaultImage: "assets/swasti/images/ic_social_protection.svg",
                 date: date,
                 onTap: () {
-                  Get.toNamed(
-                    HouseholdSurveyView.routeName,
-                    arguments: HouseholdSurveyArg(
-                      isFromHistory: true,
-                      selectedSurveyResult: surveyDto,
-                      customer: controller.customer.value,
-                    ),
-                  );
+                  controller.openSurveyHistoryDetails(index);
                 },
               );
             },
@@ -79,6 +78,7 @@ class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic>
         ),
         Visibility(
           visible: !controller.globalState.isSystemBusy.value &&
+              controller.surveyHistoryList.isEmpty &&
               controller.surveyResultList.isEmpty,
           child: Align(
             alignment: Alignment.center,

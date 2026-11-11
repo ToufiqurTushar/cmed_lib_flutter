@@ -52,7 +52,7 @@ Card SurveyResultItemWidget({required BuildContext context, Color? color, requir
               ),
               const SizedBox(width: 8),
               Align(
-                alignment: Alignment.bottomRight,
+                alignment: Alignment.center,
                 child: Text(
                   date,
                   style: const TextStyle(color: Colors.grey, fontSize: 12),

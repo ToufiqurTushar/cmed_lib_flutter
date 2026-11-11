@@ -593,7 +593,7 @@ class NetworkAndLoggingInterceptor extends dio.Interceptor {
       'RESPONSE BODY ║ ${response.data?.toString() ?? ''}',
     );
     try {
-      log('RESPONSE BODY ║ ${response.data ?? ''}\n');
+      log('RESPONSE BODY ${response.requestOptions.uri} ║ ${response.data ?? ''}\n');
     } catch (e) {
       log('RESPONSE BODY ║ ${e}\n');
     }

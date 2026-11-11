@@ -35,6 +35,282 @@ class HouseholdSurveyContexDto {
     );
   }
 
+  factory HouseholdSurveyContexDto.fromHistoryItem(
+    Map<String, dynamic> json, {
+    List<SurveyMember>? members,
+    PreselectedProfileMemberData? livePreselected,
+  }) {
+    final survey = json['survey'] is Map ? json['survey'] as Map<String, dynamic> : null;
+    final Map<String, dynamic> profileData = json['profile_member_data'] is Map
+        ? Map<String, dynamic>.from(json['profile_member_data'])
+        : <String, dynamic>{};
+
+    final Map<String, dynamic> inputs = (survey?['inputs'] is Map)
+        ? Map<String, dynamic>.from(survey!['inputs'])
+        : <String, dynamic>{};
+
+    // 1. Synchronize real count keys with fake count keys for Tab 2
+    const countKeyPairs = [
+      ['hs_18_9_nid_count', 'hs_18_8_nid_count'],
+      ['hs_18_11_bcn_count', 'hs_18_10_bcn_count'],
+      ['hs_18_17_pregnant_count', 'hs_18_16_pregnant_count'],
+      ['hs_18_19_diabetes_count', 'hs_18_18_diabetes_count'],
+      ['hs_18_21_high_bp_count', 'hs_18_20_high_bp_count'],
+      ['hs_18_23_kidney_count', 'hs_18_22_kidney_count'],
+      ['hs_18_25_cancer_count', 'hs_18_24_cancer_count'],
+      ['hs_18_27_low_bp_count', 'hs_18_26_low_bp_count'],
+      ['hs_18_29_malnutrition_u5_count', 'hs_18_28_malnutrition_u5_count'],
+      ['hs_18_31_eye_count', 'hs_18_30_eye_count'],
+      ['hs_18_33_ear_count', 'hs_18_32_ear_count'],
+      ['hs_18_35_pneumonia_count', 'hs_18_34_pneumonia_count'],
+      ['hs_18_37_diarrhea_count', 'hs_18_36_diarrhea_count'],
+      ['hs_18_39_hepatitis_count', 'hs_18_38_hepatitis_count'],
+      ['hs_18_41_paralysis_count', 'hs_18_40_paralysis_count'],
+      ['hs_18_43_other_complicated_count', 'hs_18_42_other_complicated_count'],
+    ];
+
+    for (final pair in countKeyPairs) {
+      final realKey = pair[0];
+      final fakeKey = pair[1];
+      if (inputs.containsKey(realKey) && inputs[realKey] != null) {
+        inputs[fakeKey] = inputs[realKey];
+      } else if (inputs.containsKey(fakeKey) && inputs[fakeKey] != null) {
+        inputs[realKey] = inputs[fakeKey];
+      }
+    }
+
+    SurveyMember? findSurveyMember(dynamic idOrKey) {
+      if (idOrKey == null || members == null) return null;
+      final str = idOrKey.toString();
+      for (final m in members) {
+        if (m.userId?.toString() == str ||
+            m.memberId?.toString() == str ||
+            m.profileId?.toString() == str ||
+            m.displayName == str) {
+          return m;
+        }
+      }
+      return null;
+    }
+
+    // 2. NID members:
+    List<dynamic> nidMembers = [];
+    if (profileData['nid_members'] is List && (profileData['nid_members'] as List).isNotEmpty) {
+      nidMembers = (profileData['nid_members'] as List).map((item) {
+        final map = item is Map ? Map<String, dynamic>.from(item) : <String, dynamic>{'user_id': item};
+        final sm = findSurveyMember(map['user_id'] ?? map['member_id'] ?? map['profile_id']);
+        if (sm != null) {
+          map['display'] ??= sm.displayName;
+          map['value'] ??= sm.nationalId;
+          map['user_id'] ??= sm.userId;
+          map['member_id'] ??= sm.memberId;
+          map['profile_id'] ??= sm.profileId;
+        }
+        return map;
+      }).toList();
+    } else if (inputs['hs_18_8_nid'] == 'yes' && members != null && members.isNotEmpty) {
+      final nidCandidates = members.where((m) => (m.nationalId != null && m.nationalId!.isNotEmpty) || m.hasNid == true).toList();
+      final count = int.tryParse(inputs['hs_18_9_nid_count']?.toString() ?? '') ??
+                    int.tryParse(inputs['hs_18_8_nid_count']?.toString() ?? '') ??
+                    nidCandidates.length;
+      final listToTake = (nidCandidates.isNotEmpty ? nidCandidates : members).take(count > 0 ? count : 1);
+      nidMembers = listToTake.map((m) => {
+        'user_id': m.userId,
+        'member_id': m.memberId,
+        'profile_id': m.profileId,
+        'display': m.displayName,
+        'value': m.nationalId ?? '',
+      }).toList();
+    } else if (livePreselected?.nidMembers != null && inputs['hs_18_8_nid'] == 'yes') {
+      nidMembers = List<dynamic>.from(livePreselected!.nidMembers!);
+    }
+
+    if (nidMembers.isNotEmpty) {
+      profileData['nid_members'] = nidMembers;
+      inputs['hs_18_8_nid_members'] = nidMembers;
+      inputs['hs_18_8_nid'] = 'yes';
+      for (final m in nidMembers) {
+        final uId = m['user_id'] ?? m['member_id'] ?? m['profile_id'];
+        if (uId != null && m['value'] != null) {
+          inputs['hs_18_8_nid_input_$uId'] = m['value'];
+        }
+      }
+    }
+
+    // 3. BCN members:
+    List<dynamic> bcnMembers = [];
+    if (profileData['bcn_members'] is List && (profileData['bcn_members'] as List).isNotEmpty) {
+      bcnMembers = (profileData['bcn_members'] as List).map((item) {
+        final map = item is Map ? Map<String, dynamic>.from(item) : <String, dynamic>{'user_id': item};
+        final sm = findSurveyMember(map['user_id'] ?? map['member_id'] ?? map['profile_id']);
+        if (sm != null) {
+          map['display'] ??= sm.displayName;
+          map['value'] ??= sm.birthCertificateNumber;
+          map['user_id'] ??= sm.userId;
+          map['member_id'] ??= sm.memberId;
+          map['profile_id'] ??= sm.profileId;
+        }
+        return map;
+      }).toList();
+    } else if (inputs['hs_18_10_bcn'] == 'yes' && members != null && members.isNotEmpty) {
+      final bcnCandidates = members.where((m) => (m.birthCertificateNumber != null && m.birthCertificateNumber!.isNotEmpty) || m.hasBcn == true).toList();
+      final count = int.tryParse(inputs['hs_18_11_bcn_count']?.toString() ?? '') ??
+                    int.tryParse(inputs['hs_18_10_bcn_count']?.toString() ?? '') ??
+                    bcnCandidates.length;
+      final listToTake = (bcnCandidates.isNotEmpty ? bcnCandidates : members).take(count > 0 ? count : 1);
+      bcnMembers = listToTake.map((m) => {
+        'user_id': m.userId,
+        'member_id': m.memberId,
+        'profile_id': m.profileId,
+        'display': m.displayName,
+        'value': m.birthCertificateNumber ?? '',
+      }).toList();
+    } else if (livePreselected?.bcnMembers != null && inputs['hs_18_10_bcn'] == 'yes') {
+      bcnMembers = List<dynamic>.from(livePreselected!.bcnMembers!);
+    }
+
+    if (bcnMembers.isNotEmpty) {
+      profileData['bcn_members'] = bcnMembers;
+      inputs['hs_18_10_bcn_members'] = bcnMembers;
+      inputs['hs_18_10_bcn'] = 'yes';
+      for (final m in bcnMembers) {
+        final uId = m['user_id'] ?? m['member_id'] ?? m['profile_id'];
+        if (uId != null && m['value'] != null) {
+          inputs['hs_18_10_bcn_input_$uId'] = m['value'];
+        }
+      }
+    }
+
+    // 4. Pregnant members:
+    List<dynamic> pregnantMembers = [];
+    if (profileData['pregnant_members'] is List && (profileData['pregnant_members'] as List).isNotEmpty) {
+      pregnantMembers = (profileData['pregnant_members'] as List).map((item) {
+        final map = item is Map ? Map<String, dynamic>.from(item) : <String, dynamic>{'user_id': item};
+        final sm = findSurveyMember(map['user_id'] ?? map['member_id'] ?? map['profile_id']);
+        if (sm != null) {
+          map['display'] ??= sm.displayName;
+          map['lmp_date'] ??= sm.lmpDate;
+          map['edd_date'] ??= sm.eddDate;
+          map['user_id'] ??= sm.userId;
+          map['member_id'] ??= sm.memberId;
+          map['profile_id'] ??= sm.profileId;
+        }
+        return map;
+      }).toList();
+    } else if (inputs['hs_18_16_pregnant'] == 'yes' && members != null && members.isNotEmpty) {
+      final pregCandidates = members.where((m) => m.pregnant == true || (m.gender == 'FEMALE' && (m.ageYears ?? 0) >= 9 && (m.ageYears ?? 0) <= 59 && m.lmpDate != null)).toList();
+      final count = int.tryParse(inputs['hs_18_17_pregnant_count']?.toString() ?? '') ??
+                    int.tryParse(inputs['hs_18_16_pregnant_count']?.toString() ?? '') ??
+                    pregCandidates.length;
+      final listToTake = (pregCandidates.isNotEmpty ? pregCandidates : members.where((m) => m.gender == 'FEMALE')).take(count > 0 ? count : 1);
+      pregnantMembers = listToTake.map((m) => {
+        'user_id': m.userId,
+        'member_id': m.memberId,
+        'profile_id': m.profileId,
+        'display': m.displayName,
+        'lmp_date': m.lmpDate,
+        'edd_date': m.eddDate,
+      }).toList();
+    } else if (livePreselected?.pregnantMembers != null && inputs['hs_18_16_pregnant'] == 'yes') {
+      pregnantMembers = List<dynamic>.from(livePreselected!.pregnantMembers!);
+    }
+
+    if (pregnantMembers.isNotEmpty) {
+      profileData['pregnant_members'] = pregnantMembers;
+      inputs['hs_18_16_pregnant_members'] = pregnantMembers;
+      inputs['hs_18_16_pregnant'] = 'yes';
+      for (final m in pregnantMembers) {
+        final uId = m['user_id'] ?? m['member_id'] ?? m['profile_id'];
+        if (uId != null) {
+          if (m['lmp_date'] != null) inputs['hs_18_16_pregnant_lmp_$uId'] = m['lmp_date'];
+          if (m['edd_date'] != null) inputs['hs_18_16_pregnant_edd_$uId'] = m['edd_date'];
+        }
+      }
+    }
+
+    // 5. Disease members:
+    final Map<String, dynamic> rawDiseaseMembers = (profileData['disease_members'] is Map)
+        ? Map<String, dynamic>.from(profileData['disease_members'])
+        : <String, dynamic>{};
+
+    const conditionToFieldMap = {
+      'DIABETES': 'hs_18_18_diabetes',
+      'HIGH_BP': 'hs_18_20_high_bp',
+      'HYPERTENSION': 'hs_18_20_high_bp',
+      'KIDNEY_DISEASE': 'hs_18_22_kidney',
+      'CANCER': 'hs_18_24_cancer',
+      'LOW_BP': 'hs_18_26_low_bp',
+      'MALNUTRITION_U5': 'hs_18_28_malnutrition_u5',
+      'EYE_PROBLEM': 'hs_18_30_eye',
+      'EAR_PROBLEM': 'hs_18_32_ear',
+      'PNEUMONIA': 'hs_18_34_pneumonia',
+      'DIARRHEA': 'hs_18_36_diarrhea',
+      'HEPATITIS': 'hs_18_38_hepatitis',
+      'PARALYSIS': 'hs_18_40_paralysis',
+      'OTHER_COMPLICATED': 'hs_18_42_other_complicated',
+    };
+
+    conditionToFieldMap.forEach((condition, fieldKey) {
+      final isYes = inputs[fieldKey] == 'yes' || inputs[fieldKey] == true;
+      if (!isYes) {
+        rawDiseaseMembers.remove(condition);
+        return;
+      }
+
+      List<dynamic> list = [];
+      if (rawDiseaseMembers[condition] is List && (rawDiseaseMembers[condition] as List).isNotEmpty) {
+        list = (rawDiseaseMembers[condition] as List).map((item) {
+          final map = item is Map ? Map<String, dynamic>.from(item) : <String, dynamic>{'user_id': item};
+          final sm = findSurveyMember(map['user_id'] ?? map['member_id'] ?? map['profile_id']);
+          if (sm != null) {
+            map['display'] ??= sm.displayName;
+            map['gender'] ??= sm.gender;
+            map['age_years'] ??= sm.ageYears;
+            map['user_id'] ??= sm.userId;
+            map['member_id'] ??= sm.memberId;
+            map['profile_id'] ??= sm.profileId;
+          }
+          return map;
+        }).toList();
+      } else if (members != null && members.isNotEmpty) {
+        final matching = members.where((m) {
+          final act = m.activeDiseases ?? [];
+          final chr = m.chronicConditions ?? [];
+          return act.contains(condition) || chr.contains(condition);
+        }).toList();
+        if (matching.isNotEmpty) {
+          list = matching.map((m) => {
+            'user_id': m.userId,
+            'member_id': m.memberId,
+            'profile_id': m.profileId,
+            'display': m.displayName,
+            'gender': m.gender,
+            'age_years': m.ageYears,
+          }).toList();
+        }
+      }
+
+      if (list.isNotEmpty) {
+        rawDiseaseMembers[condition] = list;
+        inputs['${fieldKey}_members'] = list;
+      }
+    });
+
+    profileData['disease_members'] = rawDiseaseMembers;
+
+    final preselected = PreselectedProfileMemberData.fromJson(profileData);
+
+    final rawHId = profileData['household_id'] ?? survey?['household_id'];
+    final householdId = rawHId is int ? rawHId : int.tryParse(rawHId?.toString() ?? '');
+
+    return HouseholdSurveyContexDto(
+      householdId: householdId,
+      defaultInputs: {'inputs': inputs},
+      preselectedProfileMemberData: preselected,
+      members: members,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'household_id': householdId,

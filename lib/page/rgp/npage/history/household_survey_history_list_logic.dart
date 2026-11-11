@@ -2,6 +2,9 @@ import 'package:cmed_lib_flutter/common/api/api_url.dart';
 import 'package:cmed_lib_flutter/common/api/app_http.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
+import 'package:cmed_lib_flutter/page/rgp/dto/HouseholdSurveyContexDto.dart';
+import 'package:cmed_lib_flutter/page/rgp/household_survey_argument.dart';
+import 'package:cmed_lib_flutter/page/rgp/household_survey_view.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +15,7 @@ class HouseholdSurveyListLogic extends BaseLogic {
   final isHistoryView = false.obs;
 
   final surveyResultList = <SurveyResultItemDto>[].obs;
+  final surveyHistoryList = <HouseholdSurveyHistoryItem>[].obs;
   final selectedSurveyResult = SurveyResultItemDto().obs;
 
   int fromDate = 0;
@@ -61,7 +65,7 @@ class HouseholdSurveyListLogic extends BaseLogic {
       fromDate: fromDate,
       toDate: toDate,
       page: 0,
-      size: 10,
+      size: 30,
       direction: "DESC",
       sortBy: "id",
     ))
@@ -69,9 +73,21 @@ class HouseholdSurveyListLogic extends BaseLogic {
       globalState.hideBusy();
       if (response.isOk && response.body != null) {
         surveyResultList.clear();
+        surveyHistoryList.clear();
         final content = response.body is List ? response.body : response.body['content'];
         if (content is List) {
-          surveyResultList.addAll(SurveyResultItemDto.fromJsonList(content));
+          for (var item in content) {
+            if (item is Map) {
+              final map = Map<String, dynamic>.from(item);
+              final historyItem = HouseholdSurveyHistoryItem.fromJson(map);
+              surveyHistoryList.add(historyItem);
+              if (historyItem.survey != null) {
+                surveyResultList.add(historyItem.survey!);
+              }
+            } else if (item is SurveyResultItemDto) {
+              surveyResultList.add(item);
+            }
+          }
         }
       } else {
         ShowToast.error('error_massage_something_wrong'.tr);
@@ -81,5 +97,57 @@ class HouseholdSurveyListLogic extends BaseLogic {
       ShowToast.error('error_massage_something_wrong'.tr);
     });
   }
-}
 
+  /// Converts a history item to HouseholdSurveyContexDto within history controller
+  HouseholdSurveyContexDto convertToHouseholdSurveyContextDto(HouseholdSurveyHistoryItem historyItem, {List<SurveyMember>? members}) {
+    return HouseholdSurveyContexDto.fromHistoryItem(historyItem.raw, members: members);
+  }
+
+  /// Converts to HouseholdSurveyContexDto within history controller and passes to HouseholdSurveyView
+  void openSurveyHistoryDetails(int index) {
+    if (index < 0 || index >= surveyHistoryList.length) {
+      if (index >= 0 && index < surveyResultList.length) {
+        Get.toNamed(
+          HouseholdSurveyView.routeName,
+          arguments: HouseholdSurveyArg(
+            customer: customer.value,
+            isFromHistory: true,
+            selectedSurveyResult: surveyResultList[index],
+          ),
+        );
+      }
+      return;
+    }
+
+    final historyItem = surveyHistoryList[index];
+    final HouseholdSurveyContexDto householdSurveyContexDto =
+        convertToHouseholdSurveyContextDto(historyItem);
+
+    Get.toNamed(
+      HouseholdSurveyView.routeName,
+      arguments: HouseholdSurveyArg(
+        customer: customer.value,
+        isFromHistory: true,
+        selectedSurveyResult: historyItem.survey,
+        historyItem: historyItem.raw,
+        historyContextDto: householdSurveyContexDto,
+      ),
+    );
+  }
+
+  void onHistoryItemTap(HouseholdSurveyHistoryItem historyItem) {
+    final HouseholdSurveyContexDto householdSurveyContexDto =
+        convertToHouseholdSurveyContextDto(historyItem);
+
+    Get.toNamed(
+      HouseholdSurveyView.routeName,
+      arguments: HouseholdSurveyArg(
+        customer: customer.value,
+        isFromHistory: true,
+        selectedSurveyResult: historyItem.survey,
+        historyItem: historyItem.raw,
+        historyContextDto: householdSurveyContexDto,
+      ),
+    );
+  }
+}

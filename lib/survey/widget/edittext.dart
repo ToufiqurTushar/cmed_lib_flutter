@@ -72,6 +72,7 @@ Widget EditText({
             FormBuilderTextField(
               name: field.name!,
               initialValue: field.defaultValue,
+              readOnly: field.readOnly ?? false,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: activeKeyboardType,
               inputFormatters: activeInputFormatters,
