@@ -198,6 +198,10 @@ class HouseholdSurveyLogic extends BaseLogic {
         //   ),
         // );
         selectedSurvey.value!.fields!.asMap().forEach((index, field) {
+          if(householdSurveyArg.isFromHistory) {
+            field.ignore = true;
+          }
+
           if(field.inputType == 'switchButton') {
             field.inputType = 'checkboxSingle';
           }

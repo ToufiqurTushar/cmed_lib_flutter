@@ -61,7 +61,7 @@ class HouseholdSurveyHistoryListView extends RapidView<HouseholdSurveyListLogic>
                 subtitle: subtitle,
                 color: color,
                 serverImage: surveyDto.icon ?? "",
-                defaultImage: "assets/images/ic_anemia_survey.svg",
+                defaultImage: "assets/swasti/images/ic_social_protection.svg",
                 date: date,
                 onTap: () {
                   Get.toNamed(

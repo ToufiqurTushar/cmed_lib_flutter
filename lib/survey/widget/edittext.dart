@@ -81,7 +81,11 @@ Widget EditText({
               ]),
               valueTransformer: null,
               textInputAction: TextInputAction.next,
+              maxLines: 1,
+              textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 hint: Text((field.hint!=null && field.hint!.isNotEmpty)?field.hint!:"Write here".tr, style: TextStyle(color: Colors.grey),),
                 filled: true,
                 fillColor: Theme.of(context).primaryColorLight,
