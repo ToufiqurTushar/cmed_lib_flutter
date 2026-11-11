@@ -125,6 +125,8 @@ class Field {
     map['description'] = description;
     map['hint'] = hint;
     map['ignore'] = ignore;
+    map['min'] = min;
+    map['max'] = max;
     map['input_type'] = inputType;
     map['required'] = required;
     map['read_only'] = readOnly;

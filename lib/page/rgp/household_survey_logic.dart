@@ -280,12 +280,15 @@ class HouseholdSurveyLogic extends BaseLogic {
                   ];
                 }
                 else if(field.name == 'hs_18_16_pregnant') {
+                  final today = DateTime.now();
+                  final lmpMaxDate = DateTime(today.year, today.month, today.day, 23, 59, 59, 999).millisecondsSinceEpoch;
                   fields = [
                     Field(
                         label: "LMP Date".tr,
                         name: "${field.name}_lmp_",
                         inputType: "date",
                         required: true,
+                        max: lmpMaxDate,
                         defaultValue: DateTime.now().millisecondsSinceEpoch,
                     ),
                      Field(
@@ -318,7 +321,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                     profileId: m.profileId,
                     display: displayName,
                     fields: fields,
-                    isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >59))?
+                    isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >49))?
                     true:
                     (field.name == 'hs_18_28_malnutrition_u5' && (m.ageYears! > 5))?
                     true:

@@ -628,6 +628,8 @@ class _CheckboxHouseholdMemberWidgetState extends State<CheckboxHouseholdMemberW
     final scopedField = Field.fromJson(field.toJson());
     scopedField.name = uniqueName;
     scopedField.defaultValue = currentVal ?? field.defaultValue;
+    scopedField.min ??= field.min;
+    scopedField.max ??= field.max;
     scopedField.label = scopedField.label?.tr;
     scopedField.hint = scopedField.hint?.tr;
     scopedField.description = scopedField.description?.tr ?? '';
