@@ -72,7 +72,7 @@ class HouseholdSurveyLogic extends BaseLogic {
     'hs_18_22_kidney_count',
     'hs_18_24_cancer_count',
     'hs_18_26_low_bp_count',
-    'hs_18_25_malnutrition_u5_count',
+    'hs_18_28_malnutrition_u5_count',
     'hs_18_30_eye_count',
     'hs_18_32_ear_count',
     'hs_18_34_pneumonia_count',
