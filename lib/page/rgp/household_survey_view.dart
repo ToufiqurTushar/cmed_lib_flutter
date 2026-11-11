@@ -19,17 +19,17 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
       backgroundColor: Colors.white,
       appBar: BasicAppBar("Household Survey".tr, trailingWidget: InkWell(
         onTap: () {
-          //Get.toNamed(HouseholdSurveyHistoryListView.routeName);
+          Get.toNamed(HouseholdSurveyHistoryListView.routeName);
         },
         child: Visibility(
           visible: controller.selectedSurvey.value == null,
-          child: const Padding(
-            padding: EdgeInsets.only(right: 8.0),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               children: [
-                //Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
-                //SizedBox(width: 8,),
-                //Text('History'.tr)
+                Icon(Icons.history, color: Theme.of(context).primaryColor, size: 26,),
+                const SizedBox(width: 8,),
+                Text('History'.tr)
               ],
             ),
           ),

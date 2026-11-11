@@ -280,7 +280,11 @@ class HouseholdSurveyLogic extends BaseLogic {
                     profileId: m.profileId,
                     display: displayName,
                     fields: fields,
-                    isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >59))? true: false,
+                    isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >59))?
+                    true:
+                    (field.name == 'hs_18_28_malnutrition_u5' && (m.ageYears! > 5))?
+                    true:
+                    false,
                 );
               }).toList();
             }
@@ -335,14 +339,297 @@ class HouseholdSurveyLogic extends BaseLogic {
     }
   }
 
-  void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
-    //add count key to formMap for submitting(currently dat stored in fake key for showing UI Only)
-    for(int i = 0; i < fakeHouseholdSurveyCountKeys.length; i++){
-      final fakeKey = fakeHouseholdSurveyCountKeys[i];
-      final realKey = householdSurveyCountKeys[i];
-      if(formMap[fakeKey] != null && formMap[fakeKey] != ""){
-        formMap[realKey] = formMap[fakeKey];
+  static const Map<String, String> diseaseFieldToChronicCondition = {
+    'hs_18_18_diabetes': 'DIABETES',
+    'hs_18_20_high_bp': 'HYPERTENSION',
+    'hs_18_22_kidney': 'KIDNEY_DISEASE',
+    'hs_18_24_cancer': 'CANCER',
+  };
+
+  static const Set<String> allowedChronicConditions = {
+    'DIABETES',
+    'HYPERTENSION',
+    'KIDNEY_DISEASE',
+    'CANCER',
+  };
+
+  bool _memberHadConditionPreviously(
+    SurveyMember member,
+    String fieldKey,
+    String condition,
+    ProfileMemberData? preselectedProfile,
+  ) {
+    final condUpper = condition.toUpperCase();
+
+    // 1. Check member.chronicConditions
+    if (member.chronicConditions != null && member.chronicConditions!.isNotEmpty) {
+      final match = member.chronicConditions!.any((c) {
+        final cUpper = c.toUpperCase();
+        if (condUpper == 'HYPERTENSION' && (cUpper == 'HYPERTENSION' || cUpper == 'HIGH_BP')) {
+          return true;
+        }
+        if (condUpper == 'KIDNEY_DISEASE' && (cUpper == 'KIDNEY_DISEASE' || cUpper == 'KIDNEY')) {
+          return true;
+        }
+        return cUpper == condUpper;
+      });
+      if (match) return true;
+    }
+
+    // 2. Check member.activeDiseases
+    if (member.activeDiseases != null && member.activeDiseases!.isNotEmpty) {
+      final match = member.activeDiseases!.any((c) {
+        final cUpper = c.toUpperCase();
+        if (condUpper == 'HYPERTENSION' && (cUpper == 'HYPERTENSION' || cUpper == 'HIGH_BP')) {
+          return true;
+        }
+        if (condUpper == 'KIDNEY_DISEASE' && (cUpper == 'KIDNEY_DISEASE' || cUpper == 'KIDNEY')) {
+          return true;
+        }
+        return cUpper == condUpper;
+      });
+      if (match) return true;
+    }
+
+    // 3. Check preselectedProfile from _getPreselectedMembersForField
+    if (preselectedProfile != null) {
+      final preselectedList = _getPreselectedMembersForField(fieldKey, preselectedProfile);
+      if (preselectedList != null && preselectedList.isNotEmpty) {
+        final match = preselectedList.any((m) =>
+            (m.userId != null && m.userId == member.userId) ||
+            (m.memberId != null && m.memberId == member.memberId) ||
+            (m.profileId != null && m.profileId == member.profileId));
+        if (match) return true;
       }
+    }
+
+    // 4. Check diseaseMembers map in context directly
+    final diseaseMembersMap = householdSurveyContexDto?.preselectedProfileMemberData?.diseaseMembers;
+    if (diseaseMembersMap != null && diseaseMembersMap.isNotEmpty) {
+      for (final entry in diseaseMembersMap.entries) {
+        final keyUpper = entry.key.toUpperCase();
+        bool keyMatches = keyUpper == condUpper;
+        if (condUpper == 'HYPERTENSION' && (keyUpper == 'HYPERTENSION' || keyUpper == 'HIGH_BP')) {
+          keyMatches = true;
+        }
+        if (condUpper == 'KIDNEY_DISEASE' && (keyUpper == 'KIDNEY_DISEASE' || keyUpper == 'KIDNEY')) {
+          keyMatches = true;
+        }
+        if (keyMatches) {
+          final match = entry.value.any((dm) =>
+              (dm.userId != null && dm.userId == member.userId) ||
+              (dm.memberId != null && dm.memberId == member.memberId) ||
+              (dm.profileId != null && dm.profileId == member.profileId));
+          if (match) return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  bool _memberHasConditionCurrently(
+    SurveyMember member,
+    String fieldKey,
+    Map<String, dynamic> formMap,
+  ) {
+    final status = formMap[fieldKey];
+    if (status != 'yes' && status != true && status != '1' && status != 1) {
+      return false;
+    }
+
+    final rawList = formMap['${fieldKey}_members'];
+    if (rawList is! List || rawList.isEmpty) {
+      return false;
+    }
+
+    for (final item in rawList) {
+      int? uId;
+      int? mId;
+      int? pId;
+
+      if (item is HouseholdSurevyMember) {
+        uId = item.userId;
+        mId = item.memberId;
+        pId = item.profileId;
+      } else if (item is Map) {
+        uId = item['user_id'];
+        mId = item['member_id'];
+        pId = item['profile_id'];
+      }
+
+      if ((uId != null && uId == member.userId) ||
+          (mId != null && mId == member.memberId) ||
+          (pId != null && pId == member.profileId)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  List<ChronicRemovalDto> generateChronicRemovals(Map<String, dynamic> formMap) {
+    final List<ChronicRemovalDto> results = [];
+    final allMembers = householdSurveyContexDto?.members ?? [];
+    if (allMembers.isEmpty) return results;
+
+    final preselectedProfile = householdSurveyContexDto?.preselectedProfileMemberData != null
+        ? ProfileMemberData.fromJson(
+            householdSurveyContexDto!.preselectedProfileMemberData!.toJson())
+        : null;
+
+    final Set<String> processedKeys = {};
+
+    for (final member in allMembers) {
+      for (final entry in diseaseFieldToChronicCondition.entries) {
+        final fieldKey = entry.key;
+        final conditionName = entry.value;
+
+        // Strictly allow only the 4 valid chronic conditions
+        if (!allowedChronicConditions.contains(conditionName)) continue;
+
+        final uniqueCheckKey =
+            '${member.userId ?? member.memberId ?? member.profileId}_$conditionName';
+        if (processedKeys.contains(uniqueCheckKey)) continue;
+        processedKeys.add(uniqueCheckKey);
+
+        final wasChecked = _memberHadConditionPreviously(
+          member,
+          fieldKey,
+          conditionName,
+          preselectedProfile,
+        );
+
+        final isChecked = _memberHasConditionCurrently(
+          member,
+          fieldKey,
+          formMap,
+        );
+
+        if (wasChecked && !isChecked) {
+          results.add(ChronicRemovalDto(
+            userId: member.userId,
+            memberId: member.memberId,
+            profileId: member.profileId,
+            condition: conditionName,
+            reason: "RESOLVED",
+          ));
+        }
+      }
+    }
+
+    return results;
+  }
+
+  List<HouseholdSurevyMember>? _resolveFieldMembers(
+    String fieldKey,
+    Map<String, dynamic> formMap,
+  ) {
+    final status = formMap[fieldKey];
+    final isYes = status == 'yes' || status == true || status == '1' || status == 1;
+    if (!isYes) {
+      return null;
+    }
+
+    final raw = formMap['${fieldKey}_members'];
+    if (raw is List && raw.isNotEmpty) {
+      return raw.map((item) {
+        if (item is HouseholdSurevyMember) return item;
+        if (item is Map) return HouseholdSurevyMember.fromJson(item);
+        return HouseholdSurevyMember(display: item.toString());
+      }).toList();
+    }
+
+    // Fallback: If status is 'yes' but formMap didn't capture members (e.g. not touched),
+    // retrieve from field preselectedMembers or context
+    final fieldDef = allSurveys.firstOrNull?.fields?.firstWhereOrNull((f) => f.name == fieldKey);
+    if (fieldDef?.preselectedMembers != null && fieldDef!.preselectedMembers!.isNotEmpty) {
+      return fieldDef!.preselectedMembers;
+    }
+
+    final preselected = householdSurveyContexDto?.preselectedProfileMemberData != null
+        ? ProfileMemberData.fromJson(
+            householdSurveyContexDto!.preselectedProfileMemberData!.toJson())
+        : null;
+    if (preselected != null) {
+      final list = _getPreselectedMembersForField(fieldKey, preselected);
+      if (list != null && list.isNotEmpty) {
+        return list;
+      }
+    }
+
+    return null;
+  }
+
+  void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
+    // 1. Resolve members for each checkbox field
+    final nidMembers = _resolveFieldMembers("hs_18_8_nid", formMap);
+    final bcnMembers = _resolveFieldMembers("hs_18_10_bcn", formMap);
+    final pregnantMembers = _resolveFieldMembers("hs_18_16_pregnant", formMap);
+
+    final diabetesMembers = _resolveFieldMembers("hs_18_18_diabetes", formMap);
+    final highBpMembers = _resolveFieldMembers("hs_18_20_high_bp", formMap);
+    final kidneyMembers = _resolveFieldMembers("hs_18_22_kidney", formMap);
+    final cancerMembers = _resolveFieldMembers("hs_18_24_cancer", formMap);
+    final lowBpMembers = _resolveFieldMembers("hs_18_26_low_bp", formMap);
+    final malnutritionMembers = _resolveFieldMembers("hs_18_28_malnutrition_u5", formMap);
+    final eyeMembers = _resolveFieldMembers("hs_18_30_eye", formMap);
+    final earMembers = _resolveFieldMembers("hs_18_32_ear", formMap);
+    final pneumoniaMembers = _resolveFieldMembers("hs_18_34_pneumonia", formMap);
+    final diarrheaMembers = _resolveFieldMembers("hs_18_36_diarrhea", formMap);
+    final hepatitisMembers = _resolveFieldMembers("hs_18_38_hepatitis", formMap);
+    final paralysisMembers = _resolveFieldMembers("hs_18_40_paralysis", formMap);
+    final otherComplicatedMembers = _resolveFieldMembers("hs_18_42_other_complicated", formMap);
+
+    // Keep formMap['${fieldKey}_members'] synchronized
+    formMap["hs_18_8_nid_members"] = nidMembers;
+    formMap["hs_18_10_bcn_members"] = bcnMembers;
+    formMap["hs_18_16_pregnant_members"] = pregnantMembers;
+
+    formMap["hs_18_18_diabetes_members"] = diabetesMembers;
+    formMap["hs_18_20_high_bp_members"] = highBpMembers;
+    formMap["hs_18_22_kidney_members"] = kidneyMembers;
+    formMap["hs_18_24_cancer_members"] = cancerMembers;
+    formMap["hs_18_26_low_bp_members"] = lowBpMembers;
+    formMap["hs_18_28_malnutrition_u5_members"] = malnutritionMembers;
+    formMap["hs_18_30_eye_members"] = eyeMembers;
+    formMap["hs_18_32_ear_members"] = earMembers;
+    formMap["hs_18_34_pneumonia_members"] = pneumoniaMembers;
+    formMap["hs_18_36_diarrhea_members"] = diarrheaMembers;
+    formMap["hs_18_38_hepatitis_members"] = hepatitisMembers;
+    formMap["hs_18_40_paralysis_members"] = paralysisMembers;
+    formMap["hs_18_42_other_complicated_members"] = otherComplicatedMembers;
+
+    // 2. Synchronize count fields to strictly match member list size
+    final Map<String, int> fieldCounts = {
+      'hs_18_9_nid_count': nidMembers?.length ?? 0,
+      'hs_18_11_bcn_count': bcnMembers?.length ?? 0,
+      'hs_18_17_pregnant_count': pregnantMembers?.length ?? 0,
+      'hs_18_19_diabetes_count': diabetesMembers?.length ?? 0,
+      'hs_18_21_high_bp_count': highBpMembers?.length ?? 0,
+      'hs_18_23_kidney_count': kidneyMembers?.length ?? 0,
+      'hs_18_25_cancer_count': cancerMembers?.length ?? 0,
+      'hs_18_27_low_bp_count': lowBpMembers?.length ?? 0,
+      'hs_18_29_malnutrition_u5_count': malnutritionMembers?.length ?? 0,
+      'hs_18_31_eye_count': eyeMembers?.length ?? 0,
+      'hs_18_33_ear_count': earMembers?.length ?? 0,
+      'hs_18_35_pneumonia_count': pneumoniaMembers?.length ?? 0,
+      'hs_18_37_diarrhea_count': diarrheaMembers?.length ?? 0,
+      'hs_18_39_hepatitis_count': hepatitisMembers?.length ?? 0,
+      'hs_18_41_paralysis_count': paralysisMembers?.length ?? 0,
+      'hs_18_43_other_complicated_count': otherComplicatedMembers?.length ?? 0,
+    };
+
+    fieldCounts.forEach((realKey, count) {
+      if (count > 0) {
+        formMap[realKey] = count;
+      } else {
+        formMap.remove(realKey);
+      }
+    });
+
+    // Remove any leftover fake count keys
+    for (final fakeKey in fakeHouseholdSurveyCountKeys) {
       formMap.remove(fakeKey);
     }
 
@@ -355,32 +642,25 @@ class HouseholdSurveyLogic extends BaseLogic {
         inputs: formMap,
         profileMemberData: ProfileMemberData(
           householdId: customer.value.householdId!,
-          nidMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>?),
-          bcnMembers: (formMap["hs_18_10_bcn_members"] as List<HouseholdSurevyMember>?),
-          pregnantMembers: (formMap["hs_18_16_pregnant_members"] as List<HouseholdSurevyMember>?),
-          chronicRemovals: [
-            ChronicRemovalDto(
-              userId: 1,
-              memberId: 1,
-              profileId: 1,
-              condition: "DIABETES",
-            )
-          ],
+          nidMembers: nidMembers,
+          bcnMembers: bcnMembers,
+          pregnantMembers: pregnantMembers,
+          chronicRemovals: generateChronicRemovals(formMap),
           //deadMembers: (formMap["hs_18_8_nid_members"] as List<HouseholdSurevyMember>),
           diseaseMembers: DiseaseMembers(
-            diabetes:(formMap["hs_18_18_diabetes_members"] as List<HouseholdSurevyMember>?),
-            highbp:(formMap["hs_18_20_high_bp_members"] as List<HouseholdSurevyMember>?),
-            eyeproblem:(formMap["hs_18_30_eye_members"] as List<HouseholdSurevyMember>?),
-            kidneyDisease:(formMap["hs_18_22_kidney_members"] as List<HouseholdSurevyMember>?),
-            cancer:(formMap["hs_18_24_cancer_members"] as List<HouseholdSurevyMember>?),
-            lowbp:(formMap["hs_18_26_low_bp_members"] as List<HouseholdSurevyMember>?),
-            malnutritionU5:(formMap["hs_18_28_malnutrition_u5_members"] as List<HouseholdSurevyMember>?),
-            earproblem:(formMap["hs_18_32_ear_members"] as List<HouseholdSurevyMember>?),
-            pneumonia:(formMap["hs_18_34_pneumonia_members"] as List<HouseholdSurevyMember>?),
-            diarrhea:(formMap["hs_18_36_diarrhea_members"] as List<HouseholdSurevyMember>?),
-            hepatitis:(formMap["hs_18_38_hepatitis_members"] as List<HouseholdSurevyMember>?),
-            paralysis:(formMap["hs_18_40_paralysis_members"] as List<HouseholdSurevyMember>?),
-            otherComplicated:(formMap["hs_18_42_other_complicated_members"] as List<HouseholdSurevyMember>?),
+            diabetes: diabetesMembers,
+            highbp: highBpMembers,
+            eyeproblem: eyeMembers,
+            kidneyDisease: kidneyMembers,
+            cancer: cancerMembers,
+            lowbp: lowBpMembers,
+            malnutritionU5: malnutritionMembers,
+            earproblem: earMembers,
+            pneumonia: pneumoniaMembers,
+            diarrhea: diarrheaMembers,
+            hepatitis: hepatitisMembers,
+            paralysis: paralysisMembers,
+            otherComplicated: otherComplicatedMembers,
           )
         )
     );

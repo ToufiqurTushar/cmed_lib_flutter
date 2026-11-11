@@ -29,7 +29,7 @@ class DiseaseMembers {
     }
 
     diabetes = parseList(json['DIABETES'] ?? json['diabetes']);
-    highbp = parseList(json['HIGH_BP'] ?? json['high_bp'] ?? json['highbp']);
+    highbp = parseList(json['HIGH_BP'] ?? json['high_bp'] ?? json['highbp'] ?? json['HYPERTENSION'] ?? json['hypertension']);
     kidneyDisease = parseList(json['KIDNEY_DISEASE'] ?? json['kidney_disease'] ?? json['kidney']);
     cancer = parseList(json['CANCER'] ?? json['cancer']);
     lowbp = parseList(json['LOW_BP'] ?? json['low_bp'] ?? json['lowbp']);
