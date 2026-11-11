@@ -58,6 +58,24 @@ class ApiUrl {
     return "api/v1/household-survey/context?household_id=$householdId&user_id=$userId";
   }
 
+  static String getHouseholdSurveyListUrl({
+    required int householdId,
+    required int userId,
+    int? fromDate,
+    int? toDate,
+    int page = 0,
+    int size = 10,
+    String direction = "DESC",
+    String sortBy = "id",
+  }) {
+    final effectiveFromDate = (fromDate != null && fromDate > 0) ? fromDate : 1;
+    String url = "api/v1/household-survey?direction=$direction&from_date=$effectiveFromDate&household_id=$householdId&page=$page&size=$size&sort_by=$sortBy&user_id=$userId";
+    if (toDate != null && toDate > 0) {
+      url += "&to_date=$toDate";
+    }
+    return url;
+  }
+
   static String postHouseholdSurveyUrl() {
     return "api/v1/household-survey/submit";
   }

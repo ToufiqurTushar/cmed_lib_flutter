@@ -1,5 +1,6 @@
 import 'package:cmed_lib_flutter/page/rgp/household_survey_i18n.dart';
 import 'package:cmed_lib_flutter/page/rgp/household_survey_logic.dart';
+import 'package:cmed_lib_flutter/page/rgp/npage/history/household_survey_history_list_view.dart';
 import 'package:cmed_lib_flutter/survey/dto/survey_dto.dart';
 import 'package:cmed_lib_flutter/survey/dto/tab_page.dart';
 import 'package:cmed_lib_flutter/survey/survey_manager_widget.dart';
@@ -19,7 +20,7 @@ class HouseholdSurveyView extends RapidView<HouseholdSurveyLogic> {
       backgroundColor: Colors.white,
       appBar: BasicAppBar("Household Survey".tr, trailingWidget: InkWell(
         onTap: () {
-          Get.toNamed(HouseholdSurveyHistoryListView.routeName);
+          Get.offNamed(HouseholdSurveyHistoryListView.routeName);
         },
         child: Visibility(
           visible: controller.selectedSurvey.value == null,
