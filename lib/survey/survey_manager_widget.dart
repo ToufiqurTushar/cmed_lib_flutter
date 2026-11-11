@@ -336,12 +336,11 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
               padding: 12,
               elevation: 2,
               onChanged: (val){
-                final parsedInt = int.tryParse(val);
-                print("Parsed Int: $parsedInt");
-                if(parsedInt != null){
-                  onSelectAnswer?.call(field.name!, parsedInt);
-                  onChanged?.call(field.name!, parsedInt);
-                }
+                final str = val?.toString().trim() ?? '';
+                final parsedInt = int.tryParse(str);
+                final finalVal = str.isEmpty ? null : (parsedInt ?? str);
+                onSelectAnswer?.call(field.name!, finalVal);
+                onChanged?.call(field.name!, finalVal);
               }
           ),
           const SizedBox(height: 8,)
@@ -615,23 +614,25 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
             if (!hasVisibilityConditions) {
               return _buildReactiveField(field, context, formKey);
             }
-            bool visible = field.visibleWhen(controller.formKey, controller.answers);
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              transitionBuilder: (child, anim) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0, 0.2),
-                    end: Offset.zero,
-                  ).animate(anim),
-                  child: FadeTransition(
-                    opacity: anim,
-                    child: child,
-                  ),
-                );
-              },
-              child: visible ? _buildReactiveField(field, context, formKey) : const SizedBox.shrink(),
-            );
+            return Obx(() {
+              bool visible = field.visibleWhen(controller.formKey, controller.answers);
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                transitionBuilder: (child, anim) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(0, 0.2),
+                      end: Offset.zero,
+                    ).animate(anim),
+                    child: FadeTransition(
+                      opacity: anim,
+                      child: child,
+                    ),
+                  );
+                },
+                child: visible ? _buildReactiveField(field, context, formKey) : const SizedBox.shrink(),
+              );
+            });
           }).toList(),
         );
         return tabContent;
@@ -681,21 +682,25 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         });
       }
       //check:default value exist
-      if(value == null && field.defaultValue!=null){
+      if(!controller.answers.containsKey(field.name) && field.defaultValue!=null){
         final defVal = (field.checkboxHouseholdMember && field.defaultValue is List)
             ? "yes"
             : field.defaultValue;
         Future.delayed(Duration.zero, () async {
-          controller.answers[field.name!] = defVal;
+          if (!controller.answers.containsKey(field.name)) {
+            controller.answers[field.name!] = defVal;
+          }
         });
       }
       field.defaultValue = value??field.defaultValue;
 
-      if (value != null && formKey.currentState?.fields[field.name] != null) {
+      if (formKey.currentState?.fields[field.name] != null) {
         final fState = formKey.currentState!.fields[field.name]!;
-        if (fState.value?.toString() != value.toString()) {
+        final currentFormVal = fState.value?.toString() ?? '';
+        final ansVal = value?.toString() ?? '';
+        if (currentFormVal != ansVal && (value != null || controller.answers.containsKey(field.name))) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            fState.didChange(value);
+            fState.didChange(value ?? '');
           });
         }
       }
@@ -705,7 +710,11 @@ class SurveyManagerWidget extends RapidBasicView<SurveyManagerLogic> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: _buildFieldWidget(field, context, formKey, onChanged: (name, val) {
-            controller.answers[field.name!] = val;
+            if (val == null || val == '') {
+              controller.answers[field.name!] = '';
+            } else {
+              controller.answers[field.name!] = val;
+            }
             controller.answers.refresh();
           }),
         ),

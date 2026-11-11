@@ -67,7 +67,7 @@ class HouseholdSurveyLogic extends BaseLogic {
     'hs_18_8_nid_count',
     'hs_18_10_bcn_count',
     'hs_18_16_pregnant_count',
-    'hs_18_15_diabetes_count',
+    'hs_18_18_diabetes_count',
     'hs_18_20_high_bp_count',
     'hs_18_22_kidney_count',
     'hs_18_24_cancer_count',
@@ -147,6 +147,7 @@ class HouseholdSurveyLogic extends BaseLogic {
 
               if (householdSurveyArg.isFromHistory) {
                 eachField.readOnly = true;
+                eachField.ignore = true;
               }
 
               // 1. Direct field value from inputsMap

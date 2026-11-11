@@ -2,6 +2,9 @@ class HouseholdSurveyI18N {
   static Map<String, Map<String, String>> getTranslations() {
     return {
       "en_US": {
+        "Household": "Household",
+        "Health": "Health",
+        "Overview": "Overview",
         "Household Survey": "Household Survey",
         "Assessment Date": "Assessment Date",
         "Survey Completed Successfully": "Survey Completed Successfully",
@@ -161,6 +164,9 @@ class HouseholdSurveyI18N {
         "Total other members": "Total other members",
       },
       "bn_BD": {
+        "Household": "পরিবার",
+        "Health": "স্বাস্থ্যগত",
+        "Overview": "সার্বিক চিত্র",
         "Household Survey": "হাউসহোল্ড সার্ভে",
         "Assessment Date": "মূল্যায়নের তারিখ",
         "Survey Completed Successfully": "জরিপ সফলভাবে সম্পন্ন হয়েছে",
@@ -319,8 +325,8 @@ class HouseholdSurveyI18N {
         "Leprosy": "কুষ্ঠ রোগ",
         "Number of members with Leprosy": "কুষ্ঠ রোগে আক্রান্ত সদস্যের সংখ্যা",
         "Number of sick members": "অসুস্থ সদস্যের সংখ্যা",
-        "LMP Date": "এলএমপির তারিখ",
-        "EDD Date": "ইডিডির তারিখ",
+        "LMP Date": "সর্বশেষ মাসিকের প্রথম দিন",
+        "EDD Date": "সন্তান প্রসবের সম্ভাব্য তারিখ",
         "Survey Respondent Name": "জরিপের উত্তরদাতার নাম",
         "Survey View": "জরিপ প্রদর্শন",
         "Total male members": "মোট পুরুষ সদস্য",
