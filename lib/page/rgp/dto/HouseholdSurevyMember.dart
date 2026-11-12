@@ -1,3 +1,5 @@
+import '../../../common/helper/digit_converter.dart';
+import '../../../common/helper/utils.dart';
 import '../../../survey/dto/field_dto.dart';
 
 class HouseholdSurevyMember {
@@ -6,6 +8,7 @@ class HouseholdSurevyMember {
     this.memberId,
     this.profileId,
     this.display,
+    this.displayBn,
     this.value,
     this.lmpDate,
     this.eddDate,
@@ -28,6 +31,7 @@ class HouseholdSurevyMember {
     memberId = json['member_id'];
     profileId = json['profile_id'];
     display = json['display'];
+    displayBn = json['display_bn'] ?? json['display_name_bn'];
     value = json['value']?.toString();
     lmpDate = json['lmp_date'];
     eddDate = json['edd_date'];
@@ -61,6 +65,7 @@ class HouseholdSurevyMember {
   int? memberId;
   int? profileId;
   String? display;
+  String? displayBn;
   String? value;
   int? lmpDate;
   int? eddDate;
@@ -76,12 +81,27 @@ class HouseholdSurevyMember {
   List<Field>? fields;
   Map<String, dynamic>? inputs;
 
+  String getDisplayName() {
+    if (Utils.isLocaleBn()) {
+      if (displayBn != null && displayBn!.isNotEmpty) {
+        return DigitConverter.convertToLocalizedNumbers(displayBn!);
+      }
+      if (display != null) {
+        String d = DigitConverter.convertToLocalizedNumbers(display!);
+        d = d.replaceAll('Y)', ' বছর)').replaceAll('Y', ' বছর').replaceAll('M)', ' মাস)').replaceAll('D)', ' দিন)');
+        return d;
+      }
+    }
+    return display ?? '';
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['user_id'] = userId;
     map['member_id'] = memberId;
     map['profile_id'] = profileId;
     map['display'] = display;
+    map['display_bn'] = displayBn;
     map['value'] = value;
     map['lmp_date'] = lmpDate;
     map['edd_date'] = eddDate;
@@ -170,6 +190,7 @@ class HouseholdSurevyMember {
     int? memberId,
     int? profileId,
     String? display,
+    String? displayBn,
     String? value,
     int? lmpDate,
     int? eddDate,
@@ -190,6 +211,7 @@ class HouseholdSurevyMember {
       memberId: memberId ?? this.memberId,
       profileId: profileId ?? this.profileId,
       display: display ?? this.display,
+      displayBn: displayBn ?? this.displayBn,
       value: value ?? this.value,
       lmpDate: lmpDate ?? this.lmpDate,
       eddDate: eddDate ?? this.eddDate,

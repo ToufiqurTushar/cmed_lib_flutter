@@ -1,5 +1,7 @@
 import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
+import 'package:cmed_lib_flutter/common/helper/digit_converter.dart';
+import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'package:uuid/validation.dart';
 import 'additional_information.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
@@ -333,10 +335,16 @@ class MemberDTO {
   }
 
   String getFullName() {
-    String nameEn = "${firstNameEn ?? ""} ${lastNameEn ?? ""}";
-    String nameBn = "${firstNameBn ?? ""} ${lastNameBn ?? ""}";
+    String nameEn = "${firstNameEn ?? ""} ${lastNameEn ?? ""}".trim();
+    String nameBn = "${firstNameBn ?? ""} ${lastNameBn ?? ""}".trim();
 
-    return nameEn.trim().isNotEmpty ? nameEn.trim() : nameBn.trim();
+    if (Utils.isLocaleBn()) {
+      if (nameBn.isNotEmpty) return nameBn;
+      return nameEn;
+    } else {
+      if (nameEn.isNotEmpty) return nameEn;
+      return nameBn;
+    }
   }
 
   String getAgeString() {
@@ -344,10 +352,17 @@ class MemberDTO {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(birthday!);
       String ageStr = CalendarUtil.instance.getFullAgeString(dateTime);
       if (ageStr.isNotEmpty) {
+        if (Utils.isLocaleBn()) {
+          ageStr = DigitConverter.convertToLocalizedNumbers(ageStr);
+          ageStr = ageStr.replaceAll('Y', ' বছর').replaceAll('M', ' মাস').replaceAll('D', ' দিন');
+        }
         return "($ageStr)";
       }
     }
     if (age != null && age! > 0) {
+      if (Utils.isLocaleBn()) {
+        return "(${DigitConverter.convertIntToLocalizedNumber(age!)} বছর)";
+      }
       return "(${age}Y)";
     }
     return "";

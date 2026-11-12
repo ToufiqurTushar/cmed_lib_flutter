@@ -4,6 +4,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/CalanderUtil.dart';
 import 'package:uuid/validation.dart';
 import '../enum/sample_collection_type.dart';
+import 'package:cmed_lib_flutter/common/helper/digit_converter.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
 import 'additional_information.dart';
 import 'base_entity_dto.dart';
@@ -476,7 +477,11 @@ class CustomerDTO extends BaseEntity {
 
 
   String getHouseholdId(){
-    return householdId?.toString()??"";
+    String hid = householdId?.toString() ?? "";
+    if (Utils.isLocaleBn()) {
+      return DigitConverter.convertToLocalizedNumbers(hid);
+    }
+    return hid;
   }
 
   String getHouseholdAddress(){
@@ -522,18 +527,18 @@ class CustomerDTO extends BaseEntity {
   String getFullName() {
     final firstEn = (firstName?.isEmpty ?? true) ? "" : firstName!;
     final lastEn = (lastName?.isEmpty ?? true) ? "" : lastName!;
-    final nameEn = "$firstEn $lastEn";
+    final nameEn = "$firstEn $lastEn".trim();
 
     final firstBn = (firstNameBn?.isEmpty ?? true) ? "" : firstNameBn!;
     final lastBn = (lastNameBn?.isEmpty ?? true) ? "" : lastNameBn!;
-    final nameBn = "$firstBn $lastBn";
+    final nameBn = "$firstBn $lastBn".trim();
 
-    if (Language.isEnglishSelected && nameEn.trim().isNotEmpty) {
-      return nameEn.trim();
-    } else if (!Language.isEnglishSelected && nameBn.trim().isNotEmpty) {
-      return nameBn.trim();
+    if (Utils.isLocaleBn()) {
+      if (nameBn.isNotEmpty) return nameBn;
+      return nameEn;
     } else {
-      return nameEn.trim();
+      if (nameEn.isNotEmpty) return nameEn;
+      return nameBn;
     }
   }
 
@@ -550,10 +555,17 @@ class CustomerDTO extends BaseEntity {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(birthDate!);
       String ageStr = CalendarUtil.instance.getFullAgeString(dateTime);
       if (ageStr.isNotEmpty) {
+        if (Utils.isLocaleBn()) {
+          ageStr = DigitConverter.convertToLocalizedNumbers(ageStr);
+          ageStr = ageStr.replaceAll('Y', ' বছর').replaceAll('M', ' মাস').replaceAll('D', ' দিন');
+        }
         return "($ageStr)";
       }
     }
     if (age != null) {
+      if (Utils.isLocaleBn()) {
+        return "(${DigitConverter.convertIntToLocalizedNumber(age!)} বছর)";
+      }
       return "(${age}Y)";
     }
     return "";

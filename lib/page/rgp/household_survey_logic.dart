@@ -9,6 +9,7 @@ import 'package:cmed_lib_flutter/survey/dto/survey_item_dto.dart';
 import 'package:cmed_lib_flutter/survey/enum/enum.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
+import '../../common/helper/utils.dart';
 import '../../common/api/api_url.dart';
 import '../../common/base/base_logic.dart';
 import '../../common/widget/app_dialog.dart';
@@ -255,9 +256,8 @@ class HouseholdSurveyLogic extends BaseLogic {
             field.inputType = 'checkboxHouseholdMember';
             if (field.members == null || field.members!.isEmpty) {
               field.members = householdSurveyContexDto?.members?.map<HouseholdSurevyMember>((m) {
-                final displayName = (Get.locale?.languageCode == 'en'
-                        ? (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)
-                        : (m.displayName?.isNotEmpty == true ? m.displayName : m.displayName)) ??'N/A';
+                final displayName = m.displayName ?? 'N/A';
+                final displayBn = m.getDisplayName();
                 List<Field> fields = [];
                 if(
                 field.name == 'hs_18_8_nid' ||
@@ -320,6 +320,7 @@ class HouseholdSurveyLogic extends BaseLogic {
                     memberId: m.memberId,
                     profileId: m.profileId,
                     display: displayName,
+                    displayBn: displayBn,
                     fields: fields,
                     isHidden: (field.name == 'hs_18_16_pregnant' && (m.gender != 'FEMALE' || m.ageYears! < 9 || m.ageYears! >49))?
                     true:
@@ -337,7 +338,96 @@ class HouseholdSurveyLogic extends BaseLogic {
 
     }).whenComplete(() {
       isLoading.value = false;
+      if (!householdSurveyArg.isFromHistory && isAlreadySurveyedThisMonth()) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _showAlreadySurveyedDialog();
+        });
+      }
     });
+  }
+
+  bool isAlreadySurveyedThisMonth() {
+    if (householdSurveyContexDto == null) return false;
+    final status = householdSurveyContexDto?.status;
+    final now = DateTime.now();
+
+    if (status != null) {
+      if (status.completedForCurrentMonth == true) {
+        return true;
+      }
+      if (status.surveyYear != null && status.surveyMonth != null) {
+        if (status.surveyYear == now.year && status.surveyMonth == now.month) {
+          return true;
+        }
+      }
+      if (status.latestSurveyOn != null && status.latestSurveyOn! > 0) {
+        int millis = status.latestSurveyOn!;
+        if (millis < 10000000000) {
+          millis *= 1000;
+        }
+        final surveyDate = DateTime.fromMillisecondsSinceEpoch(millis);
+        if (surveyDate.year == now.year && surveyDate.month == now.month) {
+          return true;
+        }
+      }
+    }
+
+    final defaultInputs = householdSurveyContexDto?.defaultInputs;
+    if (defaultInputs != null) {
+      dynamic surveyDateVal = defaultInputs['survey_date'] ??
+          (defaultInputs['inputs'] is Map ? defaultInputs['inputs']['hs_18_survey_date'] : null) ??
+          defaultInputs['created_at'];
+      if (surveyDateVal != null) {
+        DateTime? parsed;
+        if (surveyDateVal is int) {
+          int m = surveyDateVal;
+          if (m < 10000000000) m *= 1000;
+          parsed = DateTime.fromMillisecondsSinceEpoch(m);
+        } else if (surveyDateVal is String) {
+          parsed = DateTime.tryParse(surveyDateVal);
+        }
+        if (parsed != null && parsed.year == now.year && parsed.month == now.month) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  void _showAlreadySurveyedDialog() {
+    Get.defaultDialog(
+      title: "Household Survey".tr,
+      titleStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Text(
+          "household_survey_already_completed".tr,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
+        ),
+      ),
+      confirm: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF00A896),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
+        onPressed: () {
+          Get.back();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            "OK".tr,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
   }
 
   List<HouseholdSurevyMember>? _getPreselectedMembersForField(

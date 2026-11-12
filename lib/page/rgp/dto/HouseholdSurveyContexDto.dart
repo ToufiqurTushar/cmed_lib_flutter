@@ -1,4 +1,6 @@
 import 'dart:convert';
+import '../../../common/helper/digit_converter.dart';
+import '../../../common/helper/utils.dart';
 
 class HouseholdSurveyContexDto {
   final int? householdId;
@@ -664,6 +666,7 @@ class SurveyMember {
   final int? memberId;
   final int? profileId;
   final String? displayName;
+  final String? displayNameBn;
   final String? gender;
   final int? ageYears;
   final bool? householdHead;
@@ -686,6 +689,7 @@ class SurveyMember {
     this.memberId,
     this.profileId,
     this.displayName,
+    this.displayNameBn,
     this.gender,
     this.ageYears,
     this.householdHead,
@@ -704,12 +708,27 @@ class SurveyMember {
     this.chronicConditions,
   });
 
+  String getDisplayName() {
+    if (Utils.isLocaleBn()) {
+      if (displayNameBn != null && displayNameBn!.isNotEmpty) {
+        return DigitConverter.convertToLocalizedNumbers(displayNameBn!);
+      }
+      if (displayName != null) {
+        String d = DigitConverter.convertToLocalizedNumbers(displayName!);
+        d = d.replaceAll('Y)', ' বছর)').replaceAll('Y', ' বছর').replaceAll('M)', ' মাস)').replaceAll('D)', ' দিন)');
+        return d;
+      }
+    }
+    return displayName ?? '';
+  }
+
   factory SurveyMember.fromJson(Map<String, dynamic> json) {
     return SurveyMember(
       userId: json['user_id'],
       memberId: json['member_id'],
       profileId: json['profile_id'],
       displayName: json['display_name'],
+      displayNameBn: json['display_name_bn'] ?? json['name_bn'] ?? json['first_name_bn'],
       gender: json['gender'],
       ageYears: json['age_years'],
       householdHead: json['household_head'],
