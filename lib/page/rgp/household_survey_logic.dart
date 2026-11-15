@@ -146,7 +146,7 @@ class HouseholdSurveyLogic extends BaseLogic {
             try {
               if (eachField.name == null) return;
 
-              if (householdSurveyArg.isFromHistory) {
+              if (householdSurveyArg.isFromHistory || isAlreadySurveyedThisMonth()) {
                 eachField.readOnly = true;
                 eachField.ignore = true;
               }
@@ -349,49 +349,12 @@ class HouseholdSurveyLogic extends BaseLogic {
   bool isAlreadySurveyedThisMonth() {
     if (householdSurveyContexDto == null) return false;
     final status = householdSurveyContexDto?.status;
-    final now = DateTime.now();
 
     if (status != null) {
       if (status.completedForCurrentMonth == true) {
         return true;
       }
-      if (status.surveyYear != null && status.surveyMonth != null) {
-        if (status.surveyYear == now.year && status.surveyMonth == now.month) {
-          return true;
-        }
-      }
-      if (status.latestSurveyOn != null && status.latestSurveyOn! > 0) {
-        int millis = status.latestSurveyOn!;
-        if (millis < 10000000000) {
-          millis *= 1000;
-        }
-        final surveyDate = DateTime.fromMillisecondsSinceEpoch(millis);
-        if (surveyDate.year == now.year && surveyDate.month == now.month) {
-          return true;
-        }
-      }
     }
-
-    final defaultInputs = householdSurveyContexDto?.defaultInputs;
-    if (defaultInputs != null) {
-      dynamic surveyDateVal = defaultInputs['survey_date'] ??
-          (defaultInputs['inputs'] is Map ? defaultInputs['inputs']['hs_18_survey_date'] : null) ??
-          defaultInputs['created_at'];
-      if (surveyDateVal != null) {
-        DateTime? parsed;
-        if (surveyDateVal is int) {
-          int m = surveyDateVal;
-          if (m < 10000000000) m *= 1000;
-          parsed = DateTime.fromMillisecondsSinceEpoch(m);
-        } else if (surveyDateVal is String) {
-          parsed = DateTime.tryParse(surveyDateVal);
-        }
-        if (parsed != null && parsed.year == now.year && parsed.month == now.month) {
-          return true;
-        }
-      }
-    }
-
     return false;
   }
 
@@ -409,7 +372,7 @@ class HouseholdSurveyLogic extends BaseLogic {
         child: Text(
           "household_survey_already_completed".tr,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 14, color: Colors.black87),
+          style: const TextStyle(fontSize: 14, color: Colors.red),
         ),
       ),
       confirm: ElevatedButton(
@@ -418,7 +381,6 @@ class HouseholdSurveyLogic extends BaseLogic {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
         onPressed: () {
-          Get.back();
           Get.back();
         },
         child: Padding(
@@ -695,6 +657,10 @@ class HouseholdSurveyLogic extends BaseLogic {
   }
 
   void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
+    if (isAlreadySurveyedThisMonth()) {
+        _showAlreadySurveyedDialog();
+        return;
+    }
     // 1. Resolve members for each checkbox field
     final nidMembers = _resolveFieldMembers("hs_18_8_nid", formMap);
     final bcnMembers = _resolveFieldMembers("hs_18_10_bcn", formMap);
