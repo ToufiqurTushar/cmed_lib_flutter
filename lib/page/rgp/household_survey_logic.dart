@@ -397,6 +397,7 @@ class HouseholdSurveyLogic extends BaseLogic {
 
   void _showAlreadySurveyedDialog() {
     Get.defaultDialog(
+      barrierDismissible: false,
       title: "Household Survey".tr,
       titleStyle: const TextStyle(
         fontSize: 16,
@@ -417,6 +418,7 @@ class HouseholdSurveyLogic extends BaseLogic {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
         onPressed: () {
+          Get.back();
           Get.back();
         },
         child: Padding(
