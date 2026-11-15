@@ -657,6 +657,9 @@ class HouseholdSurveyLogic extends BaseLogic {
   }
 
   void submitSurvey(SurveyDto selectedSurveyDto, Map<String, dynamic> formMap) {
+    if(householdSurveyArg.isFromHistory) {
+      return;
+    }
     if (isAlreadySurveyedThisMonth()) {
         _showAlreadySurveyedDialog();
         return;
