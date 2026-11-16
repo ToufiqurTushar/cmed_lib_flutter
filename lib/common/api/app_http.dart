@@ -385,17 +385,22 @@ class HttpProvider {
   }
 
   void checkForceUpdateFromResponse(dio.Response response) {
-    RLog.info(jsonEncode(response.headers.map));
+    log("checkForceUpdateFromResponse:${jsonEncode(response.headers.map)}");
     String versionKey = AppVersionKey();
     if ((response.headers.map.containsKey(versionKey))) {
       int serverAppVersionCode = int.parse(response.headers.map[versionKey]![0]);
+      log("checkForceUpdateFromResponse:serverAppVersionCode:$serverAppVersionCode");
       AppInfo.getVersionNumber().then((value) {
         int deviceAppVersionCode = int.parse(value.replaceAll(".", ""));
         RLog.info('deviceVersion:$deviceAppVersionCode-serverVersion:$serverAppVersionCode');
         if (deviceAppVersionCode < serverAppVersionCode) {
           showVersionUpdateDialog(serverAppVersionCode, deviceAppVersionCode);
+        } else {
+          RLog.warning('No need to update App. deviceAppVersionCode: $deviceAppVersionCode, serverAppVersionCode:$serverAppVersionCode');
         }
       });
+    } else {
+      log("checkForceUpdateFromResponse: versionKey:$versionKey not found");
     }
   }
 
@@ -443,7 +448,7 @@ class HttpProvider {
       }
       return CORE_USER_ANDROID_VERSION_KEY;
     }
-    else if(appEnvConfig.appUid == AppUidEnum.USER_APP.name) {
+    else if(appEnvConfig.appUid == AppUidEnum.DHC.name) {
       if (Platform.isIOS) {
         return CORE_AGENT_IOS_VERSION_KEY;
       }
