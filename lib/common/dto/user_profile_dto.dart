@@ -280,7 +280,7 @@ class UserProfile {
     familyHyperTension = json['family_hyper_tension'];
     fatherName = json['father_name'];
     fatherNameBn = json['father_name_bn'];
-    firstName = json['first_name_en'];
+    firstName = json['first_name_en']??json['first_name'];
     firstNameBn = json['first_name_bn'];
     freedomFighter = json['freedom_fighter'];
     gender = json['gender'];
