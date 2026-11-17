@@ -590,14 +590,14 @@ class NetworkAndLoggingInterceptor extends dio.Interceptor {
 
   @override
   void onResponse(dio.Response response, dio.ResponseInterceptorHandler handler) {
-    RLog.warning(
-      '══════════════════════════ Response ${response.requestOptions.method} (${response.statusCode}) ══════════════════════════\n'
-      'REQUEST URL   ║ ${response.requestOptions.uri}\n'
-      'REQUEST DATA  ║ ${response.requestOptions.data}\n'
-      'RESPONSE BODY ║ ${response.data?.toString() ?? ''}',
-    );
+    // RLog.warning(
+    //   '══════════════════════════ Response ${response.requestOptions.method} (${response.statusCode}) ══════════════════════════\n'
+    //   'REQUEST URL   ║ ${response.requestOptions.uri}\n'
+    //   'REQUEST DATA  ║ ${response.requestOptions.data}\n'
+    //   'RESPONSE BODY ║ ${response.data?.toString() ?? ''}',
+    // );
     try {
-      log('RESPONSE BODY ${response.requestOptions.uri} ║ ${response.data ?? ''}\n');
+      log('RESPONSE BODY (${response.requestOptions.method})${response.requestOptions.uri} ║ ${response.data ?? ''}\n');
     } catch (e) {
       log('RESPONSE BODY ║ ${e}\n');
     }
