@@ -557,13 +557,11 @@ class NetworkAndLoggingInterceptor extends dio.Interceptor {
   final RapidGlobalStateLogic globalState = Get.find();
 
   Future checkNetworkAndLogging(dio.RequestOptions requestOptions, dio.RequestInterceptorHandler handler) async {
-    log('╔══════════════════════════ Request ${requestOptions.method.toUpperCase()} ══════════════════════════');
     try {
-      log('REQUEST DATA(${requestOptions.path}) ║ ${jsonEncode(requestOptions.data)}');
+      log('REQUEST DATA (${requestOptions.method.toUpperCase()}) ║ (${requestOptions.path}) ║ ${jsonEncode(requestOptions.data)}');
     } catch (e) {
       log('REQUEST DATA ║ ${e}\n');
     }
-    log('╚═════════════════════════════════════════════════════════════════');
 
     return super.onRequest(requestOptions, handler);
 
