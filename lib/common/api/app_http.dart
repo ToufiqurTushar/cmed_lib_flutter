@@ -558,9 +558,8 @@ class NetworkAndLoggingInterceptor extends dio.Interceptor {
 
   Future checkNetworkAndLogging(dio.RequestOptions requestOptions, dio.RequestInterceptorHandler handler) async {
     log('╔══════════════════════════ Request ${requestOptions.method.toUpperCase()} ══════════════════════════');
-    log('REQUEST API  ║ ${requestOptions.path}');
     try {
-      log('REQUEST DATA ║ ${jsonEncode(requestOptions.data)}');
+      log('REQUEST DATA(${requestOptions.path}) ║ ${jsonEncode(requestOptions.data)}');
     } catch (e) {
       log('REQUEST DATA ║ ${e}\n');
     }
