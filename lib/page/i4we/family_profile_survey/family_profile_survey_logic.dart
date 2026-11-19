@@ -57,8 +57,14 @@ class FamilyProfileSurveyLogic extends BaseLogic {
               field.required = true;
             }
           });
-          selectedSurvey.refresh();
         }
+        selectedSurvey.value!.fields!.forEach((field){
+          if(field.name == 'as9_3'){
+            field.max = DateTime.now().millisecondsSinceEpoch;;
+          }
+        });
+        selectedSurvey.refresh();
+
         RLog.info(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {

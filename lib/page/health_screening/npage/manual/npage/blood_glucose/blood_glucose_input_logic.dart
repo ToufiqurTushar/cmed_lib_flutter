@@ -109,12 +109,11 @@ class BloodGlucoseInputLogic extends BaseLogic {
 
   double _getGlucoseUnit(String value) {
     var glucoseValue = double.parse(value);
-
     glucoseValue =  selectedGlucoseUnit == 'mg/dL'
-        ? (glucoseValue / 18.0182)
+        ? (glucoseValue / 18.016)
         : glucoseValue;
-
-    glucoseValue = glucoseValue.toTwoDecimalRound();
+    RLog.error("glucoseValue $glucoseValue");
+    glucoseValue = glucoseValue.roundDouble(2);
     RLog.error("glucoseValue $glucoseValue");
     return glucoseValue;
 

@@ -683,7 +683,7 @@ class MeasurementDTO {
       final sugarValue = inputs?[BloodGlucoseAttribute.SUGAR.name];
       //final sugarWithUnit = inputsWithUnit?[BloodGlucoseAttribute.SUGAR.name];
       if (AppUidConfig.isI4WeApp) {
-        var mgMolGrommiliMol = sugarValue*18.0182;
+        var mgMolGrommiliMol = sugarValue*18.016;
         value = "${mgMolGrommiliMol.toStringAsFixed(mgMolGrommiliMol.truncateToDouble() == mgMolGrommiliMol ? 0 : 2) ?? ""}";
       } else if (sugarValue != null) {
         var mgMolGrommiliMol = sugarValue*1;
