@@ -57,8 +57,7 @@ dependencies:
   #plugin
   endometriosis_lib_flutter:
     git:
-      url: https://gitlab.com/cmed-bd/endometriosis-lib-flutter.git
-      #url: git@gitlab.com:cmed-bd/endometriosis-lib-flutter.git
+      url: https://github.com/ToufiqurTushar/endometriosis-lib-flutter.git
       ref: main
   #  alzheimer_lib_flutter:
   #    git:
