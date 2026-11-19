@@ -59,8 +59,17 @@ class AnemiaSurveyLogic extends BaseLogic {
               field.required = true;
             }
           });
-          selectedSurvey.refresh();
         }
+
+        selectedSurvey.value!.fields!.forEach((field){
+          if(['as9_16','as9_18','as9_2', 'as9_3', 'as9_4', 'as9_5'].contains(field.name)){
+            field.required = true;
+          }
+          if(field.name == 'as9_3'){
+            field.max = DateTime.now().millisecondsSinceEpoch;;
+          }
+        });
+        selectedSurvey.refresh();
         RLog.info(selectedSurvey.value!.toJson());
       }
     }).catchError((error) {
