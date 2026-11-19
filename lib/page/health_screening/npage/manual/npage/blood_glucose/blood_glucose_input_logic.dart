@@ -11,6 +11,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 
+import '../../../../../../common/helper/double_extension.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 
@@ -107,15 +108,14 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   double _getGlucoseUnit(String value) {
-    final glucoseValue = double.parse(value);
+    var glucoseValue = double.parse(value);
 
-    if (AppUidConfig.isCmedApp) {
-      return glucoseValue;
-    }
-
-    return selectedGlucoseUnit == 'mg/dL'
-        ? (glucoseValue / 18.0182).toTwoDecimal()
+    glucoseValue =  selectedGlucoseUnit == 'mg/dL'
+        ? (glucoseValue / 18.0182)
         : glucoseValue;
+
+    return glucoseValue.toTwoDecimalRound();
+
   }
 
   updateMeasurementAndNavigate(measurement){
