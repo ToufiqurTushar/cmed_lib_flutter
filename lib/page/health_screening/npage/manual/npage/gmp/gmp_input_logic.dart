@@ -209,15 +209,15 @@ class GmpInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementHfa).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementHfa).toJson()).then((value) {
       if (value != null) {
         screeningReportHfa.value = value;
         measurementHfa.result = value.result;
-        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
+        repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
           if (value != null) {
             screeningReportWfa.value = value;
             measurementWfa.result = value.result;
-            repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
+            repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
               if (value != null) {
                 screeningReportWfl.value = value;
                 measurementWfl.result = value.result;

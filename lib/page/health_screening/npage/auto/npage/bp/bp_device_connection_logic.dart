@@ -229,7 +229,7 @@ class BpDeviceConnectionLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
     repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       if (bpMeasurementWithResult != null) {
         allMeasurements[0].result = bpMeasurementWithResult.result;

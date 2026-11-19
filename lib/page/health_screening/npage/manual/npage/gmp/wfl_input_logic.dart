@@ -203,7 +203,7 @@ class WflInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementWfl).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurementWfl.result = value.result;

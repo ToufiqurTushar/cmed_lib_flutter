@@ -202,7 +202,7 @@ class WfaInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementWfa).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         screeningReportWfa.value = value;

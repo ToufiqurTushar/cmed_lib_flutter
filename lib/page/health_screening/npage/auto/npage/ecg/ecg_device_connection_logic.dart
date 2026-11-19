@@ -181,7 +181,7 @@ class EcgDeviceConnectionLogic extends BaseLogic {
         inputs: inputs
     );
 
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
     repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {

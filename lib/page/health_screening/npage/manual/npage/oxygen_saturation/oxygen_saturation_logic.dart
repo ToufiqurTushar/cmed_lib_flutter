@@ -93,7 +93,7 @@ class OxygenSaturationLogic extends BaseLogic {
         }
     );
 
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementResponse) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementResponse) {
       isLoading.value = false;
       if(pulseMeasurementResponse != null) {
         pulseMeasurement.result = pulseMeasurementResponse.result;
@@ -110,7 +110,7 @@ class OxygenSaturationLogic extends BaseLogic {
         );
 
         isLoading.value = true;
-        repository.sendData(AppUidConfig.getPostMeasurementUrl(), (oxygenMeasurement).toJson()).then((oxygenMeasurementResponse) {
+        repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (oxygenMeasurement).toJson()).then((oxygenMeasurementResponse) {
           isLoading.value = false;
           if (oxygenMeasurementResponse != null) {
             oxygenMeasurement.result = oxygenMeasurementResponse.result;

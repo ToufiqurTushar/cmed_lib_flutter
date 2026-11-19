@@ -146,14 +146,14 @@ class BpInputLogic extends BaseLogic {
     }
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
       isLoading.value = false;
       if (bpMeasurementWithResult != null) {
         screeningReport.value = bpMeasurementWithResult;
         allMeasurements[0].result = bpMeasurementWithResult.result;
         if (pulseController.value.text.isNotEmpty) {
           isLoading.value = true;
-          repository.sendData(AppUidConfig.getPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+          repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
             isLoading.value = false;
             allMeasurements[1].result = pulseMeasurementWithResult!.result;
             screeningReport.value.inputs!.addAll({

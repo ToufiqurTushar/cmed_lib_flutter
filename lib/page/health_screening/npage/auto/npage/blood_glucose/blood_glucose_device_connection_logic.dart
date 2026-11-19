@@ -190,7 +190,7 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
     httpProvider.POST(url, (measurement).toJson()).then((response) {
       isLoading.value = false;
       if(response.isOk) {

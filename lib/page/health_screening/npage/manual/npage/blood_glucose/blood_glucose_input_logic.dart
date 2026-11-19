@@ -92,7 +92,7 @@ class BloodGlucoseInputLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    final url = AppUidConfig.getPostMeasurementUrl();
+    final url = AppUidConfig.getPreviewOrPostMeasurementUrl();
     httpProvider.POST(url, (measurement).toJson()).then((response) {
       isLoading.value = false;
       if(response.isOk) {
@@ -114,7 +114,9 @@ class BloodGlucoseInputLogic extends BaseLogic {
         ? (glucoseValue / 18.0182)
         : glucoseValue;
 
-    return glucoseValue.toTwoDecimalRound();
+    glucoseValue = glucoseValue.toTwoDecimalRound();
+    RLog.error("glucoseValue $glucoseValue");
+    return glucoseValue;
 
   }
 

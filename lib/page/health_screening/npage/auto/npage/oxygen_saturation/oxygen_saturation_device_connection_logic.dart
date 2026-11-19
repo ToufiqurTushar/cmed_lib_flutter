@@ -168,7 +168,7 @@ class OxygenSaturationDeviceConnectionLogic extends BaseLogic {
         }
     );
 
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
     repository.sendData(url, (measurement).toJson()).then((spo2MeasurementWithResult) {
       debugPrint(spo2MeasurementWithResult?.toJson().toString());
       if (spo2MeasurementWithResult != null) {

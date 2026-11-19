@@ -56,9 +56,10 @@ dependencies:
   simple_animations: ^5.0.2
   #plugin
   endometriosis_lib_flutter:
-    git:
-      url: https://github.com/ToufiqurTushar/endometriosis-lib-flutter.git
-      ref: main
+    path: ../../endometriosis-lib-flutter
+#    git:
+#      url: https://github.com/ToufiqurTushar/endometriosis-lib-flutter.git
+#      ref: main
   #  alzheimer_lib_flutter:
   #    git:
   #      url: https://gitlab.com/cmed-bd/alzheimer-lib-flutter.git

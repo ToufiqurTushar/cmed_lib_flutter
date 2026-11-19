@@ -189,7 +189,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     );
 
     isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPostMeasurementUrl();
+    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
     repository.sendData(url, (measurement).toJson()).then((value) {
       isLoading.value = false;
       globalState.hideBusy();

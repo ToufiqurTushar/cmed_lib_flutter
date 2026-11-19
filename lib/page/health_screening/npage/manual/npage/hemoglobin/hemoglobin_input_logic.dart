@@ -76,7 +76,7 @@ class HemoglobinInputLogic extends BaseLogic {
     );
 
 
-    httpProvider.POST(AppUidConfig.getPostMeasurementUrl(), measurement.toJson())
+    httpProvider.POST(AppUidConfig.getPreviewOrPostMeasurementUrl(), measurement.toJson())
     .then((response){
       isLoading.value = false;
       if(response.isOk){
@@ -90,7 +90,7 @@ class HemoglobinInputLogic extends BaseLogic {
     });
 
 
-    // repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurement).toJson()).then((value) {
+    // repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurement).toJson()).then((value) {
     //   isLoading.value = false;
     //   if (value != null) {
     //     measurement.result = value.result;

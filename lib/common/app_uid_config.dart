@@ -40,7 +40,7 @@ class AppUidConfig {
     return 0.0;
   }
 
-  static String getPostMeasurementUrl() {
+  static String getPreviewOrPostMeasurementUrl() {
     if(isCmedUserApp || isI4WeMemberApp) {
       return ApiUrl.addMeasurementUrl();
     }

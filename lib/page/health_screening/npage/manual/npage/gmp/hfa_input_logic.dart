@@ -205,7 +205,7 @@ class HfaInputLogic extends BaseLogic {
 
 
     isLoading.value = true;
-    repository.sendData(AppUidConfig.getPostMeasurementUrl(), (measurementHfa).toJson()).then((value) {
+    repository.sendData(AppUidConfig.getPreviewOrPostMeasurementUrl(), (measurementHfa).toJson()).then((value) {
       isLoading.value = false;
       if (value != null) {
         measurementHfa.result = value.result;
