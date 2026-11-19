@@ -12,6 +12,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 
 import '../../../../../../common/helper/double_extension.dart';
+import '../../../../dto/request_bundle_measurement_dto.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 
@@ -92,19 +93,40 @@ class BloodGlucoseInputLogic extends BaseLogic {
     debugPrint(json);
 
     isLoading.value = true;
-    final url = AppUidConfig.getPreviewOrPostMeasurementUrl();
-    httpProvider.POST(url, (measurement).toJson()).then((response) {
-      isLoading.value = false;
-      if(response.isOk) {
-        final value = MeasurementDTO.fromJson(response.body);
-        measurement.result = value.result;
-        measurement.inputsWithUnit = value.inputsWithUnit;
-        screeningReport.value = value;
-        updateMeasurementAndNavigate(measurement);
-      } else {
-        ShowToast.error(response.body.toString());
-      }
-    });
+    var url = AppUidConfig.getPreviewOrPostMeasurementUrl();
+    if(AppUidConfig.isCmedUserApp) {
+      url = AppUidConfig.getMeasurementBundleUrl();
+      var requestBundleMeasurementDto = RequestBundleMeasurementDto(
+          userId: customer.value.userId,
+          bundlesMeasurements: [measurement]
+      );
+      httpProvider.POST(url, requestBundleMeasurementDto.toJson()).then((response) {
+        isLoading.value = false;
+        if(response.isOk) {
+          final value = RequestBundleMeasurementDto.fromJson(response.body);
+          measurement.result = value.bundlesMeasurements?.first.result;
+          measurement.inputsWithUnit = value.bundlesMeasurements?.first.inputsWithUnit;
+          screeningReport.value = value.bundlesMeasurements!.first;
+          updateMeasurementAndNavigate(measurement);
+        } else {
+          ShowToast.error(response.body.toString());
+        }
+      });
+    } else {
+      httpProvider.POST(url, (measurement).toJson()).then((response) {
+        isLoading.value = false;
+        if(response.isOk) {
+          final value = MeasurementDTO.fromJson(response.body);
+          measurement.result = value.result;
+          measurement.inputsWithUnit = value.inputsWithUnit;
+          screeningReport.value = value;
+          updateMeasurementAndNavigate(measurement);
+        } else {
+          ShowToast.error(response.body.toString());
+        }
+      });
+    }
+
   }
 
   double _getGlucoseUnit(String value) {

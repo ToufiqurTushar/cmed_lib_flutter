@@ -46,4 +46,8 @@ class AppUidConfig {
     }
     return ApiUrl.previewMeasurementUrl();
   }
+
+  static String getMeasurementBundleUrl() {
+    return "api/v7/bundles";
+  }
 }
