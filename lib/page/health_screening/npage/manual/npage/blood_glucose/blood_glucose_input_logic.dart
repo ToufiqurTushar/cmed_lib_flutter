@@ -135,11 +135,13 @@ class BloodGlucoseInputLogic extends BaseLogic {
   }
 
   num getMaxGlucoseValue() {
-    if (tag.value.id == GlucoseTag.OGTT.tagId) {
-      return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE_OGTT;
-    } else {
-      return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE;
-    }
+    bool isUnitMgPerDL = selectedGlucoseUnit == 'mg/dL';
+    return MeasurementConstant.MAX_GLUCOSE_LIMIT(isUnitMgPerDL:isUnitMgPerDL, isI4weApp: AppUidConfig.isI4WeApp);
+    // if (tag.value.id == GlucoseTag.OGTT.tagId) {
+    //   return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE_OGTT;
+    // } else {
+    //   return selectedGlucoseUnit == 'mg/dL'? 900 : MeasurementConstant.MAX_GLUCOSE;
+    // }
   }
 
   num getMinGlucoseValue() {

@@ -19,6 +19,20 @@ class MeasurementConstant {
 
   static const double MAX_GLUCOSE_OGTT = 100.0;
 
+  static num MAX_GLUCOSE_LIMIT ({bool isI4weApp = false, bool isUnitMgPerDL = false,}) {
+    bool isUnitMiliMol = !isUnitMgPerDL;
+    if(isI4weApp && isUnitMgPerDL) {
+      return 1000.0;
+    } else if(isI4weApp && isUnitMiliMol) {
+      return 55.56;
+    } else if(isUnitMiliMol) {
+      return MAX_GLUCOSE;
+    } else if(isUnitMiliMol) {
+      return 900.00;
+    }
+    return MAX_GLUCOSE;
+  }
+
   static const double MIN_TEMPERATURE_F = 90.0;
 
   static const double MAX_TEMPERATURE_F = 110.0;
