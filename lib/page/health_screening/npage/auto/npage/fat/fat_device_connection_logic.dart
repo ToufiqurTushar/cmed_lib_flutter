@@ -206,7 +206,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
     customer.value.heightCentimeter = heightInCm.value;
     profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value){
       isLoading.value = false;
-      String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+      String route = isNestedRoute? '/preview_screening_view': '/screening_report_fat_scale_details';
       Get.offNamed(route, arguments: [ScreeningReportResultDetailsArgument(
         screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements, updateProfile: true
       )], id: isNestedRoute? 1: null);
