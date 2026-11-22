@@ -561,7 +561,7 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value = 'Hemoglobin'.tr;
     }
-    return value??"";
+    return value;
   }
 
   String getShortName() {

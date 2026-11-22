@@ -208,7 +208,7 @@ class FatDeviceConnectionLogic extends BaseLogic {
       isLoading.value = false;
       String route = isNestedRoute? '/preview_screening_view': '/screening_report_fat_scale_details';
       Get.offNamed(route, arguments: [ScreeningReportResultDetailsArgument(
-        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements, updateProfile: true
+        screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: allMeasurements, updateProfile: true, isHistoryView: false
       )], id: isNestedRoute? 1: null);
     });
   }
