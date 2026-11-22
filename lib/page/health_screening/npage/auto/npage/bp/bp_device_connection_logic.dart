@@ -11,6 +11,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/helper/toast_utils.dart';
 import '../../../../../../common/api/api_url.dart';
 import '../../../../../../common/widget/radar_pulsator.dart';
+import '../../../../dto/request_bundle_measurement_dto.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 import '../../../../nview/device_disconnected_view.dart';
@@ -228,27 +229,64 @@ class BpDeviceConnectionLogic extends BaseLogic {
       allMeasurements = [BPMeasurement, pulseMeasurement];
     }
 
-    isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
-    repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
-      if (bpMeasurementWithResult != null) {
-        allMeasurements[0].result = bpMeasurementWithResult.result;
-        if (result.length >= 3) {
-          repository.sendData(url, (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
-            isLoading.value = false;
-            screeningReport.value = bpMeasurementWithResult;
-            allMeasurements[1].result = pulseMeasurementWithResult!.result;
+    bool useBundleMeasuementApi = false;
+    bool useMeasuementApi = false;
+    String url = ApiUrl.addMeasurementUrl();
+    if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+      useBundleMeasuementApi = true;
+      url = AppUidConfig.getMeasurementBundleUrl();
+    } else if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp) {
+      useMeasuementApi = true;
+      url = ApiUrl.previewMeasurementUrl();
+    }
 
-            if (result.length >= 3) {
-              screeningReport.value.inputs!.addAll({
-                BPAttribute.PULSE.name: double.parse(result[2])
-              });
-            }
-            updateMeasurementAndNavigate(allMeasurements);
-          });
+    isLoading.value = true;
+    if(useBundleMeasuementApi) {
+      var requestMeasurementData = RequestBundleMeasurementDto(
+          userId: customer.value.userId,
+          bundlesMeasurements: result.length >= 3? [BPMeasurement, pulseMeasurement]:[BPMeasurement]
+      ).toJson();
+      httpProvider.POST(url, requestMeasurementData).then((response) {
+        isLoading.value = false;
+        if(response.isOk) {
+          final value = RequestBundleMeasurementDto.fromJson(response.body);
+          //bp
+          allMeasurements[0].result = value.bundlesMeasurements?.first.result;
+          allMeasurements[0].inputsWithUnit = value.bundlesMeasurements?.first.inputsWithUnit;
+          screeningReport.value = value.bundlesMeasurements!.first;
+          //pulse
+          if (result.length >= 3) {
+            allMeasurements[1].result = value.bundlesMeasurements?[1].result;
+            allMeasurements[1].inputsWithUnit = value.bundlesMeasurements?[1].inputsWithUnit;
+            screeningReport.value.inputs!.addAll({
+              BPAttribute.PULSE.name: double.parse(result[2])
+            });
+          }
+          updateMeasurementAndNavigate(allMeasurements);
+        } else {
+          ShowToast.error(response.body.toString());
         }
-      }
-    });
+      });
+    } else if(useMeasuementApi) {
+      repository.sendData(url, (BPMeasurement).toJson()).then((bpMeasurementWithResult) {
+        if (bpMeasurementWithResult != null) {
+          allMeasurements[0].result = bpMeasurementWithResult.result;
+          if (result.length >= 3) {
+            repository.sendData(url, (pulseMeasurement).toJson()).then((pulseMeasurementWithResult) {
+              isLoading.value = false;
+              screeningReport.value = bpMeasurementWithResult;
+              allMeasurements[1].result = pulseMeasurementWithResult!.result;
+              if (result.length >= 3) {
+                screeningReport.value.inputs!.addAll({
+                  BPAttribute.PULSE.name: double.parse(result[2])
+                });
+              }
+              updateMeasurementAndNavigate(allMeasurements);
+            });
+          }
+        }
+      });
+    }
   }
 
   updateMeasurementAndNavigate(List<MeasurementDTO> allMeasurements) {

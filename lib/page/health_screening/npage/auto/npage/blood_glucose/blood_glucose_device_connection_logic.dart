@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../common/helper/toast_utils.dart';
+import '../../../../dto/request_bundle_measurement_dto.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import '../../../../measurement_view_arg.dart';
 import '../../enum/screen_enum.dart';
@@ -189,15 +190,38 @@ class BloodGlucoseDeviceConnectionLogic extends BaseLogic {
     var json = measurement.toJson().toString();
     debugPrint(json);
 
+    bool useBundleMeasuementApi = false;
+    bool useMeasuementApi = false;
+    String url = ApiUrl.addMeasurementUrl();
+    var requestMeasurementData = measurement.toJson();
+    if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+      useBundleMeasuementApi = true;
+      url = AppUidConfig.getMeasurementBundleUrl();
+      requestMeasurementData = RequestBundleMeasurementDto(
+          userId: customer.value.userId,
+          bundlesMeasurements: [measurement]
+      ).toJson();
+    } else if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp) {
+      useMeasuementApi = true;
+      url = ApiUrl.previewMeasurementUrl();
+      requestMeasurementData = measurement.toJson();
+    }
+
     isLoading.value = true;
-    final url = isNestedRoute?ApiUrl.previewMeasurementUrl():AppUidConfig.getPreviewOrPostMeasurementUrl();
-    httpProvider.POST(url, (measurement).toJson()).then((response) {
+    httpProvider.POST(url, requestMeasurementData).then((response) {
       isLoading.value = false;
       if(response.isOk) {
-        final value = MeasurementDTO.fromJson(response.body);
-        measurement.result = value.result;
-        measurement.inputsWithUnit = value.inputsWithUnit;
-        screeningReport.value = value;
+        if(useBundleMeasuementApi) {
+          final value = RequestBundleMeasurementDto.fromJson(response.body);
+          measurement.result = value.bundlesMeasurements?.first.result;
+          measurement.inputsWithUnit = value.bundlesMeasurements?.first.inputsWithUnit;
+          screeningReport.value = value.bundlesMeasurements!.first;
+        } else {
+          final value = MeasurementDTO.fromJson(response.body);
+          measurement.result = value.result;
+          measurement.inputsWithUnit = value.inputsWithUnit;
+          screeningReport.value = value;
+        }
         updateMeasurementAndNavigate(measurement);
       } else {
         ShowToast.error(response.body.toString());

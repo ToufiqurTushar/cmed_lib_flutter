@@ -92,41 +92,45 @@ class BloodGlucoseInputLogic extends BaseLogic {
     var json = measurement.toJson().toString();
     debugPrint(json);
 
-    isLoading.value = true;
-    var url = AppUidConfig.getPreviewOrPostMeasurementUrl();
-    if(AppUidConfig.isCmedUserApp) {
+
+
+    bool useBundleMeasuementApi = false;
+    bool useMeasuementApi = false;
+    String url = ApiUrl.addMeasurementUrl();
+    var requestMeasurementData = measurement.toJson();
+    if(AppUidConfig.isCmedUserApp || AppUidConfig.isI4WeMemberApp) {
+      useBundleMeasuementApi = true;
       url = AppUidConfig.getMeasurementBundleUrl();
-      var requestBundleMeasurementDto = RequestBundleMeasurementDto(
+      requestMeasurementData = RequestBundleMeasurementDto(
           userId: customer.value.userId,
           bundlesMeasurements: [measurement]
-      );
-      httpProvider.POST(url, requestBundleMeasurementDto.toJson()).then((response) {
-        isLoading.value = false;
-        if(response.isOk) {
+      ).toJson();
+    } else if(AppUidConfig.isCmedAgentApp || AppUidConfig.isI4WeAgentApp) {
+      useMeasuementApi = true;
+      url = ApiUrl.previewMeasurementUrl();
+      requestMeasurementData = measurement.toJson();
+    }
+
+    isLoading.value = true;
+    httpProvider.POST(url, requestMeasurementData).then((response) {
+      isLoading.value = false;
+      if(response.isOk) {
+        if(useBundleMeasuementApi) {
           final value = RequestBundleMeasurementDto.fromJson(response.body);
           measurement.result = value.bundlesMeasurements?.first.result;
           measurement.inputsWithUnit = value.bundlesMeasurements?.first.inputsWithUnit;
           screeningReport.value = value.bundlesMeasurements!.first;
-          updateMeasurementAndNavigate(measurement);
         } else {
-          ShowToast.error(response.body.toString());
-        }
-      });
-    } else {
-      httpProvider.POST(url, (measurement).toJson()).then((response) {
-        isLoading.value = false;
-        if(response.isOk) {
           final value = MeasurementDTO.fromJson(response.body);
           measurement.result = value.result;
           measurement.inputsWithUnit = value.inputsWithUnit;
           screeningReport.value = value;
-          updateMeasurementAndNavigate(measurement);
-        } else {
-          ShowToast.error(response.body.toString());
         }
-      });
-    }
-
+        updateMeasurementAndNavigate(measurement);
+      } else {
+        ShowToast.error(response.body.toString());
+      }
+    });
   }
 
   double _getGlucoseUnit(String value) {
