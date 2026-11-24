@@ -5,7 +5,7 @@ import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import 'gender_enum.dart';
 
 enum RelationshipEnum{
-  N_BY_A(labelEn: "N/A", type: 1, id: 0, gender:null),
+  N_BY_A(labelEn: "", type: 1, id: 0, gender:null),
   SELF(labelEn: "Self", type: 1, id: 0),
   WIFE(labelEn: "Wife", type: 1, id: 2, gender: 2),
   HUSBAND(labelEn: "Husband", type: 1, id: 3, gender: 1),
