@@ -49,17 +49,17 @@ dependencies:
   fl_chart: 1.0.0
   esc_pos_utils_plus: ^2.0.4
   #flutter_downloader
-  flutter_downloader: ^1.12.1
+  flutter_downloader: ^1.12.0
   crypto: ^3.0.2
   chucker_flutter: ^1.9.2
   uuid: ^4.3.3
   simple_animations: ^5.0.2
   #plugin
   endometriosis_lib_flutter:
-#     path: ../../endometriosis-lib-flutter
-   git:
-     url: https://github.com/ToufiqurTushar/endometriosis-lib-flutter.git
-     ref: main
+     path: ../../endometriosis-lib-flutter
+#   git:
+#     url: https://github.com/ToufiqurTushar/endometriosis-lib-flutter.git
+#     ref: main
   #  alzheimer_lib_flutter:
   #    git:
   #      url: https://gitlab.com/cmed-bd/alzheimer-lib-flutter.git

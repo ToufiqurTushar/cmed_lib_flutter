@@ -27,12 +27,41 @@ import '../npage/auto/npage/fat/fat_height_input_view.dart';
 import '../npage/manual/npage/blood_grouping/blood_grouping_view.dart';
 import '../npage/manual/npage/eye_screening/enum/eye_screening_type_enum.dart';
 
+class EndometriosisInput {
+  EndometriosisInput({
+    this.questionCode,
+    this.answerText,
+    this.answerValue,});
+
+  EndometriosisInput.fromJson(dynamic json) {
+    questionCode = json['questionCode'];
+    answerText = json['answerText'] != null ? json['answerText'].cast<String>() : [];
+    answerValue = json['answerValue'];
+  }
+  String? questionCode;
+  List<String>? answerText;
+  int? answerValue;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['questionCode'] = questionCode;
+    map['answerText'] = answerText;
+    map['answerValue'] = answerValue;
+    return map;
+  }
+
+  static List<EndometriosisInput> listFromJson(list) =>
+      List<EndometriosisInput>.from(list.map((x) => EndometriosisInput.fromJson(x)));
+
+}
+
 class MeasurementDTO {
   Map<String, dynamic>? inputs;
   Map<String, dynamic>? inputsWithUnit;
   List<Ecgsymps>? ecgsymps;
   BodyComposition? bodyComposition;
   List<EyeScreening>? eyeScreening;
+  List<EndometriosisInput>? endometriosis;
   int? outcome;
   int? id;
   String? uuid;
@@ -72,6 +101,7 @@ class MeasurementDTO {
         this.inputsWithUnit,
         this.ecgsymps,
         this.bodyComposition,
+        this.endometriosis,
         this.eyeScreening,
         this.outcome,
         this.id,
@@ -122,6 +152,10 @@ class MeasurementDTO {
     bodyComposition = json['body_composition'] != null ? BodyComposition.fromJson(jsonDecode(json['body_composition'])) : null;
     try{
       eyeScreening = json['eye_screening'] != null ? EyeScreening.listFromJson(jsonDecode(json['eye_screening'])) : null;
+    }
+    catch(e){}
+    try{
+      endometriosis = json['endometriosis'] != null ? EndometriosisInput.listFromJson(jsonDecode(json['endometriosis'])) : null;
     }
     catch(e){}
     outcome = json['outcome'];
@@ -178,6 +212,10 @@ class MeasurementDTO {
 
     if (eyeScreening != null) {
       data['eye_screening'] = jsonEncode(eyeScreening);
+    }
+
+    if (endometriosis != null) {
+      data['endometriosis'] = jsonEncode(endometriosis);
     }
     data['outcome'] = outcome;
     data['id'] = id;
@@ -357,6 +395,8 @@ class MeasurementDTO {
     }
     else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
       value = '${result?.value ?? ""}';
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = '${result?.status ?? ""}';
     }
     return value;
   }
@@ -371,6 +411,8 @@ class MeasurementDTO {
     }
     else if (measurementTypeCodeId == MeasurementType.ECG.value) {
       value = '${result?.statusBn ?? ""}';
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = '${result?.statusBn ?? result?.status ?? ""}';
     }
     return value;
   }
@@ -415,6 +457,8 @@ class MeasurementDTO {
       value = 'Hemoglobin'.tr;
     } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
       value = 'Healthy Days'.tr;
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = 'Endometriosis'.tr;
     } else {
       value = measurementTypeName ?? "";
     }
@@ -502,6 +546,8 @@ class MeasurementDTO {
       value = '${result?.value ?? ""}';
     }else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       value = '${result?.status ?? ""}';
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = '${result?.status ?? ""}';
     }
     return value;
   }
@@ -560,6 +606,8 @@ class MeasurementDTO {
       value = 'input_label_muac_cm'.tr;
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value = 'Hemoglobin'.tr;
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = 'Endometriosis'.tr;
     }
     return value;
   }
@@ -594,6 +642,8 @@ class MeasurementDTO {
       value = GmpAttribute.WFA_WEIGHT.displayNameEn;
     } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
       value = "HD";
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = "ENDO";
     }
     return value;
   }
@@ -620,6 +670,8 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId ==
         MeasurementType.RESPIRATION_RATE.value) {
       value = "RSP";
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = "Endo";
     }
     return value;
   }
@@ -751,6 +803,8 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
       //result?.value =
       value = "";
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = result?.status ?? "";
     }
     return value;
   }
@@ -810,6 +864,8 @@ class MeasurementDTO {
     } else if (measurementTypeCodeId == MeasurementType.HEALTHY_DAYS.value) {
       value = result?.value ?? 0.0;
     } else if (measurementTypeCodeId == MeasurementType.BLOOD_GROUPING.value) {
+      value = result?.value ?? 0.0;
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
       value = result?.value ?? 0.0;
     } else {
       value = double.parse(getValue1() ?? "0");
@@ -1031,6 +1087,7 @@ enum MeasurementType {
   BLOOD_GROUPING(22),
   HEMOGLOBIN(26),
   WFL(23),
+  ENDOMETRIOSIS(24),
   HEALTHY_DAYS(9000);
 
   const MeasurementType(this.value);
@@ -1099,6 +1156,9 @@ enum BmiAttribute {
 
 enum BodyCompositionAttribute {
   BODY_COMPOSITION;
+}
+enum EndometriosisAttribute {
+  ENDOMETRIOSIS;
 }
 enum GmpAttribute {
   HFA_HEIGHT("Height", "উচ্চতা"),

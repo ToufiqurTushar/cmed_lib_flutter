@@ -115,6 +115,10 @@ class MeasurementConstant {
   static const double MUAC_AGE_LIMIT_MAX_MONTH = 60.0;
   static const double MUAC_AGE_LIMIT_MIN_MONTH = 6.0;
 
+
+  static const double ENDOMETRIOSIS_AGE_LIMIT_MAX_YEAR = 50.0;
+  static const double ENDOMETRIOSIS_AGE_LIMIT_MIN_YEAR = 9.0;
+
   static const double BSCAN_AGE_LIMIT_MIN_YAER = 15.0;
   static const double BSCAN_AGE_LIMIT_MIN_MONTH = 180.0;
   static const double HEMOGLOBIN_AGE_LIMIT_MIN_MONTH = 6.0;

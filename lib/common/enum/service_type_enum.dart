@@ -70,6 +70,8 @@ String populateDrawable(int? typeId) {
       return 'assets/images/virus.svg'; // Use the same image for both cases
     case 26:
       return 'assets/images/ic_hemoglobin.svg';
+    case 24:
+      return 'assets/images/ic_endometriosis.svg';
     case 9000:
       return 'assets/images/ic_healthy_days.svg';
     default:
@@ -116,6 +118,10 @@ String populateTitle(int? typeId) {
       return language == 'bn' ? 'রক্তের গ্রুপ' : 'Blood Grouping';
     case 21:
       return language == 'bn' ? 'চোখের স্ক্রিনিং' : 'Eye Screening';
+    case 24:
+      return language == 'bn' ? 'এন্ডোমেট্রিওসিস' : 'Endometriosis';
+    case 26:
+      return language == 'bn' ? 'হিমোগ্লোবিন' : 'Hemoglobin';
     case 11:
     case 12:
       return language == 'bn' ? 'কোভিড-১৯' : 'Covid-19';

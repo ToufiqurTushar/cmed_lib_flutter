@@ -1,6 +1,7 @@
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bmi/bmi_height_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/auto_manual_selection_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/blood_grouping/blood_grouping_view.dart';
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/endometriosis/endometriosis_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/hemoglobin/hemoglobin_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/temp/temp_input_view.dart';
 import 'package:flutter_rapid/flutter_rapid.dart';
@@ -12,6 +13,7 @@ import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bscan/
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/eye_screening/eye_screening_home_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/gmp/gmp_input_view.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/muac/muac_input_view.dart';
+import 'package:endometriosis_lib_flutter/endometriosis/npage/screening/endometriosis_screening_view.dart';
 import 'attribute_dto.dart';
 
 class ServiceType {
@@ -167,6 +169,8 @@ class ServiceType {
       value = EyeScreeningHomeView.routeName;
     } else if (codeId == MeasurementType.HEMOGLOBIN.value) {
       value = HemoglobinInputView.routeName;
+    } else if (codeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = EndometriosisInputView.routeName;
     }
 
     return value;
