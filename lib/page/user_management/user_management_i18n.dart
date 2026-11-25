@@ -22,6 +22,7 @@ class UserManagementI18N {
       'ur_PK': {},
       'ar_SA': {},
       'es_ES': {},
+      'kn_IN': {},
     };
   }
 }
