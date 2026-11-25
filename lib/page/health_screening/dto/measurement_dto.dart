@@ -25,6 +25,7 @@ import 'package:flutter_rapid/flutter_rapid.dart';
 import 'package:cmed_lib_flutter/common/dto/master_data_dto.dart';
 import '../npage/auto/npage/fat/fat_height_input_view.dart';
 import '../npage/manual/npage/blood_grouping/blood_grouping_view.dart';
+import '../npage/manual/npage/endometriosis/endometriosis_input_view.dart';
 import '../npage/manual/npage/eye_screening/enum/eye_screening_type_enum.dart';
 
 class EndometriosisInput {
@@ -501,6 +502,8 @@ class MeasurementDTO {
       value = BloodGroupingView.routeName;
     } else if (measurementTypeCodeId == MeasurementType.HEMOGLOBIN.value) {
       value = HemoglobinInputView.routeName;
+    } else if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value) {
+      value = EndometriosisInputView.routeName;
     }
     return value;
   }
