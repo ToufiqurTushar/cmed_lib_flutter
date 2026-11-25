@@ -163,6 +163,24 @@ class WellnessResponseI18N {
         "During the past 30 days, for about how many days did poor physical or mental health keep you from doing your usual activities, such as self-care, work, or recreation?": "Durante los últimos 30 días, ¿aproximadamente cuántos días le impidieron los problemas de salud física o mental realizar sus actividades habituales, como el autocuidado, el trabajo o el ocio?",
         "Wellness Response ": "Respuesta de bienestar ",
       },
+      "bn_BD": {
+        "Would you say that in general your health in the last 30 days is?": "সাধারণভাবে গত ৩০ দিনে আপনার স্বাস্থ্য কেমন ছিল বলে আপনি মনে করেন?",
+        "Excellent": "চমৎকার",
+        "No Yield": "কোনো ফলন নেই",
+        "Your Healthy days record has been successfully reported. For further support, please Reach out to the CHE/ Nurse.": "আপনার সুস্থ দিনের রেকর্ড সফলভাবে জমা হয়েছে। আরও সহায়তার জন্য অনুগ্রহ করে CHE/ নার্সের সাথে যোগাযোগ করুন।",
+        "Very Good": "অত্যন্ত ভালো",
+        "Low Yield": "কম ফলন",
+        "Good": "ভালো",
+        "Medium Yield": "মাঝারি ফলন",
+        "Fair": "মোটামুটি",
+        "High Yield": "বেশি ফলন",
+        "Poor": "খারাপ",
+        "Think about your physical health, which includes physical illness and injury. For how many days during the past 30 days was your physical health not good?": "আপনার শারীরিক স্বাস্থ্যের কথা ভাবুন, যার মধ্যে শারীরিক অসুস্থতা ও আঘাত অন্তর্ভুক্ত। গত ৩০ দিনের মধ্যে কত দিন আপনার শারীরিক স্বাস্থ্য ভালো ছিল না?",
+        "0-30": "০-৩০",
+        "Now think about your mental health, like stress, depression, and anxiety problems with emotions, for how many days during the past 30 days was your mental health not good?": "এখন আপনার মানসিক স্বাস্থ্যের কথা ভাবুন, যেমন মানসিক চাপ, বিষণ্ণতা এবং আবেগজনিত উদ্বেগের সমস্যা। গত ৩০ দিনের মধ্যে কত দিন আপনার মানসিক স্বাস্থ্য ভালো ছিল না?",
+        "During the past 30 days, for about how many days did poor physical or mental health keep you from doing your usual activities, such as self-care, work, or recreation?": "গত ৩০ দিনের মধ্যে প্রায় কত দিন খারাপ শারীরিক বা মানসিক স্বাস্থ্য আপনাকে নিজের যত্ন, কাজ বা বিনোদনের মতো স্বাভাবিক কাজকর্ম করতে বাধা দিয়েছে?",
+        "Wellness Response ": "সুস্থতার প্রতিক্রিয়া ",
+      },
     };
   }
 }
