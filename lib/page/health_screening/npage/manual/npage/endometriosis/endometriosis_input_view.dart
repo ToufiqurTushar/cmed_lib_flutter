@@ -1,3 +1,4 @@
+import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/endometriosis/endometriosis_input_i18n.dart';
 import 'package:cmed_lib_flutter/page/health_screening/repository/screening_report_repository.dart';
 import 'package:cmed_lib_flutter/page/health_screening/health_screening_home_i18n.dart';
 import 'package:cmed_lib_flutter/page/health_screening/npage/manual/npage/bp/bp_input_logic.dart';
@@ -53,14 +54,7 @@ class EndometriosisInputView extends RapidView<EndometriosisInputLogic> {
 
   @override
   Map<String, Map<String, String>> getI18n() {
-   return {
-      "en_US":{
-        "Endometriosis": "Endometriosis"
-      },
-     "bn_BD":{
-       "Endometriosis": "এন্ডোমেট্রিওসিস"
-     }
-   };
+   return EndometriosisInputI18n.getTranslations();
   }
 
 
