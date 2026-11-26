@@ -125,6 +125,8 @@ class EndometriosisInputLogic extends EndometriosisScreeningLogic {
   updateSelectedCustomerData(MeasurementDTO measurement, double height, double weightInKg) {
     globalState.showBusy();
     isLoading.value = true;
+    customer.value.heightCentimeter = height;
+    customer.value.weight = weightInKg;
     Get.find<ProfileRepository>().patchSelectedCustomerProfile(
         userId:customer.value.userId!,
         height:height,

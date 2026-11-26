@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 import 'package:cmed_lib_flutter/common/base/base_logic.dart';
 import 'package:cmed_lib_flutter/common/helper/utils.dart';
+import '../../../../../../common/dto/user_profile_dto.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 import 'package:cmed_lib_flutter/common/dto/customer_dto.dart';
 import '../../../../../user_management/repository/profile_repository.dart';
@@ -157,19 +158,27 @@ class BmiHeightWeightInputLogic extends BaseLogic {
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
-        updateSelectedCustomerHeight([measurement]);
+        updateSelectedCustomerData([measurement], getHeightInCentimeter() as double?, getWeightInKg() as double?);
       }
     });
   }
 
-  updateSelectedCustomerHeight(List<MeasurementDTO> measurementsWithResult) {
+  updateSelectedCustomerData(List<MeasurementDTO> measurementsWithResult, double? height, double? weightInKg) {
+    globalState.showBusy();
     isLoading.value = true;
-    customer.value.heightCentimeter = getHeightInCentimeter() as double?;
-    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) => {
-      isLoading.value = false,
-      updateMeasurementAndNavigate(measurementsWithResult),
+    customer.value.heightCentimeter = height;
+    customer.value.weight = weightInKg;
+    Get.find<ProfileRepository>().patchSelectedCustomerProfile(
+      userId:customer.value.userId!,
+      height:height,
+      weight:weightInKg,
+    ).then((UserProfile? value) {
+      isLoading.value = false;
+      globalState.hideBusy();
+      updateMeasurementAndNavigate(measurementsWithResult);
     });
   }
+
 
   updateMeasurementAndNavigate(measurementsWithResult){
       Get.offNamed('/screening_report_result_details', arguments: [

@@ -170,23 +170,35 @@ class BmiDeviceConnectionLogic extends BaseLogic {
       if (value != null) {
         measurement.result = value.result;
         screeningReport.value = value;
-        updateSelectedCustomerHeightAndNavigate([measurement]);
+        updateSelectedCustomerData([measurement], heightInCm.value, double.tryParse(result.value));
       }
     });
   }
 
-  updateSelectedCustomerHeightAndNavigate(List<MeasurementDTO> measurementsWithResult) {
+  updateSelectedCustomerData(List<MeasurementDTO> measurementsWithResult, double? height, double? weightInKg) {
+    globalState.showBusy();
     isLoading.value = true;
-    customer.value.heightCentimeter = heightInCm.value;
-    profileRepository.updateSelectedCustomerHeight(customer.value).then((CustomerDTO? value) {
+    customer.value.heightCentimeter = height;
+    customer.value.weight = weightInKg;
+    Get.find<ProfileRepository>().patchSelectedCustomerProfile(
+      userId:customer.value.userId!,
+      height:height,
+      weight:weightInKg,
+    ).then((UserProfile? value) {
       isLoading.value = false;
-      String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
-      Get.offNamed(route, arguments: [
-        ScreeningReportResultDetailsArgument(
-            screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult, updateProfile: true
-        )
-      ], id: isNestedRoute? 1: null);
+      globalState.hideBusy();
+      updateMeasurementAndNavigate(measurementsWithResult);
     });
+  }
+
+
+  updateMeasurementAndNavigate(measurementsWithResult){
+    String route = isNestedRoute? '/preview_screening_view': '/screening_report_result_details';
+    Get.offNamed(route, arguments: [
+      ScreeningReportResultDetailsArgument(
+          screeningReport: screeningReport.value, isAuto: true, measurementsWithResult: measurementsWithResult, updateProfile: true
+      )
+    ], id: isNestedRoute? 1: null);
   }
 
 
