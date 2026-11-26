@@ -68,6 +68,34 @@ class ProfileRepository {
     return null;
   }
 
+  Future<UserProfile?> patchSelectedCustomerProfile({
+    required int userId,
+    double? height,
+    double? weight,
+    int? birthday
+  }) async {
+    await receiveData(ApiUrl.getCustomProfileByUserIdUrl(userId)).then((UserProfile? profile) async {
+      if (profile != null) {
+        profile.height = height != null? height : profile.height;
+        profile.birthday = birthday != null? birthday : profile.birthday;
+        profile.weight = weight != null? weight : profile.weight;;
+        await sendData(ApiUrl.getCustomProfileByUserIdUrl(userId), profile).then((UserProfile? value) async {
+          if(value != null) {
+            globalState.currentUser.value = value;
+            updatedProfileToLocalStorage(value);
+            // var response = await provider.GET(AllUrl.getCustomerByUserId(customer.userId, customer.companyId));
+            // if (response.isOk) {
+            //   globalState.currentUser.value = CustomerDTO.fromJson(response.body);
+            //   return globalState.currentUser.value;
+            // }
+            return value;
+          }
+        });
+      }
+    });
+    return null;
+  }
+
   updatedProfileToLocalStorage(UserProfile up) {
     GetStorage().write(CommonKey.keySelectedUserProfileDTO, up.toJson());
   }

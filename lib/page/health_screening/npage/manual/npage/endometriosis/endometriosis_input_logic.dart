@@ -13,6 +13,7 @@ import '../../../../../../common/api/app_http.dart';
 import '../../../../../../common/dto/customer_dto.dart';
 import '../../../../../../common/dto/user_profile_dto.dart';
 import '../../../../../../common/helper/toast_utils.dart';
+import '../../../../../user_management/repository/profile_repository.dart';
 import '../../../../dto/request_bundle_measurement_dto.dart';
 import '../../../../dto/screening_report_result_details_argument.dart';
 
@@ -26,11 +27,17 @@ class EndometriosisInputLogic extends EndometriosisScreeningLogic {
   ScreeningReportRepository screningRepository = Get.find();
   EndometriosisInputLogic({
     int? userIdWhileInitLogic,
-    int? biirthDateWhileInitLogic,
+    int? birthDateWhileInitLogic,
+    int? heightInFeetWhileInitLogic,
+    double? heightInInchiWhileInitLogic,
+    double? weightInKgWhileInitLogic,
   }) : super(
-          userIdWhileInitLogic: userIdWhileInitLogic,
-          biirthDateWhileInitLogic: biirthDateWhileInitLogic,
-        );
+    userIdWhileInitLogic: userIdWhileInitLogic,
+    birthDateWhileInitLogic: birthDateWhileInitLogic,
+    heightInFeetWhileInitLogic: heightInFeetWhileInitLogic,
+    heightInInchiWhileInitLogic: heightInInchiWhileInitLogic,
+    weightInKgWhileInitLogic: weightInKgWhileInitLogic,
+  );
 
   var screeningReport = MeasurementDTO().obs;
 
@@ -57,7 +64,7 @@ class EndometriosisInputLogic extends EndometriosisScreeningLogic {
   }
 
   @override
-  postAnswer(List<dynamic> answers){
+  postAnswer(List<dynamic> answers, double height, double weightInKg){
     print("override:postAnswer");
     if (isLoading.isTrue) return;
     isLoading.value = true;
@@ -107,14 +114,30 @@ class EndometriosisInputLogic extends EndometriosisScreeningLogic {
           measurement.inputsWithUnit = value.inputsWithUnit;
           screeningReport.value = value;
         }
-        updateMeasurementAndNavigate(measurement);
+        updateSelectedCustomerData(measurement, height, weightInKg);
       } else {
         ShowToast.error(response.body.toString());
       }
     });
   }
 
-  updateMeasurementAndNavigate(measurement){
+
+  updateSelectedCustomerData(MeasurementDTO measurement, double height, double weightInKg) {
+    globalState.showBusy();
+    isLoading.value = true;
+    Get.find<ProfileRepository>().patchSelectedCustomerProfile(
+        userId:customer.value.userId!,
+        height:height,
+        weight:weightInKg,
+    ).then((UserProfile? value) {
+      isLoading.value = false;
+      globalState.hideBusy();
+      updateMeasurementAndNavigate(measurement);
+    });
+  }
+
+  updateMeasurementAndNavigate(MeasurementDTO measurement){
+    //update profile
     Get.offNamed('/screening_report_result_details', arguments: [
       ScreeningReportResultDetailsArgument(
           screeningReport: screeningReport.value, isAuto: false, measurementsWithResult: [measurement]
@@ -126,4 +149,6 @@ class EndometriosisInputLogic extends EndometriosisScreeningLogic {
   void onClose() {
     super.onClose();
   }
+
 }
+

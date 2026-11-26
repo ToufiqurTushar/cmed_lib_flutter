@@ -14,6 +14,7 @@ import 'package:cmed_lib_flutter/common/widget/cmed_birth_date_picker.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_text_field.dart';
 import 'package:cmed_lib_flutter/common/widget/cmed_white_elevated_button.dart';
 
+import '../../../../../../common/converter.dart';
 import '../../../../../../common/dto/user_profile_dto.dart';
 import '../../../../../../common/widget/basic_app_bar.dart';
 import '../../../../../../common/widget/cmed_primary_elevated_button.dart';
@@ -73,22 +74,24 @@ class EndometriosisInputView extends RapidView<EndometriosisInputLogic> {
     Get.put(ScreeningReportRepository());
     Get.put(EndometriosisRepository());
 
-    int? userId;
-    int? birthDate;
+    CustomerDTO customer = CustomerDTO();
     var user = Get.find<RapidGlobalStateLogic>().currentUser.value;
     if(user is CustomerDTO) {
-      userId = user.userId!;
-      birthDate = user.birthDate!;
+      customer = user;
     } else if(user is UserProfile) {
-      user = user.toCustomer();
-      userId = user.userId!;
-      birthDate = user.birthDate!;
+      customer = user.toCustomer();
     }
+    final height = cmToFeetAndInches(customer.heightCentimeter, decimals: 2);
+
+    RLog.error(customer.toJson());
 
     final inputLogic = Get.put(
       EndometriosisInputLogic(
-        userIdWhileInitLogic: userId,
-        biirthDateWhileInitLogic: birthDate,
+        userIdWhileInitLogic: customer.userId!,
+        birthDateWhileInitLogic: customer.birthDate!,
+        heightInFeetWhileInitLogic: height.feet,
+        heightInInchiWhileInitLogic: height.inches,
+        weightInKgWhileInitLogic: customer.weight,
       ),
     );
     Get.put<EndometriosisScreeningLogic>(inputLogic);

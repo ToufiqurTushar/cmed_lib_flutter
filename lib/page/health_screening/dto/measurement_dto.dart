@@ -338,6 +338,25 @@ class MeasurementDTO {
       } catch(e){
       }
     }
+    if (measurementTypeCodeId == MeasurementType.ENDOMETRIOSIS.value ||
+        measurementTypeCode == MeasurementType.ENDOMETRIOSIS.name) {
+      var s = (result?.status ?? "").toLowerCase().trim();
+      if (s.contains("high") || s.contains("উচ্চ")) {
+        return 0xFFFF2500;
+      } else if (s.contains("moderate") || s.contains("মধ্যম")) {
+        return 0xFFfffb01;
+      } else if (s.contains("low") || s.contains("নিম্ন") || s.contains("কম")) {
+        return 0xFF02F901;
+      } else if (s.contains("no risk") || s.contains("নেই") || s.contains("ঝুকিমুক্ত") || s.contains("normal")) {
+        return 0xFF02fdff;
+      }
+      if (result?.colorCode != null && result!.colorCode!.isNotEmpty) {
+        try {
+          return int.parse(result!.colorCode!.replaceAll('#', '0xff'));
+        } catch (_) {}
+      }
+      return 0xFF02fdff;
+    }
     return int.parse(result?.colorCode?.replaceAll('#', '0xff') ?? Colors.black54.value.toString());
   }
 
